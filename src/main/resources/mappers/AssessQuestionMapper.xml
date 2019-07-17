@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kxjl.tasktransferplat.dao.plus.AssessQuestionMapper">
+  <resultMap id="BaseResultMap" type="com.kxjl.tasktransferplat.pojo.AssessQuestion">
+    <id column="Id" jdbcType="BIGINT" property="id" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="curUse" jdbcType="BIGINT" property="curUse" />
+    <result column="CreateTime" jdbcType="VARCHAR" property="createTime" />
+    <result column="UpdateTime" jdbcType="VARCHAR" property="updateTime" />
+    <result column="DataState" jdbcType="INTEGER" property="dataState" />
+    <result column="score" jdbcType="DECIMAL" property="score" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    Id, title, curUse, CreateTime, UpdateTime, DataState
+  </sql>
+
+    <select id="selectList" resultMap="BaseResultMap">
+        SELECT * from t_assess_question t
+        WHERE t.DataState = 1
+          <if test="title != null and title != ''">
+            and t.title LIKE concat('%' ,#{title} ,'%')
+          </if>
+          <if test="curUse != null and curUse != ''">
+            and t.curUse = #{curUse}
+          </if>
+          <if test="startTime != null and startTime != ''">
+            and t.CreateTime &gt;= #{startTime}
+          </if>
+          <if test="endTime != null and endTime != ''">
+            and t.CreateTime &lt;= #{endTime}
+          </if>
+    </select>
+
+  <insert id="batchInsertAQDetails" parameterType="java.util.List">
+    <foreach collection="list" item="item" index="index" separator=";">
+    insert into t_assess_question_detail
+      (Id,assessId,title,type
+      <if test="item.resultType != null and item.resultType != ''">
+        ,resultType
+      </if>
+      <if test="item.addService != null and item.addService != ''">
+        ,addService
+      </if>
+      <if test="item.parentid != null and item.parentid != ''">
+        ,parentid
+      </if>
+      <if test="item.sortstring != null and item.sortstring != ''">
+        ,sortstring
+      </if>
+      )
+      values
+      (#{item.id}, #{item.assessId},#{item.title},#{item.type}
+      <if test="item.resultType != null and item.resultType != ''">
+        ,#{item.resultType}
+      </if>
+      <if test="item.addService != null and item.addService != ''">
+        ,#{item.addService}
+      </if>
+      <if test="item.parentid != null and item.parentid != ''">
+        ,#{item.parentid}
+      </if>
+      <if test="item.sortstring != null and item.sortstring != ''">
+        ,#{item.sortstring}
+      </if>
+      )
+    </foreach>
+  </insert>
+
+  <delete id="batchDeletetAQDetails">
+    delete from t_assess_question_detail where id in (
+    <foreach collection="list" item="item" separator=",">
+      #{item.id}
+    </foreach>
+    )
+
+  </delete>
+</mapper>

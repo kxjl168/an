@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kxjl.tasktransferplat.dao.plus.UserinfoAuditMapper">
+  <resultMap id="BaseResultMap" type="com.kxjl.tasktransferplat.pojo.UserinfoAudit">
+    <id column="Id" jdbcType="VARCHAR" property="id" />
+    <result column="UserInfoId" jdbcType="BIGINT" property="userInfoId" />
+    <result column="Proposer" jdbcType="VARCHAR" property="proposer" />
+    <result column="UserOldType" jdbcType="INTEGER" property="userOldType" />
+    <result column="UserNewType" jdbcType="INTEGER" property="userNewType" />
+    <result column="ProposTime" jdbcType="VARCHAR" property="proposTime" />
+    <result column="ProposReason" jdbcType="VARCHAR" property="proposReason" />
+    <result column="icons" jdbcType="VARCHAR" property="icons" />
+    <result column="AuditFailReason" jdbcType="VARCHAR" property="auditFailReason" />
+    <result column="Auditor" jdbcType="VARCHAR" property="auditor" />
+    <result column="AuditStates" jdbcType="INTEGER" property="auditStates" />
+    <result column="AuditTime" jdbcType="VARCHAR" property="auditTime" />
+    <result column="companyId" jdbcType="BIGINT" property="companyId" />
+    
+  </resultMap>
+  <sql id="Base_Column_List">
+    Id, UserInfoId, Proposer, UserOldType, UserNewType, ProposTime, ProposReason, icons, 
+    AuditFailReason, Auditor, AuditStates, AuditTime,companyId
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_userinfo_audit
+    where Id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_userinfo_audit
+    where Id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.kxjl.tasktransferplat.pojo.UserinfoAudit">
+    insert into t_userinfo_audit (Id, UserInfoId, Proposer, 
+      UserOldType, UserNewType, ProposTime, 
+      ProposReason, icons, AuditFailReason, 
+      Auditor, AuditStates, AuditTime
+      )
+    values (#{id,jdbcType=VARCHAR}, #{userInfoId,jdbcType=BIGINT}, #{proposer,jdbcType=VARCHAR}, 
+      #{userOldType,jdbcType=INTEGER}, #{userNewType,jdbcType=INTEGER}, #{proposTime,jdbcType=VARCHAR}, 
+      #{proposReason,jdbcType=VARCHAR}, #{icons,jdbcType=VARCHAR}, #{auditFailReason,jdbcType=VARCHAR}, 
+      #{auditor,jdbcType=VARCHAR}, #{auditStates,jdbcType=INTEGER}, #{auditTime,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.kxjl.tasktransferplat.pojo.UserinfoAudit">
+    insert into t_userinfo_audit
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        Id,
+      </if>
+      <if test="userInfoId != null">
+        UserInfoId,
+      </if>
+      <if test="proposer != null">
+        Proposer,
+      </if>
+      <if test="userOldType != null">
+        UserOldType,
+      </if>
+      <if test="userNewType != null">
+        UserNewType,
+      </if>
+      <if test="proposTime != null">
+        ProposTime,
+      </if>
+      <if test="proposReason != null">
+        ProposReason,
+      </if>
+      <if test="icons != null">
+        icons,
+      </if>
+      <if test="auditFailReason != null">
+        AuditFailReason,
+      </if>
+      <if test="auditor != null">
+        Auditor,
+      </if>
+      <if test="auditStates != null">
+        AuditStates,
+      </if>
+      <if test="auditTime != null">
+        AuditTime,
+      </if>
+        <if test="companyId != null">
+        companyId,
+      </if>
+      
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="userInfoId != null">
+        #{userInfoId,jdbcType=BIGINT},
+      </if>
+      <if test="proposer != null">
+        #{proposer,jdbcType=VARCHAR},
+      </if>
+      <if test="userOldType != null">
+        #{userOldType,jdbcType=INTEGER},
+      </if>
+      <if test="userNewType != null">
+        #{userNewType,jdbcType=INTEGER},
+      </if>
+      <if test="proposTime != null">
+        #{proposTime,jdbcType=VARCHAR},
+      </if>
+      <if test="proposReason != null">
+        #{proposReason,jdbcType=VARCHAR},
+      </if>
+      <if test="icons != null">
+        #{icons,jdbcType=VARCHAR},
+      </if>
+      <if test="auditFailReason != null">
+        #{auditFailReason,jdbcType=VARCHAR},
+      </if>
+      <if test="auditor != null">
+        #{auditor,jdbcType=VARCHAR},
+      </if>
+      <if test="auditStates != null">
+        #{auditStates,jdbcType=INTEGER},
+      </if>
+      <if test="auditTime != null">
+        #{auditTime,jdbcType=VARCHAR},
+      </if>
+        <if test="companyId != null">
+                #{companyId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.kxjl.tasktransferplat.pojo.UserinfoAudit">
+    update t_userinfo_audit
+    <set>
+      <if test="userInfoId != null">
+        UserInfoId = #{userInfoId,jdbcType=BIGINT},
+      </if>
+       <if test="companyId != null">
+             companyId=   #{companyId,jdbcType=BIGINT},
+      </if>
+      <if test="proposer != null">
+        Proposer = #{proposer,jdbcType=VARCHAR},
+      </if>
+      <if test="userOldType != null">
+        UserOldType = #{userOldType,jdbcType=INTEGER},
+      </if>
+      <if test="userNewType != null">
+        UserNewType = #{userNewType,jdbcType=INTEGER},
+      </if>
+      <if test="proposTime != null">
+        ProposTime = #{proposTime,jdbcType=VARCHAR},
+      </if>
+      <if test="proposReason != null">
+        ProposReason = #{proposReason,jdbcType=VARCHAR},
+      </if>
+      <if test="icons != null">
+        icons = #{icons,jdbcType=VARCHAR},
+      </if>
+      <if test="auditFailReason != null">
+        AuditFailReason = #{auditFailReason,jdbcType=VARCHAR},
+      </if>
+      <if test="auditor != null">
+        Auditor = #{auditor,jdbcType=VARCHAR},
+      </if>
+      <if test="auditStates != null">
+        AuditStates = #{auditStates,jdbcType=INTEGER},
+      </if>
+      <if test="auditTime != null">
+        AuditTime = #{auditTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.kxjl.tasktransferplat.pojo.UserinfoAudit">
+    update t_userinfo_audit
+    set UserInfoId = #{userInfoId,jdbcType=BIGINT},
+      Proposer = #{proposer,jdbcType=VARCHAR},
+      UserOldType = #{userOldType,jdbcType=INTEGER},
+      UserNewType = #{userNewType,jdbcType=INTEGER},
+      ProposTime = #{proposTime,jdbcType=VARCHAR},
+      ProposReason = #{proposReason,jdbcType=VARCHAR},
+      icons = #{icons,jdbcType=VARCHAR},
+      AuditFailReason = #{auditFailReason,jdbcType=VARCHAR},
+      Auditor = #{auditor,jdbcType=VARCHAR},
+      AuditStates = #{auditStates,jdbcType=INTEGER},
+      AuditTime = #{auditTime,jdbcType=VARCHAR}
+    where Id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+
+
+<select id="selectList"
+	resultType="com.kxjl.tasktransferplat.pojo.UserinfoAudit"
+	parameterType="com.kxjl.tasktransferplat.pojo.UserinfoAudit">
+	select
+	c.*,tp.filenames,tp.filemd5, u.name userInfoName,u.phone userPhone, case  when m.NICKNAME is null then m2.name else m.nickname end  proposerName
+	,case  when m3.name is not null then m3.name  when m4.name is not null then m4.name  else "" end  companyName
+	from t_userinfo_audit c
+	 left join t_userinfo u on c.userinfoId=u.id
+	  left join manager m on c.Proposer=m.id
+	    left join t_userinfo m2 on c.Proposer=m2.id
+	    
+	      left join t_userinfo m3 on c.companyId=m3.id  -- 变为合伙人下锁匠  
+	        left join t_userinfo m4 on u.companyId=m4.id  -- 从合伙人下锁匠变过来
+	    
+left join (
+        select c.id,GROUP_CONCAT(file.old_name) filenames , GROUP_CONCAT(file.file_md5) filemd5 from t_userinfo_audit
+        c
+        left join t_userinfo_audit_attach attach on c.id=attach.audit_id
+        left join sys_file file on attach.file_id=file.file_md5
+        group by c.id
+        ) tp on c.id=tp.id
+	where 1=1 and u.DataState=1
+	<if test=" id !=null and id !='' ">
+		and c.id = #{id}
+	</if>
+	
+		
+		
+		<if test=" userInfoName !=null and userInfoName !='' ">
+		and u.name like concat ('%', #{userInfoName},'%')
+	</if>
+	
+	<if test=" userPhone !=null and userPhone !='' ">
+		and u.phone like concat ('%', #{userPhone},'%')
+	</if>
+		
+		<if test=" userInfoId !=null and userInfoId !='' ">
+		and c.UserInfoId like concat ('%', #{userInfoId},'%')
+	</if>
+			<if test=" companyId !=null  ">
+		and c.companyId =#{companyId}
+	</if>
+		
+			<if test=" userNewType !=null and userNewType!=''  ">
+		and c.userNewType =#{userNewType}
+	</if>
+			
+		
+		<if test=" proposer !=null and proposer !='' ">
+		and c.Proposer like concat ('%', #{proposer},'%')
+	</if>
+		
+ 		 <if test=' auditStates !=null '> 
+        and c.auditStates =#{auditStates}
+        </if>
+			
+
+
+</select>
+
+
+<select id="selectPage"
+	resultMap="BaseResultMap"
+	parameterType="com.kxjl.tasktransferplat.pojo.UserinfoAudit">
+	select
+	<include refid="Base_Column_List" />
+	from t_userinfo_audit c
+
+	where 1=1
+	<if test=" id !=null and id !='' ">
+		and c.id = #{id}
+	</if>
+	
+		
+		<if test=" userInfoId !=null and userInfoId !='' ">
+		and c.UserInfoId like concat ('%', #{userInfoId},'%')
+	</if>
+		
+			
+		
+		<if test=" proposer !=null and proposer !='' ">
+		and c.Proposer like concat ('%', #{proposer},'%')
+	</if>
+		
+			
+
+
+</select>
+
+
+<delete id="delete"
+	parameterType="com.kxjl.tasktransferplat.pojo.UserinfoAudit">
+	delete from t_userinfo_audit
+
+	where id = #{id,jdbcType=VARCHAR}
+
+</delete>
+
+</mapper>

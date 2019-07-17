@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ztgm.tasktransferplat.dao.plus.UserinfoAuditMapper">
+  <resultMap id="BaseResultMap" type="com.ztgm.tasktransferplat.pojo.UserinfoAudit">
+    <id column="Id" jdbcType="BIGINT" property="id" />
+    <result column="UserInfoId" jdbcType="BIGINT" property="userInfoId" />
+    <result column="Proposer" jdbcType="VARCHAR" property="proposer" />
+    <result column="UserOldType" jdbcType="INTEGER" property="userOldType" />
+    <result column="UserNewType" jdbcType="INTEGER" property="userNewType" />
+    <result column="ProposTime" jdbcType="VARCHAR" property="proposTime" />
+    <result column="ProposReason" jdbcType="VARCHAR" property="proposReason" />
+    <result column="icons" jdbcType="VARCHAR" property="icons" />
+    <result column="AuditFailReason" jdbcType="VARCHAR" property="auditFailReason" />
+    <result column="Auditor" jdbcType="VARCHAR" property="auditor" />
+    <result column="AuditTime" jdbcType="VARCHAR" property="auditTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    Id, UserInfoId, Proposer, UserOldType, UserNewType, ProposTime, ProposReason, icons, 
+    AuditFailReason, Auditor, AuditTime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_userinfo_audit
+    where Id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_userinfo_audit
+    where Id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.ztgm.tasktransferplat.pojo.UserinfoAudit">
+    insert into t_userinfo_audit (Id, UserInfoId, Proposer, 
+      UserOldType, UserNewType, ProposTime, 
+      ProposReason, icons, AuditFailReason, 
+      Auditor, AuditTime)
+    values (#{id,jdbcType=BIGINT}, #{userInfoId,jdbcType=BIGINT}, #{proposer,jdbcType=VARCHAR}, 
+      #{userOldType,jdbcType=INTEGER}, #{userNewType,jdbcType=INTEGER}, #{proposTime,jdbcType=VARCHAR}, 
+      #{proposReason,jdbcType=VARCHAR}, #{icons,jdbcType=VARCHAR}, #{auditFailReason,jdbcType=VARCHAR}, 
+      #{auditor,jdbcType=VARCHAR}, #{auditTime,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ztgm.tasktransferplat.pojo.UserinfoAudit">
+    insert into t_userinfo_audit
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        Id,
+      </if>
+      <if test="userInfoId != null">
+        UserInfoId,
+      </if>
+      <if test="proposer != null">
+        Proposer,
+      </if>
+      <if test="userOldType != null">
+        UserOldType,
+      </if>
+      <if test="userNewType != null">
+        UserNewType,
+      </if>
+      <if test="proposTime != null">
+        ProposTime,
+      </if>
+      <if test="proposReason != null">
+        ProposReason,
+      </if>
+      <if test="icons != null">
+        icons,
+      </if>
+      <if test="auditFailReason != null">
+        AuditFailReason,
+      </if>
+      <if test="auditor != null">
+        Auditor,
+      </if>
+      <if test="auditTime != null">
+        AuditTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="userInfoId != null">
+        #{userInfoId,jdbcType=BIGINT},
+      </if>
+      <if test="proposer != null">
+        #{proposer,jdbcType=VARCHAR},
+      </if>
+      <if test="userOldType != null">
+        #{userOldType,jdbcType=INTEGER},
+      </if>
+      <if test="userNewType != null">
+        #{userNewType,jdbcType=INTEGER},
+      </if>
+      <if test="proposTime != null">
+        #{proposTime,jdbcType=VARCHAR},
+      </if>
+      <if test="proposReason != null">
+        #{proposReason,jdbcType=VARCHAR},
+      </if>
+      <if test="icons != null">
+        #{icons,jdbcType=VARCHAR},
+      </if>
+      <if test="auditFailReason != null">
+        #{auditFailReason,jdbcType=VARCHAR},
+      </if>
+      <if test="auditor != null">
+        #{auditor,jdbcType=VARCHAR},
+      </if>
+      <if test="auditTime != null">
+        #{auditTime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ztgm.tasktransferplat.pojo.UserinfoAudit">
+    update t_userinfo_audit
+    <set>
+      <if test="userInfoId != null">
+        UserInfoId = #{userInfoId,jdbcType=BIGINT},
+      </if>
+      <if test="proposer != null">
+        Proposer = #{proposer,jdbcType=VARCHAR},
+      </if>
+      <if test="userOldType != null">
+        UserOldType = #{userOldType,jdbcType=INTEGER},
+      </if>
+      <if test="userNewType != null">
+        UserNewType = #{userNewType,jdbcType=INTEGER},
+      </if>
+      <if test="proposTime != null">
+        ProposTime = #{proposTime,jdbcType=VARCHAR},
+      </if>
+      <if test="proposReason != null">
+        ProposReason = #{proposReason,jdbcType=VARCHAR},
+      </if>
+      <if test="icons != null">
+        icons = #{icons,jdbcType=VARCHAR},
+      </if>
+      <if test="auditFailReason != null">
+        AuditFailReason = #{auditFailReason,jdbcType=VARCHAR},
+      </if>
+      <if test="auditor != null">
+        Auditor = #{auditor,jdbcType=VARCHAR},
+      </if>
+      <if test="auditTime != null">
+        AuditTime = #{auditTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ztgm.tasktransferplat.pojo.UserinfoAudit">
+    update t_userinfo_audit
+    set UserInfoId = #{userInfoId,jdbcType=BIGINT},
+      Proposer = #{proposer,jdbcType=VARCHAR},
+      UserOldType = #{userOldType,jdbcType=INTEGER},
+      UserNewType = #{userNewType,jdbcType=INTEGER},
+      ProposTime = #{proposTime,jdbcType=VARCHAR},
+      ProposReason = #{proposReason,jdbcType=VARCHAR},
+      icons = #{icons,jdbcType=VARCHAR},
+      AuditFailReason = #{auditFailReason,jdbcType=VARCHAR},
+      Auditor = #{auditor,jdbcType=VARCHAR},
+      AuditTime = #{auditTime,jdbcType=VARCHAR}
+    where Id = #{id,jdbcType=BIGINT}
+  </update>
+  
+
+
+<select id="selectList"
+	resultMap="BaseResultMap"
+	parameterType="com.ztgm.tasktransferplat.pojo.UserinfoAudit">
+	select
+	<include refid="Base_Column_List" />
+	from t_userinfo_audit c
+
+	where 1=1
+	<if test=" id !=null and id !='' ">
+		and c.id = #{id}
+	</if>
+	
+		
+		<if test=" userInfoId !=null and userInfoId !='' ">
+		and c.UserInfoId like concat ('%', #{userInfoId},'%')
+	</if>
+		
+				<if test=" userInfoId !=null and userInfoId !='' ">
+		and c.UserInfoId like concat ('%', #{userInfoId},'%')
+	</if>  <if test=' auditFlag !=null and auditFlag =="1" '>
+        and c.auditFlag =1
+        </if>
+
+
+</select>
+
+
+<select id="selectPage"
+	resultMap="BaseResultMap"
+	parameterType="com.ztgm.tasktransferplat.pojo.UserinfoAudit">
+	select
+	<include refid="Base_Column_List" />
+	from t_userinfo_audit c
+
+	where 1=1
+	<if test=" id !=null and id !='' ">
+		and c.id = #{id}
+	</if>
+	
+		
+		<if test=" userInfoId !=null and userInfoId !='' ">
+		and c.UserInfoId like concat ('%', #{userInfoId},'%')
+	</if>
+		
+			
+
+
+</select>
+
+
+<delete id="delete"
+	parameterType="com.ztgm.tasktransferplat.pojo.UserinfoAudit">
+	delete from t_userinfo_audit
+
+	where id = #{id,jdbcType=VARCHAR}
+
+</delete>
+
+</mapper>

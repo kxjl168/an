@@ -1,0 +1,854 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kxjl.tasktransferplat.dao.plus.UserinfoMapper">
+    <resultMap id="BaseResultMap" type="com.kxjl.tasktransferplat.pojo.Userinfo">
+        <id column="Id" jdbcType="INTEGER" property="id"/>
+        <result column="Phone" jdbcType="VARCHAR" property="phone"/>
+        <result column="Password" jdbcType="VARCHAR" property="password"/>
+        <result column="SessionKey" jdbcType="VARCHAR" property="sessionKey"/>
+        <result column="Name" jdbcType="VARCHAR" property="name"/>
+        <result column="CreateTime" jdbcType="VARCHAR" property="createTime"/>
+        <result column="UpdateTime" jdbcType="VARCHAR" property="updateTime"/>
+        <result column="CreateUser" jdbcType="VARCHAR" property="createUser"/>
+        <result column="UpdateUser" jdbcType="VARCHAR" property="updateUser"/>
+        <result column="UserType" jdbcType="VARCHAR" property="userType"/>
+        <result column="DataState" jdbcType="INTEGER" property="dataState"/>
+        <result column="FatherId" jdbcType="INTEGER" property="fatherId"/>
+        <result column="Level" jdbcType="INTEGER" property="level"/>
+        <result column="tempOldUserId" jdbcType="VARCHAR" property="tempOldUserId"/>
+        <result column="Sex" jdbcType="VARCHAR" property="sex"/>
+        <result column="IdCard" jdbcType="VARCHAR" property="idCard"/>
+        <result column="Des" jdbcType="VARCHAR" property="des"/>
+        <result column="Tag" jdbcType="VARCHAR" property="tag"/>
+        <result column="UserScore" jdbcType="INTEGER" property="userScore"/>
+        <result column="GradedOrderCount" jdbcType="INTEGER" property="gradedOrderCount"/>
+        <result column="WxOpenId" jdbcType="VARCHAR" property="wxOpenId"/>
+        <result column="CompanyId" jdbcType="VARCHAR" property="companyId"/>
+
+        <result column="AccountMoney" jdbcType="VARCHAR" property="accountMoney"/>
+        <result column="FreezeMoney" jdbcType="VARCHAR" property="freezeMoney"/>
+
+        <result column="AuditFlag" jdbcType="VARCHAR" property="auditFlag"/>
+        <result column="parterAuditFlag" jdbcType="VARCHAR" property="parterAuditFlag"/>
+        <result column="AuditReason" jdbcType="VARCHAR" property="auditReason"/>
+        <result column="AvatarUrl" jdbcType="VARCHAR" property="avatarUrl"/>
+        <result column="ImgIdCardUrl" jdbcType="VARCHAR" property="imgIdCardUrl"/>
+        <result column="districtId" jdbcType="VARCHAR" property="districtId"/>
+        <result column="areaCode" jdbcType="VARCHAR" property="areaCode"/>
+
+   <result column="total" jdbcType="VARCHAR" property="total"/>
+      <result column="doneMoney" jdbcType="VARCHAR" property="doneMoney"/>
+         <result column="todoMoney" jdbcType="VARCHAR" property="todoMoney"/>
+
+    </resultMap>
+    <sql id="Base_Column_List">
+        Id, Phone, Password, SessionKey, Name, CreateTime, UpdateTime, CreateUser, UpdateUser,
+        UserType, DataState, FatherId, Level, tempOldUserId, Sex, IdCard, Des, Tag, UserScore,
+        GradedOrderCount, WxOpenId, AuditFlag,parterAuditFlag, AuditReason, AccountMoney, FreezeMoney, AvatarUrl, CompanyId, ImgIdCardUrl, DistrictId, areaCode
+       
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_userinfo
+        where Id = #{id,jdbcType=INTEGER} and DataState=1
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        DELETE FROM t_userinfo
+        WHERE Id = #{id}
+    </delete>
+
+
+    <select id="getUserByToken" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_userinfo
+        where SessionKey=#{token,jdbcType=VARCHAR} and DataState=1
+    </select>
+
+
+    <insert id="insert" parameterType="com.kxjl.tasktransferplat.pojo.Userinfo">
+        INSERT INTO t_userinfo (Id, Phone, Password,
+                                SessionKey, Name, CreateTime,
+                                UpdateTime, CreateUser, UpdateUser,
+                                UserType, DataState, FatherId,
+                                Level, tempOldUserId, Sex,
+                                IdCard, Des, Tag, UserScore,
+                                GradedOrderCount, WxOpenId
+            , DistrictId, areaCode,parterAuditFlag)
+        VALUES (#{id,jdbcType=INTEGER}, #{phone,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
+                                        #{sessionKey,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR},
+                                        #{createTime,jdbcType=VARCHAR},
+                                        #{updateTime,jdbcType=VARCHAR}, #{createUser,jdbcType=VARCHAR},
+                                        #{updateUser,jdbcType=VARCHAR},
+                                        #{userType,jdbcType=INTEGER}, #{dataState,jdbcType=INTEGER},
+            #{fatherId,jdbcType=INTEGER},
+            #{level,jdbcType=INTEGER}, #{tempOldUserId,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR},
+            #{idCard,jdbcType=VARCHAR}, #{des,jdbcType=VARCHAR}, #{tag,jdbcType=VARCHAR}, #{userScore,jdbcType=INTEGER},
+            #{gradedOrderCount,jdbcType=INTEGER}, #{wxOpenId,jdbcType=VARCHAR},
+                #{districtId,jdbcType=INTEGER}, #{areaCode,jdbcType=VARCHAR},#{parterAuditFlag,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.kxjl.tasktransferplat.pojo.Userinfo">
+        insert into t_userinfo
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                Id,
+            </if>
+            <if test="phone != null">
+                Phone,
+            </if>
+            <if test="password != null">
+                Password,
+            </if>
+            <if test="auditFlag != null">
+                AuditFlag,
+            </if>
+            <if test="parterAuditFlag != null">
+                parterAuditFlag,
+            </if>
+            <if test="sessionKey != null">
+                SessionKey,
+            </if>
+            <if test="name != null">
+                Name,
+            </if>
+            <if test="createTime != null">
+                CreateTime,
+            </if>
+            <if test="updateTime != null">
+                UpdateTime,
+            </if>
+            <if test="createUser != null">
+                CreateUser,
+            </if>
+            <if test="updateUser != null">
+                UpdateUser,
+            </if>
+            <if test="userType != null">
+                UserType,
+            </if>
+            <if test="dataState != null">
+                DataState,
+            </if>
+            <if test="fatherId != null">
+                FatherId,
+            </if>
+            <if test="level != null">
+                Level,
+            </if>
+            <if test="tempOldUserId != null">
+                tempOldUserId,
+            </if>
+            <if test="sex != null">
+                Sex,
+            </if>
+            <if test="idCard != null">
+                IdCard,
+            </if>
+            <if test="des != null">
+                Des,
+            </if>
+            <if test="tag != null">
+                Tag,
+            </if>
+            <if test="userScore != null">
+                UserScore,
+            </if>
+            <if test="gradedOrderCount != null">
+                GradedOrderCount,
+            </if>
+            <if test="wxOpenId != null">
+                WxOpenId,
+            </if>
+            <if test="avatarUrl != null">
+                AvatarUrl,
+            </if>
+            <if test="companyId != null">
+                CompanyId,
+            </if>
+            <if test="districtId != null">
+                DistrictId,
+            </if>
+            <if test="areaCode != null">
+                areaCode,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="phone != null">
+                #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="auditFlag != null">
+                #{auditFlag,jdbcType=VARCHAR},
+            </if>
+            <if test="parterAuditFlag != null">
+                #{parterAuditFlag,jdbcType=VARCHAR},
+            </if>
+            <if test="sessionKey != null">
+                #{sessionKey,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=VARCHAR},
+            </if>
+            <if test="createUser != null">
+                #{createUser,jdbcType=VARCHAR},
+            </if>
+            <if test="updateUser != null">
+                #{updateUser,jdbcType=VARCHAR},
+            </if>
+            <if test="userType != null">
+                #{userType,jdbcType=INTEGER},
+            </if>
+            <if test="dataState != null">
+                #{dataState,jdbcType=INTEGER},
+            </if>
+            <if test="fatherId != null">
+                #{fatherId,jdbcType=INTEGER},
+            </if>
+            <if test="level != null">
+                #{level,jdbcType=INTEGER},
+            </if>
+            <if test="tempOldUserId != null">
+                #{tempOldUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null">
+                #{sex,jdbcType=VARCHAR},
+            </if>
+            <if test="idCard != null">
+                #{idCard,jdbcType=VARCHAR},
+            </if>
+            <if test="des != null">
+                #{des,jdbcType=VARCHAR},
+            </if>
+            <if test="tag != null">
+                #{tag,jdbcType=VARCHAR},
+            </if>
+            <if test="userScore != null">
+                #{userScore,jdbcType=INTEGER},
+            </if>
+            <if test="gradedOrderCount != null">
+                #{gradedOrderCount,jdbcType=INTEGER},
+            </if>
+            <if test="wxOpenId != null">
+                #{wxOpenId,jdbcType=VARCHAR},
+            </if>
+            <if test="avatarUrl != null">
+                #{avatarUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="companyId != null">
+                #{companyId,jdbcType=BIGINT},
+            </if>
+            <if test="districtId != null">
+                #{districtId,jdbcType=INTEGER},
+            </if>
+            <if test="areaCode != null">
+                #{areaCode,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.kxjl.tasktransferplat.pojo.Userinfo">
+        update t_userinfo
+        <set>
+            <if test="phone != null">
+                Phone = #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null and password !=''">
+                Password = #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="sessionKey != null">
+                SessionKey = #{sessionKey,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                Name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                CreateTime = #{createTime,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null">
+                UpdateTime = #{updateTime,jdbcType=VARCHAR},
+            </if>
+            <if test="createUser != null">
+                CreateUser = #{createUser,jdbcType=VARCHAR},
+            </if>
+            <if test="updateUser != null">
+                UpdateUser = #{updateUser,jdbcType=VARCHAR},
+            </if>
+            <if test="userType != null">
+                UserType = #{userType,jdbcType=INTEGER},
+            </if>
+            <if test="dataState != null">
+                DataState = #{dataState,jdbcType=INTEGER},
+            </if>
+            <if test="fatherId != null">
+                FatherId = #{fatherId,jdbcType=INTEGER},
+            </if>
+            <if test="level != null">
+                Level = #{level,jdbcType=INTEGER},
+            </if>
+            <if test="tempOldUserId != null">
+                tempOldUserId = #{tempOldUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null">
+                Sex = #{sex,jdbcType=VARCHAR},
+            </if>
+            <if test="idCard != null">
+                IdCard = #{idCard,jdbcType=VARCHAR},
+            </if>
+            <if test="des != null">
+                Des = #{des,jdbcType=VARCHAR},
+            </if>
+            <if test="tag != null">
+                Tag = #{tag,jdbcType=VARCHAR},
+            </if>
+            <if test="userScore != null">
+                UserScore = #{userScore,jdbcType=INTEGER},
+            </if>
+            <if test="gradedOrderCount != null">
+                GradedOrderCount = #{gradedOrderCount,jdbcType=INTEGER},
+            </if>
+            <if test="wxOpenId != null">
+                WxOpenId = #{wxOpenId,jdbcType=VARCHAR},
+            </if>
+            <if test="accountMoney != null">
+                AccountMoney = #{accountMoney,jdbcType=VARCHAR},
+            </if>
+            <if test="freezeMoney != null">
+                FreezeMoney = #{freezeMoney,jdbcType=VARCHAR},
+            </if>
+            <if test="auditFlag != null">
+                AuditFlag = #{auditFlag,jdbcType=VARCHAR},
+            </if>
+            <if test="parterAuditFlag != null">
+                parterAuditFlag = #{parterAuditFlag,jdbcType=VARCHAR},
+            </if>
+            <if test="auditReason != null">
+                AuditReason = #{auditReason,jdbcType=VARCHAR},
+            </if>
+            <if test="avatarUrl != null">
+                AvatarUrl = #{avatarUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="imgIdCardUrl != null">
+                ImgIdCardUrl = #{imgIdCardUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="companyId != null">
+                CompanyId = #{companyId,jdbcType=VARCHAR},
+            </if>
+            <if test="districtId != null">
+                DistrictId = #{districtId,jdbcType=INTEGER},
+            </if>
+            <if test="areaCode != null">
+                areaCode = #{areaCode,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where Id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.kxjl.tasktransferplat.pojo.Userinfo">
+        UPDATE t_userinfo
+        SET Phone            = #{phone,jdbcType=VARCHAR},
+            Password         = #{password,jdbcType=VARCHAR},
+            SessionKey       = #{sessionKey,jdbcType=VARCHAR},
+            Name             = #{name,jdbcType=VARCHAR},
+            CreateTime       = #{createTime,jdbcType=VARCHAR},
+            UpdateTime       = #{updateTime,jdbcType=VARCHAR},
+            CreateUser       = #{createUser,jdbcType=VARCHAR},
+            UpdateUser       = #{updateUser,jdbcType=VARCHAR},
+            UserType         = #{userType,jdbcType=INTEGER},
+            DataState        = #{dataState,jdbcType=INTEGER},
+            FatherId         = #{fatherId,jdbcType=INTEGER},
+            Level            = #{level,jdbcType=INTEGER},
+            tempOldUserId    = #{tempOldUserId,jdbcType=VARCHAR},
+            Sex              = #{sex,jdbcType=VARCHAR},
+            IdCard           = #{idCard,jdbcType=VARCHAR},
+            Des              = #{des,jdbcType=VARCHAR},
+            Tag              = #{tag,jdbcType=VARCHAR},
+            UserScore        = #{userScore,jdbcType=INTEGER},
+            GradedOrderCount = #{gradedOrderCount,jdbcType=INTEGER},
+            WxOpenId         = #{wxOpenId,jdbcType=VARCHAR},
+            DistrictId       = #{districtId,jdbcType=INTEGER}
+        areaCode = #{areaCode,jdbcType=VARCHAR}
+        WHERE Id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="untying" parameterType="com.kxjl.tasktransferplat.pojo.Userinfo">
+        UPDATE t_userinfo
+        SET WxOpenId = NULL, SessionKey = NULL
+        WHERE Id = #{id}
+    </update>
+
+
+    <select id="selectList"
+            resultMap="BaseResultMap"
+            parameterType="com.kxjl.tasktransferplat.pojo.Userinfo">
+        select distinct
+        c.*,tp.name companyName,tp.Phone companyPhone,  tp.idCard companyidCard, area.areaName
+        ,area.provinceId,area.cityId
+        ,area.province,area.city,area.district,tp2.jobdistrictNames districtnames,tp2.jobdistrictIds districtids
+        from t_userinfo c
+    
+          left join t_userinfo tp on tp.id=c.companyId
+        -- left join (
+       -- select   province.provinceName province,city.cityName city,district.districtName district,   province.id provinceId,city.id cityId,district.id districtId,   concat(province.provinceName,city.cityName,district.districtName) areaName ,concat (province.provinceCode,city.cityCode,district.districtCode) areacode
+       -- FROM t_area_province  province
+       --     LEFT JOIN t_area_city city ON city.provinceId = province.id
+       --     LEFT JOIN t_area_district district ON district.cityId = city.id
+       --     ) area on c.areacode=area.areacode
+
+            left join cityall area on c.areacode=area.areacode
+        
+        
+         left join t_userinfo_job_area jobarea on jobarea.lockId=c.id
+         left join  (
+select c1.id,  GROUP_CONCAT(jobarea.districtId) jobdistrictIds,  GROUP_CONCAT(district.districtName) jobdistrictNames from t_userinfo c1 left join  t_userinfo_job_area jobarea on jobarea.lockId=c1.id
+     LEFT JOIN t_area_district district ON district.id = jobarea.districtid
+group by c1.id
+) tp2 on c.id=tp2.id
+        
+        
+        
+        
+        where 1=1 and c.DataState!=2
+        
+        <if test=' dataState !=null and dataState !="3" '>
+            and c.dataState=#{dataState}
+        </if>
+        <!--  自由的锁匠 -->
+        <if test=' parterquery !=null and parterquery =="0" '>
+        and c.companyId is null 
+        </if>
+        <!--  合伙人下的锁匠 -->
+        <if test=' parterquery !=null and parterquery =="1" '>
+        and c.companyId is not null 
+        </if>
+        
+        
+        <if test=' auditFlag !=null and auditFlag =="0" '>
+        and c.auditFlag in (-1,0) 
+        </if>
+        
+        <if test=' auditFlag !=null and auditFlag =="1" '>
+        and c.auditFlag =1
+        </if>
+        
+        
+        <if test=' auditFlag !=null and auditFlag =="2" '>
+        and c.auditFlag =2 
+        </if>
+        
+        
+        
+         
+        <if test=' parterAuditFlag2 !=null and parterAuditFlag2 =="0" '>
+         and ( c.parterAuditFlag in (1,0) )
+        </if>
+        
+        <if test=' parterAuditFlag2 !=null and parterAuditFlag2 =="1" '>
+      and c.parterAuditFlag =1
+        </if>
+
+
+ <if test=' parterAuditFlag !=null and parterAuditFlag =="1" '>
+      and c.parterAuditFlag =1
+        </if>
+         <if test=' parterAuditFlag !=null and parterAuditFlag =="1" '>
+      and c.parterAuditFlag =1
+        </if>
+
+
+
+        <!--  拉黑 -->
+         <if test=' dataState !=null and dataState =="3" '>
+            and c.dataState in(0,3)
+        </if> 
+        
+        
+         <if test=' userType !=null and userType !="" '>
+         and c.UserType =#{userType} 
+         </if>
+         
+       <!--   <if test=' userType !=null and userType =="2" '>
+         and c.UserType in (2,3)
+         </if> -->
+        
+        <if test=" des !=null and des !='' ">
+             and c.des like concat ('%', #{des},'%') 
+        </if>
+        
+        <if test=" id !=null ">
+            and c.id = #{id}
+        </if>
+        <if test=" wxOpenId !=null and wxOpenId !='' ">
+            and c.WxOpenId = #{wxOpenId}
+        </if>
+
+        <if test=" phone !=null and phone !='' ">
+            and c.Phone like concat ('%', #{phone},'%')
+        </if>
+      
+         <if test="companyId != null and companyId !=''">
+            and tp.id like concat ('%', #{companyId},'%') 
+        </if> 
+         <if test="companyName != null and companyName !=''">
+            and tp.name like concat ('%', #{companyName},'%') 
+        </if> 
+          <if test="companyPhone != null and companyPhone !=''">
+            and tp.Phone like concat ('%', #{companyPhone},'%') 
+        </if> 
+          <if test="companyidCard != null and companyidCard !=''">
+            and tp.idCard like concat ('%', #{companyidCard},'%') 
+        </if> 
+        
+        
+        <if test=" startTime !=null and startTime !='' ">
+            and c.UpdateTime <![CDATA[ >= ]]> #{startTime}
+        </if>
+        <if test=" endTime !=null and endTime !='' ">
+            and c.UpdateTime <![CDATA[ <= ]]> #{endTime}
+        </if>
+        
+        
+           <if test=" provinceId !=null and provinceId !='' ">
+            and area.provinceId = #{provinceId}
+        </if>
+           <if test=" cityId !=null and cityId !='' ">
+              and area.cityId = #{cityId}
+        </if>
+            <if test=" districtId !=null and districtId !='' ">
+              and area.districtId = #{districtId}
+        </if>
+               <if test=" districtId2 !=null and districtId2 !='' ">
+              and jobarea.districtId = #{districtId2}
+        </if>
+        
+        
+
+        <if test=" name !=null and name !='' ">
+            and c.Name like concat ('%', #{name},'%')
+        </if>
+          <if test=" querykey !=null and querykey !='' ">
+            and ( c.Name like concat ('%', #{querykey},'%') or c.phone like concat ('%', #{querykey},'%')  or c.id like concat ('%', #{querykey},'%') )
+        </if>
+        
+        
+         <if test=" idCard !=null and idCard !='' ">
+            and c.idCard like concat ('%', #{idCard},'%')
+        </if>
+
+        order by c.UpdateTime desc
+
+
+    </select>
+
+
+    <select id="selectPage"
+            resultMap="BaseResultMap"
+            parameterType="com.kxjl.tasktransferplat.pojo.Userinfo">
+        select
+        <include refid="Base_Column_List"/>
+        from t_userinfo c
+
+        where 1=1 and c.DataState=1
+        <if test=" id !=null and id !='' ">
+            and c.id = #{id}
+        </if>
+
+
+        <if test=" phone !=null and phone !='' ">
+            and c.Phone like concat ('%', #{phone},'%')
+        </if>
+        <if test="companyId != null and companyId !=''">
+            and c.CompanyId = #{companyId}
+        </if>
+
+
+        <if test=" password !=null and password !='' ">
+            and c.Password like concat ('%', #{password},'%')
+        </if>
+
+
+    </select>
+    <select id="selectUnAuditUserinfoList"
+            resultMap="BaseResultMap"
+            parameterType="com.kxjl.tasktransferplat.pojo.Userinfo">
+
+        select
+        c.*,tp.name companyName,tp.Phone companyPhone,area.areaName
+        from t_userinfo c
+        -- left join t_company o on c.companyId=o.Id
+        -- LEFT JOIN (select DISTINCT * from t_company group by left(areacode,4)) company ON left(c.areaCode,4) =
+        left(company.areacode,4)
+        left join t_userinfo tp on tp.id=c.companyId
+        left join (
+        select concat(province.provinceName,' ',city.cityName,' ',district.districtName) areaName ,concat
+        (province.provinceCode,city.cityCode,district.districtCode) areacode
+        FROM t_area_province province
+        LEFT JOIN t_area_city city ON city.provinceId = province.id
+        LEFT JOIN t_area_district district ON district.cityId = city.id
+        ) area on c.areacode=area.areacode
+
+
+        where 1=1 and c.auditFlag in (-1,0) and c.DataState=1
+
+        <if test=" phone !=null and phone !='' ">
+            and c.Phone like concat ('%', #{phone},'%')
+        </if>
+        <if test="companyId != null and companyId !=''">
+            and c.CompanyId = #{companyId}
+        </if>
+
+
+        <if test=" name !=null and name !='' ">
+            and c.Name like concat ('%', #{name},'%')
+        </if>
+
+        order by c.UpdateTime desc
+    </select>
+    <select id="selectListByPoint" resultType="com.kxjl.tasktransferplat.pojo.Userinfo">
+         select c.id,c.Phone,c.Name, case when  avg(o.ServiceScore) is null then 0 else  avg(o.ServiceScore) end  userScore
+        FROM t_userinfo c LEFT JOIN t_orderinfo o on c.id=o.LockerId
+
+        where 1=1
+        and c.AuditFlag=1 and c.DataState=1 and o.DataState=1
+
+        <if test="companyId != null and companyId !=''">
+            and c.CompanyId = #{companyId}
+        </if>
+        <if test=" phone !=null and phone !='' ">
+            and c.Phone like concat ('%', #{phone},'%')
+        </if>
+        <if test=" name !=null and name !='' ">
+            and c.Name like concat ('%', #{name},'%')
+        </if>
+        GROUP BY c.Id
+
+        order by avg(o.ServiceScore) desc
+    </select>
+    <select id="selectListByMoney" parameterType="com.kxjl.tasktransferplat.pojo.Userinfo" resultType="com.kxjl.tasktransferplat.pojo.Userinfo">
+       
+        
+        
+             select  distinct  c.*,case when usermoney.total is not null then  usermoney.total else 0 end total, case when usermoney. depositMoney is not null then usermoney. depositMoney else 0 end  doneMoney, case when usermoney.todepositMoney is not null then usermoney.todepositMoney else 0 end  todoMoney,uadd.bankCardId
+        FROM t_userinfo c 
+
+
+left join (
+
+-- 非合伙人账户
+select lockerid, sum(LockerTotalPrice)  total, sum(depositMoney) depositMoney,sum(todepositMoney) todepositMoney FROM(
+select LockerTotalPrice,orderCashType,LockerId,OrderState,done.depositMoney, todo.depositMoney  todepositMoney from t_orderinfo c
+left join (
+-- 已提现
+select userid,sum(c1.LockerTotalPrice) depositMoney,OrderInfoId from t_user_deposit left join t_orderinfo c1 on t_user_deposit.OrderInfoId=c1.id   where depositStatus=3  group by userid,OrderInfoId
+) done on done.orderinfoid=c.Id
+
+left join (
+-- 待审核提现
+select userid,sum(c1.LockerTotalPrice) depositMoney,OrderInfoId from t_user_deposit  left join t_orderinfo c1 on t_user_deposit.OrderInfoId=c1.id where depositStatus in (0,1) group by userid,OrderInfoId
+) todo on todo.orderinfoid=c.Id
+
+where OrderState>=500 and companyid is null    -- 自营，签约，临时账户余额
+and c.DataState=1
+) t
+group by lockerid 
+
+
+union 
+-- 合伙人账户
+select companyId lockerid, sum(LockerTotalPrice) LockerTotalPrice, sum(depositMoney) depositMoney,sum(todepositMoney) todepositMoney FROM(
+select LockerTotalPrice,orderCashType,companyId,OrderState,done.depositMoney, todo.depositMoney  todepositMoney from t_orderinfo c
+left join (
+-- 已提现
+select userid,sum(depositMoney) depositMoney,OrderInfoId from t_user_deposit  where depositStatus=3  group by userid,OrderInfoId
+) done on done.orderinfoid=c.id
+
+left join (
+-- 待审核提现
+select userid,sum(depositMoney) depositMoney,OrderInfoId from t_user_deposit  where depositStatus in (0,1) group by userid,OrderInfoId
+) todo on todo.orderinfoid=c.id
+
+where OrderState>=500 and companyid is not null   -- 自营，签约，临时账户余额
+and c.DataState=1
+) t
+group by companyId 
+
+) usermoney on c.id=usermoney.lockerid
+
+
+
+   left join t_userinfo_job_area jobarea on jobarea.lockId=c.id
+
+ left join t_userinfo tp on tp.id=c.companyId
+       
+            left join cityall area on c.areacode=area.areacode
+        
+        
+      
+       
+   left join t_userinfo_add uadd on uadd.id=c.id
+        where 1=1
+
+        and c.AuditFlag=1 and c.DataState=1
+
+    
+    
+    
+
+        
+        <if test=" des !=null and des !='' ">
+             and c.des like concat ('%', #{des},'%') 
+        </if>
+        
+        <if test=" id !=null  ">
+            and c.id = #{id,jdbcType=VARCHAR}
+        </if>
+   
+        <if test=" phone !=null and phone !='' ">
+            and c.Phone like concat ('%', #{phone},'%')
+        </if>
+      
+         <if test="companyId != null and companyId !=''">
+            and tp.id like concat ('%', #{companyId},'%') 
+        </if> 
+         <if test="companyName != null and companyName !=''">
+            and tp.name like concat ('%', #{companyName},'%') 
+        </if> 
+          <if test="companyPhone != null and companyPhone !=''">
+            and tp.Phone like concat ('%', #{companyPhone},'%') 
+        </if> 
+          <if test="companyidCard != null and companyidCard !=''">
+            and tp.idCard like concat ('%', #{companyidCard},'%') 
+        </if> 
+        
+        
+        <if test=" startTime !=null and startTime !='' ">
+            and c.UpdateTime >= #{startTime}
+        </if>
+        <if test=" endTime !=null and endTime !='' ">
+            and c.UpdateTime &lt; #{endTime}
+        </if>
+        
+        
+           <if test=" provinceId !=null and provinceId !='' ">
+            and area.provinceId = #{provinceId}
+        </if>
+           <if test=" cityId !=null and cityId !='' ">
+              and area.cityId = #{cityId}
+        </if>
+            <if test=" districtId !=null and districtId !='' ">
+              and area.districtId = #{districtId}
+        </if>
+               <if test=" districtId2 !=null and districtId2 !='' ">
+              and jobarea.districtId = #{districtId2}
+        </if>
+        
+        
+
+        <if test=" name !=null and name !='' ">
+            and c.Name like concat ('%', #{name},'%')
+        </if>
+        
+        
+        
+        
+         <if test=" idCard !=null and idCard !='' ">
+            and c.idCard like concat ('%', #{idCard},'%')
+        </if>
+        
+        
+        
+        Order by c.UpdateTime desc
+    </select>
+    <select id="selectListByPhone" resultMap="BaseResultMap">
+        SELECT *
+        FROM t_userinfo
+        WHERE Phone = #{phone} 
+    </select>
+    <select id="selectLockerByCompanyId" parameterType="com.kxjl.tasktransferplat.pojo.Orderinfo"
+            resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM t_userinfo
+        WHERE DataState = 1 AND AuditFlag = 1 and DataState=1 AND left(areaCode, 4) = #{areaCode}
+
+        <if test="lockName != null and lockName !=''">
+            AND name like concat('%', #{lockName},'%')
+        </if>
+
+        <!-- <if test="companyId != null and companyId !=''">
+            AND CompanyId = #{companyId}
+        </if>
+        <if test="companyId == null">
+            AND CompanyId IS NULL
+        </if> -->
+    </select>
+    <select id="selectUserinfoByIdCard" resultMap="BaseResultMap">
+        SELECT *
+        FROM t_userinfo
+        WHERE IdCard = #{idCard} and DataState !=2
+    </select>
+    <select id="selectListByPhoneAll" resultType="com.kxjl.tasktransferplat.pojo.Userinfo">
+        SELECT *
+        FROM t_userinfo
+        WHERE 1=1 and DataState !=2 and  Phone = #{phone}
+    </select>
+    <select id="selectListByIdCardAll" resultType="com.kxjl.tasktransferplat.pojo.Userinfo">
+        SELECT *
+        FROM t_userinfo
+        WHERE 1=1 and DataState !=2 and IdCard = #{idCard}
+    </select>
+
+
+    <update id="delete"
+            parameterType="com.kxjl.tasktransferplat.pojo.Userinfo">
+        UPDATE t_userinfo
+        SET DataState = 2, CompanyId=NULL
+
+        WHERE id = #{id,jdbcType=VARCHAR};
+
+    </update>
+
+    <update id="updateCompanyNull">
+        UPDATE t_userinfo
+        SET CompanyId = NULL
+        WHERE CompanyId = #{companyId,jdbcType=BIGINT};
+
+    </update>
+
+    <select id="selectJobAreaByUserAndDistrictIds" resultType="com.kxjl.tasktransferplat.pojo.Userinfo">
+
+        select u.id, u.phone,u.name,u.UserType, ja.districtId jobdistrictid ,district.district from t_userinfo u left
+        join t_userinfo_job_area ja on u.id=ja.lockId
+        LEFT JOIN t_area_district district ON district.id = ja.districtId
+        where 1=1
+        and (u.UserType=2||u.UserType=3)
+        <!-- 放置id -->
+        <if test="name != null and name !=''">
+            and u.id !=#{name}
+        </if>
+
+        and ja.districtId in ( $(districtids))
+    </select>
+    <select id="selectPartnerLockerLikeNameAndPhone" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT * FROM t_userinfo userinfo
+        WHERE 1=1 AND userinfo.DataState = 1
+        AND (userinfo.userType = 2 OR userinfo.userType=3)
+        AND concat(userinfo.Name,userinfo.Phone) like concat ('%', #{searchValue},'%')
+    </select>
+    
+        <update id="updateLockerParterNull">
+        UPDATE t_userinfo
+        SET CompanyId = NULL
+        WHERE id = #{lockId,jdbcType=BIGINT};
+
+    </update>
+
+</mapper>

@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kxjl.tasktransferplat.dao.plus.LocksmithEnterpriseComplainMapper">
+	<resultMap id="BaseResultMap" type="com.kxjl.tasktransferplat.pojo.LocksmithEnterpriseComplain">
+		<id column="id" jdbcType="VARCHAR" property="id" />
+		<result column="EnterpriseId" jdbcType="BIGINT" property="enterpriseId" />
+		<result column="messageContent" jdbcType="VARCHAR" property="messageContent" />
+		<result column="orderInfoId" jdbcType="VARCHAR" property="orderInfoId" />
+		<result column="backContent" jdbcType="VARCHAR" property="backContent" />
+		<result column="doneContent" jdbcType="VARCHAR" property="doneContent" />
+		<result column="createTime" jdbcType="VARCHAR" property="createTime" />
+		<result column="serviceState" jdbcType="INTEGER" property="serviceState" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, EnterpriseId, messageContent, orderInfoId, backContent, doneContent, createTime,
+		serviceState
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_locksmith_enterprise_complain
+		where id = #{id,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from t_locksmith_enterprise_complain
+		where id = #{id,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.kxjl.tasktransferplat.pojo.LocksmithEnterpriseComplain">
+		insert into t_locksmith_enterprise_complain (id, EnterpriseId, messageContent,
+		orderInfoId, backContent, doneContent,
+		createTime, serviceState)
+		values (#{id,jdbcType=VARCHAR}, #{enterpriseId,jdbcType=BIGINT}, #{messageContent,jdbcType=VARCHAR},
+		#{orderInfoId,jdbcType=VARCHAR}, #{backContent,jdbcType=VARCHAR}, #{doneContent,jdbcType=VARCHAR},
+		#{createTime,jdbcType=VARCHAR}, #{serviceState,jdbcType=INTEGER})
+	</insert>
+	<insert id="insertSelective" parameterType="com.kxjl.tasktransferplat.pojo.LocksmithEnterpriseComplain">
+		insert into t_locksmith_enterprise_complain
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="enterpriseId != null">
+				EnterpriseId,
+			</if>
+			<if test="messageContent != null">
+				messageContent,
+			</if>
+			<if test="orderInfoId != null">
+				orderInfoId,
+			</if>
+			<if test="backContent != null">
+				backContent,
+			</if>
+			<if test="doneContent != null">
+				doneContent,
+			</if>
+			<if test="createTime != null">
+				createTime,
+			</if>
+			<if test="serviceState != null">
+				serviceState,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=VARCHAR},
+			</if>
+			<if test="enterpriseId != null">
+				#{enterpriseId,jdbcType=BIGINT},
+			</if>
+			<if test="messageContent != null">
+				#{messageContent,jdbcType=VARCHAR},
+			</if>
+			<if test="orderInfoId != null">
+				#{orderInfoId,jdbcType=VARCHAR},
+			</if>
+			<if test="backContent != null">
+				#{backContent,jdbcType=VARCHAR},
+			</if>
+			<if test="doneContent != null">
+				#{doneContent,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=VARCHAR},
+			</if>
+			<if test="serviceState != null">
+				#{serviceState,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.kxjl.tasktransferplat.pojo.LocksmithEnterpriseComplain">
+		update t_locksmith_enterprise_complain
+		<set>
+			<if test="enterpriseId != null">
+				EnterpriseId = #{enterpriseId,jdbcType=BIGINT},
+			</if>
+			<if test="messageContent != null">
+				messageContent = #{messageContent,jdbcType=VARCHAR},
+			</if>
+			<if test="orderInfoId != null">
+				orderInfoId = #{orderInfoId,jdbcType=VARCHAR},
+			</if>
+			<if test="backContent != null">
+				backContent = #{backContent,jdbcType=VARCHAR},
+			</if>
+			<if test="doneContent != null">
+				doneContent = #{doneContent,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				createTime = #{createTime,jdbcType=VARCHAR},
+			</if>
+			<if test="serviceState != null">
+				serviceState = #{serviceState,jdbcType=INTEGER},
+			</if>
+		</set>
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.kxjl.tasktransferplat.pojo.LocksmithEnterpriseComplain">
+		update t_locksmith_enterprise_complain
+		set EnterpriseId = #{enterpriseId,jdbcType=BIGINT},
+		messageContent = #{messageContent,jdbcType=VARCHAR},
+		orderInfoId = #{orderInfoId,jdbcType=VARCHAR},
+		backContent = #{backContent,jdbcType=VARCHAR},
+		doneContent = #{doneContent,jdbcType=VARCHAR},
+		createTime = #{createTime,jdbcType=VARCHAR},
+		serviceState = #{serviceState,jdbcType=INTEGER}
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+
+	<select id="selectList"
+	resultMap="BaseResultMap"
+	parameterType="com.kxjl.tasktransferplat.pojo.LocksmithEnterpriseComplain">
+	select
+	c.*,o.orderNo,e.enterpriseName
+	from t_locksmith_enterprise_complain c
+	left join t_orderinfo o on c.orderInfoId=o.id
+	left join t_locksmith_enterprise e on c.EnterpriseId=e.id
+
+	where 1=1
+	<if test=" id !=null and id !='' ">
+		and c.id = #{id}
+	</if>
+
+
+		<if test=" enterpriseName !=null and enterpriseName !='' ">
+		and e.enterpriseName like concat ('%', #{enterpriseName},'%')
+	</if>
+		
+			
+		
+		<if test=" messageContent !=null and messageContent !='' ">
+		and c.messageContent like concat ('%', #{messageContent},'%')
+	</if>
+		
+			
+
+
+</select>
+
+
+<select id="selectPage"
+	resultMap="BaseResultMap"
+	parameterType="com.kxjl.tasktransferplat.pojo.LocksmithEnterpriseComplain">
+	select
+	<include refid="Base_Column_List" />
+	from t_locksmith_enterprise_complain c
+
+	where 1=1
+	<if test=" id !=null and id !='' ">
+		and c.id = #{id}
+	</if>
+	
+		
+		<if test=" enterpriseId !=null and enterpriseId !='' ">
+		and c.EnterpriseId like concat ('%', #{enterpriseId},'%')
+	</if>
+		
+			
+		
+		<if test=" messageContent !=null and messageContent !='' ">
+		and c.messageContent like concat ('%', #{messageContent},'%')
+	</if>
+		
+			
+
+
+</select>
+
+
+<delete id="delete"
+	parameterType="com.kxjl.tasktransferplat.pojo.LocksmithEnterpriseComplain">
+	delete from t_locksmith_enterprise_complain
+
+	where id = #{id,jdbcType=VARCHAR}
+
+</delete>
+
+</mapper>

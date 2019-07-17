@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ztgm.tasktransferplat.dao.plus.CompanyMapper">
+  <resultMap id="BaseResultMap" type="com.ztgm.tasktransferplat.pojo.Company">
+    <id column="Id" jdbcType="BIGINT" property="id" />
+    <result column="CompanyName" jdbcType="VARCHAR" property="companyName" />
+    <result column="CompanyPhone" jdbcType="VARCHAR" property="companyPhone" />
+    <result column="CompanyAddressId" jdbcType="BIGINT" property="companyAddressId" />
+    <result column="CompanyAddressDetail" jdbcType="VARCHAR" property="companyAddressDetail" />
+    <result column="CreateTime" jdbcType="VARCHAR" property="createTime" />
+    <result column="DataState" jdbcType="INTEGER" property="dataState" />
+    <result column="AuditFlag" jdbcType="VARCHAR" property="auditFlag" />
+    <result column="AuditReason" jdbcType="VARCHAR" property="auditReason" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    Id, CompanyName, CompanyPhone, CompanyAddressId, CompanyAddressDetail, CreateTime, 
+    DataState, AuditFlag, AuditReason
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_company
+    where Id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_company
+    where Id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.ztgm.tasktransferplat.pojo.Company">
+    insert into t_company (Id, CompanyName, CompanyPhone, 
+      CompanyAddressId, CompanyAddressDetail, 
+      CreateTime, DataState, AuditFlag, 
+      AuditReason)
+    values (#{id,jdbcType=BIGINT}, #{companyName,jdbcType=VARCHAR}, #{companyPhone,jdbcType=VARCHAR}, 
+      #{companyAddressId,jdbcType=BIGINT}, #{companyAddressDetail,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=VARCHAR}, #{dataState,jdbcType=INTEGER}, #{auditFlag,jdbcType=VARCHAR}, 
+      #{auditReason,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ztgm.tasktransferplat.pojo.Company">
+    insert into t_company
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        Id,
+      </if>
+      <if test="companyName != null">
+        CompanyName,
+      </if>
+      <if test="companyPhone != null">
+        CompanyPhone,
+      </if>
+      <if test="companyAddressId != null">
+        CompanyAddressId,
+      </if>
+      <if test="companyAddressDetail != null">
+        CompanyAddressDetail,
+      </if>
+      <if test="createTime != null">
+        CreateTime,
+      </if>
+      <if test="dataState != null">
+        DataState,
+      </if>
+      <if test="auditFlag != null">
+        AuditFlag,
+      </if>
+      <if test="auditReason != null">
+        AuditReason,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="companyName != null">
+        #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="companyPhone != null">
+        #{companyPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="companyAddressId != null">
+        #{companyAddressId,jdbcType=BIGINT},
+      </if>
+      <if test="companyAddressDetail != null">
+        #{companyAddressDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="dataState != null">
+        #{dataState,jdbcType=INTEGER},
+      </if>
+      <if test="auditFlag != null">
+        #{auditFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="auditReason != null">
+        #{auditReason,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ztgm.tasktransferplat.pojo.Company">
+    update t_company
+    <set>
+      <if test="companyName != null">
+        CompanyName = #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="companyPhone != null">
+        CompanyPhone = #{companyPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="companyAddressId != null">
+        CompanyAddressId = #{companyAddressId,jdbcType=BIGINT},
+      </if>
+      <if test="companyAddressDetail != null">
+        CompanyAddressDetail = #{companyAddressDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        CreateTime = #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="dataState != null">
+        DataState = #{dataState,jdbcType=INTEGER},
+      </if>
+      <if test="auditFlag != null">
+        AuditFlag = #{auditFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="auditReason != null">
+        AuditReason = #{auditReason,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ztgm.tasktransferplat.pojo.Company">
+    update t_company
+    set CompanyName = #{companyName,jdbcType=VARCHAR},
+      CompanyPhone = #{companyPhone,jdbcType=VARCHAR},
+      CompanyAddressId = #{companyAddressId,jdbcType=BIGINT},
+      CompanyAddressDetail = #{companyAddressDetail,jdbcType=VARCHAR},
+      CreateTime = #{createTime,jdbcType=VARCHAR},
+      DataState = #{dataState,jdbcType=INTEGER},
+      AuditFlag = #{auditFlag,jdbcType=VARCHAR},
+      AuditReason = #{auditReason,jdbcType=VARCHAR}
+    where Id = #{id,jdbcType=BIGINT}
+  </update>
+  
+
+
+<select id="selectList"
+	resultMap="BaseResultMap"
+	parameterType="com.ztgm.tasktransferplat.pojo.Company">
+	select
+	<include refid="Base_Column_List" />
+	from t_company c
+
+	where 1=1
+	<if test=" id !=null and id !='' ">
+		and c.id = #{id}
+	</if>
+	<if test=" auditFlag !=null and auditFlag !='' ">
+		and c.auditFlag = #{auditFlag}
+	</if>
+	<if test=" companyPhone !=null and companyPhone !='' ">
+		and c.companyPhone like  concat ('%', #{companyPhone},'%') 
+	</if>
+	
+
+
+</select>
+
+
+<select id="selectPage"
+	resultMap="BaseResultMap"
+	parameterType="com.ztgm.tasktransferplat.pojo.Company">
+	select
+	<include refid="Base_Column_List" />
+	from t_company c
+
+	where 1=1
+	<if test=" id !=null and id !='' ">
+		and c.id = #{id}
+	</if>
+	<if test=" auditFlag !=null and auditFlag !='' ">
+		and c.auditFlag = #{auditFlag}
+	</if>
+	<if test=" companyPhone !=null and companyPhone !='' ">
+		and c.companyPhone like  concat ('%', #{companyPhone},'%') 
+	</if>
+
+
+</select>
+
+
+    <select id="selectUnAuditCompanyList"
+	resultMap="BaseResultMap"
+	parameterType="com.ztgm.tasktransferplat.pojo.Company">
+	select
+	<include refid="Base_Column_List" />
+	from t_company c
+
+	where 1=1 and auditFlag in (-1,0)
+	<if test=" id !=null and id !='' ">
+		and c.id = #{id}
+	</if>
+	<if test=" companyPhone !=null and companyPhone !='' ">
+		and c.companyPhone like  concat ('%', #{companyPhone},'%') 
+	</if>
+
+
+</select>
+    
+
+
+<delete id="delete"
+	parameterType="com.ztgm.tasktransferplat.pojo.Company">
+	delete from t_company
+
+	where id = #{id,jdbcType=VARCHAR}
+
+</delete>
+
+</mapper>

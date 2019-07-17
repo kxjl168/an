@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kxjl.tasktransferplat.dao.plus.OrderinfoOperateLogMapper">
+    <resultMap id="BaseResultMap" type="com.kxjl.tasktransferplat.pojo.OrderinfoOperateLog">
+        <id column="Id" jdbcType="VARCHAR" property="id"/>
+        <result column="OrderinfoId" jdbcType="VARCHAR" property="orderinfoId"/>
+        <result column="Type" jdbcType="INTEGER" property="type"/>
+        <result column="SubType" jdbcType="INTEGER" property="subType"/>
+        <result column="Title" jdbcType="VARCHAR" property="title"/>
+        <result column="Content" jdbcType="VARCHAR" property="content"/>
+        <result column="OperateUserId" jdbcType="VARCHAR" property="operateUserId"/>
+        <result column="OperateTime" jdbcType="VARCHAR" property="operateTime"/>
+        <result column="AuditId" jdbcType="VARCHAR" property="auditId"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        Id, OrderinfoId, Type, SubType, Title, Content, OperateUserId, OperateTime, AuditId
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_orderinfo_operate_log
+        where Id = #{id,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        DELETE FROM t_orderinfo_operate_log
+        WHERE Id = #{id,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" parameterType="com.kxjl.tasktransferplat.pojo.OrderinfoOperateLog">
+        INSERT INTO t_orderinfo_operate_log (Id, OrderinfoId, Type,
+                                             SubType, Title, Content,
+                                             OperateUserId, OperateTime, AuditId
+        )
+        VALUES (#{id,jdbcType=VARCHAR}, #{orderinfoId,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER},
+                #{subType,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR},
+                #{operateUserId,jdbcType=VARCHAR}, #{operateTime,jdbcType=VARCHAR}, #{auditId,jdbcType=VARCHAR}
+        )
+    </insert>
+    <insert id="insertSelective" parameterType="com.kxjl.tasktransferplat.pojo.OrderinfoOperateLog">
+        insert into t_orderinfo_operate_log
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                Id,
+            </if>
+            <if test="orderinfoId != null">
+                OrderinfoId,
+            </if>
+            <if test="type != null">
+                Type,
+            </if>
+            <if test="subType != null">
+                SubType,
+            </if>
+            <if test="title != null">
+                Title,
+            </if>
+            <if test="content != null">
+                Content,
+            </if>
+            <if test="operateUserId != null">
+                OperateUserId,
+            </if>
+            <if test="operateTime != null">
+                OperateTime,
+            </if>
+            <if test="auditId != null">
+                AuditId,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="orderinfoId != null">
+                #{orderinfoId,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null">
+                #{type,jdbcType=INTEGER},
+            </if>
+            <if test="subType != null">
+                #{subType,jdbcType=INTEGER},
+            </if>
+            <if test="title != null">
+                #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="content != null">
+                #{content,jdbcType=VARCHAR},
+            </if>
+            <if test="operateUserId != null">
+                #{operateUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="operateTime != null">
+                #{operateTime,jdbcType=VARCHAR},
+            </if>
+            <if test="auditId != null">
+                #{auditId,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <insert id="insertBatch">
+        INSERT INTO t_orderinfo_operate_log
+        (Id, OrderinfoId, Type, SubType, Title, Content, OperateUserId, OperateTime, AuditId)
+        VALUES
+        <foreach collection="list" separator="," item="operateLog">
+            (#{operateLog.id}, #{operateLog.orderinfoId}, #{operateLog.type},
+            #{operateLog.subType}, #{operateLog.title}, #{operateLog.content},
+            #{operateLog.operateUserId}, NULL, NULL)
+        </foreach>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.kxjl.tasktransferplat.pojo.OrderinfoOperateLog">
+        update t_orderinfo_operate_log
+        <set>
+            <if test="orderinfoId != null">
+                OrderinfoId = #{orderinfoId,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null">
+                Type = #{type,jdbcType=INTEGER},
+            </if>
+            <if test="subType != null">
+                SubType = #{subType,jdbcType=INTEGER},
+            </if>
+            <if test="title != null">
+                Title = #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="content != null">
+                Content = #{content,jdbcType=VARCHAR},
+            </if>
+            <if test="operateUserId != null">
+                OperateUserId = #{operateUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="operateTime != null">
+                OperateTime = #{operateTime,jdbcType=VARCHAR},
+            </if>
+            <if test="auditId != null">
+                AuditId = #{auditId,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where Id = #{id,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.kxjl.tasktransferplat.pojo.OrderinfoOperateLog">
+        UPDATE t_orderinfo_operate_log
+        SET OrderinfoId   = #{orderinfoId,jdbcType=VARCHAR},
+            Type          = #{type,jdbcType=INTEGER},
+            SubType       = #{subType,jdbcType=INTEGER},
+            Title         = #{title,jdbcType=VARCHAR},
+            Content       = #{content,jdbcType=VARCHAR},
+            OperateUserId = #{operateUserId,jdbcType=VARCHAR},
+            OperateTime   = #{operateTime,jdbcType=VARCHAR},
+            AuditId       = #{auditId,jdbcType=VARCHAR}
+        WHERE Id = #{id,jdbcType=VARCHAR}
+    </update>
+
+
+    <select id="selectList"
+            resultMap="BaseResultMap"
+            parameterType="com.kxjl.tasktransferplat.pojo.OrderinfoOperateLog">
+        select
+        c.*,o.OrderNo orderNo, concat(oa.ProposReason,' ',oa.AuditFailReason)  auditFailReason
+        ,concat(case  when u.name is null then '' else u.name end,case  when m.NICKNAME is null then '' else m.NICKNAME end ) operateUserName
+        from t_orderinfo_operate_log c left join t_orderinfo o on c.OrderinfoId=o.Id
+       left join t_orderinfo_audit  oa on c.AuditId=oa.Id
+
+ left join t_userinfo   u on u.id=c.OperateUserId
+left join manager  m on m.id=c.OperateUserId
+        where 1=1
+        <if test=" id !=null and id !='' ">
+            and c.id = #{id}
+        </if>
+        <if test=" companyId !=null and companyId !='' ">
+            and o.companyId = #{companyId}
+        </if>
+        <if test=" sellerId !=null and sellerId !='' ">
+            and o.sellerId = #{sellerId}
+        </if>
+
+        <if test=" orderinfoId !=null and orderinfoId !='' ">
+            and c.OrderinfoId like concat ('%', #{orderinfoId},'%')
+        </if>
+        <if test=" orderNo !=null and orderNo !='' ">
+            and o.OrderNo like concat ('%', #{orderNo},'%')
+        </if>
+
+
+        <if test=" type !=null and type !='' ">
+            and c.Type like concat ('%', #{type},'%')
+        </if>
+
+
+        <if test=" content !=null and content !='' ">
+            and c.Content like concat ('%', #{content},'%')
+        </if>
+
+        order by c.OperateTime desc
+
+
+    </select>
+
+    <select id="selectListByOrderId" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select
+        *
+    from t_orderinfo_operate_log c
+    where c.OrderinfoId = #{orderId}
+    order by c.OperateTime asc
+
+
+  </select>
+
+
+    <select id="selectPage"
+            resultMap="BaseResultMap"
+            parameterType="com.kxjl.tasktransferplat.pojo.OrderinfoOperateLog">
+        select
+        <include refid="Base_Column_List"/>
+        from t_orderinfo_operate_log c
+
+        where 1=1
+        <if test=" id !=null and id !='' ">
+            and c.id = #{id}
+        </if>
+
+
+        <if test=" orderinfoId !=null and orderinfoId !='' ">
+            and c.OrderinfoId like concat ('%', #{orderinfoId},'%')
+        </if>
+
+
+        <if test=" type !=null and type !='' ">
+            and c.Type like concat ('%', #{type},'%')
+        </if>
+
+
+        <if test=" content !=null and content !='' ">
+            and c.Content like concat ('%', #{content},'%')
+        </if>
+
+
+    </select>
+    <select id="selectRecentReason" resultType="com.kxjl.tasktransferplat.pojo.OrderinfoOperateLog">
+
+        SELECT *
+        FROM t_orderinfo_operate_log
+        WHERE id = (SELECT MAX(id)
+                    FROM t_orderinfo_operate_log
+                    WHERE Type = 1 AND SubType = 3 AND orderinfoId = #{param1}
+                    ORDER BY OperateTime DESC)
+    </select>
+       
+    <select id="selectCountNum" resultType="java.lang.Integer">
+
+        select count(*)num
+        from t_orderinfo_operate_log o
+        LEFT join t_orderinfo m on o.OrderinfoId=m.Id
+        where 1=1 and m.DataState=1
+        <if test=" companyId !=null and companyId !='' ">
+            and m.SellerId= #{companyId}
+        </if>
+        <if test=" type !=null and type !='' or type == 0 ">
+            and o.Type= #{type}
+        </if>
+        <if test=" subType !=null and subType !=''or subType == 0 ">
+            and o.SubType= #{subType}
+        </if>
+        <if test=" operateUserId !=null and operateUserId !='' ">
+            and o.OperateUserId= #{operateUserId}
+        </if>
+            and o.OperateTime between #{startTime} and #{endTime}
+    </select>
+    <select id="selectOrderCount" resultType="java.util.Map">
+      SELECT
+      COUNT(1) AS orderNum,
+      MONTH(o.OperateTime) as month
+      FROM
+      t_orderinfo_operate_log o
+      left join t_orderinfo i on i.id=o.OrderInfoId
+
+      where DATE_FORMAT( o.OperateTime, '%Y%m' ) &lt;= DATE_FORMAT(now() , '%Y%m' ) and i.DataState=1
+      <if test=" operateTime !=null and operateTime !='' ">
+        and year(o.OperateTime)= #{operateTime}
+      </if>
+      <if test=" type !=null and type !=''or type == 0 ">
+        and o.Type= #{type}
+      </if>
+      <if test=" subType !=null and subType !=''or subType == 0 ">
+        and o.SubType= #{subType}
+      </if>
+      <if test=" SellerId !=null and SellerId !='' ">
+        and i.SellerId= #{SellerId}
+      </if>
+      <if test=" companyId !=null and companyId !='' ">
+        and i.companyId= #{companyId}
+      </if>
+      GROUP BY MONTH(o.OperateTime)
+
+    </select>
+  <select id="selectEnterpriseCount" resultType="java.util.Map">
+      select * from (
+      select count(*)orderNum,date_format(o.OperateTime,'%Y')dayTime,e.EnterpriseName
+      from t_orderinfo_operate_log o
+      LEFT join t_orderinfo m on o.OrderInfoId=m.Id
+      LEFT JOIN t_locksmith_enterprise e on m.SellerId=e.Id
+      where 1=1 and e.DataState=1 and m.DataState=1
+      <if test=" operateTime !=null and operateTime !='' ">
+      and date_format(o.OperateTime,'%Y')=#{operateTime}
+      </if>
+      <if test=" subType !=null and subType !='' or subType == 0">
+        and o.subtype= #{subType}
+      </if>
+      <if test=" type !=null and type !=''or type == 0 ">
+        and o.Type= #{type}
+      </if>
+      <if test=" operateUserId !=null and operateUserId !='' ">
+          and o.OperateUserId= #{operateUserId}
+      </if>
+      group by e.EnterpriseName
+      union select 0,#{operateTime},EnterpriseName
+      from t_locksmith_enterprise where DataState=1 and AuditFlag=1 )aa  
+
+  </select>
+
+
+    <delete id="delete"
+            parameterType="com.kxjl.tasktransferplat.pojo.OrderinfoOperateLog">
+        DELETE FROM t_orderinfo_operate_log
+
+        WHERE id = #{id,jdbcType=VARCHAR}
+
+    </delete>
+
+</mapper>

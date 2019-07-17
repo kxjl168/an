@@ -1,0 +1,521 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kxjl.tasktransferplat.dao.plus.OrderinfoAuditMapper">
+    <resultMap id="BaseResultMap" type="com.kxjl.tasktransferplat.pojo.OrderinfoAudit">
+        <id column="Id" jdbcType="BIGINT" property="id"/>
+        <result column="OrderInfoId" jdbcType="VARCHAR" property="orderInfoId"/>
+        <result column="Proposer" jdbcType="BIGINT" property="proposer"/>
+        <result column="ProposType" jdbcType="INTEGER" property="proposType"/>
+        <result column="SubType" jdbcType="INTEGER" property="subType"/>
+        <result column="ProposMoney" jdbcType="DECIMAL" property="proposMoney"/>
+        <result column="ProposTime" jdbcType="VARCHAR" property="proposTime"/>
+        <result column="ProposReason" jdbcType="VARCHAR" property="proposReason"/>
+        <result column="AuditStates" jdbcType="INTEGER" property="auditStates"/>
+        <result column="AuditFailReason" jdbcType="VARCHAR" property="auditFailReason"/>
+        <result column="Auditor" jdbcType="VARCHAR" property="auditor"/>
+        <result column="AuditTime" jdbcType="VARCHAR" property="auditTime"/>
+        <result column="Doneflag" jdbcType="VARCHAR" property="doneflag"/>
+        
+    </resultMap>
+    <sql id="Base_Column_List">
+        Id, OrderInfoId, Proposer, ProposType, SubType, ProposMoney, ProposTime, ProposReason,
+        AuditStates, AuditFailReason, Auditor, AuditTime,doneflag
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_orderinfo_audit
+        where Id = #{id,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        DELETE FROM t_orderinfo_audit
+        WHERE Id = #{id,jdbcType=BIGINT}
+    </delete>
+    <insert id="insertOrderinfoAudit" parameterType="com.kxjl.tasktransferplat.pojo.OrderinfoAudit">
+        INSERT INTO t_orderinfo_audit (Id, OrderInfoId, Proposer,
+                                       ProposType, SubType, ProposMoney,
+                                       ProposTime, ProposReason, AuditStates,
+                                       AuditFailReason, Auditor, AuditTime
+        )
+        VALUES (#{id,jdbcType=BIGINT}, #{orderInfoId,jdbcType=BIGINT}, #{proposer,jdbcType=BIGINT},
+                                       #{proposType,jdbcType=INTEGER}, #{subType,jdbcType=INTEGER},
+                                       #{proposMoney,jdbcType=DECIMAL},
+                                       #{proposTime,jdbcType=VARCHAR}, #{proposReason,jdbcType=VARCHAR},
+                                       #{auditStates,jdbcType=INTEGER},
+                                       #{auditFailReason,jdbcType=VARCHAR}, #{auditor,jdbcType=VARCHAR},
+                #{auditTime,jdbcType=VARCHAR}
+        )
+    </insert>
+    <insert id="insertSelective" parameterType="com.kxjl.tasktransferplat.pojo.OrderinfoAudit">
+        insert into t_orderinfo_audit
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                Id,
+            </if>
+            <if test="orderInfoId != null">
+                OrderInfoId,
+            </if>
+            <if test="proposer != null">
+                Proposer,
+            </if>
+            <if test="proposType != null">
+                ProposType,
+            </if>
+            <if test="subType != null">
+                SubType,
+            </if>
+            <if test="proposMoney != null">
+                ProposMoney,
+            </if>
+            <if test="proposTime != null">
+                ProposTime,
+            </if>
+            <if test="proposReason != null">
+                ProposReason,
+            </if>
+            <if test="auditStates != null">
+                AuditStates,
+            </if>
+            <if test="auditFailReason != null">
+                AuditFailReason,
+            </if>
+            <if test="auditor != null">
+                Auditor,
+            </if>
+            <if test="auditTime != null">
+                AuditTime,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="orderInfoId != null">
+                #{orderInfoId,jdbcType=BIGINT},
+            </if>
+            <if test="proposer != null">
+                #{proposer,jdbcType=BIGINT},
+            </if>
+            <if test="proposType != null">
+                #{proposType,jdbcType=INTEGER},
+            </if>
+            <if test="subType != null">
+                #{subType,jdbcType=INTEGER},
+            </if>
+            <if test="proposMoney != null">
+                #{proposMoney,jdbcType=DECIMAL},
+            </if>
+            <if test="proposTime != null">
+                #{proposTime,jdbcType=VARCHAR},
+            </if>
+            <if test="proposReason != null">
+                #{proposReason,jdbcType=VARCHAR},
+            </if>
+            <if test="auditStates != null">
+                #{auditStates,jdbcType=INTEGER},
+            </if>
+            <if test="auditFailReason != null">
+                #{auditFailReason,jdbcType=VARCHAR},
+            </if>
+            <if test="auditor != null">
+                #{auditor,jdbcType=VARCHAR},
+            </if>
+            <if test="auditTime != null">
+                #{auditTime,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.kxjl.tasktransferplat.pojo.OrderinfoAudit">
+        update t_orderinfo_audit
+        <set>
+            <if test="orderInfoId != null">
+                OrderInfoId = #{orderInfoId,jdbcType=BIGINT},
+            </if>
+            <if test="proposer != null">
+                Proposer = #{proposer,jdbcType=BIGINT},
+            </if>
+            <if test="proposType != null">
+                ProposType = #{proposType,jdbcType=INTEGER},
+            </if>
+            <if test="subType != null">
+                SubType = #{subType,jdbcType=INTEGER},
+            </if>
+            <if test="proposMoney != null">
+                ProposMoney = #{proposMoney,jdbcType=DECIMAL},
+            </if>
+            <if test="proposTime != null">
+                ProposTime = #{proposTime,jdbcType=VARCHAR},
+            </if>
+            <if test="proposReason != null">
+                ProposReason = #{proposReason,jdbcType=VARCHAR},
+            </if>
+            <if test="auditStates != null">
+                AuditStates = #{auditStates,jdbcType=INTEGER},
+            </if>
+            <if test="auditFailReason != null">
+                AuditFailReason = #{auditFailReason,jdbcType=VARCHAR},
+            </if>
+            <if test="auditor != null">
+                Auditor = #{auditor,jdbcType=VARCHAR},
+            </if>
+            <if test="auditTime != null">
+                AuditTime = #{auditTime,jdbcType=VARCHAR},
+            </if>
+            <if test="doneflag != null">
+                doneflag = #{doneflag,jdbcType=VARCHAR},
+            </if>
+            
+            
+        </set>
+        where Id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.kxjl.tasktransferplat.pojo.OrderinfoAudit">
+        UPDATE t_orderinfo_audit
+        SET OrderInfoId     = #{orderInfoId,jdbcType=BIGINT},
+            Proposer        = #{proposer,jdbcType=BIGINT},
+            ProposType      = #{proposType,jdbcType=INTEGER},
+            SubType         = #{subType,jdbcType=INTEGER},
+            ProposMoney     = #{proposMoney,jdbcType=DECIMAL},
+            ProposTime      = #{proposTime,jdbcType=VARCHAR},
+            ProposReason    = #{proposReason,jdbcType=VARCHAR},
+            AuditStates     = #{auditStates,jdbcType=INTEGER},
+            AuditFailReason = #{auditFailReason,jdbcType=VARCHAR},
+            Auditor         = #{auditor,jdbcType=VARCHAR},
+            AuditTime       = #{auditTime,jdbcType=VARCHAR}
+        WHERE Id = #{id,jdbcType=BIGINT}
+    </update>
+
+
+    <select id="selectOwnList"
+            resultMap="BaseResultMap"
+            parameterType="com.kxjl.tasktransferplat.pojo.OrderinfoAudit">
+        select
+        c.Id,c.OrderInfoId,c.Proposer,c.ProposType,c.SubType,
+        c.ProposMoney,DATE_FORMAT(c.ProposTime, '%Y-%m-%d %H:%i:%S') ProposTime,c.ProposReason,c.AuditStates,
+        c.AuditFailReason,c.Auditor,DATE_FORMAT(c.AuditTime, '%Y-%m-%d %H:%i:%S') AuditTime,c.icons,m.NICKNAME auditorName
+        from t_orderinfo_audit c
+        left join manager m on c.auditor=m.id
+
+        where 1=1
+        <if test=" id !=null and id !='' ">
+            and c.id = #{id}
+        </if>
+
+        <if test=" proposType !=null and proposType !='' ">
+            and c.proposType = #{proposType}
+        </if>
+
+        <if test=" auditStates !=null and auditStates !='' ">
+            and c.auditStates = #{auditStates}
+        </if>
+
+
+        <if test=" orderInfoId !=null and orderInfoId !='' ">
+            and c.OrderInfoId like concat ('%', #{orderInfoId},'%')
+        </if>
+
+
+        <if test=" proposer !=null and proposer !='' ">
+            and c.Proposer like concat ('%', #{proposer},'%')
+        </if>
+
+
+    </select>
+
+
+    <select id="selectOrderInfoAudit"
+            resultMap="BaseResultMap"
+            parameterType="com.kxjl.tasktransferplat.pojo.OrderinfoAudit">
+        select
+        c.*,m.NICKNAME auditorName
+        from t_orderinfo_audit c
+        left join manager m on c.auditor=m.id
+
+        where c.OrderInfoId = #{orderInfoId}
+    </select>
+
+
+    <select id="selectPage"
+            resultMap="BaseResultMap"
+            parameterType="com.kxjl.tasktransferplat.pojo.OrderinfoAudit">
+        select
+        <include refid="Base_Column_List"/>
+        from t_orderinfo_audit c
+
+        where 1=1
+        <if test=" id !=null and id !='' ">
+            and c.id = #{id}
+        </if>
+
+
+        <if test=" orderInfoId !=null and orderInfoId !='' ">
+            and c.OrderInfoId like concat ('%', #{orderInfoId},'%')
+        </if>
+
+
+        <if test=" proposer !=null and proposer !='' ">
+            and c.Proposer like concat ('%', #{proposer},'%')
+        </if>
+
+
+    </select>
+    <select id="selectAddMoney" resultType="com.kxjl.tasktransferplat.pojo.OrderinfoAudit" resultMap="BaseResultMap">
+        SELECT *
+        FROM t_orderinfo_audit
+        WHERE OrderInfoId = #{orderInfoId} AND ProposType = #{proposType}
+    </select>
+
+    <select id="selectOrderCount" resultType="java.util.Map">
+        SELECT
+        COUNT(1) AS orderNum,
+        MONTH(o.ProposTime) as month
+        FROM
+        t_orderinfo_audit o
+        left join t_orderinfo i on i.id=o.OrderInfoId
+
+        where DATE_FORMAT( o.ProposTime, '%Y%m' ) &lt;= DATE_FORMAT(now() , '%Y%m' ) and i.DataState=1
+        <if test=" proposTime !=null and proposTime !='' ">
+            and year(o.ProposTime)= #{proposTime}
+        </if>
+        <if test=" proposType !=null and proposType !='' ">
+            and o.ProposType= #{proposType}
+        </if>
+        <if test=" auditStates !=null and auditStates !=''or auditStates == 0 ">
+            and o.AuditStates= #{auditStates}
+        </if>
+        <if test=" enterpriseId !=null and enterpriseId !='' ">
+            and i.SellerId= #{enterpriseId}
+        </if>
+        GROUP BY MONTH(o.ProposTime)
+
+    </select>
+    <select id="selectEnterpriseCount" resultType="java.util.Map">
+        select * from (
+        select count(*)orderNum,date_format(o.ProposTime,'%Y')dayTime,e.EnterpriseName
+        from t_orderinfo_audit o
+        LEFT join manager m on o.Proposer=m.ID
+        LEFT JOIN t_locksmith_enterprise e on m.companyId=e.Id
+        where 1=1
+        <if test=" proposTime !=null and proposTime !='' ">
+            and date_format(o.ProposTime,'%Y')=#{proposTime}
+        </if>
+        <if test=" proposType !=null and proposType !='' ">
+            and o.ProposType= #{proposType}
+        </if>
+        <if test=" auditStates !=null and auditStates !=''or auditStates == 0 ">
+            and o.AuditStates= #{auditStates}
+        </if>
+        group by e.EnterpriseName
+        union select 0,#{proposTime},EnterpriseName
+        from t_locksmith_enterprise )aa GROUP BY EnterpriseName
+    </select>
+    <select id="selectNumCount" resultType="java.lang.Integer">
+        select count(*)num
+        from t_orderinfo_audit o
+        LEFT join t_orderinfo m on m.Id=o.OrderInfoId
+        where 1=1
+        <if test=" companyId !=null and companyId !='' ">
+            and m.SellerId= #{companyId}
+        </if>
+        <if test=" proposType !=null and proposType !='' ">
+            and o.proposType = #{proposType}
+        </if>
+        <if test=" auditStates !=null and auditStates !=''or auditStates == 0 ">
+            and o.AuditStates= #{auditStates}
+        </if>
+
+
+    </select>
+
+    <select id="selectCompanyCount" resultType="java.lang.Integer">
+        select count(*) num
+        from t_orderinfo_audit o
+        left join manager m on m.ID=o.Proposer
+        left join t_company c on m.companyId=c.Id
+        left join t_orderinfo i on i.id=o.OrderInfoId
+        where 1=1 and i.AreaCode=c.AreaCode
+        <if test=" proposType !=null and proposType !='' ">
+            and o.ProposType != #{proposType}
+        </if>
+        <if test=" auditStates !=null and auditStates !=''or auditStates == 0 ">
+            and o.AuditStates = #{auditStates}
+        </if>
+        <if test=" proposer !=null and proposer !='' ">
+            and o.Proposer= #{proposer}
+        </if>
+    </select>
+    <select id="selectCompanyAllCount" resultType="java.lang.Integer">
+        select count(*) num
+        from t_orderinfo_audit o
+        left join manager m on m.ID=o.Proposer
+        LEFT JOIN t_orderinfo t on t.Id=o.OrderInfoId
+        where 1=1
+        <if test=" type !=null and type !=''or type == 0  ">
+            and m.type=#{type}
+        </if>
+        <if test=" auditStates !=null and auditStates !=''or auditStates == 0 ">
+            and o.AuditStates = #{auditStates}
+        </if>
+        <if test=" auditor !=null and auditor !='' ">
+            and o.Auditor = #{auditor}
+        </if>
+        <if test=" companyId !=null and companyId !='' ">
+            and t.SellerId = #{companyId}
+        </if>
+    </select>
+    <select id="selectUserInfoAllCount" resultType="java.lang.Integer">
+        select count(*) num
+        from t_orderinfo_audit o
+        left join t_userinfo m on m.id=o.Proposer
+        left join t_orderinfo t on t.Id=o.OrderInfoId
+
+        where 1=1 and t.DataState=1
+        <if test=" auditStates !=null and auditStates !=''or auditStates == 0">
+            and o.AuditStates = #{auditStates}
+        </if>
+        <if test=" proposType !=null and proposType !='' ">
+            and o.proposType = #{proposType}
+        </if>
+        <if test=" auditor !=null and auditor !='' ">
+            and o.Auditor = #{auditor}
+        </if>
+        <if test=" companyId !=null and companyId !='' ">
+            and t.SellerId = #{companyId}
+        </if>
+        <if test=" auditStates == 0">
+            and o.ProposTime between #{startTime} and #{endTime}
+        </if>
+        <if test=" auditStates == null or auditStates == 1">
+            and o.AuditTime between #{startTime} and #{endTime}
+        </if>
+    </select>
+    <select id="selectEnterpriseOrderCount" resultType="java.util.Map">
+        SELECT
+        COUNT(1) AS orderNum,
+        MONTH(o.ProposTime) as month
+        FROM
+        t_orderinfo_audit o
+        LEFT JOIN manager m on o.Proposer=m.ID
+        LEFT JOIN t_orderinfo t on t.Id=o.OrderInfoId
+
+        where 1=1 and t.DataState=1
+        and DATE_FORMAT( o.ProposTime, '%Y%m' ) &lt;= DATE_FORMAT(now() , '%Y%m' )
+        <if test=" proposTime !=null and proposTime !='' ">
+            and year(o.ProposTime)= #{proposTime}
+        </if>
+        <if test=" type !=null and type !='' or type == 0">
+            and m.type=#{type}
+        </if>
+        <if test=" auditStates !=null and auditStates !=''or auditStates == 0 ">
+            and o.AuditStates= #{auditStates}
+        </if>
+        <if test=" auditor !=null and auditor !='' ">
+            and o.Auditor= #{auditor}
+        </if>
+        <if test=" companyId !=null and companyId !='' ">
+            and t.SellerId= #{companyId}
+        </if>
+        GROUP BY MONTH(o.ProposTime)
+    </select>
+    <select id="selectUserInfoOrderCount" resultType="java.util.Map">
+        SELECT
+        COUNT(1) AS orderNum,
+        MONTH(o.ProposTime) as month
+        FROM
+        t_orderinfo_audit o
+        left join t_userinfo m on m.id=o.Proposer
+        left join t_orderinfo i on i.id=o.OrderInfoId
+        where DATE_FORMAT( o.ProposTime, '%Y%m' ) &lt;= DATE_FORMAT(now() , '%Y%m' ) and i.DataState=1
+        <if test=" proposTime !=null and proposTime !='' ">
+            and year(o.ProposTime)= #{proposTime}
+        </if>
+        <if test=" proposType !=null and proposType !='' ">
+            and o.proposType= #{proposType}
+        </if>
+        <if test=" auditStates !=null and auditStates !=''or auditStates == 0 ">
+            and o.AuditStates = #{auditStates}
+        </if>
+        <if test=" auditStates ==null ">
+            and o.AuditStates in (0,1,2,3)
+        </if>
+        <if test=" auditor !=null and auditor !='' ">
+            and o.Auditor = #{auditor}
+        </if>
+        <if test=" lockerId !=null and lockerId !='' ">
+            and i.LockerId = #{lockerId}
+        </if>
+        GROUP BY MONTH(o.ProposTime)
+    </select>
+    <select id="selectUserInfoOrderCountPass" resultType="java.util.Map">
+        SELECT
+        COUNT(1) AS orderNum,
+        MONTH(o.AuditTime) as month
+        FROM
+        t_orderinfo_audit o
+        left join t_userinfo m on m.id=o.Proposer
+        left join t_orderinfo i on i.id=o.OrderInfoId
+
+        where DATE_FORMAT( o.AuditTime, '%Y%m' ) &lt;= DATE_FORMAT(now() , '%Y%m' ) and i.DataState=1
+        <if test=" proposTime !=null and proposTime !='' ">
+            and year(o.AuditTime)= #{proposTime}
+        </if>
+        <if test=" proposType !=null and proposType !='' ">
+            and o.proposType= #{proposType}
+        </if>
+        <if test=" auditStates !=null and auditStates !=''or auditStates == 0 ">
+            and o.AuditStates = #{auditStates}
+        </if>
+        <if test=" auditor !=null and auditor !='' ">
+            and o.Auditor = #{auditor}
+        </if>
+        <if test=" companyId!=null and companyId !='' ">
+            and m.companyId = #{companyId}
+        </if>
+        <if test=" lockerId !=null and lockerId !='' ">
+            and i.LockerId = #{lockerId}
+        </if>
+        GROUP BY MONTH(o.AuditTime)
+    </select>
+
+
+    <delete id="delete"
+            parameterType="com.kxjl.tasktransferplat.pojo.OrderinfoAudit">
+	DELETE FROM t_orderinfo_audit
+
+        WHERE id = #{id,jdbcType=VARCHAR}
+
+    </delete>
+
+    <insert id="insertBatch">
+        INSERT INTO t_orderinfo_audit
+        (Id, OrderInfoId, Proposer, ProposType, SubType,
+        ProposMoney, ProposTime, ProposReason, AuditStates,
+        AuditFailReason, Auditor, AuditTime, icons)
+        VALUES
+        <foreach collection="list" item="audit" separator=",">
+            (#{audit.id}, #{audit.orderinfoId}, #{audit.proposer}, #{audit.proposType}, #{audit.subType},
+            #{audit.proposMoney}, NULL, #{audit.proposReason}, #{audit.auditStates},
+            NULL, NULL, NULL, #{audit.icons})
+        </foreach>
+    </insert>
+
+    <select id="partnerAuditLockerAddPriceOrderList" resultType="java.util.Map"
+            parameterType="java.lang.Long">
+    select o.Id,o.OrderInfoId,o.Proposer,o.ProposType,o.SubType,o.ProposMoney,o.ProposTime,
+    o.ProposReason,o.AuditStates,o.AuditFailReason,o.Auditor,DATE_FORMAT(o.AuditTime, '%Y-%m-%d %H:%i:%S') as AuditTime,o.icons,
+    userinfo.Name lockerName,userinfo.Phone lockerPhone,orderinfo.Id orderId,orderinfo.orderType,orderinfo.OrderNo orderNo
+    from t_orderinfo_audit o
+    LEFT join t_orderinfo orderinfo on orderinfo.Id=o.OrderInfoId
+    LEFT join t_userinfo userinfo on userinfo.Id=orderinfo.LockerId
+    where userinfo.companyId =  #{partnerId}
+    AND o.ProposType = 4
+    AND o.AuditStates = 6
+    AND orderinfo.DataState = 1
+    </select>
+    
+    <update id='updateAllAuditDone' parameterType="java.lang.String">
+    
+    update t_orderinfo_audit set doneFlag='1' where orderInfoId=#{orderInfoId}
+    </update>
+
+</mapper>

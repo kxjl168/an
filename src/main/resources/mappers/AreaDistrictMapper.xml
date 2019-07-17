@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kxjl.tasktransferplat.dao.plus.AreaDistrictMapper">
+    <insert id="generateData">
+        insert into t_area_province (id, ProvinceName, ProvinceCode)
+        values
+        <foreach collection="areaProvinceList" item="province" separator=",">
+            (#{province.id}, #{province.provinceName}, #{province.provinceCode})
+        </foreach>;
+
+        insert into t_area_city (id, CityName, CityCode, ProvinceId)
+        values
+        <foreach collection="areaCityList" item="city" separator=",">
+            (#{city.id}, #{city.cityName}, #{city.cityCode}, #{city.provinceId})
+        </foreach>;
+
+        insert into t_area_district (id, DistrictName, DistrictCode, CityId)
+        values
+        <foreach collection="areaDistrictList" item="district" separator=",">
+            (#{district.id}, #{district.districtName}, #{district.districtCode}, #{district.cityId})
+        </foreach>;
+    </insert>
+    <select id="getAreaCodeByNameInfo" resultType="com.kxjl.tasktransferplat.pojo.AreaDistrict">
+        SELECT
+            district.id,
+            districtName,
+            CONCAT(province.provinceCode, city.cityCode, district.districtCode) districtCode
+        FROM t_area_district district
+            LEFT JOIN t_area_city city ON district.CityId = city.id
+            LEFT JOIN t_area_province province ON province.id = city.ProvinceId
+        WHERE district.DistrictName = #{district}
+              AND city.CityName = #{city}
+              AND province.ProvinceName = #{province}
+    </select>
+
+    <select id="municipalityAllDistrict" resultType="com.kxjl.tasktransferplat.pojo.AreaDistrict">
+        SELECT
+            district.id                                  id,
+            districtName,
+            CONCAT(city.cityCode, district.districtCode) districtCode
+        FROM t_area_district district
+            LEFT JOIN t_area_city city ON district.CityId = city.id
+            LEFT JOIN t_area_province province ON province.id = city.ProvinceId
+        WHERE province.id = #{id}
+    </select>
+
+    <select id="getAreaDistrictCode" resultType="com.kxjl.tasktransferplat.pojo.AreaDistrict">
+        SELECT
+            district.id,
+            districtName,
+            districtCode
+        FROM t_area_district district
+            LEFT JOIN t_area_city city ON district.cityId = city.id
+            LEFT JOIN t_area_province province ON city.provinceId = province.id
+        WHERE concat(province.provinceCode, city.cityCode, district.districtCode) = ${cityCode}
+    </select>
+    
+    
+     <select id="getAreaDistrictByCityId" resultType="com.kxjl.tasktransferplat.pojo.AreaDistrict">
+        SELECT
+            district.id,
+            districtName,
+            districtCode
+        FROM t_area_district district
+            LEFT JOIN t_area_city city ON district.cityId = city.id
+          
+        WHERE city.id = ${cityId}
+    </select>
+    
+      <select id="getAreaDistrictByUserId" resultType="com.kxjl.tasktransferplat.pojo.AreaDistrict">
+        SELECT
+            district.id,
+            districtName,
+            districtCode
+        FROM t_userinfo_job_area jarea 
+            LEFT JOIN t_area_district district  ON jarea.districtId = district.id
+          
+        WHERE jarea.lockId = ${userId}
+    </select>
+    
+    
+    
+    
+    
+      <select id="selectMostLikeArea" resultType="java.util.Map">
+     select district.DistrictName district,city.CityName city,province.ProvinceName province
+        FROM t_area_district district
+            LEFT JOIN t_area_city city ON district.CityId = city.id
+            LEFT JOIN t_area_province province ON province.id = city.ProvinceId
+        WHERE concat(province.provincecode,city.citycode)= #{areaCode}
+limit 1
+    </select>
+    
+    
+    <select id="selectAll" resultType="java.util.Map">
+        select concat(province.provinceCode, city.cityCode, district.districtCode) areacode,district.DistrictName district,city.CityName city,province.ProvinceName province
+        FROM t_area_district district
+            LEFT JOIN t_area_city city ON district.CityId = city.id
+            LEFT JOIN t_area_province province ON province.id = city.ProvinceId
+        WHERE district.id = ${areaCode}
+    </select>
+</mapper>

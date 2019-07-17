@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kxjl.tasktransferplat.dao.plus.OrderinfoMoneyQuestionMapper">
+    <resultMap id="BaseResultMap" type="com.kxjl.tasktransferplat.pojo.OrderinfoMoneyQuestion">
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="userId" jdbcType="BIGINT" property="userId"/>
+        <result column="orderInfoId" jdbcType="VARCHAR" property="orderInfoId"/>
+        <result column="messageContent" jdbcType="VARCHAR" property="messageContent"/>
+        <result column="backContent" jdbcType="VARCHAR" property="backContent"/>
+        <result column="doneContent" jdbcType="VARCHAR" property="doneContent"/>
+        <result column="createTime" jdbcType="VARCHAR" property="createTime"/>
+        <result column="serviceState" jdbcType="INTEGER" property="serviceState"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, userId, orderInfoId, messageContent, backContent, doneContent, createTime, serviceState
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_orderinfo_money_question
+        where id = #{id,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_orderinfo_money_question
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+    <insert id="insert" parameterType="com.kxjl.tasktransferplat.pojo.OrderinfoMoneyQuestion">
+    insert into t_orderinfo_money_question (id, userId, orderInfoId, 
+      messageContent, backContent, doneContent, 
+      createTime, serviceState)
+    values (#{id,jdbcType=VARCHAR}, #{userId,jdbcType=BIGINT}, #{orderInfoId,jdbcType=VARCHAR}, 
+      #{messageContent,jdbcType=VARCHAR}, #{backContent,jdbcType=VARCHAR}, #{doneContent,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=VARCHAR}, #{serviceState,jdbcType=INTEGER})
+  </insert>
+    <insert id="insertSelective" parameterType="com.kxjl.tasktransferplat.pojo.OrderinfoMoneyQuestion">
+        insert into t_orderinfo_money_question
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="userId != null">
+                userId,
+            </if>
+            <if test="orderInfoId != null">
+                orderInfoId,
+            </if>
+            <if test="messageContent != null">
+                messageContent,
+            </if>
+            <if test="backContent != null">
+                backContent,
+            </if>
+            <if test="doneContent != null">
+                doneContent,
+            </if>
+            <if test="createTime != null">
+                createTime,
+            </if>
+            <if test="serviceState != null">
+                serviceState,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="userId != null">
+                #{userId,jdbcType=BIGINT},
+            </if>
+            <if test="orderInfoId != null">
+                #{orderInfoId,jdbcType=VARCHAR},
+            </if>
+            <if test="messageContent != null">
+                #{messageContent,jdbcType=VARCHAR},
+            </if>
+            <if test="backContent != null">
+                #{backContent,jdbcType=VARCHAR},
+            </if>
+            <if test="doneContent != null">
+                #{doneContent,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=VARCHAR},
+            </if>
+            <if test="serviceState != null">
+                #{serviceState,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.kxjl.tasktransferplat.pojo.OrderinfoMoneyQuestion">
+        update t_orderinfo_money_question
+        <set>
+            <if test="userId != null">
+                userId = #{userId,jdbcType=BIGINT},
+            </if>
+            <if test="orderInfoId != null">
+                orderInfoId = #{orderInfoId,jdbcType=VARCHAR},
+            </if>
+            <if test="messageContent != null">
+                messageContent = #{messageContent,jdbcType=VARCHAR},
+            </if>
+            <if test="backContent != null">
+                backContent = #{backContent,jdbcType=VARCHAR},
+            </if>
+            <if test="doneContent != null">
+                doneContent = #{doneContent,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                createTime = #{createTime,jdbcType=VARCHAR},
+            </if>
+            <if test="serviceState != null">
+                serviceState = #{serviceState,jdbcType=INTEGER},
+            </if>
+        </set>
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.kxjl.tasktransferplat.pojo.OrderinfoMoneyQuestion">
+    update t_orderinfo_money_question
+    set userId = #{userId,jdbcType=BIGINT},
+      orderInfoId = #{orderInfoId,jdbcType=VARCHAR},
+      messageContent = #{messageContent,jdbcType=VARCHAR},
+      backContent = #{backContent,jdbcType=VARCHAR},
+      doneContent = #{doneContent,jdbcType=VARCHAR},
+      createTime = #{createTime,jdbcType=VARCHAR},
+      serviceState = #{serviceState,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+
+    <select id="selectList" resultType="java.util.Map">
+        select
+        question.*,orderinfo.Id orderId,orderinfo.OrderNo orderNo,userinfo.Name name,userinfo.Phone phone
+        from t_orderinfo_money_question question
+        LEFT JOIN t_userinfo userinfo ON question.userId = userinfo.Id
+        left JOIN t_orderinfo orderinfo ON question.orderInfoId = orderinfo.Id
+        where 1=1
+        <if test=" orderNo !=null and orderNo !='' ">
+            and orderinfo.OrderNo LIKE concat ('%',#{orderNo},'%')
+        </if>
+        <if test=" phone !=null and phone !='' ">
+            and userinfo.Phone LIKE concat ('%',#{phone},'%')
+        </if>
+        <if test=" serviceState !=null and serviceState !=''  ">
+            and question.serviceState = #{serviceState}
+        </if>
+    </select>
+    
+    
+
+    <delete id="delete"
+            parameterType="com.kxjl.tasktransferplat.pojo.OrderinfoMoneyQuestion">
+	delete from t_orderinfo_money_question
+
+	where id = #{id,jdbcType=VARCHAR}
+
+</delete>
+
+</mapper>

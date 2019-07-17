@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kxjl.tasktransferplat.dao.plus.PriceLockSmithBuildMapper">
+    <resultMap id="BaseResultMap" type="com.kxjl.tasktransferplat.pojo.PriceLockSmithBuild">
+        <id column="Id" jdbcType="BIGINT" property="id"/>
+        <result column="provinceCode" jdbcType="VARCHAR" property="provinceCode"/>
+        <result column="provinceName" jdbcType="VARCHAR" property="provinceName"/>
+        <result column="cityCode" jdbcType="VARCHAR" property="cityCode"/>
+        <result column="cityName" jdbcType="VARCHAR" property="cityName"/>
+        <result column="areaCode" jdbcType="VARCHAR" property="areaCode"/>
+        <result column="areaName" jdbcType="VARCHAR" property="areaName"/>
+        <result column="money" jdbcType="DECIMAL" property="money"/>
+        <result column="createTime" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="updateTime" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        Id, provinceCode,provinceName, cityCode,cityName, areaCode,areaName, money,createTime,updateTime
+    </sql>
+    <insert id="insert" parameterType="com.kxjl.tasktransferplat.pojo.PriceLockSmithBuild">
+        INSERT INTO price_lock_smith_build (Id,provinceCode,provinceName, cityCode,cityName,
+        money)
+        VALUES (#{id,jdbcType=BIGINT}, #{provinceCode,jdbcType=VARCHAR}, #{provinceName,jdbcType=VARCHAR}, #{cityCode,jdbcType=VARCHAR}
+        , #{cityName,jdbcType=VARCHAR}, #{money,jdbcType=DECIMAL})
+    </insert>
+    <delete id="deleteById" parameterType="java.lang.Long">
+        DELETE FROM price_lock_smith_build where Id = #{id,jdbcType=BIGINT};
+    </delete>
+    <update id="updateById" parameterType="com.kxjl.tasktransferplat.pojo.PriceLockSmithBuild">
+        UPDATE price_lock_smith_build
+        SET
+        money = #{money,jdbcType=DECIMAL}
+        WHERE Id = #{id}
+    </update>
+    <select id="selectById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from price_lock_smith_build
+        where Id = #{id,jdbcType=BIGINT}
+    </select>
+    <select id="selectByProvinceCode" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from price_lock_smith_build
+        where provinceCode = #{provinceCode,jdbcType=VARCHAR}
+    </select>
+    <select id="selectByCityCode" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from price_lock_smith_build
+        where cityCode = #{cityCode} AND provinceCode = #{provinceCode}
+    </select>
+
+    <select id="selectList" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/>
+        from price_lock_smith_build
+        where 1=1
+        <if test=" provinceCode !=null and provinceCode !='' ">
+            and price_lock_smith_build.provinceCode = #{provinceCode}
+        </if>
+        <if test=" cityCode !=null and cityCode !='' ">
+            and price_lock_smith_build.cityCode = #{cityCode}
+        </if>
+
+    </select>
+
+</mapper>

@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kxjl.tasktransferplat.dao.plus.UserinfoOperateLogMapper">
+  <resultMap id="BaseResultMap" type="com.kxjl.tasktransferplat.pojo.UserinfoOperateLog">
+    <id column="Id" jdbcType="VARCHAR" property="id" />
+    <result column="UserInfoId" jdbcType="VARCHAR" property="userInfoId" />
+    <result column="Content" jdbcType="VARCHAR" property="content" />
+    <result column="OperateUserId" jdbcType="VARCHAR" property="operateUserId" />
+    <result column="OperateTime" jdbcType="VARCHAR" property="operateTime" />
+    <result column="AuditId" jdbcType="BIGINT" property="auditId" />
+    
+    <result column="type" jdbcType="VARCHAR" property="type" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    Id, UserInfoId, Content, OperateUserId, OperateTime, AuditId,type
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_userinfo_operate_log
+    where Id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_userinfo_operate_log
+    where Id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.kxjl.tasktransferplat.pojo.UserinfoOperateLog">
+    insert into t_userinfo_operate_log (Id, UserInfoId, Content, 
+      OperateUserId, OperateTime, AuditId,type
+      )
+    values (#{id,jdbcType=VARCHAR}, #{userInfoId,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
+      #{operateUserId,jdbcType=VARCHAR}, #{operateTime,jdbcType=VARCHAR}, #{auditId,jdbcType=BIGINT},#{type,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.kxjl.tasktransferplat.pojo.UserinfoOperateLog">
+    insert into t_userinfo_operate_log
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        Id,
+      </if>
+      <if test="userInfoId != null">
+        UserInfoId,
+      </if>
+      <if test="content != null">
+        Content,
+      </if>
+      <if test="operateUserId != null">
+        OperateUserId,
+      </if>
+      <if test="operateTime != null">
+        OperateTime,
+      </if>
+      <if test="auditId != null">
+        AuditId,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="userInfoId != null">
+        #{userInfoId,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="operateUserId != null">
+        #{operateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="operateTime != null">
+        #{operateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="auditId != null">
+        #{auditId,jdbcType=BIGINT},
+      </if>
+        <if test="type != null">
+        #{type,jdbcType=VARCHAR}, 
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.kxjl.tasktransferplat.pojo.UserinfoOperateLog">
+    update t_userinfo_operate_log
+    <set>
+      <if test="userInfoId != null">
+        UserInfoId = #{userInfoId,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        Content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="operateUserId != null">
+        OperateUserId = #{operateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="operateTime != null">
+        OperateTime = #{operateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="auditId != null">
+        AuditId = #{auditId,jdbcType=BIGINT},
+      </if>
+        <if test="type != null">
+       type= #{type,jdbcType=VARCHAR}, 
+      </if>
+    </set>
+    where Id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.kxjl.tasktransferplat.pojo.UserinfoOperateLog">
+    update t_userinfo_operate_log
+    set UserInfoId = #{userInfoId,jdbcType=VARCHAR},
+      Content = #{content,jdbcType=VARCHAR},
+      OperateUserId = #{operateUserId,jdbcType=VARCHAR},
+      OperateTime = #{operateTime,jdbcType=VARCHAR},
+      AuditId = #{auditId,jdbcType=BIGINT}
+    where Id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+
+
+<select id="selectList"
+	resultMap="BaseResultMap"
+	parameterType="com.kxjl.tasktransferplat.pojo.UserinfoOperateLog">
+	select
+	c.*
+	 ,concat(case  when u.name is null then '' else u.name end,case  when m.NICKNAME is null then '' else m.NICKNAME end ) operateUserName 
+	from t_userinfo_operate_log c
+	 left join t_userinfo   u on u.id=c.OperateUserId
+left join manager  m on m.id=c.OperateUserId
+
+	where 1=1
+	<if test=" id !=null and id !='' ">
+		and c.id = #{id}
+	</if>
+	
+		
+		<if test=" userInfoId !=null and userInfoId !='' ">
+		and c.UserInfoId like concat ('%', #{userInfoId},'%')
+	</if>
+		
+			
+		
+		<if test=" content !=null and content !='' ">
+		and c.Content like concat ('%', #{content},'%')
+	</if>
+		
+		order by c.OperateTime desc 	
+
+
+</select>
+
+
+<select id="selectPage"
+	resultMap="BaseResultMap"
+	parameterType="com.kxjl.tasktransferplat.pojo.UserinfoOperateLog">
+	select
+	<include refid="Base_Column_List" />
+	from t_userinfo_operate_log c
+
+	where 1=1
+	<if test=" id !=null and id !='' ">
+		and c.id = #{id}
+	</if>
+	
+		
+		<if test=" userInfoId !=null and userInfoId !='' ">
+		and c.UserInfoId like concat ('%', #{userInfoId},'%')
+	</if>
+		
+			
+		
+		<if test=" content !=null and content !='' ">
+		and c.Content like concat ('%', #{content},'%')
+	</if>
+		
+			
+
+
+</select>
+
+
+<delete id="delete"
+	parameterType="com.kxjl.tasktransferplat.pojo.UserinfoOperateLog">
+	delete from t_userinfo_operate_log
+
+	where id = #{id,jdbcType=VARCHAR}
+
+</delete>
+
+</mapper>

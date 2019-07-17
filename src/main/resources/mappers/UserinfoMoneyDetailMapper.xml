@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kxjl.tasktransferplat.dao.plus.UserinfoMoneyDetailMapper">
+
+   <sql id="columns">
+       id, userinfoId, reasonType, reasonDes, changeValue, operateUserId, operateTime, totalPrice, effectiveId
+   </sql>
+
+    <select id="selectDriverList" resultType="java.util.Map" parameterType="java.lang.Long">
+        SELECT money_detail.Id,money_detail.UserinfoId,money_detail.ReasonType,money_detail.ReasonDes,
+        money_detail.ChangeValue,money_detail.OperateUserId,date_format(money_detail.OperateTime,'%Y-%m-%d %H:%i') OperateTime,money_detail.TotalPrice,
+        money_detail.EffectiveId,money_detail.moneyNo,orderinfo.orderCashType,orderinfo.OrderNo orderNo
+        FROM t_userinfo_money_detail money_detail
+        LEFT JOIN t_orderinfo orderinfo ON money_detail.EffectiveId = orderinfo.OrderNo
+        WHERE 1=1
+        AND money_detail.UserinfoId = #{userinfoId,jdbcType=BIGINT}
+    </select>
+    
+    
+    <select id="selectDetailList" resultType="com.kxjl.tasktransferplat.pojo.UserinfoMoneyDetail" parameterType="com.kxjl.tasktransferplat.pojo.Userinfo">
+       select d.*,u.name  from t_userinfo_money_detail d
+       left join t_userinfo u on d.UserinfoId=u.id
+       where 1=1
+       <if test="id != null and id !='' ">
+            AND u.id=#{id}
+        </if>
+        
+
+     <if test=" name !=null and name !='' ">
+            and u.Name like concat ('%', #{name},'%')
+        </if>
+        
+         <if test=" phone !=null and phone !='' ">
+            and u.Phone like concat ('%', #{phone},'%')
+        </if>
+      
+        
+        
+         <if test=" idCard !=null and idCard !='' ">
+            and u.idCard like concat ('%', #{idCard},'%')
+        </if>
+        
+        order by OperateTime desc
+    </select>
+ 
+</mapper>

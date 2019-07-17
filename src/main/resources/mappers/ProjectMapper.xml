@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kxjl.tasktransferplat.dao.plus.ProjectMapper">
+    <resultMap id="BaseResultMap" type="com.kxjl.tasktransferplat.pojo.Project">
+        <id column="Id" jdbcType="BIGINT" property="id"/>
+        <result column="ProjectName" jdbcType="VARCHAR" property="projectName"/>
+        <result column="AddressId" jdbcType="BIGINT" property="addressId"/>
+        <result column="AddressDetail" jdbcType="VARCHAR" property="addressDetail"/>
+        <result column="CreateTime" jdbcType="VARCHAR" property="createTime"/>
+        <result column="CompanyId" jdbcType="BIGINT" property="companyId"/>
+        <result column="CreateUser" jdbcType="VARCHAR" property="createUser"/>
+        <result column="Principal" jdbcType="VARCHAR" property="principal"/>
+        <result column="Province" jdbcType="VARCHAR" property="province"/>
+        <result column="City" jdbcType="VARCHAR" property="city"/>
+        <result column="District" jdbcType="VARCHAR" property="district"/>
+        <result column="AreaCode" jdbcType="VARCHAR" property="areaCode"/>
+        <result column="CustName" jdbcType="VARCHAR" property="custName"/>
+        <result column="CustPhone" jdbcType="VARCHAR" property="custPhone"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        Id, ProjectName, AddressId, AddressDetail, CreateTime, CompanyId, CreateUser, Principal,
+        Province, City, District, AreaCode
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_project
+        where Id = #{id,jdbcType=BIGINT} and ProjectState=1
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        DELETE FROM t_project
+        WHERE Id = #{id,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" parameterType="com.kxjl.tasktransferplat.pojo.Project">
+        INSERT INTO t_project (Id, ProjectName, AddressId,
+                               AddressDetail, CreateTime, CompanyId,
+                               CreateUser, Principal, Province,
+                               City, District, AreaCode
+        )
+        VALUES (#{id,jdbcType=BIGINT}, #{projectName,jdbcType=VARCHAR}, #{addressId,jdbcType=BIGINT},
+                                       #{addressDetail,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR},
+                                       #{companyId,jdbcType=BIGINT},
+                                       #{createUser,jdbcType=VARCHAR}, #{principal,jdbcType=VARCHAR},
+                                       #{province,jdbcType=VARCHAR},
+                                       #{city,jdbcType=VARCHAR}, #{district,jdbcType=VARCHAR},
+                #{areaCode,jdbcType=VARCHAR}
+        )
+    </insert>
+
+    <insert id="insertBatch" parameterType="com.kxjl.tasktransferplat.pojo.Project">
+        insert into t_project (Id, ProjectName, AddressId,
+        AddressDetail, CreateTime, CompanyId,
+        CreateUser, Principal, Province,
+        City, District, AreaCode
+        )
+        values
+        <foreach collection="list" item="project" separator=",">
+            (#{project.id,jdbcType=BIGINT}, #{project.projectName,jdbcType=VARCHAR},
+            #{project.addressId,jdbcType=BIGINT},
+            #{project.addressDetail,jdbcType=VARCHAR}, #{project.createTime,jdbcType=VARCHAR},
+            #{project.companyId,jdbcType=BIGINT},
+            #{project.createUser,jdbcType=VARCHAR}, #{project.principal,jdbcType=VARCHAR},
+            #{project.province,jdbcType=VARCHAR},
+            #{project.city,jdbcType=VARCHAR}, #{project.district,jdbcType=VARCHAR}, #{project.areaCode,jdbcType=VARCHAR}
+            )
+        </foreach>
+    </insert>
+    <insert id="insertSelective" parameterType="com.kxjl.tasktransferplat.pojo.Project">
+        insert into t_project
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                Id,
+            </if>
+            <if test="projectName != null">
+                ProjectName,
+            </if>
+            <if test="addressId != null">
+                AddressId,
+            </if>
+            <if test="addressDetail != null">
+                AddressDetail,
+            </if>
+            <if test="createTime != null">
+                CreateTime,
+            </if>
+            <if test="companyId != null">
+                CompanyId,
+            </if>
+            <if test="createUser != null">
+                CreateUser,
+            </if>
+            <if test="principal != null">
+                Principal,
+            </if>
+            <if test="province != null">
+                Province,
+            </if>
+            <if test="city != null">
+                City,
+            </if>
+            <if test="district != null">
+                District,
+            </if>
+            <if test="areaCode != null">
+                AreaCode,
+            </if>
+            <if test="custName != null">
+                CustName,
+            </if>
+            <if test="custPhone != null">
+                CustPhone,
+            </if>
+            <if test="projectState != null">
+                ProjectState,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="projectName != null">
+                #{projectName,jdbcType=VARCHAR},
+            </if>
+            <if test="addressId != null">
+                #{addressId,jdbcType=BIGINT},
+            </if>
+            <if test="addressDetail != null">
+                #{addressDetail,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=VARCHAR},
+            </if>
+            <if test="companyId != null">
+                #{companyId,jdbcType=BIGINT},
+            </if>
+            <if test="createUser != null">
+                #{createUser,jdbcType=VARCHAR},
+            </if>
+            <if test="principal != null">
+                #{principal,jdbcType=VARCHAR},
+            </if>
+            <if test="province != null">
+                #{province,jdbcType=VARCHAR},
+            </if>
+            <if test="city != null">
+                #{city,jdbcType=VARCHAR},
+            </if>
+            <if test="district != null">
+                #{district,jdbcType=VARCHAR},
+            </if>
+            <if test="areaCode != null">
+                #{areaCode,jdbcType=VARCHAR},
+            </if>
+            <if test="custName != null">
+                #{custName,jdbcType=VARCHAR},
+            </if>
+            <if test="custPhone != null">
+                #{custPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="projectState != null">
+                #{projectState,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.kxjl.tasktransferplat.pojo.Project">
+        update t_project
+        <set>
+            <if test="projectName != null">
+                ProjectName = #{projectName,jdbcType=VARCHAR},
+            </if>
+            <if test="addressId != null">
+                AddressId = #{addressId,jdbcType=BIGINT},
+            </if>
+            <if test="addressDetail != null">
+                AddressDetail = #{addressDetail,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                CreateTime = #{createTime,jdbcType=VARCHAR},
+            </if>
+            <if test="companyId != null">
+                CompanyId = #{companyId,jdbcType=BIGINT},
+            </if>
+            <if test="createUser != null">
+                CreateUser = #{createUser,jdbcType=VARCHAR},
+            </if>
+            <if test="principal != null">
+                Principal = #{principal,jdbcType=VARCHAR},
+            </if>
+            <if test="province != null">
+                Province = #{province,jdbcType=VARCHAR},
+            </if>
+            <if test="city != null">
+                City = #{city,jdbcType=VARCHAR},
+            </if>
+            <if test="district != null">
+                District = #{district,jdbcType=VARCHAR},
+            </if>
+            <if test="areaCode != null">
+                AreaCode = #{areaCode,jdbcType=VARCHAR},
+            </if>
+            <if test="custPhone != null">
+                CustPhone = #{custPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="custName != null">
+                CustName = #{custName,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where Id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.kxjl.tasktransferplat.pojo.Project">
+        UPDATE t_project
+        SET ProjectName   = #{projectName,jdbcType=VARCHAR},
+            AddressId     = #{addressId,jdbcType=BIGINT},
+            AddressDetail = #{addressDetail,jdbcType=VARCHAR},
+            CreateTime    = #{createTime,jdbcType=VARCHAR},
+            CompanyId     = #{companyId,jdbcType=BIGINT},
+            CreateUser    = #{createUser,jdbcType=VARCHAR},
+            Principal     = #{principal,jdbcType=VARCHAR},
+            Province      = #{province,jdbcType=VARCHAR},
+            City          = #{city,jdbcType=VARCHAR},
+            District      = #{district,jdbcType=VARCHAR},
+            AreaCode      = #{areaCode,jdbcType=VARCHAR}
+        WHERE Id = #{id,jdbcType=BIGINT}
+    </update>
+
+
+    <select id="selectList"
+            resultMap="BaseResultMap"
+            parameterType="com.kxjl.tasktransferplat.pojo.Project">
+        select
+        c.*,m1.CREATER
+        CreateUser,m2.CREATER Principal
+        from t_project c ,manager m1,manager m2
+
+        where 1=1 and  ProjectState=1 and
+        m1.id=c.CreateUser and c.Principal=m2.id
+
+        <if test=" id !=null and id !='' ">
+            and c.id = #{id}
+        </if>
+        <if test=" companyId !=null and companyId !='' ">
+            and c.companyId = #{companyId}
+        </if>
+
+        <if test=" projectName !=null and projectName !='' ">
+            and c.ProjectName like concat ('%', #{projectName},'%')
+        </if>
+
+        <if test=" addressDetail !=null and addressDetail !='' ">
+            and AddressDetail like concat ('%', #{addressDetail},'%')
+        </if>
+        <if test=" createUser !=null and createUser !='' ">
+            and CreateUser like concat ('%', #{createUser},'%')
+        </if>
+
+
+        order by c.CreateTime desc
+
+
+    </select>
+
+
+    <select id="selectPage"
+            resultMap="BaseResultMap"
+            parameterType="com.kxjl.tasktransferplat.pojo.Project">
+        select
+        <include refid="Base_Column_List"/>
+        from t_project c
+
+        where 1=1 AND ProjectState=1
+        <if test=" id !=null and id !='' ">
+            and c.id = #{id}
+        </if>
+
+
+        <if test=" projectName !=null and projectName !='' ">
+            and c.ProjectName like concat ('%', #{projectName},'%')
+        </if>
+
+
+        <if test=" addressId !=null and addressId !='' ">
+            and c.AddressId like concat ('%', #{addressId},'%')
+        </if>
+
+
+    </select>
+
+
+    <update id="delete"
+            parameterType="com.kxjl.tasktransferplat.pojo.Project">
+        update t_project set ProjectState=0  where id = #{id,jdbcType=VARCHAR}
+
+    </update>
+
+</mapper>

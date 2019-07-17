@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ztgm.tasktransferplat.dao.TUserinfoMapper">
+  <resultMap id="BaseResultMap" type="com.ztgm.tasktransferplat.pojo.TUserinfo">
+    <id column="Id" jdbcType="INTEGER" property="id" />
+    <result column="Phone" jdbcType="VARCHAR" property="phone" />
+    <result column="Password" jdbcType="VARCHAR" property="password" />
+    <result column="SessionKey" jdbcType="VARCHAR" property="sessionkey" />
+    <result column="Name" jdbcType="VARCHAR" property="name" />
+    <result column="CreateTime" jdbcType="VARCHAR" property="createtime" />
+    <result column="UpdateTime" jdbcType="VARCHAR" property="updatetime" />
+    <result column="CreateUser" jdbcType="VARCHAR" property="createuser" />
+    <result column="UpdateUser" jdbcType="VARCHAR" property="updateuser" />
+    <result column="UserType" jdbcType="INTEGER" property="usertype" />
+    <result column="DataState" jdbcType="INTEGER" property="datastate" />
+    <result column="FatherId" jdbcType="INTEGER" property="fatherid" />
+    <result column="Level" jdbcType="INTEGER" property="level" />
+    <result column="tempOldUserId" jdbcType="VARCHAR" property="tempolduserid" />
+    <result column="Sex" jdbcType="VARCHAR" property="sex" />
+    <result column="IdCard" jdbcType="VARCHAR" property="idcard" />
+    <result column="Des" jdbcType="VARCHAR" property="des" />
+    <result column="UserScore" jdbcType="INTEGER" property="userscore" />
+    <result column="GradedOrderCount" jdbcType="INTEGER" property="gradedordercount" />
+    <result column="WxOpenId" jdbcType="VARCHAR" property="wxopenid" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    Id, Phone, Password, SessionKey, Name, CreateTime, UpdateTime, CreateUser, UpdateUser, 
+    UserType, DataState, FatherId, Level, tempOldUserId, Sex, IdCard, Des, UserScore, 
+    GradedOrderCount, WxOpenId
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_userinfo
+    where Id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_userinfo
+    where Id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ztgm.tasktransferplat.pojo.TUserinfo">
+    insert into t_userinfo (Id, Phone, Password, 
+      SessionKey, Name, CreateTime, 
+      UpdateTime, CreateUser, UpdateUser, 
+      UserType, DataState, FatherId, 
+      Level, tempOldUserId, Sex, 
+      IdCard, Des, UserScore, 
+      GradedOrderCount, WxOpenId)
+    values (#{id,jdbcType=INTEGER}, #{phone,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{sessionkey,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{createtime,jdbcType=VARCHAR}, 
+      #{updatetime,jdbcType=VARCHAR}, #{createuser,jdbcType=VARCHAR}, #{updateuser,jdbcType=VARCHAR}, 
+      #{usertype,jdbcType=INTEGER}, #{datastate,jdbcType=INTEGER}, #{fatherid,jdbcType=INTEGER}, 
+      #{level,jdbcType=INTEGER}, #{tempolduserid,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, 
+      #{idcard,jdbcType=VARCHAR}, #{des,jdbcType=VARCHAR}, #{userscore,jdbcType=INTEGER}, 
+      #{gradedordercount,jdbcType=INTEGER}, #{wxopenid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ztgm.tasktransferplat.pojo.TUserinfo">
+    insert into t_userinfo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        Id,
+      </if>
+      <if test="phone != null">
+        Phone,
+      </if>
+      <if test="password != null">
+        Password,
+      </if>
+      <if test="sessionkey != null">
+        SessionKey,
+      </if>
+      <if test="name != null">
+        Name,
+      </if>
+      <if test="createtime != null">
+        CreateTime,
+      </if>
+      <if test="updatetime != null">
+        UpdateTime,
+      </if>
+      <if test="createuser != null">
+        CreateUser,
+      </if>
+      <if test="updateuser != null">
+        UpdateUser,
+      </if>
+      <if test="usertype != null">
+        UserType,
+      </if>
+      <if test="datastate != null">
+        DataState,
+      </if>
+      <if test="fatherid != null">
+        FatherId,
+      </if>
+      <if test="level != null">
+        Level,
+      </if>
+      <if test="tempolduserid != null">
+        tempOldUserId,
+      </if>
+      <if test="sex != null">
+        Sex,
+      </if>
+      <if test="idcard != null">
+        IdCard,
+      </if>
+      <if test="des != null">
+        Des,
+      </if>
+      <if test="userscore != null">
+        UserScore,
+      </if>
+      <if test="gradedordercount != null">
+        GradedOrderCount,
+      </if>
+      <if test="wxopenid != null">
+        WxOpenId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="sessionkey != null">
+        #{sessionkey,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null">
+        #{updatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="createuser != null">
+        #{createuser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateuser != null">
+        #{updateuser,jdbcType=VARCHAR},
+      </if>
+      <if test="usertype != null">
+        #{usertype,jdbcType=INTEGER},
+      </if>
+      <if test="datastate != null">
+        #{datastate,jdbcType=INTEGER},
+      </if>
+      <if test="fatherid != null">
+        #{fatherid,jdbcType=INTEGER},
+      </if>
+      <if test="level != null">
+        #{level,jdbcType=INTEGER},
+      </if>
+      <if test="tempolduserid != null">
+        #{tempolduserid,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="idcard != null">
+        #{idcard,jdbcType=VARCHAR},
+      </if>
+      <if test="des != null">
+        #{des,jdbcType=VARCHAR},
+      </if>
+      <if test="userscore != null">
+        #{userscore,jdbcType=INTEGER},
+      </if>
+      <if test="gradedordercount != null">
+        #{gradedordercount,jdbcType=INTEGER},
+      </if>
+      <if test="wxopenid != null">
+        #{wxopenid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ztgm.tasktransferplat.pojo.TUserinfo">
+    update t_userinfo
+    <set>
+      <if test="phone != null">
+        Phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        Password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="sessionkey != null">
+        SessionKey = #{sessionkey,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        Name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        CreateTime = #{createtime,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null">
+        UpdateTime = #{updatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="createuser != null">
+        CreateUser = #{createuser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateuser != null">
+        UpdateUser = #{updateuser,jdbcType=VARCHAR},
+      </if>
+      <if test="usertype != null">
+        UserType = #{usertype,jdbcType=INTEGER},
+      </if>
+      <if test="datastate != null">
+        DataState = #{datastate,jdbcType=INTEGER},
+      </if>
+      <if test="fatherid != null">
+        FatherId = #{fatherid,jdbcType=INTEGER},
+      </if>
+      <if test="level != null">
+        Level = #{level,jdbcType=INTEGER},
+      </if>
+      <if test="tempolduserid != null">
+        tempOldUserId = #{tempolduserid,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        Sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="idcard != null">
+        IdCard = #{idcard,jdbcType=VARCHAR},
+      </if>
+      <if test="des != null">
+        Des = #{des,jdbcType=VARCHAR},
+      </if>
+      <if test="userscore != null">
+        UserScore = #{userscore,jdbcType=INTEGER},
+      </if>
+      <if test="gradedordercount != null">
+        GradedOrderCount = #{gradedordercount,jdbcType=INTEGER},
+      </if>
+      <if test="wxopenid != null">
+        WxOpenId = #{wxopenid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ztgm.tasktransferplat.pojo.TUserinfo">
+    update t_userinfo
+    set Phone = #{phone,jdbcType=VARCHAR},
+      Password = #{password,jdbcType=VARCHAR},
+      SessionKey = #{sessionkey,jdbcType=VARCHAR},
+      Name = #{name,jdbcType=VARCHAR},
+      CreateTime = #{createtime,jdbcType=VARCHAR},
+      UpdateTime = #{updatetime,jdbcType=VARCHAR},
+      CreateUser = #{createuser,jdbcType=VARCHAR},
+      UpdateUser = #{updateuser,jdbcType=VARCHAR},
+      UserType = #{usertype,jdbcType=INTEGER},
+      DataState = #{datastate,jdbcType=INTEGER},
+      FatherId = #{fatherid,jdbcType=INTEGER},
+      Level = #{level,jdbcType=INTEGER},
+      tempOldUserId = #{tempolduserid,jdbcType=VARCHAR},
+      Sex = #{sex,jdbcType=VARCHAR},
+      IdCard = #{idcard,jdbcType=VARCHAR},
+      Des = #{des,jdbcType=VARCHAR},
+      UserScore = #{userscore,jdbcType=INTEGER},
+      GradedOrderCount = #{gradedordercount,jdbcType=INTEGER},
+      WxOpenId = #{wxopenid,jdbcType=VARCHAR}
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  
+
+
+<select id="selectList"
+	resultMap="BaseResultMap"
+	parameterType="com.ztgm.tasktransferplat.pojo.TUserinfo">
+	select
+	<include refid="Base_Column_List" />
+	from t_userinfo c
+
+	where 1=1
+	<if test=" id !=null and id !='' ">
+		and c.id = #{id}
+	</if>
+	
+		
+		<if test=" phone !=null and phone !='' ">
+		and c.Phone like concat ('%', #{phone},'%')
+	</if>
+		
+			
+		
+		<if test=" name !=null and name !='' ">
+		and c.Name like concat ('%', #{name},'%')
+	</if>
+		
+			
+		
+		<if test=" idCard !=null and idCard !='' ">
+		and c.IdCard like concat ('%', #{idCard},'%')
+	</if>
+		
+			
+		
+		<if test=" des !=null and des !='' ">
+		and c.Des like concat ('%', #{des},'%')
+	</if>
+		
+			
+
+
+</select>
+
+
+
+<delete id="delete"
+	parameterType="com.ztgm.tasktransferplat.pojo.TUserinfo">
+	delete from t_userinfo
+
+	where id = #{id,jdbcType=VARCHAR}
+
+</delete>
+
+</mapper>

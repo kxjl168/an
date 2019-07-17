@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kxjl.tasktransferplat.dao.plus.PriceLockCompanyMapper">
+    <resultMap id="BaseResultMap" type="com.kxjl.tasktransferplat.pojo.PriceLockCompany">
+        <id column="Id" jdbcType="BIGINT" property="id"/>
+        <result column="lockCompanyId" jdbcType="BIGINT" property="lockCompanyId"/>
+        <result column="serverType" property="serverType"/>
+        <result column="typeName" jdbcType="VARCHAR" property="typeName"/>
+        <result column="Price" jdbcType="DECIMAL" property="price"/>
+        <result column="parentType" jdbcType="INTEGER" property="parentType"/>
+        <result column="createTime" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="updateTime" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+    <resultMap id="LockCompanyResultMap" type="com.kxjl.tasktransferplat.pojo.LockCompany">
+        <id column="Id" jdbcType="BIGINT" property="id"/>
+        <result column="enterpriseName" jdbcType="VARCHAR" property="enterpriseName"/>
+        <result column="enterprisePhone" jdbcType="VARCHAR" property="enterprisePhone"/>
+        <result column="lockCompanyPriceId" jdbcType="BIGINT" property="lockCompanyPriceId"/>
+        <result column="serverType" property="serverType"/>
+        <result column="parentType" jdbcType="INTEGER" property="parentType"/>
+        <result column="typeName" jdbcType="VARCHAR" property="typeName"/>
+        <result column="price" jdbcType="DECIMAL" property="price"/>
+        <result column="createTime" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="updateTime" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        Id, lockCompanyId, serverType, typeName, Price,createTime,updateTime
+    </sql>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        DELETE FROM price_lock_company where Id = #{id,jdbcType=BIGINT};
+    </delete>
+    <delete id="deleteByLockCompanyId" parameterType="java.lang.Long">
+        DELETE FROM price_lock_company where lockCompanyId = #{lockCompanyId,jdbcType=BIGINT};
+    </delete>
+    <insert id="insert" parameterType="com.kxjl.tasktransferplat.pojo.PriceLockCompany">
+        INSERT INTO price_lock_company (Id, lockCompanyId, serverType,
+        typeName, Price,parentType)
+        VALUES (#{id,jdbcType=BIGINT}, #{lockCompanyId,jdbcType=BIGINT}, #{serverType},
+        #{typeName,jdbcType=DECIMAL}, #{price,jdbcType=DECIMAL}, #{parentType,jdbcType=INTEGER});
+    </insert>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from price_lock_company
+        LEFT JOIN t_locksmith_enterprise
+        ON t_locksmith_enterprise.`Id`=price_lock_company.`lockCompanyId`
+        where Id = #{id,jdbcType=BIGINT}
+        AND t_locksmith_enterprise.AuditFlag = 1
+    </select>
+    <update id="updateByPrimaryKey" parameterType="com.kxjl.tasktransferplat.pojo.PriceLockCompany">
+        UPDATE price_lock_company
+        SET Price = #{price,jdbcType=DECIMAL}
+        WHERE Id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByLockCompanyIdAndType" parameterType="com.kxjl.tasktransferplat.pojo.PriceLockCompany">
+        UPDATE price_lock_company
+        SET Price = #{price,jdbcType=DECIMAL}
+        WHERE lockCompanyId = #{lockCompanyId,jdbcType=BIGINT}
+        AND serverType = #{serverType}
+        AND parentType = #{parentType};
+    </update>
+    <select id="selectByLockCompanyId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        SELECT t_locksmith_enterprise.`Id` as id,t_locksmith_enterprise.`EnterpriseName` as enterpriseName
+        ,t_locksmith_enterprise.`EnterprisePhone` as enterprisePhone ,price_lock_company.Id as lockCompanyPriceId
+        ,price_lock_company.serverType,price_lock_company.typeName,price_lock_company.Price as price
+        ,price_lock_company.parentType,price_lock_company.createTime,price_lock_company.updateTime
+        FROM t_locksmith_enterprise
+        LEFT JOIN price_lock_company
+        ON t_locksmith_enterprise.`Id`=price_lock_company.`lockCompanyId`
+        WHERE t_locksmith_enterprise.Id = #{id,jdbcType=BIGINT}
+    </select>
+
+    <select id="selectByLockCompanyIdAndType" resultMap="LockCompanyResultMap" >
+        SELECT t_locksmith_enterprise.`Id` as id,t_locksmith_enterprise.`EnterpriseName` as enterpriseName
+        ,t_locksmith_enterprise.`EnterprisePhone` as enterprisePhone ,price_lock_company.Id as lockCompanyPriceId
+        ,price_lock_company.serverType,price_lock_company.typeName,price_lock_company.Price as price
+        ,price_lock_company.parentType,price_lock_company.createTime,price_lock_company.updateTime
+        FROM t_locksmith_enterprise
+        LEFT JOIN price_lock_company
+        ON t_locksmith_enterprise.`Id`=price_lock_company.`lockCompanyId`
+        WHERE t_locksmith_enterprise.Id = #{lockCompanyId,jdbcType=BIGINT}
+        AND price_lock_company.serverType = #{serverType}
+        AND price_lock_company.parentType = #{parentType}
+    </select>
+
+    <select id="selectList" parameterType="com.kxjl.tasktransferplat.pojo.LockCompany" resultMap="LockCompanyResultMap">
+        SELECT t_locksmith_enterprise.`Id` as id,t_locksmith_enterprise.`EnterpriseName` as enterpriseName
+        ,t_locksmith_enterprise.`EnterprisePhone` as enterprisePhone,price_lock_company.Id as lockCompanyPriceId
+        ,price_lock_company.serverType,price_lock_company.typeName,price_lock_company.Price as price
+        ,price_lock_company.parentType,price_lock_company.createTime,price_lock_company.updateTime
+        FROM t_locksmith_enterprise
+        LEFT JOIN price_lock_company
+        ON t_locksmith_enterprise.`Id`=price_lock_company.`lockCompanyId`
+        WHERE 1=1
+        AND price_lock_company.Price IS NOT NULL
+        AND t_locksmith_enterprise.AuditFlag = 1
+        <if test="  enterpriseName!=null and enterpriseName !='' ">
+            AND t_locksmith_enterprise.EnterpriseName like concat ('%', #{enterpriseName},'%')
+        </if>
+        <if test="  enterprisePhone!=null and enterprisePhone !='' ">
+            AND t_locksmith_enterprise.EnterprisePhone like concat ('%', #{enterprisePhone},'%')
+        </if>
+    </select>
+
+</mapper>

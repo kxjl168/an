@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kxjl.tasktransferplat.dao.plus.ManagerMessageMapper">
+    <resultMap id="BaseResultMap" type="com.kxjl.tasktransferplat.pojo.ManagerMessage">
+        <id column="Id" jdbcType="VARCHAR" property="id"/>
+        <result column="userId" jdbcType="VARCHAR" property="userId"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="content" jdbcType="VARCHAR" property="content"/>
+        <result column="type" jdbcType="VARCHAR" property="type"/>
+        <result column="isRead" jdbcType="INTEGER" property="isRead"/>
+        <result column="createrId" jdbcType="VARCHAR" property="createrId"/>
+        <result column="DataState" jdbcType="INTEGER" property="dataState"/>
+        <result column="createTime" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="readTime" jdbcType="TIMESTAMP" property="readTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        Id, userId, title, content, type,isRead,createrId,DataState,createTime,readTime
+    </sql>
+    <insert id="insert" parameterType="com.kxjl.tasktransferplat.pojo.ManagerMessage">
+        INSERT INTO manager_message (Id, userId, title, content, type,isRead,createrId,createTime)
+        VALUES (#{id,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR},
+        #{content,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{isRead,jdbcType=INTEGER},
+        #{createrId,jdbcType=VARCHAR},#{createTime,jdbcType=TIMESTAMP});
+    </insert>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        DELETE FROM manager_message where Id = #{id,jdbcType=VARCHAR};
+    </delete>
+    <update id="updateByPrimaryKey" parameterType="com.kxjl.tasktransferplat.pojo.ManagerMessage">
+        UPDATE manager_message
+        <set>
+            <if test="isRead != null and isRead !=''">
+                isRead = #{isRead,jdbcType=VARCHAR}
+            </if>
+            <if test="DataState != null and DataState !=''">
+                DataState = #{dataState,jdbcType=INTEGER}
+            </if>
+            <if test="readTime != null and readTime !=''">
+                readTime = #{readTime,jdbcType=TIMESTAMP}
+            </if>
+        </set>
+        WHERE Id = #{id,jdbcType=VARCHAR}
+    </update>
+    <update id="updateMessageReadByUserAndType" parameterType="com.kxjl.tasktransferplat.pojo.ManagerMessage">
+        UPDATE manager_message
+        SET isRead = 1
+        WHERE DataState = 1
+        AND userId = #{userId,jdbcType=VARCHAR}
+        AND isRead = 0
+        AND type = #{type,jdbcType=VARCHAR}
+    </update>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from manager_message
+        where Id = #{id,jdbcType=VARCHAR}
+        AND DataState=1
+    </select>
+    <select id="selectUnReadMsgCountByUser" parameterType="java.lang.String" resultType="java.util.Map">
+        SELECT type,count(*) num FROM manager_message
+        WHERE userId = #{userId,jdbcType=VARCHAR} AND DataState = 1 AND isRead=0
+        GROUP BY type
+    </select>
+    <select id="selectManagerMessageInsertUserList" parameterType="java.lang.String" resultType="java.util.Map">
+        SELECT sys_user_role.sys_user_id managerId
+        FROM sys_user_role
+        LEFT JOIN sys_role_messagetype
+        ON sys_user_role.sys_role_id = sys_role_messagetype.sys_role_id
+        WHERE sys_role_messagetype.manager_message_type = #{messageType,jdbcType=VARCHAR}
+    </select>
+
+</mapper>

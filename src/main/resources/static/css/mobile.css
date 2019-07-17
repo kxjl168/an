@@ -1,0 +1,81 @@
+@charset "UTF-8";
+
+@media ( max-width : 767px) {
+	.mobilehide {
+		display: none !important;
+	}
+	.mmobile {
+		width: 100%;
+		left: -75px !important;
+	}
+	.layout-panel-west {
+		display: none;
+	}
+	.dmenu {
+		position: absolute;
+		top: 100%;
+		left: 0;
+		z-index: 1000;
+		display: none;
+		float: left;
+		min-width: 180px;
+		padding: 5px 0;
+		margin: 2px 0 0;
+		font-size: 14px;
+		text-align: left;
+		list-style: none;
+		background-color: #fff;
+		-webkit-background-clip: padding-box;
+		background-clip: padding-box;
+		border: 1px solid #ccc;
+		border: 1px solid rgba(0, 0, 0, .15);
+		border-radius: 4px;
+		-webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+		box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+	}
+	.dmenu.open, .menu-two.open {
+		display: block !important;
+	}
+	.menu-two {
+		display: none;
+		background: #777;
+		padding-left: 15px;
+		line-height: 28px;
+	}
+	.menu1 {
+		padding-left: 5px;
+		line-height: 28px;
+		display: block;
+	}
+	.dmenu a {
+		color: #777;
+	}
+	.menu-two a {
+		color: white;
+	}
+	.menu-two-item {
+		
+	}
+	.mainbody {
+		height: auto; width100 %;
+		min-width: 280px!important;
+	}
+	
+	.col-xs-push-6{
+	left: 0px!important;
+	}
+	
+	.col-xs-push-6 .btn{
+	float: right;
+	}
+}
+
+@media ( min-width : 767px) {
+	.maxhide {
+		display: none !important;
+	}
+}
+
+.refreshBtn .a {
+	font-size: 14px;
+}

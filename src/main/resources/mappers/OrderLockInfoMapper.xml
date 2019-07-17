@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kxjl.tasktransferplat.dao.plus.OrderLockInfoMapper">
+  <resultMap id="BaseResultMap" type="com.kxjl.tasktransferplat.pojo.OrderLockInfo">
+    <id column="Id" jdbcType="VARCHAR" property="id" />
+    <result column="lockIndex" jdbcType="VARCHAR" property="lockIndex" />
+    <result column="OrderNo" jdbcType="VARCHAR" property="orderNo" />
+    <result column="imeiNum" jdbcType="VARCHAR" property="imeiNum" />
+    <result column="startimgs" jdbcType="VARCHAR" property="startimgs" />
+    <result column="lockimgs" jdbcType="VARCHAR" property="lockimgs" />
+    <result column="doneimgs" jdbcType="VARCHAR" property="doneimgs" />
+    <result column="picIndex" jdbcType="VARCHAR" property="picIndex" />
+    
+    <result column="CreateTime" jdbcType="VARCHAR" property="createTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    Id, lockIndex, OrderNo, imeiNum, startimgs, lockimgs, doneimgs, CreateTime,picIndex
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_order_lock_info
+    where Id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_order_lock_info
+    where Id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.kxjl.tasktransferplat.pojo.OrderLockInfo">
+    insert into t_order_lock_info (Id, lockIndex, OrderNo, 
+      imeiNum, startimgs, lockimgs, 
+      doneimgs, CreateTime)
+    values (#{id,jdbcType=VARCHAR}, #{lockIndex,jdbcType=VARCHAR}, #{orderNo,jdbcType=VARCHAR}, 
+      #{imeiNum,jdbcType=VARCHAR}, #{startimgs,jdbcType=VARCHAR}, #{lockimgs,jdbcType=VARCHAR}, 
+      #{doneimgs,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.kxjl.tasktransferplat.pojo.OrderLockInfo">
+    insert into t_order_lock_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        Id,
+      </if>
+      <if test="lockIndex != null">
+        lockIndex,
+      </if>
+      <if test="orderNo != null">
+        OrderNo,
+      </if>
+      <if test="imeiNum != null">
+        imeiNum,
+      </if>
+      <if test="startimgs != null">
+        startimgs,
+      </if>
+      <if test="lockimgs != null">
+        lockimgs,
+      </if>
+      <if test="doneimgs != null">
+        doneimgs,
+      </if>
+      <if test="createTime != null">
+        CreateTime,
+      </if>
+       <if test="picIndex != null">
+        picIndex,
+      </if>
+      
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="lockIndex != null">
+        #{lockIndex,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null">
+        #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="imeiNum != null">
+        #{imeiNum,jdbcType=VARCHAR},
+      </if>
+      <if test="startimgs != null">
+        #{startimgs,jdbcType=VARCHAR},
+      </if>
+      <if test="lockimgs != null">
+        #{lockimgs,jdbcType=VARCHAR},
+      </if>
+      <if test="doneimgs != null">
+        #{doneimgs,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=VARCHAR},
+      </if>
+        <if test="picIndex != null">
+            #{picIndex,jdbcType=VARCHAR}, 
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.kxjl.tasktransferplat.pojo.OrderLockInfo">
+    update t_order_lock_info
+    <set>
+      <if test="lockIndex != null">
+        lockIndex = #{lockIndex,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null">
+        OrderNo = #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="imeiNum != null">
+        imeiNum = #{imeiNum,jdbcType=VARCHAR},
+      </if>
+      <if test="startimgs != null">
+        startimgs = #{startimgs,jdbcType=VARCHAR},
+      </if>
+      <if test="lockimgs != null">
+        lockimgs = #{lockimgs,jdbcType=VARCHAR},
+      </if>
+      <if test="doneimgs != null">
+        doneimgs = #{doneimgs,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        CreateTime = #{createTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.kxjl.tasktransferplat.pojo.OrderLockInfo">
+    update t_order_lock_info
+    set lockIndex = #{lockIndex,jdbcType=VARCHAR},
+      OrderNo = #{orderNo,jdbcType=VARCHAR},
+      imeiNum = #{imeiNum,jdbcType=VARCHAR},
+      startimgs = #{startimgs,jdbcType=VARCHAR},
+      lockimgs = #{lockimgs,jdbcType=VARCHAR},
+      doneimgs = #{doneimgs,jdbcType=VARCHAR},
+      CreateTime = #{createTime,jdbcType=VARCHAR}
+    where Id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+
+
+<select id="selectList"
+	resultMap="BaseResultMap"
+	parameterType="com.kxjl.tasktransferplat.pojo.OrderLockInfo">
+	select
+	<include refid="Base_Column_List" />
+	from t_order_lock_info c
+
+	where 1=1
+	<if test=" id !=null and id !='' ">
+		and c.id = #{id}
+	</if>
+	
+		
+		<if test=" lockIndex !=null and lockIndex !='' ">
+		and c.lockIndex like concat ('%', #{lockIndex},'%')
+	</if>
+		
+			
+		
+		<if test=" orderNo !=null and orderNo !='' ">
+		and c.OrderNo like concat ('%', #{orderNo},'%')
+	</if>
+		
+			
+			order by c.lockIndex asc
+
+
+</select>
+
+
+<select id="selectPage"
+	resultMap="BaseResultMap"
+	parameterType="com.kxjl.tasktransferplat.pojo.OrderLockInfo">
+	select
+	<include refid="Base_Column_List" />
+	from t_order_lock_info c
+
+	where 1=1
+	<if test=" id !=null and id !='' ">
+		and c.id = #{id}
+	</if>
+	
+		
+		<if test=" lockIndex !=null and lockIndex !='' ">
+		and c.lockIndex like concat ('%', #{lockIndex},'%')
+	</if>
+		
+			
+		
+		<if test=" orderNo !=null and orderNo !='' ">
+		and c.OrderNo like concat ('%', #{orderNo},'%')
+	</if>
+		
+			
+
+
+</select>
+
+      
+      
+<delete id="delete"
+	parameterType="com.kxjl.tasktransferplat.pojo.OrderLockInfo">
+	delete from t_order_lock_info
+
+	where id = #{id,jdbcType=VARCHAR}
+
+</delete>
+
+
+<delete id="delete"
+	parameterType="com.kxjl.tasktransferplat.pojo.OrderLockInfo">
+	delete from t_order_lock_info
+
+	where id = #{id,jdbcType=VARCHAR}
+
+</delete>
+
+</mapper>

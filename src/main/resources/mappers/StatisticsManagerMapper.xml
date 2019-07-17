@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kxjl.tasktransferplat.dao.plus.StatisticsManagerMapper">
+
+    <select id="selectCustomerServiceList" resultType="com.kxjl.tasktransferplat.pojo.CustomerService"
+            parameterType="com.kxjl.tasktransferplat.pojo.CustomerService">
+
+SELECT
+            date_format(createTime,'%Y-%m') as creatTime,
+            sum(receiveCount) as receiveCount,
+            sum(doneCount) as doneCount,
+            sum(receiveTimeOutCount) as receiveTimeOutCount,
+            sum(despatchTimeOutCount) as despatchTimeOutCount,
+            sum(inquireCount) as inquireCount,
+            sum(inquireTimeOutCount) as inquireTimeOutCount,
+            sum(enComplainCount) as enComplainCount,
+            sum(cuComplainCount) as cuComplainCount
+
+FROM(
+
+        SELECT
+        filter.*,e.Id as EnterpriseId,m.NICKNAME
+        FROM(
+        select
+        rst.*,
+
+        case when TIMESTAMPDIFF(hour,createTime,receiveTime)>=2  then 1 else 0 end   receiveTimeOutCount,
+        case when TIMESTAMPDIFF(hour,receiveTime,despatchTime)>=2  then 1 else 0 end   despatchTimeOutCount,
+        case when TIMESTAMPDIFF(hour,doneTime,inquireTime)>=24  then 1 else 0 end   inquireTimeOutCount
+
+        FROM (
+        SELECT
+        tempTable.orderId,
+        tempTable.createTime,
+        max(tempTable.status) status,
+        max(case tempTable.status when 1 then tempTable.operateTime else NULL end) as receiveTime,
+        max(case tempTable.status when 2 then tempTable.operateTime else NULL end) as despatchTime,
+        max(case tempTable.status when 3 then tempTable.operateTime else NULL end) as doneTime,
+        max(case tempTable.status when 4 then tempTable.operateTime else NULL end) as inquireTime,
+        max(case tempTable.status when 5 then tempTable.operateTime else NULL end) as enComplainTime,
+        max(case tempTable.status when 6 then tempTable.operateTime else NULL end) as cuComplainTime,
+
+        count(case tempTable.status when 1 then 1 else null end) as receiveCount,
+        count(case tempTable.status when 3 then 1 else null end) as doneCount,
+        count(case tempTable.status when 4 then 1 else null end) as inquireCount,
+        count(case tempTable.status when 5 then 1 else null end) as enComplainCount,
+        count(case tempTable.status when 6 then 1 else null end) as cuComplainCount
+
+        FROM (
+        -- 接单
+        SELECT
+        op.OrderInfoId as orderId,max(op.OperateTime) as operateTime,t.CreateTime as createTime,1 status
+        FROM t_orderinfo_operate_log op
+        LEFT JOIN t_orderinfo t on op.OrderInfoId = t.ID
+        WHERE op.Type = 1 and op.subtype = 5 and t.DataState = 1
+            GROUP BY op.OrderInfoId
+        UNION ALL
+        -- 派单
+        SELECT
+        op.OrderInfoId as orderId,max(op.OperateTime) as operateTime,t.CreateTime as createTime,2 status
+        FROM t_orderinfo_operate_log op
+        LEFT JOIN t_orderinfo t on op.OrderInfoId = t.ID
+        WHERE op.Type = 1 and op.subtype = 1 and t.DataState = 1
+            GROUP BY op.OrderInfoId
+        UNION ALL
+        -- 完成
+        SELECT
+        op.OrderInfoId as orderId,max(op.OperateTime) as operateTime,t.CreateTime as createTime,3 status
+        FROM t_orderinfo_operate_log op
+        LEFT JOIN t_orderinfo t on op.OrderInfoId = t.ID
+        WHERE op.Type = 2 and op.subtype = 4 and t.DataState = 1 and  <![CDATA[(t.orderState >= 501 AND t.orderState < 599)]]>
+        GROUP BY op.OrderInfoId
+        UNION ALL
+        -- 回访
+        SELECT
+        op.OrderInfoId as orderId,max(op.OperateTime) as operateTime,t.CreateTime as createTime,4 status
+        FROM t_orderinfo_operate_log op
+        LEFT JOIN t_orderinfo t on op.OrderInfoId = t.ID
+        WHERE op.Type = 1 and op.subtype = 3 and t.DataState = 1
+            GROUP BY op.OrderInfoId
+        UNION ALL
+        -- 锁企投诉
+        SELECT
+        t.Id as orderId,e.createTime as operateTime,t.CreateTime as createTime,5 status
+        FROM t_locksmith_enterprise_complain e
+        LEFT JOIN t_orderinfo t   on t.ID = e.orderInfoId
+        UNION ALL
+        -- 客户投诉
+        SELECT
+        t.Id as orderId,c.createTime as operateTime,t.CreateTime as createTime,6 status
+        FROM  t_customer_complain c
+        LEFT JOIN  t_orderinfo t on t.ID = c.orderInfoId
+
+        ORDER BY orderId
+
+        ) as tempTable
+
+        GROUP BY orderId,createTime
+
+        ) rst GROUP BY orderId,createTime
+
+        ) filter
+        LEFT JOIN t_orderinfo o  on o.ID = filter.orderId
+        left join t_locksmith_enterprise e on e.Id = o.SellerId
+
+        LEFT JOIN t_orderinfo_operate_log log on filter.orderId = log.OrderInfoId and log.Type = 1 and log.subtype = 5
+        LEFT JOIN manager m on m.id = log.OperateUserId
+
+        where 1=1
+        <if test=" EnterpriseId!=null and EnterpriseId!='' ">
+            and e.Id= #{EnterpriseId,jdbcType=VARCHAR}
+        </if>
+        <if test=" creatTime!=null and creatTime!='' ">
+            and date_format( o.CreateTime,'%Y') =#{creatTime}
+        </if>
+        <if test=" nickName!=null and nickName!='' ">
+            and m.NICKNAME= #{nickName,jdbcType=VARCHAR}
+        </if>
+            )result GROUP BY date_format(createTime,'%Y-%m')
+
+    </select>
+
+</mapper>
