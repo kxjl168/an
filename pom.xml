@@ -28,7 +28,7 @@
 
 
 	<!-- 本地仓库 api-common -->
-	<repositories>
+<!-- 	<repositories>
 		<repository>
 			<id>local-repository</id>
 			<url>http://192.168.100.11:8081/repository/maven-public</url>
@@ -37,10 +37,10 @@
 			</snapshots>
 		</repository>
 
-	</repositories>
+	</repositories> -->
 
 	<build>
-		<finalName>ttfplat</finalName>
+		<finalName>video</finalName>
 
 
 		<resources>
@@ -120,8 +120,7 @@
 		</dependency>
 
 
-		
-
+	
 		<dependency>
 			<groupId>commons-httpclient</groupId>
 			<artifactId>commons-httpclient</artifactId>
@@ -372,12 +371,12 @@
 			<artifactId>httpclient</artifactId>
 			<version>4.5.5</version>
 		</dependency>
-		<dependency>
+		<!-- <dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpcore</artifactId>
 			<version>4.4.9</version>
 		</dependency>
-
+ -->
 
 		<dependency>
 			<groupId>com.aliyun</groupId>
@@ -460,7 +459,7 @@
 				<websocket-path>wss://192.168.100.41:</websocket-path>
 
 				<database.jdbc>
-					<![CDATA[jdbc:mysql://192.168.100.126:3306/lockschema?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true]]></database.jdbc>
+					<![CDATA[jdbc:mysql://192.168.31.239:3306/ttfp?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true]]></database.jdbc>
 				<database.username>root</database.username>
 				<database.password>123456</database.password> 
 				
@@ -473,12 +472,12 @@
 				
 				
 				
-				<database.mongodb>mongodb://dbuser:123@192.168.100.194:27017/test</database.mongodb>
+				<!-- <database.mongodb>mongodb://dbuser:123@192.168.100.194:27017/test</database.mongodb>
 
 				<redis.host>192.168.100.194</redis.host>
 				<redis.password>om1G*kkPi^rOwPxE</redis.password>
 				<redis.port>6379</redis.port>
-				<node.ipPort>192.168.100.119</node.ipPort>
+				<node.ipPort>192.168.100.119</node.ipPort> -->
 
 				<aes.aesPass>AdfaildfIAVBS112931dfgpwe</aes.aesPass>
 				<weblock.url>http://ztgmwl.com:9004/lock_test</weblock.url>
@@ -535,8 +534,8 @@
 				<login.wxsecret>7f38eed959a07a233a1e512fd1a67052</login.wxsecret>
 				<!--websocket地址-->
 				<websocket-path>ws://ztgmwl.com:</websocket-path>
-				<database.jdbc>
-					<![CDATA[jdbc:mysql://192.168.100.194:3306/lockschema?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true]]></database.jdbc>
+				<!-- <database.jdbc><![CDATA[jdbc:mysql://192.168.100.194:3306/lockschema?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true]]></database.jdbc> -->
+				<database.jdbc><![CDATA[jdbc:mysql://192.168.31.239:3306/ttfp?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true]]></database.jdbc>
 				<database.username>root</database.username>
 				<database.password>123456</database.password>
 

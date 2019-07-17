@@ -33,7 +33,7 @@ import java.security.NoSuchAlgorithmException;
  * @since 1.0.0
  */
 
-public class HttpClientManager {
+class HttpClientManager {
 	private static final Log log = LogFactory.getLog(HttpClientManager.class);
 	private static PoolingHttpClientConnectionManager connManager=null;
 	/**
@@ -149,7 +149,7 @@ public class HttpClientManager {
 	 * @param time
 	 */
 
-	public static void setRetryCount(int time){
+	protected static void setRetryCount(int time){
 		retryCount=time;
 	}
 	
@@ -157,7 +157,7 @@ public class HttpClientManager {
 	 * 返回一个可用的HttpClient实例
 	 * @return HttpClient实例
 	 */
-	public static HttpClient getHttpClient() {
+	protected static HttpClient getHttpClient() {
 		try{
 	        HttpClientBuilder httpClientBuilder= HttpClients.custom();
 	

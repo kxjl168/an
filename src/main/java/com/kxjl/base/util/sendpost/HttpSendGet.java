@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class HttpSendGet {
+	
 
     private static final Log log = LogFactory.getLog(HttpSendGet.class);
 
