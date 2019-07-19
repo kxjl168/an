@@ -429,17 +429,17 @@
 			<properties>
 
 
-				<kauto.templatePath>F:\\w3\\dbqj\\taskTransferPlat\\src\\main\\resources\\generator</kauto.templatePath>
-				<kauto.javaScanPath>F:\\w3\\dbqj\\taskTransferPlat\\src\\main\\java</kauto.javaScanPath>
+				<kauto.templatePath>F:\\kxjl\\wk\\anpro\\src\\main\\resources\\generator</kauto.templatePath>
+				<kauto.javaScanPath>F:\\kxjl\\wk\\anpro\\src\\main\\java</kauto.javaScanPath>
 
-				<kauto.pageScanPath>F:\\w3\dbqj\\taskTransferPlat\\src\\main\\resources\\static\\vendor\\pageAuto
+				<kauto.pageScanPath>F:\\kxjl\\wk\\anpro\\src\\main\\resources\\static\\vendor\\pageAuto
 				</kauto.pageScanPath>
 				<kauto.mysqljarPath>E:\\Program Files
 					(x86)\\Sybase\\mysql-connector-java-5.1.44.jar
 				</kauto.mysqljarPath>
 
-				<kauto.databaseSchema>lockschema</kauto.databaseSchema>
-					<kauto.basePacakge>com.ztgm.tasktransferplat</kauto.basePacakge>
+				<kauto.databaseSchema>video</kauto.databaseSchema>
+					<kauto.basePacakge>com.kxjl.video</kauto.basePacakge>
 				<kauto.author>zj</kauto.author>
 
 				<!-- 启动端口 -->
@@ -458,53 +458,76 @@
 				<!--websocket地址-->
 				<websocket-path>wss://192.168.100.41:</websocket-path>
 
-				<database.jdbc>
-					<![CDATA[jdbc:mysql://192.168.31.239:3306/ttfp?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true]]></database.jdbc>
+				<!-- <database.jdbc>
+					<![CDATA[jdbc:mysql://192.168.31.239:3306/ttfp?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true]]></database.jdbc> -->
+					
+					<database.jdbc>
+					<![CDATA[jdbc:mysql://192.168.100.126:3306/video?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true]]></database.jdbc>
+					
 				<database.username>root</database.username>
 				<database.password>123456</database.password> 
+	
 				
-			<!-- 	<database.jdbc>
-					<![CDATA[jdbc:mysql://rm-uf6877180pp16993hqo.mysql.rds.aliyuncs.com:3306/yuanjiang_new_v2?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true]]></database.jdbc>
-				<database.username>ymf</database.username>
-				<database.password>464314ymfQ</database.password> -->
-				
-				
-				
-				
-				
-				<!-- <database.mongodb>mongodb://dbuser:123@192.168.100.194:27017/test</database.mongodb>
-
-				<redis.host>192.168.100.194</redis.host>
-				<redis.password>om1G*kkPi^rOwPxE</redis.password>
-				<redis.port>6379</redis.port>
-				<node.ipPort>192.168.100.119</node.ipPort> -->
-
-				<aes.aesPass>AdfaildfIAVBS112931dfgpwe</aes.aesPass>
-				<weblock.url>http://ztgmwl.com:9004/lock_test</weblock.url>
-
  				<server.https.port>443</server.https.port>
                 
-                <ssl.key.file>1814121_yuanjiangtech.com.pfx</ssl.key.file>
-                <ssl.key.password>rPD1OQh4</ssl.key.password>
-
-				<!-- sms -->
-				<accessKeyId>LTAIeb8EWpoiWPFp</accessKeyId>
-				<accessKeySecret>ftZxNDI85eJsKiowYMzFGBBr8V3GFE</accessKeySecret>
-				<signName>源匠科技</signName>
-				<smsCode>SMS_166486788</smsCode>
-				<messageCode>SMS_167961813</messageCode>
-				<messageNormal>SMS_167971877</messageNormal>
-					<smsOrderCode>SMS_168725061</smsOrderCode>
-						<smsOrderCode2>122685070</smsOrderCode2>
-				<smsPhone>400-0770-180</smsPhone>
-				
-				<sms_boolean>true</sms_boolean>
-			  <sms.enable>true</sms.enable>
-                 <sms.test>false</sms.test>
-                 <sms.testPhones>15850508531,19822630264</sms.testPhones>
+               
 			</properties>
 			<activation>
 				<activeByDefault>true</activeByDefault>
+			</activation>
+		</profile>
+		
+		<profile>
+			<id>dev-zj2</id>
+			<!--可本地修改，避免影响其他开发 -->
+			<properties>
+
+
+				<kauto.templatePath>F:\\kxjl\\wk\\anpro\\src\\main\\resources\\generator</kauto.templatePath>
+				<kauto.javaScanPath>F:\\kxjl\\wk\\anpro\\src\\main\\java</kauto.javaScanPath>
+
+				<kauto.pageScanPath>F:\\kxjl\\wk\\anpro\\src\\main\\resources\\static\\vendor\\pageAuto
+				</kauto.pageScanPath>
+				<kauto.mysqljarPath>E:\\Program Files
+					(x86)\\Sybase\\mysql-connector-java-5.1.44.jar
+				</kauto.mysqljarPath>
+
+				<kauto.databaseSchema>video</kauto.databaseSchema>
+					<kauto.basePacakge>com.kxjl.video</kauto.basePacakge>
+				<kauto.author>zj</kauto.author>
+
+				<!-- 启动端口 -->
+				<server.port>7779</server.port>
+				<server.context-path><![CDATA[/an]]></server.context-path>
+				<!-- 源匠 微信小程序APPID -->
+				<!-- <login.wxappid>wx3825a56c5a9c1605</login.wxappid>
+				<login.wxsecret>7f38eed959a07a233a1e512fd1a67052</login.wxsecret> -->
+				
+				<!-- 调兵 -->
+				<!-- <login.wxappid>wx49a376bdfab05596</login.wxappid>
+				<login.wxsecret>ef8b0c598cc481e1cb3dd0cbb489df1e</login.wxsecret> -->
+				
+					<login.wxappid>wx3825a56c5a9c1605</login.wxappid>
+				<login.wxsecret>7f38eed959a07a233a1e512fd1a67052</login.wxsecret>
+				<!--websocket地址-->
+				<websocket-path>wss://192.168.100.41:</websocket-path>
+
+				 <database.jdbc>
+					<![CDATA[jdbc:mysql://192.168.31.239:3306/ttfp?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true]]></database.jdbc> 
+					
+					<!-- <database.jdbc>
+					<![CDATA[jdbc:mysql://192.168.100.126:3306/video?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true]]></database.jdbc>
+ -->					
+				<database.username>root</database.username>
+				<database.password>123456</database.password> 
+	
+				
+ 				<server.https.port>443</server.https.port>
+                
+               
+			</properties>
+			<activation>
+				<activeByDefault>false</activeByDefault>
 			</activation>
 		</profile>
 

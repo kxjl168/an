@@ -7,10 +7,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 import com.kxjl.base.pojo.Manager;
-import com.kxjl.tasktransferplat.pojo.ManagerMessage;
-import com.kxjl.tasktransferplat.service.ManagerMessageService;
-import com.kxjl.tasktransferplat.service.UserMessageService;
-import com.kxjl.tasktransferplat.util.TokenUtil;
+
 
 import javax.servlet.*;
 import java.io.IOException;
@@ -22,10 +19,7 @@ public class PrincipalFilter implements Filter {
 
 	  private Locale locale;
 	  
-	  @Autowired
-	  private ManagerMessageService managerMessageService;
-	  
-    @Override
+	
     public void init(FilterConfig filterConfig) throws ServletException {
         String localeStr = filterConfig.getInitParameter("locale");
         if (StringUtils.hasText(localeStr)) {

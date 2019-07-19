@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.socket.server.standard.ServerEndpointExporter;
 
 import com.kxjl.base.websocket.MyWebSocket;
-import com.kxjl.tasktransferplat.service.ManagerMessageService;
+//import com.kxjl.tasktransferplat.service.ManagerMessageService;
 
 /**
  * @Author: zhangyong
@@ -28,9 +28,9 @@ public class WebSocketConfig {
         return new ServerEndpointExporter() ;
     }
 
-    @Autowired
+    /*@Autowired
     public void setMessageService(ManagerMessageService managerMessageService){
         MyWebSocket.managerMessageService = managerMessageService;
-    }
+    }*/
 
 }

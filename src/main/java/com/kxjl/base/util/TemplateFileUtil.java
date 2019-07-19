@@ -14,8 +14,7 @@ import org.springframework.stereotype.Component;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.kxjl.base.pojo.CtrollerMapperBean;
-import com.kxjl.tasktransferplat.pojo.Address;
-import com.kxjl.tasktransferplat.pojo.Config;
+
 
 public class TemplateFileUtil {
 	private static Logger log = LoggerFactory.getLogger(TemplateFileUtil.class);

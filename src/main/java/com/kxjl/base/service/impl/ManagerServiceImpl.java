@@ -21,11 +21,7 @@ import com.kxjl.base.pojo.Manager;
 import com.kxjl.base.pojo.ManagerRole;
 import com.kxjl.base.service.ManagerService;
 import com.kxjl.base.util.UUIDUtil;
-import com.kxjl.tasktransferplat.dao.plus.CompanyMapper;
-import com.kxjl.tasktransferplat.dao.plus.LockCompanyMapper;
-import com.kxjl.tasktransferplat.pojo.Company;
-import com.kxjl.tasktransferplat.pojo.LockCompany;
-import com.kxjl.tasktransferplat.service.LockCompanyService;
+
 
 import java.math.BigInteger;
 import java.util.*;
@@ -42,12 +38,6 @@ public class ManagerServiceImpl implements ManagerService {
     private RoleMapper roleMapper;
     @Autowired
     private ManagerRoleMapper managerRoleMapper;
-    @Autowired
-    private LockCompanyMapper lockCompanyMapper;
-    @Autowired
-    private CompanyMapper companyMapper;
-
-	
 
 	/**
 	 * 登陆
@@ -101,28 +91,7 @@ public class ManagerServiceImpl implements ManagerService {
 		if (p != null)
 			page = PageHelper.startPage(p.getPage(), p.getPageRows());
 		List<Manager> list = managerMapper.selectManagerByManager(Manager);
-		if(null != list && list.size()>0) {
-            for (int i = 0;i<list.size();i++) {
-                Long companyId = list.get(i).getCompanyId();
-                switch (list.get(i).getType()){
-                    case 0:
-
-                        break;
-                    case 1:
-                        Company company = companyMapper.selectByPrimaryKey(companyId);
-                        if(company!=null){
-                            list.get(i).setCompanyName(company.getCompanyName());
-                        }
-                        break;
-                    case 2:
-                        LockCompany lockCompany = lockCompanyMapper.selectByPrimaryKey(companyId);
-                        if(lockCompany!=null){
-                            list.get(i).setCompanyName(lockCompany.getEnterpriseName());
-                        }
-                        break;
-                }
-            }
-        }
+		
 		PageInfo<Manager> rst=new PageInfo<>(list);
 		rst.setTotal(page.getTotal());
 		rst.setPageNum(page.getPageNum());
@@ -131,43 +100,7 @@ public class ManagerServiceImpl implements ManagerService {
 		
     }
 
-    @Override
-    public PageInfo<Manager> selectLockCompanyByManager(PageManager p,Manager Manager) {
-
-        Page page = new Page();
-        if (p != null)
-            page = PageHelper.startPage(p.getPage(), p.getPageRows());
-        List<Manager> list = managerMapper.selectLockCompanyByManager(Manager);
-        if(null != list && list.size()>0) {
-            for (int i = 0;i<list.size();i++) {
-                Long companyId = list.get(i).getCompanyId();
-                switch (list.get(i).getType()){
-                    case 0:
-
-                        break;
-                    case 1:
-                        Company company = companyMapper.selectByPrimaryKey(companyId);
-                        if(company!=null){
-                            list.get(i).setCompanyName(company.getCompanyName());
-                        }
-                        break;
-                    case 2:
-                        LockCompany lockCompany = lockCompanyMapper.selectByPrimaryKey(companyId);
-                        if(lockCompany!=null){
-                            list.get(i).setCompanyName(lockCompany.getEnterpriseName());
-                        }
-                        break;
-                }
-            }
-        }
-        PageInfo<Manager> rst=new PageInfo<>(list);
-        rst.setTotal(page.getTotal());
-        rst.setPageNum(page.getPageNum());
-        rst.setPageSize(page.getPageSize());
-        return rst;
-
-    }
-
+   
     @Override
     @Transactional
     public Map initSuperAdmin(Manager Manager) {
@@ -179,7 +112,7 @@ public class ManagerServiceImpl implements ManagerService {
             Manager.setId(UUIDUtil.getUUID());
 
             Manager.setCreateDate(new Date());
-            Manager.setCreater("0");
+            
             managerMapper.insert(Manager);
 
             // 查询管理员角色信息
@@ -303,7 +236,7 @@ public class ManagerServiceImpl implements ManagerService {
             Manager.setId(UUIDUtil.getUUID());
             Manager.stPasswordAndEncrype(Manager.getPassword());
             Manager.setCreateDate(new Date());
-            Manager.setCreater("0");
+            
             managerMapper.insertSelective(Manager);
 
             // 添加
@@ -403,17 +336,7 @@ public class ManagerServiceImpl implements ManagerService {
     public List<Map> selectManagerByManager(Map conditions) {
     	
         List<Map> mapList = managerMapper.selectManagerByMap(conditions);
-        if(null != mapList && mapList.size()>0){
-            BigInteger companyId = (BigInteger) mapList.get(0).get("companyId");
-            int type = (Integer)mapList.get(0).get("type");
-            if(type == 1&&companyId!=null){
-                Company company = companyMapper.selectByPrimaryKey(companyId.longValue());
-                mapList.get(0).put("companyName",company.getCompanyName());
-            }else if(type == 2&&companyId!=null){
-                LockCompany lockCompany = lockCompanyMapper.selectByPrimaryKey(companyId.longValue());
-                mapList.get(0).put("companyName",lockCompany.getEnterpriseName());
-            }
-        }
+       
         return mapList;
     }
 

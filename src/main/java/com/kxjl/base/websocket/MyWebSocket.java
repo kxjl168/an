@@ -1,8 +1,6 @@
 package com.kxjl.base.websocket;
 
 import com.alibaba.fastjson.JSON;
-import com.kxjl.tasktransferplat.pojo.ManagerMessage;
-import com.kxjl.tasktransferplat.service.ManagerMessageService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,7 +22,7 @@ public class MyWebSocket {
 
     private static Logger logger = LoggerFactory.getLogger(MyWebSocket.class);
 
-    public static ManagerMessageService managerMessageService;
+    //public static ManagerMessageService managerMessageService;
 
     /**
      * 静态变量，用来记录当前在线连接数。应该把它设计成线程安全的。
@@ -109,8 +107,8 @@ public class MyWebSocket {
 
     private void sendInitMessage(String userId) {
         try {
-            ManagerMessage managerMessage = new ManagerMessage();
-            managerMessage.setUserId(userId);
+           // ManagerMessage managerMessage = new ManagerMessage();
+           // managerMessage.setUserId(userId);
           //  List<Map<String, String>> list = managerMessageService.selectUnReadMsgCountByUser(managerMessage);
           //  MyWebSocket.sendMessage(JSON.toJSONString(list), userId);
         } catch (Exception e) {

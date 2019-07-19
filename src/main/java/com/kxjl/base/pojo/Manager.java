@@ -32,23 +32,22 @@ public class Manager implements Serializable {
     
     private String id;
 
-    private String username;
+    private String userid;
 
     private String password;
 
     private String telephone;
 
-    private Integer telephoneVerified;
+
 
     private String token;
 
     private String time;
 
-    private String verifyKey;
-
+   
     private Date createDate;
 
-    private String creater;
+   
 
     private byte[] headImg;
 
@@ -63,7 +62,7 @@ public class Manager implements Serializable {
     
     private String icon;
     
-    private Long companyId;
+    private String unitId;
     
     //query
     private String userRole;
@@ -72,7 +71,7 @@ public class Manager implements Serializable {
     
     private String companyName;
 
-    private Integer type;
+    private Integer type=0;
 
     /**
      * 用户状态
@@ -87,13 +86,6 @@ public class Manager implements Serializable {
         this.id = id == null ? null : id.trim();
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username == null ? null : username.trim();
-    }
 
     public String getPassword() {
 
@@ -125,13 +117,7 @@ public class Manager implements Serializable {
         this.telephone = telephone == null ? null : telephone.trim();
     }
 
-    public Integer getTelephoneVerified() {
-        return telephoneVerified;
-    }
 
-    public void setTelephoneVerified(Integer telephoneVerified) {
-        this.telephoneVerified = telephoneVerified;
-    }
 
     public String getToken() {
         return token;
@@ -149,13 +135,7 @@ public class Manager implements Serializable {
         this.time = time == null ? null : time.trim();
     }
 
-    public String getVerifyKey() {
-        return verifyKey;
-    }
 
-    public void setVerifyKey(String verifyKey) {
-        this.verifyKey = verifyKey == null ? null : verifyKey.trim();
-    }
 
     public Date getCreateDate() {
         return createDate;
@@ -165,13 +145,7 @@ public class Manager implements Serializable {
         this.createDate = createDate;
     }
 
-    public String getCreater() {
-        return creater;
-    }
-
-    public void setCreater(String creater) {
-        this.creater = creater == null ? null : creater.trim();
-    }
+  
 
     public byte[] getHeadImg() {
         return headImg;
@@ -235,13 +209,7 @@ public class Manager implements Serializable {
 		this.icon = icon;
 	}
 
-	public Long getCompanyId() {
-		return companyId;
-	}
-
-	public void setCompanyId(Long companyId) {
-		this.companyId = companyId;
-	}
+	
 
 	public String getCompanyName() {
 		return companyName;

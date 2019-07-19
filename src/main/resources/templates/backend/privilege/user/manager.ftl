@@ -154,10 +154,10 @@
                                  <p class="need col-lg-1 control-label ">*</p>
                             </div>
 
-                            <div class="form-group">
+                            <div class="form-group hide">
                                 <label for="type" class="col-lg-3 control-label">用户类型</label>
                                 <div class="col-lg-8">
-                                    <input type="radio" name="type" checked value="0"> 系统用户  &nbsp;&nbsp;
+                                    <input type="radio" name="type" checked="checked" value="0"> 系统用户  &nbsp;&nbsp;
                                   <!--   <input type="radio" class="hide" name="type" value="1"> 代理人/合伙人  &nbsp;&nbsp; -->
                                  <!--    <input type="radio" class="hide" name="type" value="2"> 锁企用户  &nbsp; -->
                                     <p class="help-block"></p>

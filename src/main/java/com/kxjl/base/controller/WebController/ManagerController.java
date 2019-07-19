@@ -120,7 +120,7 @@ public class ManagerController extends BaseController {
 		 */
 
         Manager q = new Manager();
-        q.setUsername(name);
+        q.setUserid(name);
         
         q.setType(0);
         
@@ -195,8 +195,8 @@ public class ManagerController extends BaseController {
 
             if (null == user.getId() || "".equals(user.getId())) {
 
-                if (user.getUsername() == null || user.getUsername().equals(""))
-                    user.setUsername(user.getTelephone());
+                if (user.getUserid() == null || user.getUserid().equals(""))
+                    user.setUserid(user.getTelephone());
 
                 jsonObject = managerService.saveManager(user, menuids);
             } else {

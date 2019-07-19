@@ -54,13 +54,7 @@ public interface ManagerService {
 	 */
 	PageInfo<Manager> selectManagerByManager(PageManager p, Manager Manager);
 
-	/**
-	 * 通过Manager bean对象查询Manager 列表
-	 *
-	 * @param Manager
-	 * @return
-	 */
-	PageInfo<Manager> selectLockCompanyByManager(PageManager p, Manager Manager);
+	
 
 	/**
 	 * 通过Manager bean对象查询Manager 列表

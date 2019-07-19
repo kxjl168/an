@@ -18,9 +18,7 @@ import com.kxjl.base.aopAspect.NoNeedAuthorization;
 import com.kxjl.base.base.SysConst;
 import com.kxjl.base.pojo.Manager;
 import com.kxjl.base.service.ManagerService;
-import com.kxjl.tasktransferplat.pojo.Userinfo;
-import com.kxjl.tasktransferplat.service.UserinfoService;
-import com.kxjl.tasktransferplat.util.TokenUtil;
+import com.kxjl.video.util.TokenUtil;
 
 import java.lang.reflect.Method;
 
@@ -32,8 +30,8 @@ public class InterfaceTokenInterceptor implements HandlerInterceptor {
 
 	private static Logger logger = LogManager.getLogger(InterfaceTokenInterceptor.class);
 
-	@Autowired
-	private UserinfoService userService;
+	//@Autowired
+	//private UserinfoService userService;
 
 	@Autowired
 	private ManagerService managerService;
@@ -73,8 +71,8 @@ public class InterfaceTokenInterceptor implements HandlerInterceptor {
 
 		logger.debug("url：" + request.getRequestURI());
 
-		logger.debug("Token：" + token);
-		Userinfo user = userService.getUserByToken(token);
+		//logger.debug("Token：" + token);
+		//Userinfo user = userService.getUserByToken(token);
 
 		//管理员登入
 		if( token5 != null && !token5.equals("")) {
@@ -84,10 +82,12 @@ public class InterfaceTokenInterceptor implements HandlerInterceptor {
 		Manager manager = managerService.getLoginUserByToken(token5);
 
 
-		if (user != null) {
+		/*if (user != null) {
 			TokenUtil.setCurrentUser(user);
 			return true;
-		} else if(manager != null) {
+		} else
+		*/
+		 if(manager != null) {
 			TokenUtil.setCurrentManager(manager);
 			return true;
 		}else {

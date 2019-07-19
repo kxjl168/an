@@ -11,8 +11,7 @@ import com.kxjl.base.pojo.Manager;
 import com.kxjl.base.service.ManagerService;
 import com.kxjl.base.util.PasswordUtil;
 import com.kxjl.base.util.SpringUtils;
-import com.kxjl.tasktransferplat.pojo.Userinfo;
-import com.kxjl.tasktransferplat.service.UserinfoService;
+
 
 /**
  * 密码比较器
