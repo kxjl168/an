@@ -92,17 +92,17 @@
 				</dependencies>
 			</plugin>
 			<!-- mybatis generator 自动生成代码插件 -->
-			<plugin>
+			<!-- <plugin>
 				<groupId>org.mybatis.generator</groupId>
 				<artifactId>mybatis-generator-maven-plugin</artifactId>
 				<version>1.3.2</version>
 				<configuration>
-					<!--配置.xml文件路径 -->
+					配置.xml文件路径
 					<configurationFile>${basedir}/src/main/resources/generator/generatorConfig.xml</configurationFile>
 					<overwrite>true</overwrite>
 					<verbose>true</verbose>
 				</configuration>
-			</plugin>
+			</plugin> -->
 		</plugins>
 	</build>
 
@@ -473,7 +473,7 @@
                
 			</properties>
 			<activation>
-				<activeByDefault>true</activeByDefault>
+				<activeByDefault>false</activeByDefault>
 			</activation>
 		</profile>
 		
@@ -483,10 +483,10 @@
 			<properties>
 
 
-				<kauto.templatePath>F:\\kxjl\\wk\\anpro\\src\\main\\resources\\generator</kauto.templatePath>
-				<kauto.javaScanPath>F:\\kxjl\\wk\\anpro\\src\\main\\java</kauto.javaScanPath>
+				<kauto.templatePath>H:\\git\\an\\src\\main\\resources\\generator</kauto.templatePath>
+				<kauto.javaScanPath>H:\\git\\an\\src\\main\\java</kauto.javaScanPath>
 
-				<kauto.pageScanPath>F:\\kxjl\\wk\\anpro\\src\\main\\resources\\static\\vendor\\pageAuto
+				<kauto.pageScanPath>H:\\git\\an\\src\\main\\resources\\static\\vendor\\pageAuto
 				</kauto.pageScanPath>
 				<kauto.mysqljarPath>E:\\Program Files
 					(x86)\\Sybase\\mysql-connector-java-5.1.44.jar
@@ -495,6 +495,8 @@
 				<kauto.databaseSchema>video</kauto.databaseSchema>
 					<kauto.basePacakge>com.kxjl.video</kauto.basePacakge>
 				<kauto.author>zj</kauto.author>
+				 <kauto.jdbc>
+					<![CDATA[jdbc:mysql://192.168.31.239:3306/video?useUnicode=true&amp;characterEncoding=utf-8]]></kauto.jdbc>
 
 				<!-- 启动端口 -->
 				<server.port>7779</server.port>
@@ -513,7 +515,7 @@
 				<websocket-path>wss://192.168.100.41:</websocket-path>
 
 				 <database.jdbc>
-					<![CDATA[jdbc:mysql://192.168.31.239:3306/ttfp?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true]]></database.jdbc> 
+					<![CDATA[jdbc:mysql://192.168.31.239:3306/video?useUnicode=true&characterEncoding=utf-8]]></database.jdbc> 
 					
 					<!-- <database.jdbc>
 					<![CDATA[jdbc:mysql://192.168.100.126:3306/video?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true]]></database.jdbc>
@@ -527,10 +529,64 @@
                
 			</properties>
 			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+		</profile>
+		
+		
+		<profile>
+			<id>real</id>
+			<!--可本地修改，避免影响其他开发 -->
+			<properties>
+
+
+				<kauto.templatePath>H:\\git\\an\\src\\main\\resources\\generator</kauto.templatePath>
+				<kauto.javaScanPath>H:\\git\\an\\src\\main\\java</kauto.javaScanPath>
+
+				<kauto.pageScanPath>H:\\git\\an\\src\\main\\resources\\static\\vendor\\pageAuto
+				</kauto.pageScanPath>
+				<kauto.mysqljarPath>E:\\Program Files
+					(x86)\\Sybase\\mysql-connector-java-5.1.44.jar
+				</kauto.mysqljarPath>
+
+				<kauto.databaseSchema>video</kauto.databaseSchema>
+					<kauto.basePacakge>com.kxjl.video</kauto.basePacakge>
+				<kauto.author>zj</kauto.author>
+				 <kauto.jdbc>
+					<![CDATA[jdbc:mysql://192.168.31.239:3306/video?useUnicode=true&amp;characterEncoding=utf-8]]></kauto.jdbc>
+
+				<!-- 启动端口 -->
+				<server.port>7777</server.port>
+				<server.context-path><![CDATA[/an]]></server.context-path>
+				<!-- 源匠 微信小程序APPID -->
+				<!-- <login.wxappid>wx3825a56c5a9c1605</login.wxappid>
+				<login.wxsecret>7f38eed959a07a233a1e512fd1a67052</login.wxsecret> -->
+				
+				<!-- 调兵 -->
+				<!-- <login.wxappid>wx49a376bdfab05596</login.wxappid>
+				<login.wxsecret>ef8b0c598cc481e1cb3dd0cbb489df1e</login.wxsecret> -->
+				
+					<login.wxappid>wx3825a56c5a9c1605</login.wxappid>
+				<login.wxsecret>7f38eed959a07a233a1e512fd1a67052</login.wxsecret>
+				<!--websocket地址-->
+				<websocket-path>wss://192.168.100.41:</websocket-path>
+
+					<database.jdbc>
+					<![CDATA[jdbc:mysql://127.0.0.1:13307/video?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false]]></database.jdbc>
+				<database.username>video</database.username>
+				<database.password>123456</database.password>
+
+	
+				
+ 				<server.https.port>443</server.https.port>
+                
+               
+			</properties>
+			<activation>
 				<activeByDefault>false</activeByDefault>
 			</activation>
 		</profile>
-
+	
 		<profile>
 			<id>test</id>
 			<!--可本地修改，避免影响其他开发 -->
