@@ -166,7 +166,7 @@ public class MyCommentGenerator implements CommentGenerator{
       
       method.addJavaDocLine("* @param ");
       method.addJavaDocLine("* @return");
-      method.addJavaDocLine("* @author KAutoGenerator");
+      method.addJavaDocLine("* @author KAutoGenerator "+systemPro.getProperty("user.name"));
       method.addJavaDocLine("* @date "+DateUtil.getNowStr(""));
 
       method.addJavaDocLine(" */");

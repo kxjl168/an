@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kxjl.video.dao.SeatinfoMapper">
+  <resultMap id="BaseResultMap" type="com.kxjl.video.pojo.Seatinfo">
+    <id column="Id" jdbcType="VARCHAR" property="id" />
+    <result column="Name" jdbcType="VARCHAR" property="name" />
+    <result column="CreateTime" jdbcType="VARCHAR" property="createTime" />
+    <result column="Uptimestamp" jdbcType="VARCHAR" property="uptimestamp" />
+    <result column="DataState" jdbcType="VARCHAR" property="dataState" />
+    <result column="AreaId" jdbcType="VARCHAR" property="areaId" />
+    <result column="UnitId" jdbcType="VARCHAR" property="unitId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    Id, Name, CreateTime, Uptimestamp, DataState, AreaId, UnitId
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_seatinfo
+    where Id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_seatinfo
+    where Id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.kxjl.video.pojo.Seatinfo">
+    insert into t_seatinfo (Id, Name, CreateTime, 
+      Uptimestamp, DataState, AreaId, 
+      UnitId)
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, 
+      #{uptimestamp,jdbcType=VARCHAR}, #{dataState,jdbcType=VARCHAR}, #{areaId,jdbcType=VARCHAR}, 
+      #{unitId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.kxjl.video.pojo.Seatinfo">
+    insert into t_seatinfo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        Id,
+      </if>
+      <if test="name != null">
+        Name,
+      </if>
+      <if test="createTime != null">
+        CreateTime,
+      </if>
+      <if test="uptimestamp != null">
+        Uptimestamp,
+      </if>
+      <if test="dataState != null">
+        DataState,
+      </if>
+      <if test="areaId != null">
+        AreaId,
+      </if>
+      <if test="unitId != null">
+        UnitId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="uptimestamp != null">
+        #{uptimestamp,jdbcType=VARCHAR},
+      </if>
+      <if test="dataState != null">
+        #{dataState,jdbcType=VARCHAR},
+      </if>
+      <if test="areaId != null">
+        #{areaId,jdbcType=VARCHAR},
+      </if>
+      <if test="unitId != null">
+        #{unitId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.kxjl.video.pojo.Seatinfo">
+    update t_seatinfo
+    <set>
+      <if test="name != null">
+        Name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        CreateTime = #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="uptimestamp != null">
+        Uptimestamp = #{uptimestamp,jdbcType=VARCHAR},
+      </if>
+      <if test="dataState != null">
+        DataState = #{dataState,jdbcType=VARCHAR},
+      </if>
+      <if test="areaId != null">
+        AreaId = #{areaId,jdbcType=VARCHAR},
+      </if>
+      <if test="unitId != null">
+        UnitId = #{unitId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.kxjl.video.pojo.Seatinfo">
+    update t_seatinfo
+    set Name = #{name,jdbcType=VARCHAR},
+      CreateTime = #{createTime,jdbcType=VARCHAR},
+      Uptimestamp = #{uptimestamp,jdbcType=VARCHAR},
+      DataState = #{dataState,jdbcType=VARCHAR},
+      AreaId = #{areaId,jdbcType=VARCHAR},
+      UnitId = #{unitId,jdbcType=VARCHAR}
+    where Id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+
+
+<select id="selectList"
+	resultMap="BaseResultMap"
+	parameterType="com.kxjl.video.pojo.Seatinfo">
+	select
+	<include refid="Base_Column_List" />
+	from t_seatinfo c
+
+	where 1=1
+	<if test=" id !=null and id !='' ">
+		and c.id = #{id}
+	</if>
+	
+		
+		<if test=" name !=null and name !='' ">
+		and c.Name like concat ('%', #{name},'%')
+	</if>
+		
+			
+		
+		<if test=" createTime !=null and createTime !='' ">
+		and c.CreateTime like concat ('%', #{createTime},'%')
+	</if>
+		
+			
+
+
+</select>
+
+
+<select id="selectPage"
+	resultMap="BaseResultMap"
+	parameterType="com.kxjl.video.pojo.Seatinfo">
+	select
+	<include refid="Base_Column_List" />
+	from t_seatinfo c
+
+	where 1=1
+	<if test=" id !=null and id !='' ">
+		and c.id = #{id}
+	</if>
+	
+		
+		<if test=" name !=null and name !='' ">
+		and c.Name like concat ('%', #{name},'%')
+	</if>
+		
+			
+		
+		<if test=" createTime !=null and createTime !='' ">
+		and c.CreateTime like concat ('%', #{createTime},'%')
+	</if>
+		
+			
+
+
+</select>
+
+
+<delete id="delete"
+	parameterType="com.kxjl.video.pojo.Seatinfo">
+	delete from t_seatinfo
+
+	where id = #{id,jdbcType=VARCHAR}
+
+</delete>
+
+</mapper>

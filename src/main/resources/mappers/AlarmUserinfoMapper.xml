@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kxjl.video.dao.AlarmUserinfoMapper">
+  <resultMap id="BaseResultMap" type="com.kxjl.video.pojo.AlarmUserinfo">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="nickname" jdbcType="VARCHAR" property="nickname" />
+    <result column="Sex" jdbcType="VARCHAR" property="sex" />
+    <result column="IdCard" jdbcType="VARCHAR" property="idCard" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="mobile_phone" jdbcType="VARCHAR" property="mobile_phone" />
+    <result column="wechatId" jdbcType="VARCHAR" property="wechatId" />
+    <result column="wechatOpenId" jdbcType="VARCHAR" property="wechatOpenId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, username, nickname, Sex, IdCard, address, mobile_phone, wechatId, wechatOpenId
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_alarm_userinfo
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_alarm_userinfo
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.kxjl.video.pojo.AlarmUserinfo">
+    insert into t_alarm_userinfo (id, username, nickname, 
+      Sex, IdCard, address, 
+      mobile_phone, wechatId, wechatOpenId
+      )
+    values (#{id,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, 
+      #{sex,jdbcType=VARCHAR}, #{idCard,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{mobile_phone,jdbcType=VARCHAR}, #{wechatId,jdbcType=VARCHAR}, #{wechatOpenId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.kxjl.video.pojo.AlarmUserinfo">
+    insert into t_alarm_userinfo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="username != null">
+        username,
+      </if>
+      <if test="nickname != null">
+        nickname,
+      </if>
+      <if test="sex != null">
+        Sex,
+      </if>
+      <if test="idCard != null">
+        IdCard,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="mobile_phone != null">
+        mobile_phone,
+      </if>
+      <if test="wechatId != null">
+        wechatId,
+      </if>
+      <if test="wechatOpenId != null">
+        wechatOpenId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null">
+        #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="idCard != null">
+        #{idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile_phone != null">
+        #{mobile_phone,jdbcType=VARCHAR},
+      </if>
+      <if test="wechatId != null">
+        #{wechatId,jdbcType=VARCHAR},
+      </if>
+      <if test="wechatOpenId != null">
+        #{wechatOpenId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.kxjl.video.pojo.AlarmUserinfo">
+    update t_alarm_userinfo
+    <set>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null">
+        nickname = #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        Sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="idCard != null">
+        IdCard = #{idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile_phone != null">
+        mobile_phone = #{mobile_phone,jdbcType=VARCHAR},
+      </if>
+      <if test="wechatId != null">
+        wechatId = #{wechatId,jdbcType=VARCHAR},
+      </if>
+      <if test="wechatOpenId != null">
+        wechatOpenId = #{wechatOpenId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.kxjl.video.pojo.AlarmUserinfo">
+    update t_alarm_userinfo
+    set username = #{username,jdbcType=VARCHAR},
+      nickname = #{nickname,jdbcType=VARCHAR},
+      Sex = #{sex,jdbcType=VARCHAR},
+      IdCard = #{idCard,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      mobile_phone = #{mobile_phone,jdbcType=VARCHAR},
+      wechatId = #{wechatId,jdbcType=VARCHAR},
+      wechatOpenId = #{wechatOpenId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+
+
+<select id="selectList"
+	resultMap="BaseResultMap"
+	parameterType="com.kxjl.video.pojo.AlarmUserinfo">
+	select
+	<include refid="Base_Column_List" />
+	from t_alarm_userinfo c
+
+	where 1=1
+	<if test=" id !=null and id !='' ">
+		and c.id = #{id}
+	</if>
+	
+
+
+</select>
+
+
+<select id="selectPage"
+	resultMap="BaseResultMap"
+	parameterType="com.kxjl.video.pojo.AlarmUserinfo">
+	select
+	<include refid="Base_Column_List" />
+	from t_alarm_userinfo c
+
+	where 1=1
+	<if test=" id !=null and id !='' ">
+		and c.id = #{id}
+	</if>
+	
+
+
+</select>
+
+
+<delete id="delete"
+	parameterType="com.kxjl.video.pojo.AlarmUserinfo">
+	delete from t_alarm_userinfo
+
+	where id = #{id,jdbcType=VARCHAR}
+
+</delete>
+
+</mapper>

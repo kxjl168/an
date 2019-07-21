@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kxjl.base.dao.ConfigMapper">
+  <resultMap id="BaseResultMap" type="com.kxjl.base.pojo.Config">
+    <id column="ckey" jdbcType="VARCHAR" property="ckey" />
+    <result column="cvalue" jdbcType="VARCHAR" property="cvalue" />
+    <result column="des" jdbcType="VARCHAR" property="des" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ckey, cvalue, des
+  </sql>
+  
+     <select id="getValueByKey"  parameterType="com.kxjl.base.pojo.Config"  resultType="com.kxjl.base.pojo.Config">
+   
+    select * from t_config where ckey=#{ckey,jdbcType=VARCHAR} limit 1
+   </select>
+   
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_config
+    where ckey = #{ckey,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_config
+    where ckey = #{ckey,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.kxjl.base.pojo.Config">
+    insert into t_config (ckey, cvalue, des
+      )
+    values (#{ckey,jdbcType=VARCHAR}, #{cvalue,jdbcType=VARCHAR}, #{des,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.kxjl.base.pojo.Config">
+    insert into t_config
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="ckey != null">
+        ckey,
+      </if>
+      <if test="cvalue != null">
+        cvalue,
+      </if>
+      <if test="des != null">
+        des,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="ckey != null">
+        #{ckey,jdbcType=VARCHAR},
+      </if>
+      <if test="cvalue != null">
+        #{cvalue,jdbcType=VARCHAR},
+      </if>
+      <if test="des != null">
+        #{des,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.kxjl.base.pojo.Config">
+    update t_config
+    <set>
+      <if test="cvalue != null">
+        cvalue = #{cvalue,jdbcType=VARCHAR},
+      </if>
+      <if test="des != null">
+        des = #{des,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ckey = #{ckey,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.kxjl.base.pojo.Config">
+    update t_config
+    set cvalue = #{cvalue,jdbcType=VARCHAR},
+      des = #{des,jdbcType=VARCHAR}
+    where ckey = #{ckey,jdbcType=VARCHAR}
+  </update>
+  
+
+
+<select id="selectList"
+	resultMap="BaseResultMap"
+	parameterType="com.kxjl.base.pojo.Config">
+	select
+	<include refid="Base_Column_List" />
+	from t_config c
+
+	where 1=1
+	<if test=" id !=null and id !='' ">
+		and c.id = #{id}
+	</if>
+	
+		
+		<if test=" cvalue !=null and cvalue !='' ">
+		and c.cvalue like concat ('%', #{cvalue},'%')
+	</if>
+		
+			
+		
+		<if test=" des !=null and des !='' ">
+		and c.des like concat ('%', #{des},'%')
+	</if>
+		
+			
+
+
+</select>
+
+
+<select id="selectPage"
+	resultMap="BaseResultMap"
+	parameterType="com.kxjl.base.pojo.Config">
+	select
+	<include refid="Base_Column_List" />
+	from t_config c
+
+	where 1=1
+	<if test=" id !=null and id !='' ">
+		and c.id = #{id}
+	</if>
+	
+		
+		<if test=" cvalue !=null and cvalue !='' ">
+		and c.cvalue like concat ('%', #{cvalue},'%')
+	</if>
+		
+			
+		
+		<if test=" des !=null and des !='' ">
+		and c.des like concat ('%', #{des},'%')
+	</if>
+		
+			
+
+
+</select>
+
+
+<delete id="delete"
+	parameterType="com.kxjl.base.pojo.Config">
+	delete from t_config
+
+	where id = #{id,jdbcType=VARCHAR}
+
+</delete>
+
+</mapper>

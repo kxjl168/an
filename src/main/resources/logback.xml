@@ -15,7 +15,7 @@
     <!-- 日志最大的历史 30天 -->
     <property name="log.maxHistory" value="10"/>
 
-    <property name="log.level" value="info"/>
+    <property name="log.level" value="debug"/>
 
 
     <!-- ConsoleAppender 控制台输出日志 -->
@@ -150,7 +150,7 @@
     <!-- root级别 -->
     <root>
         <!-- 打印级别日志及以上级别日志 -->
-        <level value="info"/>
+        <level value="debug"/>
         <!-- 控制台输出 -->
         <appender-ref ref="console"/>
         <!-- 文件输出 -->

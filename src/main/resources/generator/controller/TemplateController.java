@@ -2,19 +2,19 @@
  * @(#)${modelClass}Controller.java
  * @author: ${author}
  * @Date: ${generatedate}
- * Copyright (C),2017-2018, ZHONGTONGGUOMAI TECHNOLOGY NANJING
+ * Copyright (C),2017-2018, kxjl
  * Co.,Ltd. All Rights Reserved.
- * GMWL PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
+ * kxjl PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
 package ${basepackageName}.controller.WebController;
 
 
 import com.github.pagehelper.Page;
-import com.ztgm.base.aopAspect.FunLogType;
-import com.ztgm.base.aopAspect.ManagerActionLog;
-import com.ztgm.base.base.PageCondition;
-import com.ztgm.base.util.Message;
-import com.ztgm.base.util.PageUtil;
+import com.kxjl.base.aopAspect.FunLogType;
+import com.kxjl.base.aopAspect.ManagerActionLog;
+import com.kxjl.base.base.PageCondition;
+import com.kxjl.base.util.Message;
+import com.kxjl.base.util.PageUtil;
 <#if daosubfold==''>
 import ${basepackageName}.dao.${modelClass}Mapper;
 </#if>

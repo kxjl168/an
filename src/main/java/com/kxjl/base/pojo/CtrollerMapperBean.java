@@ -25,6 +25,8 @@ public class CtrollerMapperBean {
 
 	private String tableName;// 原始表名称
 
+	private String  databaseurl;//jdbc:mysql://192.168.100.126:3306/video?useUnicode=true&amp;characterEncoding=UTF-8
+	
 	private String idType = "2";// 主键id的字段类型：默认varchar, 1:int ,2:varchar;
 
 	private String useActualColumnNames = "true";// true针对表字段为驼峰模式,false 针对表字段为下划线分割
@@ -204,6 +206,14 @@ public class CtrollerMapperBean {
 
 	public void setDaosubfold(String daosubfold) {
 		this.daosubfold = daosubfold;
+	}
+
+	public String getDatabaseurl() {
+		return databaseurl;
+	}
+
+	public void setDatabaseurl(String databaseurl) {
+		this.databaseurl = databaseurl;
 	}
 
 }

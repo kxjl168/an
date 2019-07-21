@@ -2,9 +2,9 @@
  * @(#)${modelClass}Service.java
  * @author: zhangJ
  * @Date: 2018/12/11 09:02
- * Copyright (C),2017-2018, ZHONGTONGGUOMAI TECHNOLOGY NANJING
+ * Copyright (C),2017-2018, kxjl
  * Co.,Ltd. All Rights Reserved.
- * GMWL PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
+ * kxjl PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
 package ${basepackageName}.service;
 

@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>安装工程师管理平台</title>
+    <title>警务110管理平台</title>
     <link rel="icon" href="${ctx}/img/icon.png" type="image/x-icon"/>
     <link rel="shortcut icon" href="${ctx}/img/icon.png" type="image/x-icon"/>
 
@@ -282,7 +282,7 @@ $(function(){
                 </li>
                 <li class="refreshBtn mobilehide">
                     <a href="javascript:void(0);" onclick="refreshMenu();" title="重新加载菜单" style="margin-top: 20px;"><i
-                            class="fa fa-refresh">刷新菜单</i></a>
+                            class="fa fa-refresh">刷新菜单</i></a> 
                 </li>
                 <li>
                     <a href="${ctx}/logout.action" style="margin-top: 20px;"><i class="fa fa-sign-out">退出</i></a>

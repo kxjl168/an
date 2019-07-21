@@ -123,7 +123,9 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/ktest/**", "anon");
         filterChainDefinitionMap.put("/img/**", "anon");
         filterChainDefinitionMap.put("/js/**", "anon");
+        filterChainDefinitionMap.put("/css/**", "anon");
         filterChainDefinitionMap.put("/lock/**", "anon");
+        filterChainDefinitionMap.put("/talk/**", "anon");
         filterChainDefinitionMap.put("/vendor/**", "anon");
         filterChainDefinitionMap.put("/longin.action", "anon");
         filterChainDefinitionMap.put("/validateCode.action", "anon");

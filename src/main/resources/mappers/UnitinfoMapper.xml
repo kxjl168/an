@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kxjl.video.dao.UnitinfoMapper">
+  <resultMap id="BaseResultMap" type="com.kxjl.video.pojo.Unitinfo">
+    <id column="Id" jdbcType="VARCHAR" property="id" />
+    <result column="Name" jdbcType="VARCHAR" property="name" />
+    <result column="CreateTime" jdbcType="VARCHAR" property="createTime" />
+    <result column="Uptimestamp" jdbcType="VARCHAR" property="uptimestamp" />
+    <result column="DataState" jdbcType="VARCHAR" property="dataState" />
+    <result column="Des" jdbcType="VARCHAR" property="des" />
+    <result column="ContactPerson" jdbcType="VARCHAR" property="contactPerson" />
+    <result column="ContactPhone" jdbcType="VARCHAR" property="contactPhone" />
+    <result column="Address" jdbcType="VARCHAR" property="address" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    Id, Name, CreateTime, Uptimestamp, DataState, Des, ContactPerson, ContactPhone, Address
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_unitinfo
+    where Id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_unitinfo
+    where Id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.kxjl.video.pojo.Unitinfo">
+    insert into t_unitinfo (Id, Name, CreateTime, 
+      Uptimestamp, DataState, Des, 
+      ContactPerson, ContactPhone, Address
+      )
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, 
+      #{uptimestamp,jdbcType=VARCHAR}, #{dataState,jdbcType=VARCHAR}, #{des,jdbcType=VARCHAR}, 
+      #{contactPerson,jdbcType=VARCHAR}, #{contactPhone,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.kxjl.video.pojo.Unitinfo">
+    insert into t_unitinfo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        Id,
+      </if>
+      <if test="name != null">
+        Name,
+      </if>
+      <if test="createTime != null">
+        CreateTime,
+      </if>
+      <if test="uptimestamp != null">
+        Uptimestamp,
+      </if>
+      <if test="dataState != null">
+        DataState,
+      </if>
+      <if test="des != null">
+        Des,
+      </if>
+      <if test="contactPerson != null">
+        ContactPerson,
+      </if>
+      <if test="contactPhone != null">
+        ContactPhone,
+      </if>
+      <if test="address != null">
+        Address,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="uptimestamp != null">
+        #{uptimestamp,jdbcType=VARCHAR},
+      </if>
+      <if test="dataState != null">
+        #{dataState,jdbcType=VARCHAR},
+      </if>
+      <if test="des != null">
+        #{des,jdbcType=VARCHAR},
+      </if>
+      <if test="contactPerson != null">
+        #{contactPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="contactPhone != null">
+        #{contactPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.kxjl.video.pojo.Unitinfo">
+    update t_unitinfo
+    <set>
+      <if test="name != null">
+        Name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        CreateTime = #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="uptimestamp != null">
+        Uptimestamp = #{uptimestamp,jdbcType=VARCHAR},
+      </if>
+      <if test="dataState != null">
+        DataState = #{dataState,jdbcType=VARCHAR},
+      </if>
+      <if test="des != null">
+        Des = #{des,jdbcType=VARCHAR},
+      </if>
+      <if test="contactPerson != null">
+        ContactPerson = #{contactPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="contactPhone != null">
+        ContactPhone = #{contactPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        Address = #{address,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.kxjl.video.pojo.Unitinfo">
+    update t_unitinfo
+    set Name = #{name,jdbcType=VARCHAR},
+      CreateTime = #{createTime,jdbcType=VARCHAR},
+      Uptimestamp = #{uptimestamp,jdbcType=VARCHAR},
+      DataState = #{dataState,jdbcType=VARCHAR},
+      Des = #{des,jdbcType=VARCHAR},
+      ContactPerson = #{contactPerson,jdbcType=VARCHAR},
+      ContactPhone = #{contactPhone,jdbcType=VARCHAR},
+      Address = #{address,jdbcType=VARCHAR}
+    where Id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+
+
+<select id="selectList"
+	resultMap="BaseResultMap"
+	parameterType="com.kxjl.video.pojo.Unitinfo">
+	select
+	<include refid="Base_Column_List" />
+	from t_unitinfo c
+
+	where 1=1
+	<if test=" id !=null and id !='' ">
+		and c.id = #{id}
+	</if>
+	
+
+
+</select>
+
+
+<select id="selectPage"
+	resultMap="BaseResultMap"
+	parameterType="com.kxjl.video.pojo.Unitinfo">
+	select
+	<include refid="Base_Column_List" />
+	from t_unitinfo c
+
+	where 1=1
+	<if test=" id !=null and id !='' ">
+		and c.id = #{id}
+	</if>
+	
+
+
+</select>
+
+
+<delete id="delete"
+	parameterType="com.kxjl.video.pojo.Unitinfo">
+	delete from t_unitinfo
+
+	where id = #{id,jdbcType=VARCHAR}
+
+</delete>
+
+</mapper>

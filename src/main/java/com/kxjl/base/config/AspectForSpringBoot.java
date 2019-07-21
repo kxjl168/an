@@ -54,7 +54,7 @@ import com.kxjl.base.util.SpringUtils;
 @Configuration
 public class AspectForSpringBoot {
 
-	private final String POINT_CUT = "execution(* com.ztgm.*.controller..*.*(..))";
+	private final String POINT_CUT = "execution(* com.kxjl.*.controller..*.*(..))";
 
 	@Pointcut(POINT_CUT)
 	public void pointCut() {
@@ -126,8 +126,15 @@ public class AspectForSpringBoot {
 						data = mapperClass.getDeclaredMethod("selectByPrimaryKey", String.class)
 								.invoke(SpringUtils.getBean(mapperClass), id);
 					} catch (Exception e) {
-						data = mapperClass.getDeclaredMethod("selectByPrimaryKey", Long.class)
-								.invoke(SpringUtils.getBean(mapperClass), Long.parseLong(id));
+						try {
+							data = mapperClass.getDeclaredMethod("selectByPrimaryKey", Long.class)
+									.invoke(SpringUtils.getBean(mapperClass), Long.parseLong(id));
+						} catch (Exception e2) {
+							data = mapperClass.getDeclaredMethod("selectByPrimaryKey", Integer.class)
+									.invoke(SpringUtils.getBean(mapperClass), Integer.parseInt(id));
+						}
+						
+						
 					}
 
 				}
@@ -164,8 +171,14 @@ public class AspectForSpringBoot {
 						data = mapperClass.getDeclaredMethod("selectByPrimaryKey", String.class)
 								.invoke(SpringUtils.getBean(mapperClass), id);
 					} catch (Exception e) {
-						data = mapperClass.getDeclaredMethod("selectByPrimaryKey", Long.class)
-								.invoke(SpringUtils.getBean(mapperClass), Long.parseLong(id));
+						try {
+							data = mapperClass.getDeclaredMethod("selectByPrimaryKey", Long.class)
+									.invoke(SpringUtils.getBean(mapperClass), Long.parseLong(id));
+						} catch (Exception e2) {
+							data = mapperClass.getDeclaredMethod("selectByPrimaryKey", Integer.class)
+									.invoke(SpringUtils.getBean(mapperClass), Integer.parseInt(id));
+						}
+						
 					}
 
 				}

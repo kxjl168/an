@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kxjl.video.dao.ReceivepoliceinfoMapper">
+  <resultMap id="BaseResultMap" type="com.kxjl.video.pojo.Receivepoliceinfo">
+    <id column="Id" jdbcType="VARCHAR" property="id" />
+    <result column="Phone" jdbcType="VARCHAR" property="phone" />
+    <result column="Password" jdbcType="VARCHAR" property="password" />
+    <result column="SessionKey" jdbcType="VARCHAR" property="sessionKey" />
+    <result column="Name" jdbcType="VARCHAR" property="name" />
+    <result column="CreateTime" jdbcType="VARCHAR" property="createTime" />
+    <result column="Uptimestamp" jdbcType="VARCHAR" property="uptimestamp" />
+    <result column="CreateUser" jdbcType="VARCHAR" property="createUser" />
+    <result column="UpdateUser" jdbcType="VARCHAR" property="updateUser" />
+    <result column="DataState" jdbcType="VARCHAR" property="dataState" />
+    <result column="Sex" jdbcType="VARCHAR" property="sex" />
+    <result column="IdCard" jdbcType="VARCHAR" property="idCard" />
+    <result column="IdNo" jdbcType="VARCHAR" property="idNo" />
+    <result column="Des" jdbcType="VARCHAR" property="des" />
+    <result column="AvatarUrl" jdbcType="VARCHAR" property="avatarUrl" />
+    <result column="SeatId" jdbcType="VARCHAR" property="seatId" />
+    <result column="UnitId" jdbcType="VARCHAR" property="unitId" />
+    <result column="Status" jdbcType="VARCHAR" property="status" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    Id, Phone, Password, SessionKey, Name, CreateTime, Uptimestamp, CreateUser, UpdateUser, 
+    DataState, Sex, IdCard, IdNo, Des, AvatarUrl, SeatId, UnitId, Status
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_receivepoliceinfo
+    where Id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_receivepoliceinfo
+    where Id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.kxjl.video.pojo.Receivepoliceinfo">
+    insert into t_receivepoliceinfo (Id, Phone, Password, 
+      SessionKey, Name, CreateTime, 
+      Uptimestamp, CreateUser, UpdateUser, 
+      DataState, Sex, IdCard, 
+      IdNo, Des, AvatarUrl, 
+      SeatId, UnitId, Status
+      )
+    values (#{id,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{sessionKey,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, 
+      #{uptimestamp,jdbcType=VARCHAR}, #{createUser,jdbcType=VARCHAR}, #{updateUser,jdbcType=VARCHAR}, 
+      #{dataState,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, #{idCard,jdbcType=VARCHAR}, 
+      #{idNo,jdbcType=VARCHAR}, #{des,jdbcType=VARCHAR}, #{avatarUrl,jdbcType=VARCHAR}, 
+      #{seatId,jdbcType=VARCHAR}, #{unitId,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.kxjl.video.pojo.Receivepoliceinfo">
+    insert into t_receivepoliceinfo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        Id,
+      </if>
+      <if test="phone != null">
+        Phone,
+      </if>
+      <if test="password != null">
+        Password,
+      </if>
+      <if test="sessionKey != null">
+        SessionKey,
+      </if>
+      <if test="name != null">
+        Name,
+      </if>
+      <if test="createTime != null">
+        CreateTime,
+      </if>
+      <if test="uptimestamp != null">
+        Uptimestamp,
+      </if>
+      <if test="createUser != null">
+        CreateUser,
+      </if>
+      <if test="updateUser != null">
+        UpdateUser,
+      </if>
+      <if test="dataState != null">
+        DataState,
+      </if>
+      <if test="sex != null">
+        Sex,
+      </if>
+      <if test="idCard != null">
+        IdCard,
+      </if>
+      <if test="idNo != null">
+        IdNo,
+      </if>
+      <if test="des != null">
+        Des,
+      </if>
+      <if test="avatarUrl != null">
+        AvatarUrl,
+      </if>
+      <if test="seatId != null">
+        SeatId,
+      </if>
+      <if test="unitId != null">
+        UnitId,
+      </if>
+      <if test="status != null">
+        Status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="sessionKey != null">
+        #{sessionKey,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="uptimestamp != null">
+        #{uptimestamp,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="dataState != null">
+        #{dataState,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="idCard != null">
+        #{idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="idNo != null">
+        #{idNo,jdbcType=VARCHAR},
+      </if>
+      <if test="des != null">
+        #{des,jdbcType=VARCHAR},
+      </if>
+      <if test="avatarUrl != null">
+        #{avatarUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="seatId != null">
+        #{seatId,jdbcType=VARCHAR},
+      </if>
+      <if test="unitId != null">
+        #{unitId,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.kxjl.video.pojo.Receivepoliceinfo">
+    update t_receivepoliceinfo
+    <set>
+      <if test="phone != null">
+        Phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        Password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="sessionKey != null">
+        SessionKey = #{sessionKey,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        Name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        CreateTime = #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="uptimestamp != null">
+        Uptimestamp = #{uptimestamp,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null">
+        CreateUser = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null">
+        UpdateUser = #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="dataState != null">
+        DataState = #{dataState,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        Sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="idCard != null">
+        IdCard = #{idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="idNo != null">
+        IdNo = #{idNo,jdbcType=VARCHAR},
+      </if>
+      <if test="des != null">
+        Des = #{des,jdbcType=VARCHAR},
+      </if>
+      <if test="avatarUrl != null">
+        AvatarUrl = #{avatarUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="seatId != null">
+        SeatId = #{seatId,jdbcType=VARCHAR},
+      </if>
+      <if test="unitId != null">
+        UnitId = #{unitId,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        Status = #{status,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.kxjl.video.pojo.Receivepoliceinfo">
+    update t_receivepoliceinfo
+    set Phone = #{phone,jdbcType=VARCHAR},
+      Password = #{password,jdbcType=VARCHAR},
+      SessionKey = #{sessionKey,jdbcType=VARCHAR},
+      Name = #{name,jdbcType=VARCHAR},
+      CreateTime = #{createTime,jdbcType=VARCHAR},
+      Uptimestamp = #{uptimestamp,jdbcType=VARCHAR},
+      CreateUser = #{createUser,jdbcType=VARCHAR},
+      UpdateUser = #{updateUser,jdbcType=VARCHAR},
+      DataState = #{dataState,jdbcType=VARCHAR},
+      Sex = #{sex,jdbcType=VARCHAR},
+      IdCard = #{idCard,jdbcType=VARCHAR},
+      IdNo = #{idNo,jdbcType=VARCHAR},
+      Des = #{des,jdbcType=VARCHAR},
+      AvatarUrl = #{avatarUrl,jdbcType=VARCHAR},
+      SeatId = #{seatId,jdbcType=VARCHAR},
+      UnitId = #{unitId,jdbcType=VARCHAR},
+      Status = #{status,jdbcType=VARCHAR}
+    where Id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+
+
+<select id="selectList"
+	resultMap="BaseResultMap"
+	parameterType="com.kxjl.video.pojo.Receivepoliceinfo">
+	select
+	<include refid="Base_Column_List" />
+	from t_receivepoliceinfo c
+
+	where 1=1
+	<if test=" id !=null and id !='' ">
+		and c.id = #{id}
+	</if>
+	
+
+
+</select>
+
+
+<select id="selectPage"
+	resultMap="BaseResultMap"
+	parameterType="com.kxjl.video.pojo.Receivepoliceinfo">
+	select
+	<include refid="Base_Column_List" />
+	from t_receivepoliceinfo c
+
+	where 1=1
+	<if test=" id !=null and id !='' ">
+		and c.id = #{id}
+	</if>
+	
+
+
+</select>
+
+
+<delete id="delete"
+	parameterType="com.kxjl.video.pojo.Receivepoliceinfo">
+	delete from t_receivepoliceinfo
+
+	where id = #{id,jdbcType=VARCHAR}
+
+</delete>
+
+</mapper>

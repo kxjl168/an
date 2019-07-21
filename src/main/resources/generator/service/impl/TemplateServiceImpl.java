@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
-import com.ztgm.base.util.ExceptionUntil;
-import com.ztgm.base.util.UUIDUtil;
+import com.kxjl.base.util.ExceptionUntil;
+import com.kxjl.base.util.UUIDUtil;
 <#if daosubfold==''>
 import ${basepackageName}.dao.${modelClass}Mapper;
 </#if>

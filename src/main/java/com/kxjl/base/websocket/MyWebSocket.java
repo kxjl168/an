@@ -1,7 +1,10 @@
 package com.kxjl.base.websocket;
 
 import com.alibaba.fastjson.JSON;
+import com.kxjl.video.pojo.VideoalarmTalkinfo;
+import com.kxjl.video.service.VideoalarmTalkinfoService;
 
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +14,8 @@ import javax.websocket.*;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.nio.ByteBuffer;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -22,7 +27,7 @@ public class MyWebSocket {
 
     private static Logger logger = LoggerFactory.getLogger(MyWebSocket.class);
 
-    //public static ManagerMessageService managerMessageService;
+    public static VideoalarmTalkinfoService videoalarmTalkinfoService;
 
     /**
      * 静态变量，用来记录当前在线连接数。应该把它设计成线程安全的。
@@ -35,7 +40,7 @@ public class MyWebSocket {
     private static CopyOnWriteArraySet<MyWebSocket> webSocketSet = new CopyOnWriteArraySet<>();
 
     /**
-     * 线程安全的Map 存储用户信息
+     * 线程安全的Map 存储用户信息 ，一个用户id，只能一处登录
      */
     private static ConcurrentHashMap<String, Session> webSocketMap = new ConcurrentHashMap<>();
 
@@ -74,6 +79,92 @@ public class MyWebSocket {
         logger.info("来自客户端的消息：", message);
         Map<String, String> map = session.getPathParameters();
     }
+    
+    
+
+	@OnMessage
+	public void onMessage(byte[] messages, Session session) {
+		try {
+			 String strmsg=new String(messages, "utf-8");
+			System.out.println("接收到消息:" +strmsg);
+
+			transferMessage(strmsg,true);
+
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+	/**
+	 * 发自定义消息
+	 */
+	public static void sendByteMessage(String text, String userId) throws IOException {
+		try {
+			Session session = webSocketMap.get(userId);
+			if (session != null && session.isOpen()) {
+				// session.getBasicRemote().sendText(text);
+
+				ByteBuffer bf = ByteBuffer.wrap(text.getBytes("utf-8"));
+				session.getBasicRemote().sendBinary(bf);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	/**
+	 * 解析数据
+	 * 
+	 * @param message
+	 * @author zj
+	 * @date 2019年7月16日
+	 */
+	public static void transferMessage(String message, boolean isbyte) {
+		JSONObject jmsg = null;
+		try {
+			jmsg = new JSONObject(message);
+		} catch (Exception e) {
+			// TODO: handle exception
+			return;
+		}
+
+		if (jmsg != null) {
+
+			String uid = jmsg.optString("uid");
+			String tid = jmsg.optString("tid");
+			String msg = jmsg.optString("msg");
+			String type = jmsg.optString("type");
+			
+			
+			//web 发送的，计入数据库
+			if(type.equals("websend"))
+			{
+				VideoalarmTalkinfo talkinfo=new VideoalarmTalkinfo();
+				talkinfo.setAlarmId(Integer.parseInt( tid));
+				talkinfo.setMsgType("1");
+				talkinfo.setTalkType("2");
+				talkinfo.setMsgContent(msg);
+				videoalarmTalkinfoService.saveVideoalarmTalkinfo(talkinfo);
+			}
+			
+			
+			logger.info("talk info" + jmsg.toString());
+			// System.out.println(message);
+			try {
+				if (isbyte)
+					sendByteMessage(message, tid);
+				else
+					sendMessage(message, tid);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		}
+
+	}
+
 
     /**
      * 发生错误时调用

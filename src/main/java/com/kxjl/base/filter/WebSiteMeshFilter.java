@@ -9,6 +9,10 @@ public class WebSiteMeshFilter extends ConfigurableSiteMeshFilter {
     protected void applyCustomConfiguration(SiteMeshFilterBuilder builder) {
         builder.addDecoratorPath("/manager/*", "/decorators/blueSkin/admin_index.ftl");
         
+       
+       // builder.addDecoratorPath("/talk/*", "/decorators/blueSkin/admin_index.ftl");
+        builder.addDecoratorPath("/talk/*", "/decorators/single/admin_index.ftl");
+        
         
         
         //builder.addDecoratorPath("/manager/test", "/decorators/blueSkin/admin_index.ftl");

@@ -34,10 +34,13 @@ public class InterceptorConfig extends WebMvcConfigurerAdapter {
         addInterceptor.addPathPatterns("/generator/**");
         //需要使用PrincipalFilter的spring权限管理的url
         addInterceptor.addPathPatterns("/privilege/**");
+        
+        
 
         
         registry.addInterceptor(getInterfaaceInterceptor())
         .addPathPatterns("/interface/**")
+     
         .addPathPatterns("/interface/*/*/*");
 
     }

@@ -22,11 +22,13 @@ import com.kxjl.base.pojo.MenuPermission;
 import com.kxjl.base.pojo.Role;
 import com.kxjl.base.pojo.RolePermission;
 import com.kxjl.base.service.RoleService;
+import com.kxjl.base.util.UUIDUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 @Service("roleService")
 public class RoleServiceImpl implements RoleService {
@@ -135,6 +137,7 @@ public class RoleServiceImpl implements RoleService {
 					continue;
 
 				RolePermission item = new RolePermission();
+				item.setId(UUIDUtil.getUUID());
 				item.setSysRoleId(role_id);
 				item.setSysPermissionId(menus[i]);
 

@@ -10,6 +10,10 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.support.atomic.RedisAtomicLong;
 import org.springframework.stereotype.Component;
 
+import com.kxjl.base.service.ConfigService;
+//import com.kxjl.video.service.ConfigService;
+import com.kxjl.video.util.SnowflakeIdWorker;
+
 public class UUIDUtil {
 
 	/**
@@ -29,6 +33,12 @@ public class UUIDUtil {
 	 * @date 2019年1月28日
 	 */
 	public static synchronized Long getLongUUID(RedisTemplate template) {
+
+		SnowflakeIdWorker d = new SnowflakeIdWorker(0, 0);
+
+		if (true)
+			return SpringUtils.getBean(ConfigService.class).getNextAutoLong();
+		
 
 		if (u == null)
 			u = new UUIDUtil(template);
@@ -73,7 +83,7 @@ public class UUIDUtil {
 			// 往前补2位
 			orderId = prefix + String.format("%1$06d", incr);
 		} catch (Exception e) {
-			
+
 			e.printStackTrace();
 		}
 		return Long.valueOf(orderId);

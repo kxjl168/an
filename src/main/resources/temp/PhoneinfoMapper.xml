@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kxjl.video.dao.PhoneinfoMapper">
+  <resultMap id="BaseResultMap" type="com.kxjl.video.pojo.Phoneinfo">
+    <id column="Id" jdbcType="VARCHAR" property="id" />
+    <result column="Phone" jdbcType="VARCHAR" property="phone" />
+    <result column="Name" jdbcType="VARCHAR" property="name" />
+    <result column="CreateTime" jdbcType="VARCHAR" property="createTime" />
+    <result column="Uptimestamp" jdbcType="VARCHAR" property="uptimestamp" />
+    <result column="DataState" jdbcType="VARCHAR" property="dataState" />
+    <result column="IMEI" jdbcType="VARCHAR" property="IMEI" />
+    <result column="PhoneType" jdbcType="VARCHAR" property="phoneType" />
+    <result column="Des" jdbcType="VARCHAR" property="des" />
+    <result column="SeatId" jdbcType="VARCHAR" property="seatId" />
+    <result column="UnitId" jdbcType="VARCHAR" property="unitId" />
+    <result column="Status" jdbcType="VARCHAR" property="status" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    Id, Phone, Name, CreateTime, Uptimestamp, DataState, IMEI, PhoneType, Des, SeatId, 
+    UnitId, Status
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_phoneinfo
+    where Id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_phoneinfo
+    where Id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.kxjl.video.pojo.Phoneinfo">
+    insert into t_phoneinfo (Id, Phone, Name, 
+      CreateTime, Uptimestamp, DataState, 
+      IMEI, PhoneType, Des, 
+      SeatId, UnitId, Status
+      )
+    values (#{id,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=VARCHAR}, #{uptimestamp,jdbcType=VARCHAR}, #{dataState,jdbcType=VARCHAR}, 
+      #{IMEI,jdbcType=VARCHAR}, #{phoneType,jdbcType=VARCHAR}, #{des,jdbcType=VARCHAR}, 
+      #{seatId,jdbcType=VARCHAR}, #{unitId,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.kxjl.video.pojo.Phoneinfo">
+    insert into t_phoneinfo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        Id,
+      </if>
+      <if test="phone != null">
+        Phone,
+      </if>
+      <if test="name != null">
+        Name,
+      </if>
+      <if test="createTime != null">
+        CreateTime,
+      </if>
+      <if test="uptimestamp != null">
+        Uptimestamp,
+      </if>
+      <if test="dataState != null">
+        DataState,
+      </if>
+      <if test="IMEI != null">
+        IMEI,
+      </if>
+      <if test="phoneType != null">
+        PhoneType,
+      </if>
+      <if test="des != null">
+        Des,
+      </if>
+      <if test="seatId != null">
+        SeatId,
+      </if>
+      <if test="unitId != null">
+        UnitId,
+      </if>
+      <if test="status != null">
+        Status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="uptimestamp != null">
+        #{uptimestamp,jdbcType=VARCHAR},
+      </if>
+      <if test="dataState != null">
+        #{dataState,jdbcType=VARCHAR},
+      </if>
+      <if test="IMEI != null">
+        #{IMEI,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneType != null">
+        #{phoneType,jdbcType=VARCHAR},
+      </if>
+      <if test="des != null">
+        #{des,jdbcType=VARCHAR},
+      </if>
+      <if test="seatId != null">
+        #{seatId,jdbcType=VARCHAR},
+      </if>
+      <if test="unitId != null">
+        #{unitId,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.kxjl.video.pojo.Phoneinfo">
+    update t_phoneinfo
+    <set>
+      <if test="phone != null">
+        Phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        Name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        CreateTime = #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="uptimestamp != null">
+        Uptimestamp = #{uptimestamp,jdbcType=VARCHAR},
+      </if>
+      <if test="dataState != null">
+        DataState = #{dataState,jdbcType=VARCHAR},
+      </if>
+      <if test="IMEI != null">
+        IMEI = #{IMEI,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneType != null">
+        PhoneType = #{phoneType,jdbcType=VARCHAR},
+      </if>
+      <if test="des != null">
+        Des = #{des,jdbcType=VARCHAR},
+      </if>
+      <if test="seatId != null">
+        SeatId = #{seatId,jdbcType=VARCHAR},
+      </if>
+      <if test="unitId != null">
+        UnitId = #{unitId,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        Status = #{status,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.kxjl.video.pojo.Phoneinfo">
+    update t_phoneinfo
+    set Phone = #{phone,jdbcType=VARCHAR},
+      Name = #{name,jdbcType=VARCHAR},
+      CreateTime = #{createTime,jdbcType=VARCHAR},
+      Uptimestamp = #{uptimestamp,jdbcType=VARCHAR},
+      DataState = #{dataState,jdbcType=VARCHAR},
+      IMEI = #{IMEI,jdbcType=VARCHAR},
+      PhoneType = #{phoneType,jdbcType=VARCHAR},
+      Des = #{des,jdbcType=VARCHAR},
+      SeatId = #{seatId,jdbcType=VARCHAR},
+      UnitId = #{unitId,jdbcType=VARCHAR},
+      Status = #{status,jdbcType=VARCHAR}
+    where Id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+
+
+<select id="selectList"
+	resultMap="BaseResultMap"
+	parameterType="com.kxjl.video.pojo.Phoneinfo">
+	select
+	<include refid="Base_Column_List" />
+	from t_phoneinfo c
+
+	where 1=1
+	<if test=" id !=null and id !='' ">
+		and c.id = #{id}
+	</if>
+	
+		
+		<if test=" phone !=null and phone !='' ">
+		and c.Phone like concat ('%', #{phone},'%')
+	</if>
+		
+			
+		
+		<if test=" name !=null and name !='' ">
+		and c.Name like concat ('%', #{name},'%')
+	</if>
+		
+			
+
+
+</select>
+
+
+<select id="selectPage"
+	resultMap="BaseResultMap"
+	parameterType="com.kxjl.video.pojo.Phoneinfo">
+	select
+	<include refid="Base_Column_List" />
+	from t_phoneinfo c
+
+	where 1=1
+	<if test=" id !=null and id !='' ">
+		and c.id = #{id}
+	</if>
+	
+		
+		<if test=" phone !=null and phone !='' ">
+		and c.Phone like concat ('%', #{phone},'%')
+	</if>
+		
+			
+		
+		<if test=" name !=null and name !='' ">
+		and c.Name like concat ('%', #{name},'%')
+	</if>
+		
+			
+
+
+</select>
+
+
+<delete id="delete"
+	parameterType="com.kxjl.video.pojo.Phoneinfo">
+	delete from t_phoneinfo
+
+	where id = #{id,jdbcType=VARCHAR}
+
+</delete>
+
+</mapper>

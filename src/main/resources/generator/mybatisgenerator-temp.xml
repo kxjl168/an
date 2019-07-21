@@ -12,24 +12,24 @@
 
 
     <context id="mysql_tables" targetRuntime="MyBatis3">
-        <commentGenerator type="com.ztgm.base.mybatisMain.MyCommentGenerator">
+        <commentGenerator type="com.kxjl.base.mybatisMain.MyCommentGenerator">
            
         </commentGenerator>
 
         <!-- 数据库连接 -->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://192.168.100.126:3306/lockschema?useUnicode=true&amp;characterEncoding=UTF-8"
+                        connectionURL="jdbc:mysql://192.168.31.239:3306/video?useUnicode=true&amp;characterEncoding=utf-8"
                         userId="root"
                         password="123456">
                          <property name="useInformationSchema" value="true"></property>
         </jdbcConnection>
 
-        <javaTypeResolver type="com.ztgm.base.mybatisMain.MyJavaTypeResolverDefaultImpl">
+        <javaTypeResolver type="com.kxjl.base.mybatisMain.MyJavaTypeResolverDefaultImpl">
             <property name="forceBigDecimals" value="false"/>
         </javaTypeResolver>
 
         <!-- 生成模型的包名和位置-->
-        <javaModelGenerator targetPackage="com.ztgm.tasktransferplat.pojo" targetProject="src/main/java">
+        <javaModelGenerator targetPackage="com.kxjl.video.pojo" targetProject="src/main/java">
             <property name="enableSubPackages" value="true"/>
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
@@ -39,14 +39,14 @@
             <property name="enableSubPackages" value="true"/>
         </sqlMapGenerator>
 
+        
         <!-- 生成DAO的包名和位置-->
-        <javaClientGenerator type="XMLMAPPER" targetPackage="com.ztgm.tasktransferplat.dao.plus" targetProject="src/main/java">
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.kxjl.video.dao" targetProject="src/main/java">
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
-        
 
 
-  	<table tableName="t_order_lock_info" domainObjectName="OrderLockInfo" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+  	<table tableName="t_videoalarm_talkinfo" domainObjectName="VideoalarmTalkinfo" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
 <property name="useActualColumnNames" value="true"/> 
 </table>
 

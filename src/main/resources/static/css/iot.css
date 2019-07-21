@@ -391,7 +391,7 @@ ul.nav.nav-tabs>li>a, ul.nav.nav-tabs>li>a:visited, ul.nav.nav-tabs>li>a:selecte
 
 .margin-top-10
 {
-	margin-top: 10px;
+	margin-top: 10px!important;
 }
 .labeltxt{
 	padding-top:8px;
@@ -733,3 +733,69 @@ color:#af6133;
     transition: all 0.3s ease;
 }
 
+table.table-nohead th
+{
+	display: none;
+}
+
+table.table-noborder td
+{
+	border-right: 0px!important;
+	border-left: 0px!important;
+}
+
+.vd{
+	width: 100%;
+    display: block;
+    height: 100%;
+	
+}
+.vd img{
+	content:url('../img/an/vd.png');
+
+}
+
+.nopadding{
+	padding: 0px!important;
+}
+
+.main-content2
+{
+	margin-left: 15px;
+}
+
+#txtmsglist{
+	height:300px; 
+	overflow-y:scroll;
+	
+}
+
+.send{
+	float: right;
+	display: inline-block;
+	width:100%;
+	padding: 5px;
+}
+.get{
+	float: left;
+	display: inline-block;
+	width:100%;
+	padding: 5px;
+}
+.send .msg,.send .talktime{
+	text-align: right;
+}
+.send .talktime{
+	color:blue;
+}
+.get .talktime{
+	color:#399537;
+}
+
+.send .msg{
+	color:#777;
+}
+
+.ninfo{
+	color:red;
+}

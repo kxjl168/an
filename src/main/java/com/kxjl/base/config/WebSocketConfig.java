@@ -13,6 +13,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.socket.server.standard.ServerEndpointExporter;
 
 import com.kxjl.base.websocket.MyWebSocket;
+import com.kxjl.video.service.VideoalarmTalkinfoService;
 //import com.kxjl.tasktransferplat.service.ManagerMessageService;
 
 /**
@@ -28,9 +29,9 @@ public class WebSocketConfig {
         return new ServerEndpointExporter() ;
     }
 
-    /*@Autowired
-    public void setMessageService(ManagerMessageService managerMessageService){
-        MyWebSocket.managerMessageService = managerMessageService;
-    }*/
+    @Autowired
+    public void setMessageService(VideoalarmTalkinfoService videoalarmTalkinfoService){
+        MyWebSocket.videoalarmTalkinfoService = videoalarmTalkinfoService;
+    }
 
 }

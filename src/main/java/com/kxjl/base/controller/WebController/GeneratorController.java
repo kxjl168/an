@@ -41,6 +41,9 @@ public class GeneratorController {
 	// 模板文件目录
 	@Value("${kauto.databaseSchema}")
 	private String databaseSchema;
+	
+	@Value("${database.jdbc}")
+	private String database_jdbc;
 
 	@Value("${kauto.mysqljarPath}")
 	private String mysqljarPath;
@@ -119,6 +122,7 @@ public class GeneratorController {
 		try {
 
 			data.setJarPath(mysqljarPath);
+			data.setDatabaseurl(database_jdbc);
 
 			// 呈现字段
 			List<AField> filedCols = new ArrayList<>();
@@ -271,6 +275,7 @@ public class GeneratorController {
 		try {
 
 			data.setJarPath(mysqljarPath);
+			data.setDatabaseurl(database_jdbc);
 
 			int choose = Integer.parseInt(request.getParameter("choose"));
 

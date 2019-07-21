@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>安装工程师管理平台</title>
+    <title>警务110管理平台</title>
     <link href="${ctx}/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="${ctx}/vendor/page/login/css/login.css" rel="stylesheet">
 </head>
