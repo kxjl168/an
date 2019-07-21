@@ -9,9 +9,10 @@
     <result column="DataState" jdbcType="VARCHAR" property="dataState" />
     <result column="AreaId" jdbcType="VARCHAR" property="areaId" />
     <result column="UnitId" jdbcType="VARCHAR" property="unitId" />
+    <result column="PersonNum" jdbcType="VARCHAR" property="personNum" />
   </resultMap>
   <sql id="Base_Column_List">
-    Id, Name, CreateTime, Uptimestamp, DataState, AreaId, UnitId
+    Id, Name, CreateTime, Uptimestamp, DataState, AreaId, UnitId, PersonNum
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
@@ -26,10 +27,10 @@
   <insert id="insert" parameterType="com.kxjl.video.pojo.Seatinfo">
     insert into t_seatinfo (Id, Name, CreateTime, 
       Uptimestamp, DataState, AreaId, 
-      UnitId)
+      UnitId, PersonNum)
     values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, 
       #{uptimestamp,jdbcType=VARCHAR}, #{dataState,jdbcType=VARCHAR}, #{areaId,jdbcType=VARCHAR}, 
-      #{unitId,jdbcType=VARCHAR})
+      #{unitId,jdbcType=VARCHAR}, #{personNum,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.kxjl.video.pojo.Seatinfo">
     insert into t_seatinfo
@@ -55,6 +56,9 @@
       <if test="unitId != null">
         UnitId,
       </if>
+      <if test="personNum != null">
+        PersonNum,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -77,6 +81,9 @@
       </if>
       <if test="unitId != null">
         #{unitId,jdbcType=VARCHAR},
+      </if>
+      <if test="personNum != null">
+        #{personNum,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -101,6 +108,9 @@
       <if test="unitId != null">
         UnitId = #{unitId,jdbcType=VARCHAR},
       </if>
+      <if test="personNum != null">
+        PersonNum = #{personNum,jdbcType=VARCHAR},
+      </if>
     </set>
     where Id = #{id,jdbcType=VARCHAR}
   </update>
@@ -111,7 +121,8 @@
       Uptimestamp = #{uptimestamp,jdbcType=VARCHAR},
       DataState = #{dataState,jdbcType=VARCHAR},
       AreaId = #{areaId,jdbcType=VARCHAR},
-      UnitId = #{unitId,jdbcType=VARCHAR}
+      UnitId = #{unitId,jdbcType=VARCHAR},
+      PersonNum = #{personNum,jdbcType=VARCHAR}
     where Id = #{id,jdbcType=VARCHAR}
   </update>
   
@@ -121,14 +132,41 @@
 	resultMap="BaseResultMap"
 	parameterType="com.kxjl.video.pojo.Seatinfo">
 	select
-	<include refid="Base_Column_List" />
+	c.*,a.name areaName, u.name unitName,cnum.num personNumReal
 	from t_seatinfo c
+	left join t_areainfo a on c.areaId=a.id
+left join t_unitinfo u on a.unitId=u.id
+left join (
+select s.id,count(*) num from t_seatinfo s left join 
+t_receivepoliceinfo p on p.SeatId=s.id where 1=1 and p.id is not null group by s.id) cnum
+on c.id=cnum.id
+
 
 	where 1=1
+	<if test=" curUid !=null and curUid !='' ">
+		and u.id  in (select UnitId from t_unitinfo_manager where managerId=#{curUid})
+	</if>
+	
 	<if test=" id !=null and id !='' ">
 		and c.id = #{id}
 	</if>
 	
+		<if test=" unitId !=null and unitId !='' ">
+		and u.id = #{unitId}
+	</if>
+	
+	
+		<if test=" areaId !=null and areaId !='' ">
+		and a.id = #{areaId}
+	</if>
+	
+	
+		
+		<if test=" name !=null and name !='' ">
+		and c.Name like concat ('%', #{name},'%')
+	</if>
+		
+			
 
 
 </select>
@@ -146,6 +184,12 @@
 		and c.id = #{id}
 	</if>
 	
+		
+		<if test=" name !=null and name !='' ">
+		and c.Name like concat ('%', #{name},'%')
+	</if>
+		
+			
 
 
 </select>

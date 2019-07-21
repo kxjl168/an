@@ -45,6 +45,8 @@ public class AlarmUserinfo {
      * 微信号openid
      */
     private String wechatOpenId;
+    
+    private String regesterDate;//注册时间
 
     /**
      * 报警者ID
@@ -189,4 +191,12 @@ public class AlarmUserinfo {
     public void setWechatOpenId(String wechatOpenId) {
         this.wechatOpenId = wechatOpenId == null ? null : wechatOpenId.trim();
     }
+
+	public String getRegesterDate() {
+		return regesterDate;
+	}
+
+	public void setRegesterDate(String regesterDate) {
+		this.regesterDate = regesterDate;
+	}
 }

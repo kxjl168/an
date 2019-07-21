@@ -43,9 +43,9 @@ public class test {
 		 //MessageList();
 		 
 	
-		testAppTalk("3","不能呢，我发个照片给你们吧");
+		//testAppTalk("3","发送一条数据");
 		
-		//testAppGetTalk("3");
+		testAppGetTalk("3");
 	}
 	
 	public static void testAppTalk(String alarmId,String msg) {

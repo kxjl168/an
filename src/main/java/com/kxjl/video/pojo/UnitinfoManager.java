@@ -14,7 +14,10 @@ public class UnitinfoManager {
     /**
      * manager id
      */
-    private Integer managerId;
+    private String managerId;
+    
+    
+    private String name;//admin name
 
     /**
      * 
@@ -52,7 +55,7 @@ public class UnitinfoManager {
      * manager id
      * @return ManagerId manager id
      */
-    public Integer getManagerId() {
+    public String getManagerId() {
         return managerId;
     }
 
@@ -60,7 +63,15 @@ public class UnitinfoManager {
      * manager id
      * @param managerId manager id
      */
-    public void setManagerId(Integer managerId) {
+    public void setManagerId(String managerId) {
         this.managerId = managerId;
     }
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 }

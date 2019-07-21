@@ -97,7 +97,10 @@
 <if test=" type !=null and type !='' ">
 		and c.type = #{type}
 	</if>
-	
+		<if test=" dictName !=null and dictName  !='' ">
+		and c.dict_name  like   concat('%',#{dictName},'%')
+		
+	</if>
 
 </select>
 

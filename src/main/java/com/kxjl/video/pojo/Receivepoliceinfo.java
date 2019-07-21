@@ -90,6 +90,17 @@ public class Receivepoliceinfo {
      * 接警人员状态  0:空闲 1:繁忙 2:离开 3:下线
      */
     private String status;
+    
+    
+    //query
+    private String seatName;
+    private String unitName;
+    private String areaName;
+    
+    private String areaId;
+    
+    private String curUid;//当前登陆id
+    
 
     /**
      * 接警人员id(主键)，不能为0
@@ -378,4 +389,44 @@ public class Receivepoliceinfo {
     public void setStatus(String status) {
         this.status = status == null ? null : status.trim();
     }
+
+	public String getSeatName() {
+		return seatName;
+	}
+
+	public void setSeatName(String seatName) {
+		this.seatName = seatName;
+	}
+
+	public String getUnitName() {
+		return unitName;
+	}
+
+	public void setUnitName(String unitName) {
+		this.unitName = unitName;
+	}
+
+	public String getAreaName() {
+		return areaName;
+	}
+
+	public void setAreaName(String areaName) {
+		this.areaName = areaName;
+	}
+
+	public String getAreaId() {
+		return areaId;
+	}
+
+	public void setAreaId(String areaId) {
+		this.areaId = areaId;
+	}
+
+	public String getCurUid() {
+		return curUid;
+	}
+
+	public void setCurUid(String curUid) {
+		this.curUid = curUid;
+	}
 }

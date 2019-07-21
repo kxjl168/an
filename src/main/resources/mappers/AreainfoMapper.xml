@@ -51,6 +51,9 @@
       <if test="unitId != null">
         UnitId,
       </if>
+       <if test="des != null">
+        des ,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -70,6 +73,9 @@
       </if>
       <if test="unitId != null">
         #{unitId,jdbcType=VARCHAR},
+      </if>
+       <if test="des != null">
+        des = #{des,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -91,6 +97,9 @@
       <if test="unitId != null">
         UnitId = #{unitId,jdbcType=VARCHAR},
       </if>
+       <if test="des != null">
+        des = #{des,jdbcType=VARCHAR},
+      </if>
     </set>
     where Id = #{id,jdbcType=VARCHAR}
   </update>
@@ -107,17 +116,30 @@
 
 
 <select id="selectList"
-	resultMap="BaseResultMap"
+	resultType="com.kxjl.video.pojo.Areainfo"
 	parameterType="com.kxjl.video.pojo.Areainfo">
 	select
-	<include refid="Base_Column_List" />
+	c.*, u.name unitName
 	from t_areainfo c
+	left join t_unitinfo u on c.unitId=u.id
 
 	where 1=1
+		<if test=" curUid !=null and curUid !='' ">
+		and u.id  in (select UnitId from t_unitinfo_manager where managerId=#{curUid})
+	</if>
+	
 	<if test=" id !=null and id !='' ">
 		and c.id = #{id}
 	</if>
+		<if test=" name !=null and name  !='' ">
+		and c.name  like   concat('%',#{name},'%')
+		
+	</if>
 	
+		<if test=" unitId !=null and unitId  !='' ">
+		and c.unitId  =#{unitId}
+		
+	</if>
 
 
 </select>

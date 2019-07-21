@@ -112,6 +112,10 @@ public class RoleController extends BaseController {
 
 		Role q = new Role();
 		q.setName(name);
+		
+		  if(roleService.isSuperAdmin())
+	        	q.setSuperAdmin("true");
+		
 		com.github.pagehelper.PageInfo<Role> rst = roleService.selectRoleList(p,q);
 
 		Gson gs = new Gson();

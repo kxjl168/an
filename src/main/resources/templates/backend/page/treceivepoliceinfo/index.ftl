@@ -36,156 +36,187 @@
 		</div>
 
 
-	<div class="modal-body">
-		<div class="row">
-		
-	
-<div class="queryclass collaps">
+		<div class="modal-body">
 
-  <div class='querytitle ' data-tippy-content="展开查询条件" >
-                                <h5>查询条件 <i    class="querytitlebtn fa fa-chevron-down"></i></h5>
-                               
-                                <hr>
-                            </div>
-		
-			
+			<div class="col-sm-12 nopadding">
+
+				<div class="col-xs-2 nopadding">
+					<div class="queryclassleft ">
 
 
-				<form class="form-inline">
+						<div class="leftTree ztree" id="Areatree" style="margin-top: 0;"></div>
 
-					<div class="form-group">
-						<label for="name" class="lb_text col-xs-5 control-label">接警人员手机号，也是登陆接警人员名（唯一约束）:</label>
-
-						<div class="col-xs-7">
-							<input id="q_phone" type="text" name="q_phone"
-								class="form-control inputtxt" placeholder=""
-								aria-controls="dataTables-example">
-						</div>
-					</div>
-
-
-					<div class="form-group">
-						<label for="name" class="lb_text col-xs-5 control-label">接警人员密码:</label>
-
-						<div class="col-xs-7">
-							<input id="q_password" type="text" name="q_password"
-								class="form-control inputtxt" placeholder=""
-								aria-controls="dataTables-example">
-						</div>
-					</div>
-
-					
-					
-				</form>
-				
-
-					
-			
-
-
-
-				<form class=" form-inline margin-top-10">
-					
-
-
-					<button type="button" id="btnQry" onclick="doSearch_item()"
-						class="btn  button-primary button-rounded button-small">
-						<i class="fa fa-search fa-lg"></i> <span>查询</span>
-					</button>
-
-				</form>
-
-			</div>
-		</div>
-		
-		
-<script>
-$(function(){
-	tippy(".querytitle",{
-		 arrow: true,
-		 content: $(".querytitle").attr('data-tippy-content'),
-			placement:'top-start',
-		  arrowType: 'round', // or 'sharp' (default)
-		  animation: 'perspective',
-});
-
-   $(".querytitle").click(function(){
-
-	  if( $(".queryclass").hasClass("collaps"))
-		  {
-		  $(".queryclass").removeClass("collaps");
-		  $(".querytitle").attr("data-tippy-content","收起查询条件");
-		  }
-	  else{
-		  $(".queryclass").addClass("collaps");
-		  $(".querytitle").attr("data-tippy-content","展开查询条件");
-		  }
-
-	  $(".querytitle")[0]._tippy.setContent($(".querytitle").attr("data-tippy-content"));
-
-		
-	   
-	   })
-	   
-
-	
-})
-    </script>
-
-
-		<div class="mainbody">
-			<div class="row">
-				<div class="col-xs-5" style="margin-top: 16px;">接警人员信息列表</div>
-				<div class="col-xs-1 col-xs-push-6" style="padding-top: 10px;">
-
-
-					<button type="button" class="btn btn-default" id="btnAdd_item">新增</button>
-				</div>
-			</div>
-
-			<div class="row">
-				<div class="col-sm-12">
-
-					<div class="table-responsive" style="margin: 10px;">
-						<table id="table_list_item"
-							class="table table-bordered table-hover table-striped"></table>
 					</div>
 				</div>
-			</div>
-
-		</div>
 
 
+				<div class="col-xs-10 nopadding">
 
-		<div class="hide row">
+					<div class="row">
 
 
+						<div class="queryclass ">
 
+							<div class='querytitle ' data-tippy-content="展开查询条件">
+								<h5>
+									查询条件 <i class="querytitlebtn fa fa-chevron-up"></i>
+								</h5>
 
-			<div class="col-lg-12">
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<span class="header">接警人员信息列表</span>
-					</div>
-					<div class="panel-body">
-
-						<div id="dataTables-example_wrapper"
-							class="dataTables_wrapper form-inline dt-bootstrap no-footer">
-							<div class="row ">
-								<div class=" col-sm-9"></div>
-
-								<div class="col-sm-3 "></div>
+								<hr>
 							</div>
 
 
+
+
+							<form class="form-inline">
+
+								<div class="form-group">
+									<label for="name" class="lb_text col-xs-5 control-label">接警人员手机:</label>
+
+									<div class="col-xs-7">
+										<input id="q_phone" type="text" name="q_phone"
+											class="form-control inputtxt" placeholder=""
+											aria-controls="dataTables-example">
+									</div>
+								</div>
+
+
+								<div class="form-group">
+									<label for="name" class="lb_text col-xs-5 control-label">工号:</label>
+
+									<div class="col-xs-7">
+										<input id="q_idNo" type="text" name="q_idNo"
+											class="form-control inputtxt" placeholder=""
+											aria-controls="dataTables-example">
+									</div>
+								</div>
+
+
+
+							</form>
+
+
+
+
+
+
+
+							<form class=" form-inline margin-top-10">
+
+
+
+								<button type="button" id="btnQry" onclick="doSearch_item()"
+									class="btn  button-primary button-rounded button-small">
+									<i class="fa fa-search fa-lg"></i> <span>查询</span>
+								</button>
+
+							</form>
+
 						</div>
 					</div>
 
 
+
+					<script>
+						$(function() {
+							tippy(".querytitle", {
+								arrow : true,
+								content : $(".querytitle").attr(
+										'data-tippy-content'),
+								placement : 'top-start',
+								arrowType : 'round', // or 'sharp' (default)
+								animation : 'perspective',
+							});
+
+							$(".querytitle")
+									.click(
+											function() {
+
+												if ($(".queryclass").hasClass(
+														"collaps")) {
+													$(".queryclass")
+															.removeClass(
+																	"collaps");
+													$(".querytitle")
+															.attr(
+																	"data-tippy-content",
+																	"收起查询条件");
+												} else {
+													$(".queryclass").addClass(
+															"collaps");
+													$(".querytitle")
+															.attr(
+																	"data-tippy-content",
+																	"展开查询条件");
+												}
+
+												$(".querytitle")[0]._tippy
+														.setContent($(
+																".querytitle")
+																.attr(
+																		"data-tippy-content"));
+
+											})
+
+						})
+					</script>
+
+
+					<div class="mainbody">
+						<div class="row">
+							<div class="col-xs-5" style="margin-top: 16px;">接警人员信息列表</div>
+							<div class="col-xs-1 col-xs-push-6" style="padding-top: 10px;">
+
+
+								<button type="button" class="btn btn-default" id="btnAdd_item">新增</button>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-sm-12">
+
+								<div class="table-responsive" style="margin: 10px;">
+									<table id="table_list_item"
+										class="table table-bordered table-hover table-striped"></table>
+								</div>
+							</div>
+						</div>
+
+					</div>
+
+
+
+					<div class="hide row">
+
+
+
+
+						<div class="col-lg-12">
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<span class="header">接警人员信息列表</span>
+								</div>
+								<div class="panel-body">
+
+									<div id="dataTables-example_wrapper"
+										class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+										<div class="row ">
+											<div class=" col-sm-9"></div>
+
+											<div class="col-sm-3 "></div>
+										</div>
+
+
+									</div>
+								</div>
+
+
+							</div>
+						</div>
+					</div>
+
 				</div>
 			</div>
-		</div>
-		
 		</div>
 
 		<!-- 模态框（Modal） -->
@@ -194,5 +225,9 @@ $(function(){
 
 		<script
 			src="${ctx}/vendor/pageAuto/treceivepoliceinfo/js/treceivepoliceinfo.js"></script>
+
+		<script src="${ctx}/js/ztree/jquery.ztree.all.min.js"></script>
+		<script src="${ctx}/vendor/pageAuto/common/common.js"></script>
+		<script src="${ctx}/vendor/pageAuto/common/leftAreaTree.js"></script>
 </body>
 </html>

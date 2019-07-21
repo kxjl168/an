@@ -19,7 +19,7 @@ import com.kxjl.video.dao.UnitinfoMapper;
 
 import com.kxjl.video.pojo.Unitinfo;
 import com.kxjl.video.service.UnitinfoService;
-
+import com.kxjl.video.util.TokenUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 
@@ -57,6 +57,27 @@ public class UnitinfoController {
 
 		return "/backend/page/tunitinfo/index.ftl";
 	}
+	
+	@RequestMapping("/tunitinfoPageList")
+	//@ManagerActionLog(operateDescribe="查询单位信息",operateFuncType=FunLogType.Query,operateModelClassName=UnitinfoMapper.class)
+	@ResponseBody
+	public String tunitinfoPageList( Unitinfo item, HttpServletRequest request,PageCondition pageCondition) {
+
+		String rst = "";
+		List<Unitinfo> tunitinfos = new ArrayList<>();
+
+		//页面查询不过滤权限
+		Page page = PageUtil.getPage(pageCondition);
+		tunitinfos = tunitinfoService.selectUnitinfoList(item);
+
+		try {
+			rst = PageUtil.packageTableData(page, tunitinfos);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return rst;
+	}
 
 	@RequestMapping("/tunitinfoList")
 	@ManagerActionLog(operateDescribe="查询单位信息",operateFuncType=FunLogType.Query,operateModelClassName=UnitinfoMapper.class)
@@ -67,6 +88,10 @@ public class UnitinfoController {
 		List<Unitinfo> tunitinfos = new ArrayList<>();
 
 		Page page = PageUtil.getPage(pageCondition);
+		
+		
+		//select2下拉接口也需要过滤
+		item.setCurUid(TokenUtil.getWebLoginUser().getId());
 		tunitinfos = tunitinfoService.selectUnitinfoList(item);
 
 		try {
@@ -105,6 +130,33 @@ public class UnitinfoController {
 		//return JSONObject.fromObject(tunitinfos).toString();
 	}
 
+	
+	/**
+	 * 更新單位管理員
+	 * @param tunitinfo
+	 * @return
+	 * @author zj
+	 * @date 2019年7月21日
+	 */
+	@RequestMapping("/updateManager")
+	//@ManagerActionLog(operateDescribe="保存修改单位信息",operateFuncType=FunLogType.SaveOrUpdate,operateModelClassName=UnitinfoMapper.class)
+	@ResponseBody
+	public String updateManager(Unitinfo tunitinfo) {
+
+		JSONObject jsonObject = null;
+		try {
+			 tunitinfoService.updateUnitManagerList(tunitinfo.getId(),tunitinfo.getAdminlist());
+			 jsonObject=new JSONObject();
+			 jsonObject.put("bol", true);
+		} catch (Exception e) {
+			e.printStackTrace();
+			 jsonObject=new JSONObject();
+			 jsonObject.put("bol", false);
+		}
+		assert jsonObject != null;
+		return jsonObject.toString();
+	}
+	
 	/**
 	 * 新增普通用户请求 demo
 	 *

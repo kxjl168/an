@@ -1,12 +1,11 @@
-function test(){
-	
-	
-	var url = getRPath()+"/manager/tseatinfo/test";
-	
+function test() {
+
+	var url = getRPath() + "/manager/tseatinfo/test";
+
 	$.ajax({
 		type : "post",
 		url : url,
-		//data : data,
+		// data : data,
 		async : false,
 		dataType : "json",
 		success : function(response) {
@@ -15,55 +14,82 @@ function test(){
 	});
 }
 
+var selectUnitId = null;
+var selectAreaId = null;
+function treeClick() {
+
+	var menuids = "";
+	var zTree = $.fn.zTree.getZTreeObj("Areatree");
+	if (zTree != null) {
+		var nodes = zTree.getSelectedNodes();
+		if (nodes != null) {
+			var selectNd = nodes[0];
+			if (selectNd.level == 0) {
+				selectUnitId = selectNd.id;
+				selectAreaId = null;
+
+			}
+
+			else if (selectNd.level == 1) {
+				selectUnitId = null;
+				selectAreaId = selectNd.id;
+			}
+
+			doSearch_item();
+			
+		}
+	}
+
+}
+
 $(function() {
 	InitQuery_item();
 
-
+	loadAreaTree(treeClick);
+	initUnitAreaSelect("areaId");
 
 	$("#btnAdd_item").click(function() {
 
-	
-		  $('#mform_item')[0].reset();
-		  
-		  $('#mform_item').find("#id").val("");
-		  
+		$("#areaId").select2().val(null).trigger("change");
+		$("#areaId").select2("destroy");
+		$("#areaId").html("");
+		initUnitAreaSelect("areaId");
+
+		$('#mform_item')[0].reset();
+
+		$('#mform_item').find("#id").val("");
+
 		$("#myModal_item_title").html("添加");
-		
+
 		$("#distpicker2").distpicker({
-			  autoSelect: true
-			});
-		
+			autoSelect : true
+		});
+
 		$("#myModal_item").modal();
 	});
 
-	
 	// modal 新增基本字段事件 关闭事件事件， 清空已有的值 恢复禁用
 	$('#myModal_item').on('hide.bs.modal', function(e) {
-		
-		if($(e.target).attr("type")) //日期选择等弹出框
+
+		if ($(e.target).attr("type")) // 日期选择等弹出框
 			return;
-		
-		  $('#mform_item')[0].reset();
+
+		$('#mform_item')[0].reset();
 
 		$("#mform_item").data('bootstrapValidator').resetForm();
 
 	});
 
-
 	$("#btnSubmit_item").click(function() {
-		
-		
-		
+
 		$("#mform_item").data('bootstrapValidator').resetForm();
-		
-		
-		 
-		    // var bool2 = bv.isValid();
+
+		// var bool2 = bv.isValid();
 		$("#mform_item").data("bootstrapValidator").validate();
 		// flag = true/false
 		var flag = $("#mform_item").data("bootstrapValidator").isValid();
 
-		var url = getRPath()+"/manager/tseatinfo/saveOrUpdate";
+		var url = getRPath() + "/manager/tseatinfo/saveOrUpdate";
 
 		if (flag) {
 			var data = $("#mform_item").serialize();
@@ -83,7 +109,7 @@ $(function() {
 						doSearch_item();
 						success("操作成功！");
 					} else {
-						error( response.message);
+						error(response.message);
 					}
 				}
 			});
@@ -91,15 +117,8 @@ $(function() {
 	});
 
 	initValidate_item();
-	
-
-
-
 
 });
-
-
-
 
 function initValidate_item() {
 	$("#mform_item").bootstrapValidator({
@@ -112,30 +131,24 @@ function initValidate_item() {
 		// submitButtons : 'button[type="submit"]',// 提交按钮
 		fields : {
 
-				name : {
+			name : {
 				validators : {
 					notEmpty : {
 						message : '不能为空'
 					}
 				}
 			},
-			
-		
 
 		}
-		
 
-	
 	});
 
 }
 
-
-
 function InitQuery_item() {
 	// 初始化Table
 	$('#table_list_item').bootstrapTable({
-		url : getRPath()+'/manager/tseatinfo/tseatinfoList', // 请求后台的URL（*）
+		url : getRPath() + '/manager/tseatinfo/tseatinfoList', // 请求后台的URL（*）
 		method : 'post', // 请求方式（*）
 		contentType : 'application/x-www-form-urlencoded',
 		toolbar : '#toolbar', // 工具按钮用哪个容器
@@ -165,77 +178,48 @@ function InitQuery_item() {
 				offset : params.offset, // 每页显示数据的开始行号
 				sortName : params.sort, // 要排序的字段
 				sortOrder : params.order, // 排序规则
-				
-				
-				
+
 				name : $("#q_name").val(),
-				createTime : $("#q_createTime").val(),
 				
-				
+				unitId: selectUnitId ,
+			areaId: selectAreaId ,
+
 			};
 			return param;
 		},
 		columns : [ {
 			field : 'id',
 			visible : false
+		}, {
+			field : 'name',
+			title : '坐席名称',
+			align : 'center',
+			valign : 'middle',
+
 		},
-		 {
-				field : 'name',
-				title : '坐席名称',
-				align : 'center',
-				valign : 'middle',
-				   
-				
-			},
-		 {
-				field : 'createTime',
-				title : '创建时间（insert 触发器 确定）',
-				align : 'center',
-				valign : 'middle',
-				   
-		 formatter: function (value, row, index) {
-             return new Date(value).Format("yyyy-MM-dd hh:mm:ss");
-         }
-				
-			},
-		 {
-				field : 'uptimestamp',
-				title : '上次更新时间（update 触发器 确定）',
-				align : 'center',
-				valign : 'middle',
-				   
-		 formatter: function (value, row, index) {
-             return new Date(value).Format("yyyy-MM-dd hh:mm:ss");
-         }
-				
-			},
-		 {
-				field : 'dataState',
-				title : '数据状态，1：可用，0：禁用，2：删除',
-				align : 'center',
-				valign : 'middle',
-				   
-				
-			},
-		 {
-				field : 'areaId',
-				title : '所属片区id',
-				align : 'center',
-				valign : 'middle',
-				   
-				
-			},
-		 {
-				field : 'unitId',
-				title : '所属单位id',
-				align : 'center',
-				valign : 'middle',
-				   
-				
-			},
-		
-		
-		
+
+		{
+			field : 'unitName',
+			title : '所属单位',
+			align : 'center',
+			valign : 'middle',
+
+		}, {
+			field : 'areaName',
+			title : '所属片区',
+			align : 'center',
+			valign : 'middle',
+
+		},
+
+		{
+			field : 'personNumReal',
+			title : '成员数',
+			align : 'center',
+			valign : 'middle',
+
+		},
+
 		{
 			title : '操作',
 			field : 'vehicleno',
@@ -255,30 +239,47 @@ function modifyAndDeleteButton_item(value, row, index) {
 			+ '</div>' ].join("");
 }
 
-
-
-
 window.PersonnelInformationEvents_item = {
 	"click #update" : function(e, value, row, index) {
 		$.ajax({
 			type : "post",
-			url :getRPath()+ '/manager/tseatinfo/load',
+			url : getRPath() + '/manager/tseatinfo/load',
 			data : {
 				id : row.id
 			},
 			async : false,
 			dataType : "json",
 			success : function(response) {
-				
-			   $("#mform_item").fill(response);
-			     
-	
-			   
-			   $("#myModal_item_title").html("编辑");
-			   
+
+				$("#mform_item").fill(response);
+
+				$("#areaId").select2().val(null).trigger("change");
+				$("#areaId").select2("destroy");
+				$("#areaId").html("");
+
+				// unitAdmin
+				if (response) {
+					var data = response;
+					var pname = data.areaName;
+					var option = new Option(pname, data.areaId, true, true);
+					$("#areaId").append(option).trigger('change');
+					$("#areaId").trigger({
+						type : 'select2:select',
+						params : {
+							data : {
+								text : pname,
+								id : data.areaId
+							}
+						}
+					});
+				}
+
+				initUnitAreaSelect("areaId");
+
+				$("#myModal_item_title").html("编辑");
+
 				$("#myModal_item").modal();
-				
-			
+
 			}
 		});
 
@@ -286,8 +287,8 @@ window.PersonnelInformationEvents_item = {
 
 	"click #delete" : function(e, value, row, index) {
 		var msg = "您真的确定要删除吗？";
-		var url = getRPath()+"/manager/tseatinfo/delete";
-		cconfirm(msg,function() {
+		var url = getRPath() + "/manager/tseatinfo/delete";
+		cconfirm(msg, function() {
 			$.ajax({
 				type : "post",
 				url : url,
@@ -299,24 +300,21 @@ window.PersonnelInformationEvents_item = {
 						success("删除成功！");
 						doSearch_item();
 					} else {
-						error(""+response.message);
+						error("" + response.message);
 					}
 				}
 			});
 		});
-		
+
 	}
 };
 
 function doSearch_item() {
-	
-	
-	
+
 	var opt = {
 		silent : true
 	};
 	$("#table_list_item").bootstrapTable('refresh', opt);
-	
-	//success("test");
-}
 
+	// success("test");
+}

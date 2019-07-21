@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import java.util.List;
 
+import com.kxjl.video.pojo.Unitinfo;
 import com.kxjl.video.pojo.UnitinfoManager;
 
 public interface UnitinfoManagerMapper    extends BaseMapper<UnitinfoManager>    {
@@ -90,4 +91,13 @@ public interface UnitinfoManagerMapper    extends BaseMapper<UnitinfoManager>   
      * @return
      */
     IPage<UnitinfoManager> selectPage(Page page, UnitinfoManager item);
+    
+    
+    /**
+     * 清空单位管理员
+     * @param item
+     * @author zj
+     * @date 2019年7月21日
+     */
+    void deleteUnitManager(Unitinfo item);
 }

@@ -15,6 +15,9 @@ import com.kxjl.base.pojo.Role;
 
 public interface RoleService {
 
+	
+	boolean isSuperAdmin();
+	
 	int deleteByPrimaryKey(String id);
 
 	int insert(Role record);

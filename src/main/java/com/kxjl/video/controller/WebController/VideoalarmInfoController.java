@@ -19,7 +19,7 @@ import com.kxjl.video.dao.VideoalarmInfoMapper;
 
 import com.kxjl.video.pojo.VideoalarmInfo;
 import com.kxjl.video.service.VideoalarmInfoService;
-
+import com.kxjl.video.util.TokenUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 
@@ -67,6 +67,8 @@ public class VideoalarmInfoController {
 		List<VideoalarmInfo> videoalarminfos = new ArrayList<>();
 
 		Page page = PageUtil.getPage(pageCondition);
+		
+		item.setCurUid(TokenUtil.getWebLoginUser().getId());
 		videoalarminfos = videoalarminfoService.selectVideoalarmInfoList(item);
 
 		try {

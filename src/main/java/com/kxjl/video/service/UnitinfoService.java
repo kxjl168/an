@@ -26,7 +26,15 @@ import com.kxjl.video.pojo.Unitinfo;
  */
 public interface UnitinfoService {
 
-
+	 /**
+	  * 更新单位管理员
+	  * @param role_id
+	  * @param ids
+	  * @return
+	  * @author zj
+	  * @date 2019年7月21日
+	  */
+ 	public int updateUnitManagerList(String unitId, String ids);
     /**
      * 新增
      */

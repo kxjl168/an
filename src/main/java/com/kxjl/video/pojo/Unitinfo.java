@@ -45,6 +45,12 @@ public class Unitinfo {
      * 单位地址
      */
     private String address;
+    
+    
+    //query
+    private String adminlist; //单位管理员 逗号分隔
+    
+    private String curUid;//当前登陆id
 
     /**
      * 单位id(主键)
@@ -189,4 +195,20 @@ public class Unitinfo {
     public void setAddress(String address) {
         this.address = address == null ? null : address.trim();
     }
+
+	public String getAdminlist() {
+		return adminlist;
+	}
+
+	public void setAdminlist(String adminlist) {
+		this.adminlist = adminlist;
+	}
+
+	public String getCurUid() {
+		return curUid;
+	}
+
+	public void setCurUid(String curUid) {
+		this.curUid = curUid;
+	}
 }

@@ -260,6 +260,11 @@
         left join sys_user_role ur on t1.ID=ur.sys_user_id
         left join sys_role r on r.id=ur.sys_role_id
         where 1=1
+        
+      
+         <if test=" superAdmin == null || superAdmin !='true' ">
+            and r.id !='superadmin'
+        </if>
         <if test="id != null">
             and ID= #{id,jdbcType=VARCHAR}
         </if>

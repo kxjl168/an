@@ -149,10 +149,18 @@
 	from t_unitinfo c
 
 	where 1=1
+	
+			<if test=" curUid !=null and curUid !='' ">
+		and c.id  in (select UnitId from t_unitinfo_manager where managerId=#{curUid})
+	</if>
+	
 	<if test=" id !=null and id !='' ">
 		and c.id = #{id}
 	</if>
-	
+	<if test=" name !=null and name  !='' ">
+		and c.name  like   concat('%',#{name},'%')
+		
+	</if>
 
 
 </select>

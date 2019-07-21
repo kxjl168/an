@@ -23,6 +23,7 @@ import com.kxjl.base.pojo.Role;
 import com.kxjl.base.pojo.RolePermission;
 import com.kxjl.base.service.RoleService;
 import com.kxjl.base.util.UUIDUtil;
+import com.kxjl.video.util.TokenUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -44,6 +45,28 @@ public class RoleServiceImpl implements RoleService {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
+	
+	public boolean isSuperAdmin()
+	{
+		String superadmin="false";
+        List<Role> roles= roleMapper.selectRoleByManager(TokenUtil.getWebLoginUser());
+        if(roles!=null&&roles.size()>0)
+        {
+        	for (int i = 0; i < roles.size(); i++) {
+				if(roles.get(i).getId().equals("superadmin"))
+				{
+					superadmin="true";
+					break;
+				}
+			}
+        }
+        
+        if(superadmin.equals("true"))
+        	return true;
+        else
+        	return false;
+	}
+	
 	public int deleteByPrimaryKey(String id) {
 		Role query = new Role();
 		query.setId(id);
@@ -167,6 +190,7 @@ public class RoleServiceImpl implements RoleService {
 
 			Manager u = new Manager();
 			u.setId(Manager_id);
+			
 			List<Role> Managerroles = selectRoleByManager(u);
 
 			// 一级菜单
@@ -174,7 +198,8 @@ public class RoleServiceImpl implements RoleService {
 			q.setAvailable("1");
 			
 			
-			
+			  if(isSuperAdmin())
+		        	q.setSuperAdmin("true");
 			List<Role> allroles = selectRoleList(null,q).getList();
 
 			String rootid = "0";

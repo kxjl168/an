@@ -1,7 +1,7 @@
 /*
  * @(#)SeatinfoController.java
  * @author: zj
- * @Date: 2019-07-19 22:22:17
+ * @Date: 2019-07-21 16:24:56
  * Copyright (C),2017-2018, kxjl
  * Co.,Ltd. All Rights Reserved.
  * kxjl PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
@@ -19,7 +19,7 @@ import com.kxjl.video.dao.SeatinfoMapper;
 
 import com.kxjl.video.pojo.Seatinfo;
 import com.kxjl.video.service.SeatinfoService;
-
+import com.kxjl.video.util.TokenUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 
@@ -42,7 +42,7 @@ import java.util.Map;
  * 坐席信息管理 SeatinfoController.java.
  * 
  * @author zj
- * @version 1.0.1 2019-07-19 22:22:17
+ * @version 1.0.1 2019-07-21 16:24:56
  * @since 1.0.0
  */
 @Controller
@@ -67,6 +67,8 @@ public class SeatinfoController {
 		List<Seatinfo> tseatinfos = new ArrayList<>();
 
 		Page page = PageUtil.getPage(pageCondition);
+		
+		item.setCurUid(TokenUtil.getWebLoginUser().getId());
 		tseatinfos = tseatinfoService.selectSeatinfoList(item);
 
 		try {

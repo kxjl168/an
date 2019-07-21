@@ -1,8 +1,9 @@
 package com.kxjl.video.service.impl;
 
-
-
 import com.alibaba.fastjson.JSONObject;
+import com.google.gson.Gson;
+
+import org.apache.poi.ss.formula.ptg.AreaI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,11 +12,20 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
+import com.kxjl.base.pojo.MenuPermission;
+import com.kxjl.base.pojo.Role;
 import com.kxjl.base.util.ExceptionUntil;
 import com.kxjl.base.util.UUIDUtil;
+
 import com.kxjl.video.dao.AreainfoMapper;
+import com.kxjl.video.dao.SeatinfoMapper;
+import com.kxjl.video.dao.UnitinfoMapper;
 import com.kxjl.video.pojo.Areainfo;
+import com.kxjl.video.pojo.Seatinfo;
+import com.kxjl.video.pojo.Unitinfo;
 import com.kxjl.video.service.AreainfoService;
+import com.kxjl.video.service.SeatinfoService;
+import com.kxjl.video.util.TokenUtil;
 
 import java.util.*;
 
@@ -26,7 +36,179 @@ public class AreainfoServiceImpl implements AreainfoService {
 
 	@Autowired
 	private AreainfoMapper itemMapper;
-	
+
+	@Autowired
+	private UnitinfoMapper unitinfoMapper;
+
+	@Autowired
+	private SeatinfoMapper seatinfoMapper;
+
+	/**
+	 * 构造单位-片区树
+	 * 
+	 * @param level
+	 * @param isopen
+	 * @return
+	 * @author zj
+	 * @date 2019年7月21日
+	 */
+	public List<String> buildAreaTree(String level, boolean isopen) {
+		List<String> lstTree = new ArrayList<String>();
+
+		try {
+
+			// 一级分类
+			Unitinfo uquery = new Unitinfo();
+			uquery.setDataState("1");
+			
+			uquery.setCurUid(TokenUtil.getWebLoginUser().getId());
+			// uquery.set
+			List<Unitinfo> menus = unitinfoMapper.selectList(uquery);
+
+			String rootid = "0";
+			for (Unitinfo menu : menus) {
+				StringBuffer sBuffer = new StringBuffer();
+				sBuffer.append("{");
+				sBuffer.append("id:\"" + menu.getId() + "\",");
+				sBuffer.append("pId:\"" + rootid + "\",");
+				sBuffer.append("ttype:\"" + "unit" + "\",");
+				sBuffer.append("open:" + (isopen ? "true" : "false") + ",");// 根节点打开
+
+				sBuffer.append("name:\"" + menu.getName() + "\",");
+
+				sBuffer.append("remark:\"" + "" + "\"");
+
+				sBuffer.append("}");
+				lstTree.add(sBuffer.toString());
+
+			}
+
+			for (int i = 0; i < menus.size(); i++) {
+
+				Areainfo query2 = new Areainfo();
+				query2.setUnitId(menus.get(i).getId());
+				query2.setDataState("1");
+
+				List<Areainfo> all_menus = itemMapper.selectList(query2);
+
+				for (Areainfo menu : all_menus) {
+					StringBuffer sBuffer = new StringBuffer();
+					sBuffer.append("{");
+					sBuffer.append("id:\"" + menu.getId() + "\",");
+					sBuffer.append("pId:\"" + menus.get(i).getId() + "\",");
+					sBuffer.append("open:" + (isopen ? "true" : "false") + ",");// 根节点打开
+					sBuffer.append("ttype:\"" + "area" + "\",");
+					sBuffer.append("name:\"" + menu.getName() + "\",");
+
+					sBuffer.append("remark:\"" + "" + "\"");
+
+					sBuffer.append("}");
+					lstTree.add(sBuffer.toString());
+
+					if (level.equals("3")) {
+						// 显示坐席
+
+						Seatinfo query3 = new Seatinfo();
+						query3.setAreaId(menu.getId());
+						query3.setDataState("1");
+
+						List<Seatinfo> seats = seatinfoMapper.selectList(query3);
+						for (int j = 0; j < seats.size(); j++) {
+
+							Seatinfo sinfo=seats.get(j);
+							StringBuffer sBuffer2 = new StringBuffer();
+							sBuffer2.append("{");
+							sBuffer2.append("id:\"" + sinfo.getId() + "\",");
+							sBuffer2.append("pId:\"" + menu.getId() + "\",");
+							sBuffer2.append("open:" + (isopen ? "true" : "false") + ",");// 根节点打开
+							sBuffer2.append("ttype:\"" + "seat" + "\",");
+							sBuffer2.append("name:\"" + sinfo.getName() + "\",");
+
+							sBuffer2.append("remark:\"" + "" + "\"");
+
+							sBuffer2.append("}");
+							lstTree.add(sBuffer2.toString());
+						}
+					}
+
+				}
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return lstTree;
+	}
+
+	/**
+	 * 单位、区域二级,坐席 select group ,
+	 * 
+	 * @param dict_type
+	 * @return
+	 * @author zj
+	 * @date 2019年7月21日
+	 */
+	public List<String> getAreaTreeSelectSecond(Areainfo item, String level) {
+
+		List<String> rst = new ArrayList<>();
+
+		// 一级分类
+		Unitinfo uquery = new Unitinfo();
+		uquery.setDataState("1");
+		uquery.setName(item.getName());
+		uquery.setCurUid(TokenUtil.getWebLoginUser().getId());
+		// uquery.set
+		List<Unitinfo> menus = unitinfoMapper.selectList(uquery);
+
+		Gson gs = new Gson();
+
+		for (int i = 0; i < menus.size(); i++) {
+
+			org.json.JSONObject jsObj = new org.json.JSONObject();
+
+			Unitinfo pInfo = menus.get(i);
+			String pInfoStr = gs.toJson(pInfo);
+			jsObj = new org.json.JSONObject(pInfoStr);
+
+			Areainfo query2 = new Areainfo();
+			query2.setUnitId(pInfo.getId());
+			query2.setDataState("1");
+			query2.setName(item.getName());
+
+			List<Areainfo> all_menus = itemMapper.selectList(query2);
+
+			if (level.equals("3")) {
+				// 显示坐席
+				for (int j = 0; j < all_menus.size(); j++) {
+
+					Areainfo ainfo = all_menus.get(j);
+
+					String ainfoStr = gs.toJson(ainfo);
+					org.json.JSONObject ainfojsObj = new org.json.JSONObject(ainfoStr);
+
+					Seatinfo query3 = new Seatinfo();
+					query3.setAreaId(ainfo.getId());
+					query3.setDataState("1");
+					query3.setName(item.getName());
+
+					List<Seatinfo> areas = seatinfoMapper.selectList(query3);
+					String level3list = gs.toJson(areas);
+					all_menus.get(j).setSeatListStr(level3list);
+				}
+			}
+
+			String level2list = gs.toJson(all_menus);
+
+			jsObj.put("child", level2list);
+
+			rst.add(jsObj.toString());
+
+		}
+
+		return rst;
+
+	}
 
 	/**
 	 * @param item
@@ -37,11 +219,9 @@ public class AreainfoServiceImpl implements AreainfoService {
 	public JSONObject saveAreainfo(Areainfo item) {
 		JSONObject rtn = new JSONObject();
 
-
 		try {
 
 			item.setId(UUIDUtil.getUUID());
-			
 
 			itemMapper.insertSelective(item);
 
@@ -63,8 +243,7 @@ public class AreainfoServiceImpl implements AreainfoService {
 	public JSONObject updateAreainfo(Areainfo item) {
 		JSONObject rtn = new JSONObject();
 
-		 if (null == item || null == item.getId()) 
-		 {
+		if (null == item || null == item.getId()) {
 			rtn.put("bol", false);
 			rtn.put("message", "id为空");
 			return rtn;

@@ -72,6 +72,8 @@ public class Manager implements Serializable {
     private String companyName;
 
     private Integer type=0;
+    
+    private String superAdmin;
 
     /**
      * 用户状态

@@ -13,9 +13,13 @@ import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import com.kxjl.base.util.ExceptionUntil;
 import com.kxjl.base.util.UUIDUtil;
+import com.kxjl.video.dao.UnitinfoManagerMapper;
 import com.kxjl.video.dao.UnitinfoMapper;
 import com.kxjl.video.pojo.Unitinfo;
+import com.kxjl.video.pojo.UnitinfoManager;
 import com.kxjl.video.service.UnitinfoService;
+
+
 
 import java.util.*;
 
@@ -27,6 +31,52 @@ public class UnitinfoServiceImpl implements UnitinfoService {
 	@Autowired
 	private UnitinfoMapper itemMapper;
 	
+	@Autowired
+	UnitinfoManagerMapper unitinfoManagerMapper;
+	
+	
+	 /**
+	  * 更新单位管理员
+	  * @param role_id
+	  * @param ids
+	  * @return
+	  * @author zj
+	  * @date 2019年7月21日
+	  */
+  	public int updateUnitManagerList(String unitId, String ids) {
+  		
+
+		int rst = -1;
+		try {
+
+			Unitinfo query = new Unitinfo();
+			query.setId(unitId);
+
+			unitinfoManagerMapper.deleteUnitManager(query);
+
+			// 添加
+			String[] menus = ids.split(",");
+			for (int i = 0; i < menus.length; i++) {
+				if (menus[i].trim().equals(""))
+					continue;
+
+				UnitinfoManager item = new UnitinfoManager();
+				item.setId(UUIDUtil.getUUID());
+				item.setUnitId(unitId);
+				item.setManagerId(menus[i]);
+
+				unitinfoManagerMapper.insertSelective(item);
+			}
+
+			rst = 1;
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+
+		return rst;
+  		
+  	}
+    
 
 	/**
 	 * @param item

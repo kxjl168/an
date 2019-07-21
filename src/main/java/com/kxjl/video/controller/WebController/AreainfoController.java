@@ -19,7 +19,7 @@ import com.kxjl.video.dao.AreainfoMapper;
 
 import com.kxjl.video.pojo.Areainfo;
 import com.kxjl.video.service.AreainfoService;
-
+import com.kxjl.video.util.TokenUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 
@@ -28,6 +28,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -67,6 +68,8 @@ public class AreainfoController {
 		List<Areainfo> tareainfos = new ArrayList<>();
 
 		Page page = PageUtil.getPage(pageCondition);
+		
+		item.setCurUid(TokenUtil.getWebLoginUser().getId());
 		tareainfos = tareainfoService.selectAreainfoList(item);
 
 		try {
@@ -78,6 +81,53 @@ public class AreainfoController {
 		return rst;
 	}
 
+	/**
+	 * area group select2 分组
+	 * @param item
+	 * @param request
+	 * @param pageCondition
+	 * @return
+	 * @author zj
+	 * @date 2019年7月21日
+	 */
+	@RequestMapping("/AreaTypeList")
+	@ResponseBody
+	public List<String> AreaTypeList( Areainfo item, HttpServletRequest request,PageCondition pageCondition) {
+
+		String rst = "";
+		List<String> areaGroup = new ArrayList<>();
+		
+		//显示三级坐席树
+		String level=request.getParameter("level");
+		if(level==null||level.equals(""))
+			level="2";
+
+		
+	
+		areaGroup = tareainfoService.getAreaTreeSelectSecond(item,level);
+
+
+		return areaGroup;
+	}
+	
+	/**
+	 * 单位-area ztree 数据
+	 * @param request
+	 * @return
+	 * @author zj
+	 * @date 2019年7月21日
+	 */
+	@RequestMapping(value = { "/getAreaTreeSecond" }, method = RequestMethod.POST)
+	public @ResponseBody List<String> getAreaTreeSecond(HttpServletRequest request) {
+		String level=request.getParameter("level");
+		if(level==null||level.equals(""))
+			level="2";
+		
+		
+		return tareainfoService.buildAreaTree(level,true);
+	}
+	
+	
 	@RequestMapping("/delete")
 	@ManagerActionLog(operateDescribe="删除片区信息",operateFuncType=FunLogType.Del,operateModelClassName=AreainfoMapper.class)
 	@ResponseBody

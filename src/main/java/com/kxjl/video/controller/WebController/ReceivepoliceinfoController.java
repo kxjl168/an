@@ -19,7 +19,7 @@ import com.kxjl.video.dao.ReceivepoliceinfoMapper;
 
 import com.kxjl.video.pojo.Receivepoliceinfo;
 import com.kxjl.video.service.ReceivepoliceinfoService;
-
+import com.kxjl.video.util.TokenUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 
@@ -67,6 +67,8 @@ public class ReceivepoliceinfoController {
 		List<Receivepoliceinfo> treceivepoliceinfos = new ArrayList<>();
 
 		Page page = PageUtil.getPage(pageCondition);
+		
+		item.setCurUid(TokenUtil.getWebLoginUser().getId());
 		treceivepoliceinfos = treceivepoliceinfoService.selectReceivepoliceinfoList(item);
 
 		try {

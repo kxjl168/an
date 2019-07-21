@@ -7,7 +7,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>单位信息管理</title>
+<title>接警单位管理</title>
 
 
 <link rel="stylesheet" type="text/css" href="${ctx}/css/iot.css">
@@ -30,7 +30,7 @@
 					<embed src="${ctx}/img/zhuye.svg" type="image/svg+xml"></embed>
 				</div>
 				<h1 class="page-header">
-					首页&nbsp;><span>&nbsp;单位信息列表</span>
+					首页&nbsp;><span>&nbsp;接警单位列表</span>
 				</h1>
 			</div>
 		</div>
@@ -64,16 +64,7 @@
 					</div>
 
 
-					<div class="form-group">
-						<label for="name" class="lb_text col-xs-5 control-label">创建时间（insert 触发器 确定）:</label>
-
-						<div class="col-xs-7">
-							<input id="q_createTime" type="text" name="q_createTime"
-								class="form-control inputtxt" placeholder=""
-								aria-controls="dataTables-example">
-						</div>
-					</div>
-
+					
 					
 					
 				</form>
@@ -135,7 +126,7 @@ $(function(){
 
 		<div class="mainbody">
 			<div class="row">
-				<div class="col-xs-5" style="margin-top: 16px;">单位信息列表</div>
+				<div class="col-xs-5" style="margin-top: 16px;"></div>
 				<div class="col-xs-1 col-xs-push-6" style="padding-top: 10px;">
 
 
@@ -190,9 +181,14 @@ $(function(){
 
 		<!-- 模态框（Modal） -->
 		<#include "form.ftl">
-
+<#include "unitAdmin.ftl">
 
 		<script
 			src="${ctx}/vendor/pageAuto/tunitinfo/js/tunitinfo.js"></script>
+			
+		
+			
+					<script
+			src="${ctx}/vendor/pageAuto/tunitinfo/js/sysUserSelect2.js"></script>
 </body>
 </html>

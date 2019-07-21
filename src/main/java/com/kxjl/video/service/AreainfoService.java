@@ -25,8 +25,23 @@ import com.kxjl.video.pojo.Areainfo;
 * @since 1.0.1
  */
 public interface AreainfoService {
-
-
+	/**
+	 * 构造单位-片区树
+	 * @param level
+	 * @param isopen
+	 * @return
+	 * @author zj
+	 * @date 2019年7月21日
+	 */
+	public List<String> buildAreaTree( String level, boolean isopen);
+	/**
+	 * 单位、区域二级select group
+	 * @param dict_type
+	 * @return
+	 * @author zj
+	 * @date 2019年7月21日
+	 */
+	public List<String> getAreaTreeSelectSecond(Areainfo item,String level);
     /**
      * 新增
      */

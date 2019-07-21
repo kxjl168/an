@@ -39,6 +39,12 @@ where sys_role_id=#{roleId}
 		<include refid="Base_Column_List" />
 		from sys_role
 		where 1=1
+		
+		 
+         <if test=" superAdmin == null || superAdmin !='true' ">
+            and sys_role.id !='superadmin'
+        </if>
+		
 		<if test="name != null and name !='' ">
 			and name like concat('%',#{name},'%')
 		</if>

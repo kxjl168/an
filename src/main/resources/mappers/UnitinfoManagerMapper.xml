@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com.kxjl.video.pojo.UnitinfoManager">
     <id column="id" jdbcType="VARCHAR" property="id" />
     <result column="UnitId" jdbcType="VARCHAR" property="unitId" />
-    <result column="ManagerId" jdbcType="INTEGER" property="managerId" />
+    <result column="ManagerId" jdbcType="VARCHAR" property="managerId" />
   </resultMap>
   <sql id="Base_Column_List">
     id, UnitId, ManagerId
@@ -22,7 +22,7 @@
   <insert id="insert" parameterType="com.kxjl.video.pojo.UnitinfoManager">
     insert into t_unitinfo_manager (id, UnitId, ManagerId
       )
-    values (#{id,jdbcType=VARCHAR}, #{unitId,jdbcType=VARCHAR}, #{managerId,jdbcType=INTEGER}
+    values (#{id,jdbcType=VARCHAR}, #{unitId,jdbcType=VARCHAR}, #{managerId,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.kxjl.video.pojo.UnitinfoManager">
@@ -46,7 +46,7 @@
         #{unitId,jdbcType=VARCHAR},
       </if>
       <if test="managerId != null">
-        #{managerId,jdbcType=INTEGER},
+        #{managerId,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -57,7 +57,7 @@
         UnitId = #{unitId,jdbcType=VARCHAR},
       </if>
       <if test="managerId != null">
-        ManagerId = #{managerId,jdbcType=INTEGER},
+        ManagerId = #{managerId,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=VARCHAR}
@@ -65,22 +65,30 @@
   <update id="updateByPrimaryKey" parameterType="com.kxjl.video.pojo.UnitinfoManager">
     update t_unitinfo_manager
     set UnitId = #{unitId,jdbcType=VARCHAR},
-      ManagerId = #{managerId,jdbcType=INTEGER}
+      ManagerId = #{managerId,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
   
-
+<delete id='deleteUnitManager' 	parameterType="com.kxjl.video.pojo.UnitinfoManager">
+ delete from  t_unitinfo_manager where UnitId=#{id}
+</delete>
 
 <select id="selectList"
-	resultMap="BaseResultMap"
+	resultType="com.kxjl.video.pojo.UnitinfoManager"
 	parameterType="com.kxjl.video.pojo.UnitinfoManager">
 	select
-	<include refid="Base_Column_List" />
+	c.*,manager.NICKNAME name
 	from t_unitinfo_manager c
-
+     left join manager on c.ManagerId=manager.id
 	where 1=1
 	<if test=" id !=null and id !='' ">
 		and c.id = #{id}
+	</if>
+	<if test=" name !=null and name !='' ">
+		and manager.name  like   concat('%',#{name},'%')  
+	</if>
+	<if test=" unitId !=null and unitId !='' ">
+		and c.UnitId= #{unitId}
 	</if>
 	
 

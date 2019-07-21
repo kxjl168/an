@@ -15,13 +15,46 @@ function test(){
 	});
 }
 
+function initvd(){
+	
+	 myplayer= videojs('myplayer', {
+			
+		  sources: [{
+		   // src: row.video_url,
+		    type: 'video/mp4'
+		  }]
+		});
+}
+
 $(function() {
+	
+	var idCardno = GetQueryString("idCardno");
+	if(typeof(idCardno)!='undefined')
+	$("#q_idNumber").val(idCardno);
+	
 	InitQuery_item();
 
-
+	initvd();
 	
     initDataTimePicker("startTime")
     initDataTimePicker("endTime")
+    
+    initUnitSelect("q_unit");
+    initAreaSelect("q_area");
+    initPersonSelect("q_onlineseatsId");
+    initAlarmTypeSelect("q_casetype",1);
+    
+    
+   
+	$('#q_unit').on('select2:select', function(e) {
+		var unit=$("#q_unit").val();
+		
+		$("#q_area").select2().val(null).trigger("change");
+		$("#q_area").select2("destroy");
+		$("#q_area").html("");
+		
+		initAreaSelect("q_area",unit);
+	});
 
 	$("#btnAdd_item").click(function() {
 
@@ -39,6 +72,19 @@ $(function() {
 		$("#myModal_item").modal();
 	});
 
+	
+	// modal 新增基本字段事件 关闭事件事件， 清空已有的值 恢复禁用
+	$('#myModal_itemvd').on('hide.bs.modal', function(e) {
+		
+		if(myplayer!=null)
+		{
+			myplayer.pause();
+		}
+		 
+
+	});
+
+	
 	
 	// modal 新增基本字段事件 关闭事件事件， 清空已有的值 恢复禁用
 	$('#myModal_item').on('hide.bs.modal', function(e) {
@@ -168,14 +214,20 @@ function InitQuery_item() {
 				offset : params.offset, // 每页显示数据的开始行号
 				sortName : params.sort, // 要排序的字段
 				sortOrder : params.order, // 排序规则
-				
-				
-				
+							
 				type : $("#q_type").val(),
-				onlineseatsId : $("#q_onlineseatsId").val(),
-				
-				
+				onlineseats_id: $("#q_onlineseatsId").val(),
+				onlineseats_unitid: $("#q_unit").val(),
+				onlineseats_areaid: $("#q_area").val(),
+				case_type: $("#q_casetype").val(),
+				startDate:$("#startTime").val(),
+				endDate:$("#endTime").val(),
+				idNumber:$("#q_idNumber").val(),
+		
+				  
 			};
+			
+			
 			return param;
 		},
 		columns : [ {
@@ -191,7 +243,7 @@ function InitQuery_item() {
 				 formatter: function (value, row, index) {
 		             var html= "";
 		             
-		             html+="<div class='vd'><img class='img-responsive'></div>"
+		             html+="<div class='vd'><img class='img-responsive' onclick='playVd(\""+row.video_url+"\")'></div>"
 		             
 		             return html;
 		         }
@@ -238,30 +290,32 @@ function getVideoInfo(rowdata)
 	
 	html+= '<div class="row orow">'
 		+ ' <div class="form-group"> '
-		+ '	<label class="pull-left nopadding" style="font-weight: bold;">报警类型</label> '
+		+ '	<label class="pull-left nopadding" style="font-weight: bold;">'+nonull(rowdata.case_levelname)+nonull(rowdata.case_typename)+'</label> '
 		+ ' </div> '
 		+ '</div> ';
 	
 	html+= '<div class="row orow">'
 		+ ' <div class="form-group"> '
-		+ '	<label class="col-lg-1 nopadding" style="font-weight: bold;">报警人:</label> '
-		+ '	<div class="col-lg-2 nopadding"> '
+		+ '	<label class="col-lg-1 nopadding " style="font-weight: bold;">报警人:</label> '
+		+ '	<div class="col-lg-2 "> '
 		+ '		<span >' + rowdata.userName + '</span> '
 		+ '		<p class="help-block"></p> '
 		+ '	</div> '
-		+ '	<label class="col-lg-1 nopadding" style="font-weight: bold;">性别:</label> '
-		+ '	<div class="col-lg-2 nopadding "> '
-		+ '		<span >' + rowdata.onlineseats_id + '</span> '
+		+ '	<label class="col-lg-1 nopadding " style="font-weight: bold;">身份证:</label> '
+		+ '	<div class="col-lg-2 "> '
+		+ '		<span >' + nonull(rowdata.idNumber) + '</span> '
 		+ '		<p class="help-block"></p> '
 		+ '	</div> '
-		+ '	<label class="col-lg-1 nopadding" style="font-weight: bold;">身份证:</label> '
-		+ '	<div class="col-lg-2 nopadding"> '
-		+ '		<span >' + rowdata.idNumber + '</span> '
+		
+		+ '	<label class="col-lg-1 nopadding textright" style="font-weight: bold;">性别:</label> '
+		+ '	<div class="col-lg-2  "> '
+		+ '		<span >' + nonull(rowdata.sex )+ '</span> '
 		+ '		<p class="help-block"></p> '
 		+ '	</div> '
-		+ '	<label class="col-lg-1 nopadding" style="font-weight: bold;">手机号码:</label> '
-		+ '	<div class="col-lg-2 nopadding"> '
-		+ '		<span >' +rowdata.phone + '</span> '
+	
+		+ '	<label class="col-lg-1 nopadding textright" style="font-weight: bold;">手机号码:</label> '
+		+ '	<div class="col-lg-2 "> '
+		+ '		<span >' +nonull(rowdata.phone) + '</span> '
 		+ '		<p class="help-block"></p> '
 		+ '	</div> '
 
@@ -270,26 +324,67 @@ function getVideoInfo(rowdata)
 	
 	html+= '<div class="row orow">'
 		+ ' <div class="form-group"> '
-		+ '	<label class="col-lg-1 nopadding" style="font-weight: bold;">接警人:</label> '
-		+ '	<div class="col-lg-2 nopadding"> '
-		+ '		<span >' + rowdata.userName + '</span> '
+		+ '	<label class="col-lg-1 nopadding " style="font-weight: bold;">接警人:</label> '
+		+ '	<div class="col-lg-2 "> '
+		+ '		<span >' + rowdata.onlineseats_name + '</span> '
 		+ '		<p class="help-block"></p> '
 		+ '	</div> '
-		+ '	<label class="col-lg-1 nopadding" style="font-weight: bold;">工号:</label> '
-		+ '	<div class="col-lg-2 nopadding"> '
-		+ '		<span >' + rowdata.onlineseats_id + '</span> '
+		+ '	<label class="col-lg-1 nopadding " style="font-weight: bold;">工号:</label> '
+		+ '	<div class="col-lg-2 "> '
+		+ '		<span >' + nonull(rowdata.onlineseats_no) + '</span> '
 		+ '		<p class="help-block"></p> '
 		+ '	</div> '
-		+ '	<label class="col-lg-1 nopadding" style="font-weight: bold;">警区:</label> '
-		+ '	<div class="col-lg-2 nopadding"> '
-		+ '		<span >' + rowdata.idNumber + '</span> '
+
+		
+		+ '	<label class="col-lg-1 nopadding textright" style="font-weight: bold;">坐席:</label> '
+		+ '	<div class="col-lg-2 "> '
+		+ '		<span >' +nonull(rowdata.onlineseats_areaname) + '</span> '
 		+ '		<p class="help-block"></p> '
 		+ '	</div> '
-		+ '	<label class="col-lg-1 nopadding" style="font-weight: bold;">片区:</label> '
-		+ '	<div class="col-lg-2 nopadding"> '
-		+ '		<span >' +rowdata.phone + '</span> '
+
+		+ ' </div> '
+		+ '</div> ';
+	
+	html+= '<div class="row orow">'
+		+ ' <div class="form-group"> '
+
+		+ '	<label class="col-lg-1 nopadding " style="font-weight: bold;">警区:</label> '
+		+ '	<div class="col-lg-5 "> '
+		+ '		<span >' + nonull(rowdata.onlineseats_unitname) + '</span> '
 		+ '		<p class="help-block"></p> '
 		+ '	</div> '
+		+ '	<label class="col-lg-1 nopadding textright" style="font-weight: bold;">片区:</label> '
+		+ '	<div class="col-lg-5 "> '
+		+ '		<span >' +nonull(rowdata.onlineseats_areaname) + '</span> '
+		+ '		<p class="help-block"></p> '
+		+ '	</div> '
+		
+
+
+		+ ' </div> '
+		+ '</div> ';
+	
+	
+	html+= '<div class="row orow">'
+		+ ' <div class="form-group"> '
+		+ '	<label class="col-lg-1 nopadding " style="font-weight: bold;">报警时间:</label> '
+		+ '	<div class="col-lg-5 "> '
+		+ '		<span >' + ctime(rowdata) + '</span> '
+		+ '		<p class="help-block"></p> '
+		+ '	</div> '
+		
+
+		+ ' </div> '
+		+ '</div> ';
+	
+	html+= '<div class="row orow">'
+		+ ' <div class="form-group"> '
+		+ '	<label class="col-lg-1 nopadding " style="font-weight: bold;">报警地点:</label> '
+		+ '	<div class="col-lg-5 "> '
+		+ '		<span >' + nonull(rowdata.address) + '</span> '
+		+ '		<p class="help-block"></p> '
+		+ '	</div> '
+		
 
 		+ ' </div> '
 		+ '</div> ';
@@ -297,22 +392,59 @@ function getVideoInfo(rowdata)
 	return html;
 	}
 
+
+function nonull(value)
+{
+ if(typeof(value)=="undefined")
+	 return "";
+ else 
+	 return value;
+}
+
+function ctime(rowdata)
+{
+	if(typeof(rowdata.occurrence_time)!="undefined")
+	return rowdata.occurrence_time.substr(0,rowdata.occurrence_time.length-2)
+	else return "";
+}
+
 function modifyAndDeleteButton_item(value, row, index) {
 	return [ '<div class="">'
-			+ '<button id = "update" type = "button" class = "btn btn-info"><i class="glyphicon glyphicon-pencil">修改</i> </button>&nbsp;'
-			+ '<button id = "delete" type = "button" class = "btn btn-danger"><i class="glyphicon glyphicon-trash">删除</i> </button>'
-			
-			+ '<button id = "talk" type = "button" class = "btn btn-success"><i class="glyphicon glyphicon-trash">在线交流</i> </button>'
+			+ '<button id = "update" type = "button" class = "hide btn btn-info"><i class="glyphicon glyphicon-pencil">修改</i> </button>&nbsp;'
+			+ '<button id = "delete" type = "button" class = "hide  btn btn-danger"><i class="glyphicon glyphicon-trash">删除</i> </button>&nbsp;'
+			+ '<button id = "view" type = "button" class = "btn btn-info"><i class="fa fa-play">查看视频</i> </button>&nbsp;'
+			+ '<button id = "talk" type = "button" class = "btn btn-success"><i class="fa fa-commenting-o">在线交流</i> </button>&nbsp;'
 			+ '</div>' ].join("");
 }
 
+function playVd(url)
+{
+	if(typeof(url)!="undefined")
+	{
+		$("#myModal_itemvd").modal();
+		
+	
+		 myplayer.src(url);
+		 myplayer.load(url);
+		
+		
+		myplayer.play();
+		
+	}	
+}
 
-
-
+var myplayer=null;
 window.PersonnelInformationEvents_item = {
 		"click #talk" : function(e, value, row, index) {
 			var url=getRPath()+"/talk/index?id="+row.onlineseats_id;
 			window.open(url,"_blank");
+
+		},
+		
+		"click #view" : function(e, value, row, index) {
+			
+			playVd(row.video_url);
+			
 
 		},
 		

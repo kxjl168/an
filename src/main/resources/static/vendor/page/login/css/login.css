@@ -12,7 +12,8 @@
 .bjtu {
     width: 1920px;
     height: 820px;
-    background: url(../../../../img/blueSkin/bjt2.png);
+    /* background: url(../../../../img/blueSkin/bjt2.png); */
+    background: url(../../../../img/blueSkin/pg2.jpg);
     float: left;
 }
 

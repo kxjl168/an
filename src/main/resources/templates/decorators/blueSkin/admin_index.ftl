@@ -150,8 +150,13 @@ $(function(){
 <section id="container">
 
     <header class="header black-bg">
-        <a href="${ctx}/manager/admin/index.action" class="logo"><img src="${ctx}/img/blueSkin/logo4.png"
-                                                                      style="height: 50px;margin-top: -10px;"/></a>
+        <a href="${ctx}/manager/admin/index.action" class="logo">
+        <img src="${ctx}/img/blueSkin/logo-ga.png"
+                                                                      style="height: 50px;margin-top: -10px;"/>
+                                                                      
+                                                                      <img class="hide" src="${ctx}/img/blueSkin/logo4.png"
+                                                                      style="height: 50px;margin-top: -10px;"/>
+                                                                      </a>
 
         <div class="top-menu">
             <ul class="nav pull-right top-menu">
@@ -403,24 +408,9 @@ $(function(){
 
     $(function(){
 
-    	$.ajax({
-    		type : "post",
-    		url : getRPath()+"/manager/usermessage/managermessageList",
-    		data : {
-    			
-    		},
-    		dataType : "json",
-    		success : function(list) {
-    			refreshMsg(list);
-    		},
-    		error:function(a,b,c){
-        		console.log()
-	//error("1");
-        		}
-    	});
-
+    	
     	setTimeout(function(){
-    		 connect();},2000);
+    		// connect();},2000);
         
     	
       });

@@ -15,14 +15,87 @@ function test(){
 	});
 }
 
+
+var selectUnitId = null;
+var selectAreaId = null;
+var selectSeatId = null;
+function treeClick() {
+
+	var menuids = "";
+	var zTree = $.fn.zTree.getZTreeObj("Areatree");
+	if (zTree != null) {
+		var nodes = zTree.getSelectedNodes();
+		if (nodes != null) {
+			var selectNd = nodes[0];
+			if (selectNd.level == 0) {
+				selectUnitId = selectNd.id;
+				selectAreaId = null;
+				selectSeatId=null;
+
+			}
+
+			else if (selectNd.level == 1) {
+				selectUnitId = null;
+				selectAreaId = selectNd.id;
+				selectSeatId=null;
+			}
+			else if (selectNd.level == 2) {
+				selectUnitId = null;
+				selectAreaId = null;
+				selectSeatId = selectNd.id;
+			}
+			
+
+			doSearch_item();
+			
+		}
+	}
+
+}
+
 $(function() {
 	InitQuery_item();
 
+	loadAreaTree(treeClick,3);
+	initUnitAreaSelect("seatId",3);
 
 
 	$("#btnAdd_item").click(function() {
 
-	
+		$("#seatId").select2().val(null).trigger("change");
+		$("#seatId").select2("destroy");
+		$("#seatId").html("");
+		initUnitAreaSelect("seatId",3);
+		
+		$('#mform_item')
+		.bootstrapValidator(
+				"addField",
+				'password',
+				{
+					validators : {
+						notEmpty : {
+							message : '密码不能为空'
+						},
+						 callback: {
+		                        message: '密码长度不能小于6位',
+		                        trigger: 'change',
+		                        callback: function (value, validator) {
+		                        	if(value)
+		                        		{
+		                            if (value.length < 6) {
+		                                return false
+		                            }
+		                        		}
+		                            return true
+		                        }
+		                    }
+
+					}
+				});
+		
+		 $("#passtip").html("");
+		  
+		  
 		  $('#mform_item')[0].reset();
 		  
 		  $('#mform_item').find("#id").val("");
@@ -112,14 +185,92 @@ function initValidate_item() {
 		// submitButtons : 'button[type="submit"]',// 提交按钮
 		fields : {
 
-				name : {
+			name : {
 				validators : {
-					notEmpty : {
-						message : '不能为空'
-					}
+					  notEmpty: {
+	                        message: '不能为空'
+	                    },
+	                    callback: {
+	                        message: '字符长度不能大于30',
+	                        trigger: 'change',
+	                        callback: function (value, validator) {
+	                            if (value.length > 30) {
+	                                return false
+	                            }
+	                            return true
+	                        }
+	                    }
 				}
 			},
 			
+		
+			des: {
+                validators: {
+                   
+                    callback: {
+                        message: '字符长度不能大于300',
+                        trigger: 'change',
+                        callback: function (value, validator) {
+                            if (value.length > 300) {
+                                return false
+                            }
+                            return true
+                        }
+                    }
+                }
+            },
+            
+/*
+			password: {
+                validators: {
+                    notEmpty: {
+                        message: '不能为空'
+                    },
+                    callback: {
+                        message: '密码长度不能小于6位',
+                        trigger: 'change',
+                        callback: function (value, validator) {
+                        	if(value)
+                        		{
+                            if (value.length < 6) {
+                                return false
+                            }
+                        		}
+                            return true
+                        }
+                    }
+                }
+            },*/
+            phone: {
+                validators: {
+                    notEmpty: {
+                        message: '不能为空'
+                    },
+                    regexp: {
+                        regexp: /^1[0-9]{10}$|0\d{2,3}-\d{7,8}$/i,
+                        message: '电话为手机号码或者座机电话'
+                    }
+                }
+            },
+            
+            
+
+            seatId: {
+				validators: {
+                    notEmpty: {
+                        message: '不能为空'
+                    },
+                    
+                }
+            },
+            idNo: {
+				validators: {
+                    notEmpty: {
+                        message: '不能为空'
+                    },
+                    
+                }
+            },
 		
 
 		}
@@ -169,8 +320,11 @@ function InitQuery_item() {
 				
 				
 				phone : $("#q_phone").val(),
-				password : $("#q_password").val(),
+				idNo : $("#q_idNo").val(),
 				
+				unitId: selectUnitId ,
+				areaId: selectAreaId ,
+				seatId:selectSeatId,
 				
 			};
 			return param;
@@ -179,30 +333,24 @@ function InitQuery_item() {
 			field : 'id',
 			visible : false
 		},
+		{
+			field : 'idNo',
+			title : '工号',
+			align : 'center',
+			valign : 'middle',
+			   
+			
+		},
 		 {
 				field : 'phone',
-				title : '接警人员手机号，也是登陆接警人员名（唯一约束）',
+				title : '接警人员手机号',
 				align : 'center',
 				valign : 'middle',
 				   
 				
 			},
-		 {
-				field : 'password',
-				title : '接警人员密码',
-				align : 'center',
-				valign : 'middle',
-				   
-				
-			},
-		 {
-				field : 'sessionKey',
-				title : '会话id',
-				align : 'center',
-				valign : 'middle',
-				   
-				
-			},
+		 
+		
 		 {
 				field : 'name',
 				title : '名称',
@@ -211,45 +359,38 @@ function InitQuery_item() {
 				   
 				
 			},
-		 {
-				field : 'createTime',
-				title : '创建时间（insert 触发器 确定）',
-				align : 'center',
-				valign : 'middle',
-				   
-		 formatter: function (value, row, index) {
-             return new Date(value).Format("yyyy-MM-dd hh:mm:ss");
-         }
-				
-			},
-		 {
-				field : 'uptimestamp',
-				title : '上次更新时间（update 触发器 确定）',
-				align : 'center',
-				valign : 'middle',
-				   
-		 formatter: function (value, row, index) {
-             return new Date(value).Format("yyyy-MM-dd hh:mm:ss");
-         }
-				
-			},
-		 {
-				field : 'createUser',
-				title : '创建人（外键manager）',
+			 {
+				field : 'unitName',
+				title : '单位',
 				align : 'center',
 				valign : 'middle',
 				   
 				
 			},
-		 {
-				field : 'updateUser',
-				title : '上次更新人（外键manager）',
+			 {
+				field : 'areaName',
+				title : '片区',
 				align : 'center',
 				valign : 'middle',
 				   
 				
 			},
-		
+			 {
+				field : 'seatName',
+				title : '坐席',
+				align : 'center',
+				valign : 'middle',
+				   
+				
+			},
+			 {
+				field : 'des',
+				title : '备注',
+				align : 'center',
+				valign : 'middle',
+				   
+				
+			},
 		
 		
 		{
@@ -289,6 +430,37 @@ window.PersonnelInformationEvents_item = {
 			   $("#mform_item").fill(response);
 			     
 	
+			  $("#password").val("");
+			  
+			  
+				$("#seatId").select2().val(null).trigger("change");
+				$("#seatId").select2("destroy");
+				$("#seatId").html("");
+				
+				// unitAdmin
+				if (response) {
+					var data = response;
+					var pname = data.seatName;
+					var option = new Option(pname, data.seatId, true, true);
+					$("#seatId").append(option).trigger('change');
+					$("#seatId").trigger({
+						type : 'select2:select',
+						params : {
+							data : {
+								text : pname,
+								id : data.seatId
+							}
+						}
+					});
+				}
+				
+				initUnitAreaSelect("seatId",3);
+				
+				  $('#mform_item').bootstrapValidator('removeField',
+					'password');
+
+	           $("#passtip").text("若不填则保持原密码不变")
+			   
 			   
 			   $("#myModal_item_title").html("编辑");
 			   

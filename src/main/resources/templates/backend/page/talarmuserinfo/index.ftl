@@ -7,7 +7,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>报警用户信息管理</title>
+<title>实名用户信息管理</title>
 
 
 <link rel="stylesheet" type="text/css" href="${ctx}/css/iot.css">
@@ -30,7 +30,7 @@
 					<embed src="${ctx}/img/zhuye.svg" type="image/svg+xml"></embed>
 				</div>
 				<h1 class="page-header">
-					首页&nbsp;><span>&nbsp;报警用户信息列表</span>
+					首页&nbsp;><span>&nbsp;实名用户信息列表</span>
 				</h1>
 			</div>
 		</div>
@@ -54,7 +54,7 @@
 				<form class="form-inline">
 
 					<div class="form-group">
-						<label for="name" class="lb_text col-xs-5 control-label">报警者姓名:</label>
+						<label for="name" class="lb_text col-xs-5 control-label">姓名:</label>
 
 						<div class="col-xs-7">
 							<input id="q_username" type="text" name="q_username"
@@ -65,10 +65,10 @@
 
 
 					<div class="form-group">
-						<label for="name" class="lb_text col-xs-5 control-label">报警者昵称:</label>
+						<label for="name" class="lb_text col-xs-5 control-label">身份证号:</label>
 
 						<div class="col-xs-7">
-							<input id="q_nickname" type="text" name="q_nickname"
+							<input id="q_IdCard" type="text" name="q_IdCard"
 								class="form-control inputtxt" placeholder=""
 								aria-controls="dataTables-example">
 						</div>
@@ -135,11 +135,11 @@ $(function(){
 
 		<div class="mainbody">
 			<div class="row">
-				<div class="col-xs-5" style="margin-top: 16px;">报警用户信息列表</div>
+				<div class="col-xs-5" style="margin-top: 16px;"></div>
 				<div class="col-xs-1 col-xs-push-6" style="padding-top: 10px;">
 
 
-					<button type="button" class="btn btn-default" id="btnAdd_item">新增</button>
+					<button type="button" class="hide btn btn-default" id="btnAdd_item">新增</button>
 				</div>
 			</div>
 
@@ -194,5 +194,9 @@ $(function(){
 
 		<script
 			src="${ctx}/vendor/pageAuto/talarmuserinfo/js/talarmuserinfo.js"></script>
+			
+			<script src="${ctx}/js/ztree/jquery.ztree.all.min.js"></script>
+		<script src="${ctx}/vendor/pageAuto/common/common.js"></script>
+		<script src="${ctx}/vendor/pageAuto/common/leftAreaTree.js"></script>
 </body>
 </html>

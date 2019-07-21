@@ -365,8 +365,8 @@ function DeleteButton(value, row, index) {
 			+ '<button id = "update" type = "button" class = "btn btn-info"><i class="glyphicon glyphicon-edit">编辑</i> </button>&nbsp;';
 	
 	if(row.id=="1"||
-			row.id=="enterprise_admin"||
-			row.id=="enterprise_customer"||
+			row.id=="superadmin"||
+			row.id=="unitadmin"||
 			row.id=="yuanjiang_admin"||
 			row.id=="yuanjiang_caiwu"||
 			row.id=="yuanjiang_customer"||

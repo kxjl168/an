@@ -27,7 +27,19 @@
 
 
 
+							<div class="form-group">
+										<label for="name" class="col-lg-3 control-label">所属单位</label>
 
+										<div class="col-lg-9">
+										<select type="text" name="unitId" 
+											
+											class="form-control" id="unitId"
+												placeholder="所属单位" >
+										</select>
+											<p class="help-block"></p>
+										</div>
+									</div>
+									
 
 
 									<div class="form-group">
@@ -42,76 +54,15 @@
 										</div>
 									</div>
 									
+								
 									<div class="form-group">
-										<label for="name" class="col-lg-3 control-label">创建时间（insert 触发器 确定）</label>
+										<label for="name" class="col-lg-3 control-label">备注</label>
 
 										<div class="col-lg-9">
-										<input type="text" name="createTime" 
-											  readonly="readonly"  
+										<textarea type="text" name="des" 
 											
-											class="form-control" id="createTime"
-												placeholder="创建时间（insert 触发器 确定）" >
-											<p class="help-block"></p>
-										</div>
-									</div>
-									
-									<script>
-                            $(function() {
-						$("#createTime").datetimepicker({
-							 format: 'yyyy-mm-dd hh:ii:ss',
-							 language: 'zh-CN',
-							 autoclose:true,
-						        startDate:new Date()
-						});
-						 $("#createTime").data('datetimepicker')
-						 .setDate('2019-7-19 22:21:31');
-                            });
-                            </script>
-									<div class="form-group">
-										<label for="name" class="col-lg-3 control-label">上次更新时间（update 触发器 确定）</label>
-
-										<div class="col-lg-9">
-										<input type="text" name="uptimestamp" 
-											  readonly="readonly"  
-											
-											class="form-control" id="uptimestamp"
-												placeholder="上次更新时间（update 触发器 确定）" >
-											<p class="help-block"></p>
-										</div>
-									</div>
-									
-									<script>
-                            $(function() {
-						$("#uptimestamp").datetimepicker({
-							 format: 'yyyy-mm-dd hh:ii:ss',
-							 language: 'zh-CN',
-							 autoclose:true,
-						        startDate:new Date()
-						});
-						 $("#uptimestamp").data('datetimepicker')
-						 .setDate('2019-7-19 22:21:31');
-                            });
-                            </script>
-									<div class="form-group">
-										<label for="name" class="col-lg-3 control-label">数据状态，1：可用，0：禁用，2：删除</label>
-
-										<div class="col-lg-9">
-										<input type="text" name="dataState" 
-											
-											class="form-control" id="dataState"
-												placeholder="数据状态，1：可用，0：禁用，2：删除" >
-											<p class="help-block"></p>
-										</div>
-									</div>
-									
-									<div class="form-group">
-										<label for="name" class="col-lg-3 control-label">所属单位id</label>
-
-										<div class="col-lg-9">
-										<input type="text" name="unitId" 
-											
-											class="form-control" id="unitId"
-												placeholder="所属单位id" >
+											class="form-control" id="des"
+												placeholder="片区备注" ></textarea>
 											<p class="help-block"></p>
 										</div>
 									</div>

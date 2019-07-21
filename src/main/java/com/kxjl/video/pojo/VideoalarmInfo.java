@@ -15,7 +15,30 @@ public class VideoalarmInfo {
      * 接警人员ID
      */
     private String onlineseats_id;
+    
+    
+    //query
+    private String onlineseats_name;//接警人员名称
+    
+    private String onlineseats_unitid;//接警人员id
+    private String onlineseats_unitname;//接警人员单位
+    
+    private String onlineseats_areaid;//接警人员片区id
+    private String onlineseats_areaname;//接警人员片区
+    
+    private String onlineseats_no;//接警人员工号
+    
+    private String case_typename;//事件类型名称
+    
+    private String case_levelname;//事件级别名称
+    
+    private String startDate;//查询开始
+    private String endDate;//查询开始
+    
+    private String curUid;//当前登陆id
 
+    //query end
+    
     /**
      * 报警者姓名
      */
@@ -462,4 +485,93 @@ public class VideoalarmInfo {
     public void setCase_level(String case_level) {
         this.case_level = case_level == null ? null : case_level.trim();
     }
+
+	public String getOnlineseats_name() {
+		return onlineseats_name;
+	}
+
+	public void setOnlineseats_name(String onlineseats_name) {
+		this.onlineseats_name = onlineseats_name;
+	}
+
+	public String getOnlineseats_unitname() {
+		return onlineseats_unitname;
+	}
+
+	public void setOnlineseats_unitname(String onlineseats_unitname) {
+		this.onlineseats_unitname = onlineseats_unitname;
+	}
+
+	public String getOnlineseats_areaname() {
+		return onlineseats_areaname;
+	}
+
+	public void setOnlineseats_areaname(String onlineseats_areaname) {
+		this.onlineseats_areaname = onlineseats_areaname;
+	}
+
+	public String getOnlineseats_no() {
+		return onlineseats_no;
+	}
+
+	public void setOnlineseats_no(String onlineseats_no) {
+		this.onlineseats_no = onlineseats_no;
+	}
+
+	public String getCase_typename() {
+		return case_typename;
+	}
+
+	public void setCase_typename(String case_typename) {
+		this.case_typename = case_typename;
+	}
+
+	public String getCase_levelname() {
+		return case_levelname;
+	}
+
+	public void setCase_levelname(String case_levelname) {
+		this.case_levelname = case_levelname;
+	}
+
+	public String getOnlineseats_unitid() {
+		return onlineseats_unitid;
+	}
+
+	public void setOnlineseats_unitid(String onlineseats_unitid) {
+		this.onlineseats_unitid = onlineseats_unitid;
+	}
+
+	public String getOnlineseats_areaid() {
+		return onlineseats_areaid;
+	}
+
+	public void setOnlineseats_areaid(String onlineseats_areaid) {
+		this.onlineseats_areaid = onlineseats_areaid;
+	}
+
+	public String getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+
+	public String getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
+	}
+
+	public String getCurUid() {
+		return curUid;
+	}
+
+	public void setCurUid(String curUid) {
+		this.curUid = curUid;
+	}
 }
+

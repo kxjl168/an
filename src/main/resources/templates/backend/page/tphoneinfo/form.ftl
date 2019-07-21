@@ -31,19 +31,19 @@
 
 
 									<div class="form-group">
-										<label for="name" class="col-lg-3 control-label">接警手机手机号，也是接警手机（唯一约束）</label>
+										<label for="name" class="col-lg-3 control-label">手机号</label>
 
 										<div class="col-lg-9">
 										<input type="text" name="phone" 
 											
 											class="form-control" id="phone"
-												placeholder="接警手机手机号，也是接警手机（唯一约束）" >
+												placeholder="接警手机号" >
 											<p class="help-block"></p>
 										</div>
 									</div>
 									
 									<div class="form-group">
-										<label for="name" class="col-lg-3 control-label">接警手机名称</label>
+										<label for="name" class="col-lg-3 control-label">手机名称</label>
 
 										<div class="col-lg-9">
 										<input type="text" name="name" 
@@ -54,67 +54,6 @@
 										</div>
 									</div>
 									
-									<div class="form-group">
-										<label for="name" class="col-lg-3 control-label">创建时间（insert 触发器 确定）</label>
-
-										<div class="col-lg-9">
-										<input type="text" name="createTime" 
-											  readonly="readonly"  
-											
-											class="form-control" id="createTime"
-												placeholder="创建时间（insert 触发器 确定）" >
-											<p class="help-block"></p>
-										</div>
-									</div>
-									
-									<script>
-                            $(function() {
-						$("#createTime").datetimepicker({
-							 format: 'yyyy-mm-dd hh:ii:ss',
-							 language: 'zh-CN',
-							 autoclose:true,
-						        startDate:new Date()
-						});
-						 $("#createTime").data('datetimepicker')
-						 .setDate('2019-7-19 22:21:49');
-                            });
-                            </script>
-									<div class="form-group">
-										<label for="name" class="col-lg-3 control-label">上次更新时间（update 触发器 确定）</label>
-
-										<div class="col-lg-9">
-										<input type="text" name="uptimestamp" 
-											  readonly="readonly"  
-											
-											class="form-control" id="uptimestamp"
-												placeholder="上次更新时间（update 触发器 确定）" >
-											<p class="help-block"></p>
-										</div>
-									</div>
-									
-									<script>
-                            $(function() {
-						$("#uptimestamp").datetimepicker({
-							 format: 'yyyy-mm-dd hh:ii:ss',
-							 language: 'zh-CN',
-							 autoclose:true,
-						        startDate:new Date()
-						});
-						 $("#uptimestamp").data('datetimepicker')
-						 .setDate('2019-7-19 22:21:49');
-                            });
-                            </script>
-									<div class="form-group">
-										<label for="name" class="col-lg-3 control-label">数据状态，1：可用，0：禁用，2：删除</label>
-
-										<div class="col-lg-9">
-										<input type="text" name="dataState" 
-											
-											class="form-control" id="dataState"
-												placeholder="数据状态，1：可用，0：禁用，2：删除" >
-											<p class="help-block"></p>
-										</div>
-									</div>
 									
 									<div class="form-group">
 										<label for="name" class="col-lg-3 control-label">手机标识号</label>
@@ -140,18 +79,33 @@
 										</div>
 									</div>
 									
-									<div class="form-group">
-										<label for="name" class="col-lg-3 control-label">备注</label>
+										<div class="form-group">
+										<label for="name" class="col-lg-3 control-label">坐席</label>
 
 										<div class="col-lg-9">
-										<input type="text" name="des" 
+										<select type="text" name="seatId" 
 											
-											class="form-control" id="des"
-												placeholder="备注" >
+											class="form-control" id=seatId
+												placeholder="选择坐席" >
+												</select>
 											<p class="help-block"></p>
 										</div>
 									</div>
 									
+									
+									
+									
+	<div class="form-group">
+										<label for="name" class="col-lg-3 control-label">备注</label>
+
+										<div class="col-lg-9">
+										<textarea type="text" name="des" 
+											
+											class="form-control" id="des"
+												placeholder="备注" ></textarea>
+											<p class="help-block"></p>
+										</div>
+									</div>
 
 
 

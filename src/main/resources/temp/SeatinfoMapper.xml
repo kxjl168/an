@@ -129,18 +129,6 @@
 		and c.id = #{id}
 	</if>
 	
-		
-		<if test=" name !=null and name !='' ">
-		and c.Name like concat ('%', #{name},'%')
-	</if>
-		
-			
-		
-		<if test=" createTime !=null and createTime !='' ">
-		and c.CreateTime like concat ('%', #{createTime},'%')
-	</if>
-		
-			
 
 
 </select>
@@ -158,18 +146,6 @@
 		and c.id = #{id}
 	</if>
 	
-		
-		<if test=" name !=null and name !='' ">
-		and c.Name like concat ('%', #{name},'%')
-	</if>
-		
-			
-		
-		<if test=" createTime !=null and createTime !='' ">
-		and c.CreateTime like concat ('%', #{createTime},'%')
-	</if>
-		
-			
 
 
 </select>

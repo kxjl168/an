@@ -6,9 +6,11 @@ import com.google.gson.Gson;
 import com.kxjl.base.base.BaseController;
 import com.kxjl.base.base.PageManager;
 import com.kxjl.base.pojo.Manager;
+import com.kxjl.base.pojo.Role;
 import com.kxjl.base.service.ManagerService;
 import com.kxjl.base.service.RoleService;
 import com.kxjl.base.util.Message;
+import com.kxjl.video.util.TokenUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -57,7 +59,6 @@ public class ManagerController extends BaseController {
 
         //PageHelper.startPage(pageNo, pageSize);
         PageManager p = new PageManager(pageNo, 2);
-
 
         List<Map> users = managerService.selectManagerByManager(params);
         // 分页信息
@@ -123,6 +124,12 @@ public class ManagerController extends BaseController {
         q.setUserid(name);
         
         q.setType(0);
+        
+        
+
+        if(roleService.isSuperAdmin())
+        	q.setSuperAdmin("true");
+
         
         PageInfo<Manager> rst = managerService.selectManagerByManager(page, q);
 

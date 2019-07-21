@@ -36,6 +36,18 @@ public class Seatinfo {
      */
     private String unitId;
 
+    
+    //query 
+    private String unitName;
+    private String areaName;
+    
+    private Integer personNumReal;
+    private String curUid;//当前登陆id
+    /**
+     * 
+     */
+    private String personNum;
+
     /**
      * 坐席id(主键)
      * @return Id 坐席id(主键)
@@ -147,4 +159,52 @@ public class Seatinfo {
     public void setUnitId(String unitId) {
         this.unitId = unitId == null ? null : unitId.trim();
     }
+
+    /**
+     * 
+     * @return PersonNum 
+     */
+    public String getPersonNum() {
+        return personNum;
+    }
+
+    /**
+     * 
+     * @param personNum 
+     */
+    public void setPersonNum(String personNum) {
+        this.personNum = personNum == null ? null : personNum.trim();
+    }
+
+	public String getUnitName() {
+		return unitName;
+	}
+
+	public void setUnitName(String unitName) {
+		this.unitName = unitName;
+	}
+
+	public String getAreaName() {
+		return areaName;
+	}
+
+	public void setAreaName(String areaName) {
+		this.areaName = areaName;
+	}
+
+	public Integer getPersonNumReal() {
+		return personNumReal;
+	}
+
+	public void setPersonNumReal(Integer personNumReal) {
+		this.personNumReal = personNumReal;
+	}
+
+	public String getCurUid() {
+		return curUid;
+	}
+
+	public void setCurUid(String curUid) {
+		this.curUid = curUid;
+	}
 }

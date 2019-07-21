@@ -19,7 +19,7 @@ import com.kxjl.video.dao.PhoneinfoMapper;
 
 import com.kxjl.video.pojo.Phoneinfo;
 import com.kxjl.video.service.PhoneinfoService;
-
+import com.kxjl.video.util.TokenUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 
@@ -67,6 +67,8 @@ public class PhoneinfoController {
 		List<Phoneinfo> tphoneinfos = new ArrayList<>();
 
 		Page page = PageUtil.getPage(pageCondition);
+		
+		item.setCurUid(TokenUtil.getWebLoginUser().getId());
 		tphoneinfos = tphoneinfoService.selectPhoneinfoList(item);
 
 		try {

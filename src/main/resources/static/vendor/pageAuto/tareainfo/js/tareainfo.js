@@ -19,10 +19,19 @@ $(function() {
 	InitQuery_item();
 
 
+	  initUnitSelect("q_unitId");
+	  initUnitSelect("unitId");
 
 	$("#btnAdd_item").click(function() {
 
 	
+		$("#unitId").select2().val(null).trigger("change");
+		$("#unitId").select2("destroy");
+		$("#unitId").html("");
+		  initUnitSelect("unitId");
+
+		  
+		
 		  $('#mform_item')[0].reset();
 		  
 		  $('#mform_item').find("#id").val("");
@@ -169,8 +178,8 @@ function InitQuery_item() {
 				
 				
 				name : $("#q_name").val(),
-				createTime : $("#q_createTime").val(),
-				
+				//createTime : $("#q_createTime").val(),
+				unitId:$("#q_unitId").val(),
 				
 			};
 			return param;
@@ -187,39 +196,19 @@ function InitQuery_item() {
 				   
 				
 			},
+		
+		
 		 {
-				field : 'createTime',
-				title : '创建时间（insert 触发器 确定）',
-				align : 'center',
-				valign : 'middle',
-				   
-		 formatter: function (value, row, index) {
-             return new Date(value).Format("yyyy-MM-dd hh:mm:ss");
-         }
-				
-			},
-		 {
-				field : 'uptimestamp',
-				title : '上次更新时间（update 触发器 确定）',
-				align : 'center',
-				valign : 'middle',
-				   
-		 formatter: function (value, row, index) {
-             return new Date(value).Format("yyyy-MM-dd hh:mm:ss");
-         }
-				
-			},
-		 {
-				field : 'dataState',
-				title : '数据状态，1：可用，0：禁用，2：删除',
+				field : 'unitName',
+				title : '所属单位',
 				align : 'center',
 				valign : 'middle',
 				   
 				
 			},
-		 {
-				field : 'unitId',
-				title : '所属单位id',
+			 {
+				field : 'des',
+				title : '备注',
 				align : 'center',
 				valign : 'middle',
 				   
@@ -264,6 +253,26 @@ window.PersonnelInformationEvents_item = {
 				
 			   $("#mform_item").fill(response);
 			     
+			   
+
+				$("#unitId").select2().val(null).trigger("change");
+				$("#unitId").select2("destroy");
+				$("#unitId").html("");
+				
+				var data=response;
+				 var pname=data.unitName;
+		         var option = new Option(pname, data.unitId, true, true);
+		         $("#unitId").append(option).trigger('change');
+		         $("#unitId").trigger({
+		             type: 'select2:select',
+		             params: {
+		                 data: {text:pname,id:data.unitId}
+		             }
+		         });
+				
+				
+				initUnitSelect("unitId");
+			   
 	
 			   
 			   $("#myModal_item_title").html("编辑");

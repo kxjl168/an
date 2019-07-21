@@ -11,9 +11,11 @@
     <result column="mobile_phone" jdbcType="VARCHAR" property="mobile_phone" />
     <result column="wechatId" jdbcType="VARCHAR" property="wechatId" />
     <result column="wechatOpenId" jdbcType="VARCHAR" property="wechatOpenId" />
+      <result column="regesterDate" jdbcType="VARCHAR" property="regesterDate" />
+   
   </resultMap>
   <sql id="Base_Column_List">
-    id, username, nickname, Sex, IdCard, address, mobile_phone, wechatId, wechatOpenId
+    id, username, nickname, Sex, IdCard, address, mobile_phone, wechatId, wechatOpenId,regesterDate
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
@@ -153,7 +155,16 @@
 		and c.id = #{id}
 	</if>
 	
-
+<if test=" username !=null and username !='' ">
+	and c.username like   concat('%',#{username},'%')  
+		
+	</if>
+	
+	<if test=" idCard !=null and idCard !='' ">
+		and c.idCard like   concat('%',#{idCard},'%')  
+		
+	</if>
+	
 
 </select>
 

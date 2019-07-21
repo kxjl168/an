@@ -13,6 +13,9 @@
 <link rel="stylesheet" type="text/css" href="${ctx}/css/iot.css">
 
 <link rel="stylesheet" href="${ctx}/js/ztree/zTreeStyle.css">
+
+<link rel="stylesheet" href="${ctx}/vendor/videojs/videojs.min.css">
+
 </head>
 
 <body>
@@ -55,13 +58,26 @@
 
 					<form class="form-inline">
 
-						<div class="form-group">
-							<label for="name" class="lb_text col-xs-5 control-label">区域:</label>
+
+<div class="form-group">
+							<label for="name" class="lb_text col-xs-5 control-label">接警单位:</label>
 
 							<div class="col-xs-7">
-								<input id="q_type" type="text" name="q_type"
+								<select id="q_unit" type="text" name="q_unit"
 									class="form-control inputtxt" placeholder=""
 									aria-controls="dataTables-example">
+									</select>
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<label for="name" class="lb_text col-xs-5 control-label">片区:</label>
+
+							<div class="col-xs-7">
+								<select id="q_area" type="text" name="q_area"
+									class="form-control inputtxt" placeholder=""
+									aria-controls="dataTables-example">
+									</select>
 							</div>
 						</div>
 
@@ -70,9 +86,10 @@
 							<label for="name" class="lb_text col-xs-5 control-label">接警民警:</label>
 
 							<div class="col-xs-7">
-								<input id="q_onlineseatsId" type="text" name="q_onlineseatsId"
+								<select id="q_onlineseatsId" type="text" name="q_onlineseatsId"
 									class="form-control inputtxt" placeholder=""
 									aria-controls="dataTables-example">
+									</select>
 							</div>
 						</div>
 
@@ -80,9 +97,10 @@
 							<label for="name" class="lb_text col-xs-5 control-label">分类:</label>
 
 							<div class="col-xs-7">
-								<input id="q_onlineseatsId" type="text" name="q_onlineseatsId"
+								<select id="q_casetype" type="text" name="q_casetype"
 									class="form-control inputtxt" placeholder=""
 									aria-controls="dataTables-example">
+									</select>
 							</div>
 						</div>
 
@@ -112,6 +130,14 @@
 							</div>
 						</div>
 
+	<div class="form-group">
+							<label for="name" class="lb_text col-xs-5 control-label">身份证</label>
+
+							<div class="col-xs-7">
+								<input type="q_idNumber" name="q_idNumber" class="form-control inputtxt"
+									id="q_idNumber" placeholder="报警人身份证" >
+							</div>
+						</div>
 
 
 
@@ -177,7 +203,7 @@
 					<div class="col-xs-1 col-xs-push-6" style="padding-top: 10px;">
 
 
-						<button type="button" class="btn btn-default" id="btnAdd_item">新增</button>
+						<button type="button" class="hide btn btn-default" id="btnAdd_item">新增</button>
 					</div>
 				</div>
 
@@ -203,7 +229,7 @@
 				<div class="col-lg-12">
 					<div class="panel panel-default">
 						<div class="panel-heading">
-							<span class="header">报警事件列表</span>
+							<span class="header"></span>
 						</div>
 						<div class="panel-body">
 
@@ -228,11 +254,15 @@
 
 		<!-- 模态框（Modal） -->
 		<#include "form.ftl">
-
+	<#include "vd.ftl">
 
 		<script
 			src="${ctx}/vendor/pageAuto/videoalarminfo/js/videoalarminfo.js"></script>
 			<script
 			src="${ctx}/vendor/pageAuto/common/common.js"></script>
+			
+			
+			<script
+			src="${ctx}/vendor/videojs/videojs.min.js"></script>
 </body>
 </html>

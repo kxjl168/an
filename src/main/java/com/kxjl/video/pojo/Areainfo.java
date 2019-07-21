@@ -30,7 +30,17 @@ public class Areainfo {
      * 所属单位id
      */
     private String unitId;
+    
+    private String des;
+    
+    //query
+    
+    private String unitName;//单位名称
 
+    
+    private String seatListStr;//坐席json
+    private String curUid;//当前登陆id
+    
     /**
      * 片区id(主键)
      * @return Id 片区id(主键)
@@ -126,4 +136,36 @@ public class Areainfo {
     public void setUnitId(String unitId) {
         this.unitId = unitId == null ? null : unitId.trim();
     }
+
+	public String getUnitName() {
+		return unitName;
+	}
+
+	public void setUnitName(String unitName) {
+		this.unitName = unitName;
+	}
+
+	public String getDes() {
+		return des;
+	}
+
+	public void setDes(String des) {
+		this.des = des;
+	}
+
+	public String getSeatListStr() {
+		return seatListStr;
+	}
+
+	public void setSeatListStr(String seatListStr) {
+		this.seatListStr = seatListStr;
+	}
+
+	public String getCurUid() {
+		return curUid;
+	}
+
+	public void setCurUid(String curUid) {
+		this.curUid = curUid;
+	}
 }

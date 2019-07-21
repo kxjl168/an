@@ -276,7 +276,34 @@ function changeAlarm(row) {
 	var html = getVideoInfo(row);
 	$("#adetail").html(html);
 
+	refreshVd(row);
 	loadTalk(row);
+}
+
+var myplayer=null;
+function refreshVd(row){
+	
+	if(myplayer==null)
+	 myplayer= videojs('myplayer', {
+		
+		  sources: [{
+		   // src: row.video_url,
+		    type: 'video/mp4'
+		  }]
+		});
+
+	//$("#adetail").find("#vddiv").append($("#vdcontainer"));
+	 
+	if(typeof(row.video_url)!='undefined'){
+		
+		 myplayer.src(row.video_url);
+		 myplayer.load(row.video_url);
+		
+	}
+	
+	
+	//myplayer.play();
+	//$("#adetail").find('#myplayer').
 }
 
 /**
@@ -503,14 +530,7 @@ function getVideoInfo(rowdata) {
 			+ '		<p class="help-block"></p> '
 			+ '	</div> '
 
-			+ '	<label class="col-lg-3 nopadding" style="font-weight: bold;">视频附件:</label> '
-			+ '	<div class="col-lg-9 nopadding "> '
-			+ '		<span >'
-			+ rowdata.video_url
-			+ '</span> '
-			+ '		<p class="help-block"></p> '
-			+ '	</div> '
-
+		
 			+ '	<label class="col-lg-3 nopadding" style="font-weight: bold;">语音附件:</label> '
 			+ '	<div class="col-lg-9 nopadding "> '
 			+ '		<span >'

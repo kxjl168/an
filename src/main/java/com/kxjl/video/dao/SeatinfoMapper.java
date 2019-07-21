@@ -12,7 +12,7 @@ public interface SeatinfoMapper    extends BaseMapper<Seatinfo>    {
     * @param 
     * @return
     * @author KAutoGenerator zj
-    * @date 2019-07-20 10:59:12
+    * @date 2019-07-21 16:24:56
      */
     int deleteByPrimaryKey(String id);
 
@@ -21,7 +21,7 @@ public interface SeatinfoMapper    extends BaseMapper<Seatinfo>    {
     * @param 
     * @return
     * @author KAutoGenerator zj
-    * @date 2019-07-20 10:59:12
+    * @date 2019-07-21 16:24:56
      */
     int insert(Seatinfo record);
 
@@ -30,7 +30,7 @@ public interface SeatinfoMapper    extends BaseMapper<Seatinfo>    {
     * @param 
     * @return
     * @author KAutoGenerator zj
-    * @date 2019-07-20 10:59:12
+    * @date 2019-07-21 16:24:56
      */
     int insertSelective(Seatinfo record);
 
@@ -39,7 +39,7 @@ public interface SeatinfoMapper    extends BaseMapper<Seatinfo>    {
     * @param 
     * @return
     * @author KAutoGenerator zj
-    * @date 2019-07-20 10:59:12
+    * @date 2019-07-21 16:24:56
      */
     Seatinfo selectByPrimaryKey(String id);
 
@@ -48,7 +48,7 @@ public interface SeatinfoMapper    extends BaseMapper<Seatinfo>    {
     * @param 
     * @return
     * @author KAutoGenerator zj
-    * @date 2019-07-20 10:59:12
+    * @date 2019-07-21 16:24:56
      */
     int updateByPrimaryKeySelective(Seatinfo record);
 
@@ -57,7 +57,7 @@ public interface SeatinfoMapper    extends BaseMapper<Seatinfo>    {
     * @param 
     * @return
     * @author KAutoGenerator zj
-    * @date 2019-07-20 10:59:12
+    * @date 2019-07-21 16:24:56
      */
     int updateByPrimaryKey(Seatinfo record);
 
@@ -67,7 +67,7 @@ public interface SeatinfoMapper    extends BaseMapper<Seatinfo>    {
      * 列表查询
      * @param item
      * @return
-     * @author KAutoGenerator
+     * @author zj
      * @date 2019年1月7日
      */
     List<Seatinfo> selectList(Seatinfo item);
@@ -76,8 +76,8 @@ public interface SeatinfoMapper    extends BaseMapper<Seatinfo>    {
      * 删除
      * @param record
      * @return
-     * @author KAutoGenerator
-     * @date 2019-07-20 10:59:12
+     * @author zj
+     * @date 2019-07-21 16:24:56
      */
     int delete(Seatinfo item);
     

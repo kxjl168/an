@@ -295,18 +295,66 @@
 
 
 <select id="selectList"
-	resultMap="BaseResultMap"
+	resultType="com.kxjl.video.pojo.VideoalarmInfo"
 	parameterType="com.kxjl.video.pojo.VideoalarmInfo">
-	select
-	<include refid="Base_Column_List" />
+select
+	c.*, uinfo.name  onlineseats_unitname, ainfo.name  onlineseats_areaname ,person.name  onlineseats_name,person.IdNo onlineseats_no
+,tdict.dict_name case_typename,tdict2.dict_name case_levelname
 	from videoalarm_info c
+left join t_receivepoliceinfo person on c.onlineseats_id= person.id
 
+left join t_seatinfo sinfo on sinfo.id= person.SeatId
+left join t_areainfo ainfo on ainfo.id= sinfo.AreaId
+
+left join t_unitinfo uinfo on uinfo.id= ainfo.UnitId
+
+left join sys_dict_info tdict2 on tdict2.dict_value= c.case_level and tdict2.type=2
+left join sys_dict_info tdict on tdict.dict_value= c.case_type and tdict.type=1
 	where 1=1
+	
+	
+	<if test=" curUid !=null and curUid !='' ">
+		and uinfo.id  in (select UnitId from t_unitinfo_manager where managerId=#{curUid})
+	</if>
+	
 	<if test=" id !=null and id !='' ">
 		and c.id = #{id}
 	</if>
 	<if test=" onlineseats_id !=null and onlineseats_id !='' ">
 		and c.onlineseats_id = #{onlineseats_id}
+	</if>
+	
+
+	
+		<if test=" onlineseats_unitid !=null and onlineseats_unitid  !='' ">
+		and uinfo.id  =#{onlineseats_unitid}
+		
+	</if>
+		<if test=" onlineseats_areaid !=null and onlineseats_areaid  !='' ">
+		and ainfo.id = =#{onlineseats_areaid}
+		
+	</if>
+		<if test=" onlineseats_id !=null and onlineseats_id  !='' ">
+		and c.onlineseats_id    =#{onlineseats_id}
+		
+	</if>
+		<if test=" case_type !=null and case_type  !='' ">
+		and c.case_type = #{case_type}
+		
+	</if>
+		<if test=" idNumber !=null and idNumber  !='' ">
+		and c.idNumber like   concat('%',#{idNumber},'%')  
+		
+	</if>
+	
+	
+	
+		<if test=" startDate !=null and startDate  !='' ">
+			<![CDATA[ and c.occurrence_time >=  #{startDate} ]]>
+	</if>
+	
+		<if test=" endDate !=null and endDate  !='' ">
+			<![CDATA[ and c.occurrence_time <  #{endDate} ]]>
 	</if>
 	
 	

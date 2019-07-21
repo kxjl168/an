@@ -15,13 +15,60 @@ function test(){
 	});
 }
 
+
+var selectUnitId = null;
+var selectAreaId = null;
+var selectSeatId = null;
+function treeClick() {
+
+	var menuids = "";
+	var zTree = $.fn.zTree.getZTreeObj("Areatree");
+	if (zTree != null) {
+		var nodes = zTree.getSelectedNodes();
+		if (nodes != null) {
+			var selectNd = nodes[0];
+			if (selectNd.level == 0) {
+				selectUnitId = selectNd.id;
+				selectAreaId = null;
+				selectSeatId=null;
+
+			}
+
+			else if (selectNd.level == 1) {
+				selectUnitId = null;
+				selectAreaId = selectNd.id;
+				selectSeatId=null;
+			}
+			else if (selectNd.level == 2) {
+				selectUnitId = null;
+				selectAreaId = null;
+				selectSeatId = selectNd.id;
+			}
+			
+
+			doSearch_item();
+			
+		}
+	}
+
+}
 $(function() {
 	InitQuery_item();
+
+	loadAreaTree(treeClick,3);
+	initUnitAreaSelect("seatId",3);
+
 
 
 
 	$("#btnAdd_item").click(function() {
 
+		
+		$("#seatId").select2().val(null).trigger("change");
+		$("#seatId").select2("destroy");
+		$("#seatId").html("");
+		initUnitAreaSelect("seatId",3);
+		
 	
 		  $('#mform_item')[0].reset();
 		  
@@ -112,14 +159,85 @@ function initValidate_item() {
 		// submitButtons : 'button[type="submit"]',// 提交按钮
 		fields : {
 
-				name : {
+			name : {
 				validators : {
-					notEmpty : {
-						message : '不能为空'
-					}
+					  notEmpty: {
+	                        message: '不能为空'
+	                    },
+	                    callback: {
+	                        message: '字符长度不能大于30',
+	                        trigger: 'change',
+	                        callback: function (value, validator) {
+	                            if (value.length > 30) {
+	                                return false
+	                            }
+	                            return true
+	                        }
+	                    }
 				}
 			},
 			
+		
+			des: {
+                validators: {
+                   
+                    callback: {
+                        message: '字符长度不能大于300',
+                        trigger: 'change',
+                        callback: function (value, validator) {
+                            if (value.length > 300) {
+                                return false
+                            }
+                            return true
+                        }
+                    }
+                }
+            },
+            
+/*
+			password: {
+                validators: {
+                    notEmpty: {
+                        message: '不能为空'
+                    },
+                    callback: {
+                        message: '密码长度不能小于6位',
+                        trigger: 'change',
+                        callback: function (value, validator) {
+                        	if(value)
+                        		{
+                            if (value.length < 6) {
+                                return false
+                            }
+                        		}
+                            return true
+                        }
+                    }
+                }
+            },*/
+            phone: {
+                validators: {
+                    notEmpty: {
+                        message: '不能为空'
+                    },
+                    regexp: {
+                        regexp: /^1[0-9]{10}$|0\d{2,3}-\d{7,8}$/i,
+                        message: '电话为手机号码或者座机电话'
+                    }
+                }
+            },
+            
+            
+
+            seatId: {
+				validators: {
+                    notEmpty: {
+                        message: '不能为空'
+                    },
+                    
+                }
+            },
+          
 		
 
 		}
@@ -171,7 +289,9 @@ function InitQuery_item() {
 				phone : $("#q_phone").val(),
 				name : $("#q_name").val(),
 				
-				
+				unitId: selectUnitId ,
+				areaId: selectAreaId ,
+				seatId:selectSeatId,
 			};
 			return param;
 		},
@@ -181,7 +301,7 @@ function InitQuery_item() {
 		},
 		 {
 				field : 'phone',
-				title : '接警手机手机号，也是接警手机（唯一约束）',
+				title : '手机号',
 				align : 'center',
 				valign : 'middle',
 				   
@@ -189,42 +309,14 @@ function InitQuery_item() {
 			},
 		 {
 				field : 'name',
-				title : '接警手机名称',
+				title : '手机名称',
 				align : 'center',
 				valign : 'middle',
 				   
 				
 			},
-		 {
-				field : 'createTime',
-				title : '创建时间（insert 触发器 确定）',
-				align : 'center',
-				valign : 'middle',
-				   
-		 formatter: function (value, row, index) {
-             return new Date(value).Format("yyyy-MM-dd hh:mm:ss");
-         }
-				
-			},
-		 {
-				field : 'uptimestamp',
-				title : '上次更新时间（update 触发器 确定）',
-				align : 'center',
-				valign : 'middle',
-				   
-		 formatter: function (value, row, index) {
-             return new Date(value).Format("yyyy-MM-dd hh:mm:ss");
-         }
-				
-			},
-		 {
-				field : 'dataState',
-				title : '数据状态，1：可用，0：禁用，2：删除',
-				align : 'center',
-				valign : 'middle',
-				   
-				
-			},
+	
+		
 		 {
 				field : 'iMEI',
 				title : '手机标识号',
@@ -241,6 +333,39 @@ function InitQuery_item() {
 				   
 				
 			},
+
+			 {
+					field : 'name',
+					title : '名称',
+					align : 'center',
+					valign : 'middle',
+					   
+					
+				},
+				 {
+					field : 'unitName',
+					title : '单位',
+					align : 'center',
+					valign : 'middle',
+					   
+					
+				},
+				 {
+					field : 'areaName',
+					title : '片区',
+					align : 'center',
+					valign : 'middle',
+					   
+					
+				},
+				 {
+					field : 'seatName',
+					title : '坐席',
+					align : 'center',
+					valign : 'middle',
+					   
+					
+				},
 		 {
 				field : 'des',
 				title : '备注',
@@ -288,7 +413,28 @@ window.PersonnelInformationEvents_item = {
 				
 			   $("#mform_item").fill(response);
 			     
-	
+				$("#seatId").select2().val(null).trigger("change");
+				$("#seatId").select2("destroy");
+				$("#seatId").html("");
+				
+				// unitAdmin
+				if (response) {
+					var data = response;
+					var pname = data.seatName;
+					var option = new Option(pname, data.seatId, true, true);
+					$("#seatId").append(option).trigger('change');
+					$("#seatId").trigger({
+						type : 'select2:select',
+						params : {
+							data : {
+								text : pname,
+								id : data.seatId
+							}
+						}
+					});
+				}
+				
+				initUnitAreaSelect("seatId",3);
 			   
 			   $("#myModal_item_title").html("编辑");
 			   

@@ -53,6 +53,19 @@
 
 				<form class="form-inline">
 
+
+	<div class="form-group">
+						<label for="name" class="lb_text col-xs-5 control-label">单位名称:</label>
+
+						<div class="col-xs-7">
+							<select id="q_unitId" type="text" name="q_unitId"
+								class="form-control inputtxt" placeholder=""
+								aria-controls="dataTables-example">
+								</select>
+						</div>
+					</div>
+
+
 					<div class="form-group">
 						<label for="name" class="lb_text col-xs-5 control-label">片区名称:</label>
 
@@ -64,15 +77,7 @@
 					</div>
 
 
-					<div class="form-group">
-						<label for="name" class="lb_text col-xs-5 control-label">创建时间（insert 触发器 确定）:</label>
-
-						<div class="col-xs-7">
-							<input id="q_createTime" type="text" name="q_createTime"
-								class="form-control inputtxt" placeholder=""
-								aria-controls="dataTables-example">
-						</div>
-					</div>
+				
 
 					
 					
@@ -194,5 +199,7 @@ $(function(){
 
 		<script
 			src="${ctx}/vendor/pageAuto/tareainfo/js/tareainfo.js"></script>
+				<script
+			src="${ctx}/vendor/pageAuto/common/common.js"></script>
 </body>
 </html>

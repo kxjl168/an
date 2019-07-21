@@ -24,6 +24,8 @@ public class Role  implements Serializable{
     private String name;
 
     private String available;
+    
+    private String superAdmin;
 
     public String getId() {
         return id;
@@ -58,4 +60,12 @@ public class Role  implements Serializable{
     public void setAvailable(String available) {
         this.available = available == null ? null : available.trim();
     }
+
+	public String getSuperAdmin() {
+		return superAdmin;
+	}
+
+	public void setSuperAdmin(String superAdmin) {
+		this.superAdmin = superAdmin;
+	}
 }

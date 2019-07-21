@@ -46,7 +46,7 @@
         </javaClientGenerator>
 
 
-  	<table tableName="t_videoalarm_talkinfo" domainObjectName="VideoalarmTalkinfo" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+  	<table tableName="t_seatinfo" domainObjectName="Seatinfo" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
 <property name="useActualColumnNames" value="true"/> 
 </table>
 

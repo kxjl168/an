@@ -248,17 +248,50 @@
 
 
 <select id="selectList"
-	resultMap="BaseResultMap"
+	resultType="com.kxjl.video.pojo.Receivepoliceinfo"
 	parameterType="com.kxjl.video.pojo.Receivepoliceinfo">
 	select
-	<include refid="Base_Column_List" />
+	c.*, s.name seatName, a.name areaName,u.name unitName
 	from t_receivepoliceinfo c
 
+left join t_seatinfo s on c.seatId=s.id
+left join t_areainfo a on s.areaId=a.id
+
+left join t_unitinfo u on a.unitId=u.id
+
+
 	where 1=1
+		<if test=" curUid !=null and curUid !='' ">
+		and u.id  in (select UnitId from t_unitinfo_manager where managerId=#{curUid})
+	</if>
+	
 	<if test=" id !=null and id !='' ">
 		and c.id = #{id}
 	</if>
+		<if test=" name !=null and name  !='' ">
+		and c.name  like   concat('%',#{name},'%')
+		
+	</if>
 	
+		<if test=" idNo !=null and idNo  !='' ">
+		and c.idNo  like   concat('%',#{idNo},'%')
+		
+	</if>
+	
+		<if test=" seatId !=null and seatId  !='' ">
+		and s.id=  #{seatId}
+		
+	</if>
+	
+		<if test=" areaId !=null and areaId  !='' ">
+		and a.id=  #{areaId}
+		
+	</if>
+	
+		<if test=" unitId !=null and unitId  !='' ">
+		and u.id=#{unitId}
+		
+	</if>
 
 
 </select>

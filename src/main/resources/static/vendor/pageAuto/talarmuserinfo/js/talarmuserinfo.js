@@ -15,10 +15,39 @@ function test(){
 	});
 }
 
+
+var selectUnitId = null;
+var selectAreaId = null;
+function treeClick() {
+
+	var menuids = "";
+	var zTree = $.fn.zTree.getZTreeObj("Areatree");
+	if (zTree != null) {
+		var nodes = zTree.getSelectedNodes();
+		if (nodes != null) {
+			var selectNd = nodes[0];
+			if (selectNd.level == 0) {
+				selectUnitId = selectNd.id;
+				selectAreaId = null;
+
+			}
+
+			else if (selectNd.level == 1) {
+				selectUnitId = null;
+				selectAreaId = selectNd.id;
+			}
+
+			doSearch_item();
+			
+		}
+	}
+
+}
+
 $(function() {
 	InitQuery_item();
 
-
+	
 
 	$("#btnAdd_item").click(function() {
 
@@ -169,7 +198,7 @@ function InitQuery_item() {
 				
 				
 				username : $("#q_username").val(),
-				nickname : $("#q_nickname").val(),
+				idCard : $("#q_IdCard").val(),
 				
 				
 			};
@@ -181,23 +210,7 @@ function InitQuery_item() {
 		},
 		 {
 				field : 'username',
-				title : '报警者姓名',
-				align : 'center',
-				valign : 'middle',
-				   
-				
-			},
-		 {
-				field : 'nickname',
-				title : '报警者昵称',
-				align : 'center',
-				valign : 'middle',
-				   
-				
-			},
-		 {
-				field : 'sex',
-				title : '性别（男，女），默认 男',
+				title : '姓名',
 				align : 'center',
 				valign : 'middle',
 				   
@@ -212,38 +225,39 @@ function InitQuery_item() {
 				
 			},
 		 {
-				field : 'address',
-				title : '住址',
+				field : 'sex',
+				title : '性别',
 				align : 'center',
 				valign : 'middle',
 				   
 				
 			},
-		 {
+
+			 {
 				field : 'mobilePhone',
-				title : '手机账号',
+				title : '手机',
 				align : 'center',
 				valign : 'middle',
 				   
 				
 			},
 		 {
-				field : 'wechatId',
-				title : '微信号',
+				field : 'regesterDate',
+				title : '注册时间',
 				align : 'center',
 				valign : 'middle',
-				   
+				formatter : function(value, row, index) {
+					
+					var tm ="";
+					if(typeof(value)!="undefined")
+						{
+						 tm = value.substr(0, value.length - 2);
+						}
+					
+					return tm;
+				}
 				
 			},
-		 {
-				field : 'wechatOpenId',
-				title : '微信号openid',
-				align : 'center',
-				valign : 'middle',
-				   
-				
-			},
-		
 		
 		
 		{
@@ -260,8 +274,9 @@ function InitQuery_item() {
 
 function modifyAndDeleteButton_item(value, row, index) {
 	return [ '<div class="">'
-			+ '<button id = "update" type = "button" class = "btn btn-info"><i class="glyphicon glyphicon-pencil">修改</i> </button>&nbsp;'
-			+ '<button id = "delete" type = "button" class = "btn btn-danger"><i class="glyphicon glyphicon-trash">删除</i> </button>'
+		+ '<button id = "listalarm" type = "button" class = "btn btn-info"><i class="fa fa-list">查看报警记录</i> </button>&nbsp;'
+			+ '<button id = "update" type = "button" class = "hide btn btn-info"><i class="glyphicon glyphicon-pencil">修改</i> </button>&nbsp;'
+			+ '<button id = "delete" type = "button" class = "hide btn btn-danger"><i class="glyphicon glyphicon-trash">删除</i> </button>'
 			+ '</div>' ].join("");
 }
 
@@ -269,6 +284,11 @@ function modifyAndDeleteButton_item(value, row, index) {
 
 
 window.PersonnelInformationEvents_item = {
+		"click #listalarm" : function(e, value, row, index) {
+			
+			window.location.href=getRPath()+"/manager/videoalarminfo/manager?idCardno="+row.idCard;
+
+		},
 	"click #update" : function(e, value, row, index) {
 		$.ajax({
 			type : "post",

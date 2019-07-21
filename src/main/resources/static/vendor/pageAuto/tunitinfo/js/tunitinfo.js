@@ -18,6 +18,8 @@ function test(){
 $(function() {
 	InitQuery_item();
 
+	
+	initAdminSelect("unitAdmin");
 
 
 	$("#btnAdd_item").click(function() {
@@ -89,6 +91,40 @@ $(function() {
 			});
 		}
 	});
+	
+	
+$("#btnUnitAdmin").click(function() {
+		
+		
+		
+		var url = getRPath()+"/manager/tunitinfo/updateManager";
+
+		
+			var data = $("#mform_item_admin").serialize();
+			
+			data+="&adminlist="+$("#unitAdmin").val().toString();
+	
+			/**/
+
+			$.ajax({
+				type : "post",
+				url : url,
+				data : data,
+				async : false,
+				dataType : "json",
+				success : function(response) {
+					// debugger;
+					if (response.bol) {
+						$('#myModal_item_admin').modal("hide");
+						doSearch_item();
+						success("操作成功！");
+					} else {
+						error( response.message);
+					}
+				}
+			});
+		
+	});
 
 	initValidate_item();
 	
@@ -114,11 +150,88 @@ function initValidate_item() {
 
 				name : {
 				validators : {
-					notEmpty : {
-						message : '不能为空'
-					}
+					  notEmpty: {
+	                        message: '不能为空'
+	                    },
+	                    callback: {
+	                        message: '字符长度不能大于30',
+	                        trigger: 'change',
+	                        callback: function (value, validator) {
+	                            if (value.length > 30) {
+	                                return false
+	                            }
+	                            return true
+	                        }
+	                    }
 				}
 			},
+			
+		
+			des: {
+                validators: {
+                   
+                    callback: {
+                        message: '字符长度不能大于300',
+                        trigger: 'change',
+                        callback: function (value, validator) {
+                            if (value.length > 300) {
+                                return false
+                            }
+                            return true
+                        }
+                    }
+                }
+            },
+            
+
+			contactPerson: {
+                validators: {
+                    notEmpty: {
+                        message: '不能为空'
+                    },
+                    callback: {
+                        message: '字符长度不能大于30',
+                        trigger: 'change',
+                        callback: function (value, validator) {
+                            if (value.length > 30) {
+                                return false
+                            }
+                            return true
+                        }
+                    }
+                }
+            },
+            contactPhone: {
+                validators: {
+                    notEmpty: {
+                        message: '不能为空'
+                    },
+                    regexp: {
+                        regexp: /^1[0-9]{10}$|0\d{2,3}-\d{7,8}$/i,
+                        message: '电话为手机号码或者座机电话'
+                    }
+                }
+            },
+            
+            
+
+            address: {
+				validators: {
+                    notEmpty: {
+                        message: '不能为空'
+                    },
+                    callback: {
+                        message: '字符长度不能大于50',
+                        trigger: 'change',
+                        callback: function (value, validator) {
+                            if (value.length > 50) {
+                                return false
+                            }
+                            return true
+                        }
+                    }
+                }
+            },
 			
 		
 
@@ -135,7 +248,7 @@ function initValidate_item() {
 function InitQuery_item() {
 	// 初始化Table
 	$('#table_list_item').bootstrapTable({
-		url : getRPath()+'/manager/tunitinfo/tunitinfoList', // 请求后台的URL（*）
+		url : getRPath()+'/manager/tunitinfo/tunitinfoPageList', // 请求后台的URL（*）
 		method : 'post', // 请求方式（*）
 		contentType : 'application/x-www-form-urlencoded',
 		toolbar : '#toolbar', // 工具按钮用哪个容器
@@ -187,37 +300,25 @@ function InitQuery_item() {
 				   
 				
 			},
-		 {
-				field : 'createTime',
-				title : '创建时间（insert 触发器 确定）',
-				align : 'center',
-				valign : 'middle',
-				   
-		 formatter: function (value, row, index) {
-             return new Date(value).Format("yyyy-MM-dd hh:mm:ss");
-         }
-				
-			},
-		 {
-				field : 'uptimestamp',
-				title : '上次更新时间（update 触发器 确定）',
-				align : 'center',
-				valign : 'middle',
-				   
-		 formatter: function (value, row, index) {
-             return new Date(value).Format("yyyy-MM-dd hh:mm:ss");
-         }
-				
-			},
-		 {
-				field : 'dataState',
-				title : '数据状态，1：可用，0：禁用，2：删除',
+			
+			 {
+				field : 'contactPerson',
+				title : '联系人',
 				align : 'center',
 				valign : 'middle',
 				   
 				
 			},
-		 {
+			
+			 {
+				field : 'contactPhone',
+				title : '联系电话',
+				align : 'center',
+				valign : 'middle',
+				   
+				
+			},
+			 {
 				field : 'des',
 				title : '备注',
 				align : 'center',
@@ -225,22 +326,9 @@ function InitQuery_item() {
 				   
 				
 			},
-		 {
-				field : 'contactPerson',
-				title : '单位联系人',
-				align : 'center',
-				valign : 'middle',
-				   
-				
-			},
-		 {
-				field : 'contactPhone',
-				title : '单位联系电话',
-				align : 'center',
-				valign : 'middle',
-				   
-				
-			},
+		
+		
+	
 		 {
 				field : 'address',
 				title : '单位地址',
@@ -250,7 +338,17 @@ function InitQuery_item() {
 				
 			},
 		
-		
+			 {
+				field : 'uptimestamp',
+				title : '最近编辑时间',
+				align : 'center',
+				valign : 'middle',
+				   
+		 formatter: function (value, row, index) {
+			  return  dateFormat(value,"yyyy-MM-dd hh:mm:ss");
+         }
+				
+			},
 		
 		{
 			title : '操作',
@@ -266,7 +364,10 @@ function InitQuery_item() {
 
 function modifyAndDeleteButton_item(value, row, index) {
 	return [ '<div class="">'
+			+ '<button id = "editPri" type = "button" class = "btn btn-warning"><i class="fa fa-lock">配置单位管理员</i> </button>&nbsp;'
+			
 			+ '<button id = "update" type = "button" class = "btn btn-info"><i class="glyphicon glyphicon-pencil">修改</i> </button>&nbsp;'
+			
 			+ '<button id = "delete" type = "button" class = "btn btn-danger"><i class="glyphicon glyphicon-trash">删除</i> </button>'
 			+ '</div>' ].join("");
 }
@@ -275,6 +376,53 @@ function modifyAndDeleteButton_item(value, row, index) {
 
 
 window.PersonnelInformationEvents_item = {
+		"click #editPri" : function(e, value, row, index) {
+			$.ajax({
+				type : "post",
+				url :getRPath()+ '/manager/tunitinfomanager/tunitinfomanagerList',
+				data : {
+					unitId : row.id
+				},
+				async : false,
+				dataType : "json",
+				success : function(response) {
+					
+					$("#unitAdmin").select2().val(null).trigger("change");
+					$("#unitAdmin").select2("destroy");
+					$("#unitAdmin").html("");
+					
+					
+					//unitAdmin
+					if(response&&response.rows)
+						{
+						for (var i = 0; i < response.rows.length; i++) {
+							var data=response.rows[i];
+							 var pname=data.name;
+					         var option = new Option(pname, data.managerId, true, true);
+					         $("#unitAdmin").append(option).trigger('change');
+					         $("#unitAdmin").trigger({
+					             type: 'select2:select',
+					             params: {
+					                 data: {text:pname,id:data.managerId}
+					             }
+					         });
+						}
+						}
+					
+					
+					initAdminSelect("unitAdmin");
+					
+
+					$("#mform_item_admin").fill(row);
+					
+					$("#myModal_item_admin").modal();
+					
+				
+				}
+			});
+
+		},
+		
 	"click #update" : function(e, value, row, index) {
 		$.ajax({
 			type : "post",
