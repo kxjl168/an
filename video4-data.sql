@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : 192.168.31.239_ubuntu
+Source Server         : 192.168.100.126-kaifa-test
 Source Server Version : 50726
-Source Host           : 192.168.31.239:3306
+Source Host           : 192.168.100.126:3306
 Source Database       : video
 
 Target Server Type    : MYSQL
 Target Server Version : 50726
 File Encoding         : 65001
 
-Date: 2019-07-21 23:40:40
+Date: 2019-07-23 15:45:05
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -321,6 +321,35 @@ INSERT INTO `sys_user_role` VALUES ('aec61bd460d34235a686ea42f25d30bb', 'unitadm
 INSERT INTO `sys_user_role` VALUES ('ccedeb1cfba74ef29241e066fd2456f4', '1', '03d19bcabfb243428bef3fb88bf7b981');
 
 -- ----------------------------
+-- Table structure for tmp_videoalarm_info
+-- ----------------------------
+DROP TABLE IF EXISTS `tmp_videoalarm_info`;
+CREATE TABLE `tmp_videoalarm_info` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '序号',
+  `type` int(11) DEFAULT NULL COMMENT '类型  1 图文报警  2在线坐席上传',
+  `onlineseats_id` int(11) DEFAULT NULL COMMENT '接警人员ID',
+  `userName` varchar(64) DEFAULT NULL COMMENT '报警者姓名',
+  `idNumber` varchar(20) DEFAULT NULL COMMENT '身份证号',
+  `area` varchar(200) DEFAULT NULL COMMENT '区域',
+  `address` varchar(256) DEFAULT NULL COMMENT '地理位置',
+  `wechat_id` varchar(64) DEFAULT NULL COMMENT '微信账号ID',
+  `wechat_OpenId` varchar(64) DEFAULT NULL COMMENT '微信账号openID',
+  `phone` varchar(12) DEFAULT NULL COMMENT '报警用户电话号码',
+  `occurrence_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '警情发生时间',
+  `description` varchar(5120) DEFAULT NULL COMMENT '警情描述',
+  `alarm_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '报警时间',
+  `status` varchar(2) DEFAULT NULL COMMENT '警情状态 1已报警、2已受理、3已出警、4已关闭',
+  `picture_url` varchar(2048) DEFAULT NULL COMMENT '图片Url地址 多个用，分割',
+  `video_url` varchar(2048) DEFAULT NULL COMMENT '视频Url地址 多个用，分割',
+  `audio_url` varchar(2048) DEFAULT NULL COMMENT '语音Url地址 多个用，分割',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of tmp_videoalarm_info
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for t_alarm_userinfo
 -- ----------------------------
 DROP TABLE IF EXISTS `t_alarm_userinfo`;
@@ -342,6 +371,46 @@ CREATE TABLE `t_alarm_userinfo` (
 -- Records of t_alarm_userinfo
 -- ----------------------------
 INSERT INTO `t_alarm_userinfo` VALUES ('f1ca81c0a7ce4f7cae4cae352e55abcb', '阿三', '三哥', '男', '54912310123181231123', '阿三老街222号1栋', '13154912311', 'wer12', '', '2019-07-21 11:52:56');
+
+-- ----------------------------
+-- Table structure for t_areainfo
+-- ----------------------------
+DROP TABLE IF EXISTS `t_areainfo`;
+CREATE TABLE `t_areainfo` (
+  `Id` varchar(64) NOT NULL COMMENT '片区id(主键)',
+  `Name` varchar(50) NOT NULL COMMENT '片区名称',
+  `CreateTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间（insert 触发器 确定）',
+  `Uptimestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '上次更新时间（update 触发器 确定）',
+  `DataState` varchar(2) NOT NULL DEFAULT '1' COMMENT '数据状态，1：可用，0：禁用，2：删除',
+  `UnitId` varchar(64) DEFAULT NULL COMMENT '所属单位id',
+  `Des` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='片区信息';
+
+-- ----------------------------
+-- Records of t_areainfo
+-- ----------------------------
+INSERT INTO `t_areainfo` VALUES ('64c13650ee4d4bc58550d55795c495e9', '镇江1', '2019-07-21 16:27:17', '2019-07-21 16:27:17', '1', 'aaabee7debd8441a8e865f3b4d3087a5', null);
+INSERT INTO `t_areainfo` VALUES ('77ce5a08f8d04e7292adc1eb0b82888e', '镇江2', '2019-07-21 16:27:29', '2019-07-21 16:27:29', '1', 'aaabee7debd8441a8e865f3b4d3087a5', null);
+INSERT INTO `t_areainfo` VALUES ('b69887ae73d04ad8b8f9268e21e5dbed', '测试片区1', '2019-07-21 16:15:24', '2019-07-21 16:22:11', '1', '480fe0d5ebb445c490e7c719c3898250', '1');
+INSERT INTO `t_areainfo` VALUES ('e95dfd3ff482402c9b43d9ebba8c2c8f', '长沙片1', '2019-07-21 16:27:02', '2019-07-21 16:27:02', '1', 'a9d7e202ca004df3a840db03f4e81c82', null);
+INSERT INTO `t_areainfo` VALUES ('f6f2838c520042adb21ce947731d666d', '长沙片2', '2019-07-21 16:27:08', '2019-07-21 16:27:08', '1', 'a9d7e202ca004df3a840db03f4e81c82', null);
+INSERT INTO `t_areainfo` VALUES ('f751883ac69d4bb68a28a57aa6f10e09', '测试片区2', '2019-07-21 16:26:52', '2019-07-21 16:26:52', '1', '480fe0d5ebb445c490e7c719c3898250', null);
+
+-- ----------------------------
+-- Table structure for t_areainfo_area
+-- ----------------------------
+DROP TABLE IF EXISTS `t_areainfo_area`;
+CREATE TABLE `t_areainfo_area` (
+  `id` varchar(64) NOT NULL,
+  `AreaId` varchar(64) NOT NULL COMMENT '片区id',
+  `districtId` int(11) NOT NULL COMMENT '行政区域id -t_area_district-id',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='片区对应的物理行政区域 1对多';
+
+-- ----------------------------
+-- Records of t_areainfo_area
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for t_area_city
@@ -399,46 +468,6 @@ CREATE TABLE `t_area_province` (
 
 -- ----------------------------
 -- Records of t_area_province
--- ----------------------------
-
--- ----------------------------
--- Table structure for t_areainfo
--- ----------------------------
-DROP TABLE IF EXISTS `t_areainfo`;
-CREATE TABLE `t_areainfo` (
-  `Id` varchar(64) NOT NULL COMMENT '片区id(主键)',
-  `Name` varchar(50) NOT NULL COMMENT '片区名称',
-  `CreateTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间（insert 触发器 确定）',
-  `Uptimestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '上次更新时间（update 触发器 确定）',
-  `DataState` varchar(2) NOT NULL DEFAULT '1' COMMENT '数据状态，1：可用，0：禁用，2：删除',
-  `UnitId` varchar(64) DEFAULT NULL COMMENT '所属单位id',
-  `Des` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`Id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='片区信息';
-
--- ----------------------------
--- Records of t_areainfo
--- ----------------------------
-INSERT INTO `t_areainfo` VALUES ('64c13650ee4d4bc58550d55795c495e9', '镇江1', '2019-07-21 16:27:17', '2019-07-21 16:27:17', '1', 'aaabee7debd8441a8e865f3b4d3087a5', null);
-INSERT INTO `t_areainfo` VALUES ('77ce5a08f8d04e7292adc1eb0b82888e', '镇江2', '2019-07-21 16:27:29', '2019-07-21 16:27:29', '1', 'aaabee7debd8441a8e865f3b4d3087a5', null);
-INSERT INTO `t_areainfo` VALUES ('b69887ae73d04ad8b8f9268e21e5dbed', '测试片区1', '2019-07-21 16:15:24', '2019-07-21 16:22:11', '1', '480fe0d5ebb445c490e7c719c3898250', '1');
-INSERT INTO `t_areainfo` VALUES ('e95dfd3ff482402c9b43d9ebba8c2c8f', '长沙片1', '2019-07-21 16:27:02', '2019-07-21 16:27:02', '1', 'a9d7e202ca004df3a840db03f4e81c82', null);
-INSERT INTO `t_areainfo` VALUES ('f6f2838c520042adb21ce947731d666d', '长沙片2', '2019-07-21 16:27:08', '2019-07-21 16:27:08', '1', 'a9d7e202ca004df3a840db03f4e81c82', null);
-INSERT INTO `t_areainfo` VALUES ('f751883ac69d4bb68a28a57aa6f10e09', '测试片区2', '2019-07-21 16:26:52', '2019-07-21 16:26:52', '1', '480fe0d5ebb445c490e7c719c3898250', null);
-
--- ----------------------------
--- Table structure for t_areainfo_area
--- ----------------------------
-DROP TABLE IF EXISTS `t_areainfo_area`;
-CREATE TABLE `t_areainfo_area` (
-  `id` varchar(64) NOT NULL,
-  `AreaId` varchar(64) NOT NULL COMMENT '片区id',
-  `districtId` int(11) NOT NULL COMMENT '行政区域id -t_area_district-id',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='片区对应的物理行政区域 1对多';
-
--- ----------------------------
--- Records of t_areainfo_area
 -- ----------------------------
 
 -- ----------------------------
@@ -614,7 +643,10 @@ INSERT INTO `t_videoalarm_talkinfo` VALUES ('00b7bba776b84d1a8473a62b56e19e18', 
 INSERT INTO `t_videoalarm_talkinfo` VALUES ('035080391c5d4e7cbe5c299b58d98558', '3', '1', '2019-07-20 17:51:49.345', '1', '我怎么处理33', null);
 INSERT INTO `t_videoalarm_talkinfo` VALUES ('06c2b33222ad412ca12ba2c0583bc1d6', '3', '2', '2019-07-20 17:00:30.000', '1', '23', null);
 INSERT INTO `t_videoalarm_talkinfo` VALUES ('089ff6519a6c436c8157a37ae0ed4e18', '2', '2', '2019-07-20 18:30:22.206', '1', '有什么可以帮您的？', null);
+INSERT INTO `t_videoalarm_talkinfo` VALUES ('0a340fa9705f47ae853dc4212d0321a4', '2', '2', '2019-07-23 13:32:56.964', '1', '12312', null);
+INSERT INTO `t_videoalarm_talkinfo` VALUES ('0a481199ef4f4e499954c4d533ea152a', '2', '2', '2019-07-23 13:38:00.852', '1', '1', null);
 INSERT INTO `t_videoalarm_talkinfo` VALUES ('108f36c2641f47ff820dce32d8c22e6c', '2', '2', '2019-07-20 18:29:23.617', '1', '稍安勿躁，我们马上出动', null);
+INSERT INTO `t_videoalarm_talkinfo` VALUES ('10f59d1bed3c45edb220ab8fbe8fa3d9', '2', '2', '2019-07-23 13:33:31.012', '1', '123', null);
 INSERT INTO `t_videoalarm_talkinfo` VALUES ('1347c3c4f486480693cefafe294b6ee0', '3', '2', '2019-07-20 17:03:44.000', '1', '23', null);
 INSERT INTO `t_videoalarm_talkinfo` VALUES ('13701575910e452da214551a18092ec5', '2', '2', '2019-07-20 18:13:38.035', '1', '111', null);
 INSERT INTO `t_videoalarm_talkinfo` VALUES ('1454d28cbe644a8e89859b0d4f3f248d', '3', '2', '2019-07-20 17:00:15.000', '1', '10', null);
@@ -624,6 +656,7 @@ INSERT INTO `t_videoalarm_talkinfo` VALUES ('188a22115fd84f29b5c19ddc1f2c9abc', 
 INSERT INTO `t_videoalarm_talkinfo` VALUES ('1e219fe273ca4b26b0748f0d2a22bdc8', '2', '1', '2019-07-20 17:46:35.389', '1', '我怎么处理33', null);
 INSERT INTO `t_videoalarm_talkinfo` VALUES ('1f255dc0a07d49d09873ec46fe60c0fb', '3', '2', '2019-07-20 17:03:45.000', '1', '24', null);
 INSERT INTO `t_videoalarm_talkinfo` VALUES ('20d68c1c3a1a4feab440b9046eb2fe14', '2', '2', '2019-07-20 16:35:58.000', '1', '你好！！！', null);
+INSERT INTO `t_videoalarm_talkinfo` VALUES ('24bf82d53cf44e72bf27ea7b8f14ef89', '2', '2', '2019-07-23 13:34:04.652', '1', '123', null);
 INSERT INTO `t_videoalarm_talkinfo` VALUES ('25c0126859144a84906be76db863c711', '2', '2', '2019-07-20 16:59:26.000', '1', '水电费水电费', null);
 INSERT INTO `t_videoalarm_talkinfo` VALUES ('2f51a3c9076b4b73911cfff1678d8332', '3', '2', '2019-07-20 17:00:03.000', '1', '3', null);
 INSERT INTO `t_videoalarm_talkinfo` VALUES ('31036d3d98884c01978b88d16e1b55f7', '2', '2', '2019-07-20 18:29:26.093', '1', '有什么可以帮您的？', null);
@@ -637,6 +670,8 @@ INSERT INTO `t_videoalarm_talkinfo` VALUES ('44034b942a164504b1f85c2488d35531', 
 INSERT INTO `t_videoalarm_talkinfo` VALUES ('45c2cf8d06b84582be7ab367a274f474', '2', '2', '2019-07-20 16:41:32.000', '1', '5', null);
 INSERT INTO `t_videoalarm_talkinfo` VALUES ('45cd781d82d5499097688acdb7117a82', '2', '2', '2019-07-20 16:39:44.000', '1', '123', null);
 INSERT INTO `t_videoalarm_talkinfo` VALUES ('48082f85583944da88073ad781a4c0c4', '2', '1', '2019-07-20 17:47:00.184', '1', '我怎么处理33', null);
+INSERT INTO `t_videoalarm_talkinfo` VALUES ('49d6716dc24c4fc18ba510d886ddc5e2', '2', '2', '2019-07-23 13:34:07.819', '1', '123', null);
+INSERT INTO `t_videoalarm_talkinfo` VALUES ('4f289dc118d24325a7e79a0a5040a9d5', '2', '2', '2019-07-23 13:34:06.420', '1', '123', null);
 INSERT INTO `t_videoalarm_talkinfo` VALUES ('54b3db4df6c44070a3f7511d65737109', '2', '2', '2019-07-20 16:59:25.000', '1', '', null);
 INSERT INTO `t_videoalarm_talkinfo` VALUES ('56936e83c8694d76af07fea98cb86b82', '3', '2', '2019-07-20 17:07:16.000', '1', '26', null);
 INSERT INTO `t_videoalarm_talkinfo` VALUES ('58bad0fc35c14631bbf90a2204c48d5c', '2', '2', '2019-07-20 16:59:30.000', '1', '12312 胜多负少d', null);
@@ -651,12 +686,15 @@ INSERT INTO `t_videoalarm_talkinfo` VALUES ('726ec95714e441f6afb5f76967d0f9be', 
 INSERT INTO `t_videoalarm_talkinfo` VALUES ('7681cf79941f4c49803623181653c3b8', '2', '2', '2019-07-20 16:59:38.000', '1', '1231', null);
 INSERT INTO `t_videoalarm_talkinfo` VALUES ('79cd66494c224d639f4387288f594fd0', '2', '2', '2019-07-20 16:39:45.000', '1', '2', null);
 INSERT INTO `t_videoalarm_talkinfo` VALUES ('833b8e79351b4c4ebc09e00a1253472b', '3', '2', '2019-07-20 17:00:29.000', '1', '22', null);
+INSERT INTO `t_videoalarm_talkinfo` VALUES ('8680028564f54ba6bcf1adae076566ef', '2', '2', '2019-07-23 14:55:02.443', '1', '123', null);
 INSERT INTO `t_videoalarm_talkinfo` VALUES ('871000bc825e42ddbe44cc6862c7a2f1', '3', '1', '2019-07-20 17:52:34.203', '1', '我怎么处理33', null);
 INSERT INTO `t_videoalarm_talkinfo` VALUES ('871f8f23b98a4a7a816b98e511b57d6c', '3', '2', '2019-07-20 17:00:25.000', '1', '18', null);
+INSERT INTO `t_videoalarm_talkinfo` VALUES ('89cf4bb0e6654c5aa767bd1bbcf22e59', '2', '2', '2019-07-23 13:34:03.068', '1', '123', null);
 INSERT INTO `t_videoalarm_talkinfo` VALUES ('8b0d8a88b54b4619acb0e13660d10648', '3', '2', '2019-07-20 17:08:33.000', '1', '11', null);
 INSERT INTO `t_videoalarm_talkinfo` VALUES ('8cacfcb73331464d8add8828997e94e6', '3', '2', '2019-07-20 17:00:23.000', '1', '17', null);
 INSERT INTO `t_videoalarm_talkinfo` VALUES ('8d0ef8590f604f1dab9e75e175377318', '3', '2', '2019-07-20 17:05:53.000', '1', '24', null);
 INSERT INTO `t_videoalarm_talkinfo` VALUES ('90c3219dced2491fa4beac46ff780c28', '3', '2', '2019-07-20 17:00:07.000', '1', '5', null);
+INSERT INTO `t_videoalarm_talkinfo` VALUES ('98ca3d15350744b5a3ab6cf0844d6890', '2', '2', '2019-07-23 13:34:05.379', '1', '23', null);
 INSERT INTO `t_videoalarm_talkinfo` VALUES ('9bd95f667b194934b26482b211543dd9', '3', '2', '2019-07-20 17:00:13.000', '1', '9', null);
 INSERT INTO `t_videoalarm_talkinfo` VALUES ('9d9b80411388458dbe3d2ad4290ee836', '3', '2', '2019-07-20 17:00:11.000', '1', '8', null);
 INSERT INTO `t_videoalarm_talkinfo` VALUES ('9fade306e70c4ea8ae17c5053212d8e2', '3', '2', '2019-07-20 17:00:16.000', '1', '11', null);
@@ -673,18 +711,22 @@ INSERT INTO `t_videoalarm_talkinfo` VALUES ('adc166d9704c4ddebffad80fcb24f790', 
 INSERT INTO `t_videoalarm_talkinfo` VALUES ('ae46a1e1fcd64820b24f0b7290d1a7a9', '3', '2', '2019-07-20 17:10:19.000', '1', '23123', null);
 INSERT INTO `t_videoalarm_talkinfo` VALUES ('af2e7fc8886d4f719618ab8d58af8438', '3', '2', '2019-07-20 17:10:18.000', '1', '1231', null);
 INSERT INTO `t_videoalarm_talkinfo` VALUES ('b14735cf72714dcd9fa55e348bab0448', '2', '2', '2019-07-20 18:44:47.651', '1', '有什么可以帮您的？', null);
+INSERT INTO `t_videoalarm_talkinfo` VALUES ('b4f5964503ba464984d6988dbe5f7e45', '3', '1', '2019-07-23 15:26:21.035', '1', '好的，明白了', null);
 INSERT INTO `t_videoalarm_talkinfo` VALUES ('b6f83e606c2e4859a75b24074921b7e7', '2', '2', '2019-07-20 16:36:02.000', '1', '大道有人吗？', null);
 INSERT INTO `t_videoalarm_talkinfo` VALUES ('b7898fae7c954ee78720b9e039e41987', '3', '1', '2019-07-20 18:04:17.681', '1', '我怎么处理33444', null);
 INSERT INTO `t_videoalarm_talkinfo` VALUES ('b800dc9806b546e58b9eca1f1a866a37', '3', '2', '2019-07-20 17:28:01.598', '1', '2314', null);
 INSERT INTO `t_videoalarm_talkinfo` VALUES ('b86f0ebae1134b4f843ad4f9874e2166', '2', '2', '2019-07-20 16:36:26.000', '1', '1111', null);
 INSERT INTO `t_videoalarm_talkinfo` VALUES ('b9bffe5ea1924082978a7fbb0cbe068d', '3', '1', '2019-07-20 17:34:00.088', '1', '我怎么处理', null);
 INSERT INTO `t_videoalarm_talkinfo` VALUES ('ba90b046082047d681c3cdb0b25215f5', '3', '2', '2019-07-20 17:00:19.000', '1', '14', null);
+INSERT INTO `t_videoalarm_talkinfo` VALUES ('bd1b53d0b02349b895f77293ab7574e4', '2', '1', '2019-07-23 14:55:49.393', '1', '好的，明白了', null);
+INSERT INTO `t_videoalarm_talkinfo` VALUES ('c3938545984340359f54cf62ebf87ab3', '2', '2', '2019-07-23 13:34:03.884', '1', '123', null);
 INSERT INTO `t_videoalarm_talkinfo` VALUES ('c3dfa5e757404caaa29d2252e9b3d6a1', '3', '2', '2019-07-20 17:00:27.000', '1', '20', null);
 INSERT INTO `t_videoalarm_talkinfo` VALUES ('c4aaaa1ebc534dbea939c4bdd765e84e', '3', '2', '2019-07-20 17:28:03.372', '1', '31231', null);
 INSERT INTO `t_videoalarm_talkinfo` VALUES ('c5ad07b7c2d34e8fb9309e056acca44e', '2', '2', '2019-07-20 16:23:25.000', '1', '123', null);
 INSERT INTO `t_videoalarm_talkinfo` VALUES ('c8889f90e56347aa99d1a69b434235c3', '2', '2', '2019-07-20 18:44:51.583', '1', '有什么可以帮您的？', null);
 INSERT INTO `t_videoalarm_talkinfo` VALUES ('c97615d5f5624630aaf01429e3207458', '2', '2', '2019-07-20 16:59:37.000', '1', '', null);
 INSERT INTO `t_videoalarm_talkinfo` VALUES ('d20e5798fad2422e91b36ab43d1fca7d', '3', '2', '2019-07-20 17:00:08.000', '1', '6', null);
+INSERT INTO `t_videoalarm_talkinfo` VALUES ('d25b033ed21944308329de9f2de49f15', '2', '2', '2019-07-23 14:55:03.774', '1', '2', null);
 INSERT INTO `t_videoalarm_talkinfo` VALUES ('d3b2b6469b7440c2aff270bfccd9a383', '3', '2', '2019-07-20 17:00:26.000', '1', '19', null);
 INSERT INTO `t_videoalarm_talkinfo` VALUES ('d3bc6e164a0e4750bcaa938179ccc48b', '3', '2', '2019-07-20 17:00:10.000', '1', '7', null);
 INSERT INTO `t_videoalarm_talkinfo` VALUES ('d84b241eca1c41cdba57a406e8b95dd4', '2', '2', '2019-07-20 16:35:52.000', '1', '1213', null);
@@ -696,40 +738,13 @@ INSERT INTO `t_videoalarm_talkinfo` VALUES ('e3797de4c0904ccf9fcf58cde1f3bb3c', 
 INSERT INTO `t_videoalarm_talkinfo` VALUES ('e589355363ca436aae956d271d17d10c', '3', '2', '2019-07-20 17:00:01.000', '1', '1', null);
 INSERT INTO `t_videoalarm_talkinfo` VALUES ('e765a821328440358e3408591dca4a47', '2', '2', '2019-07-20 16:59:27.000', '1', '胜多负少电风扇df', null);
 INSERT INTO `t_videoalarm_talkinfo` VALUES ('e7bb18e7f57a486591e43a5133c09408', '3', '2', '2019-07-20 17:00:18.000', '1', '13', null);
+INSERT INTO `t_videoalarm_talkinfo` VALUES ('ebf30ea3a65d43e8b9ba81a9c74a6558', '2', '2', '2019-07-23 13:32:54.518', '1', '123', null);
 INSERT INTO `t_videoalarm_talkinfo` VALUES ('f20b2362ffa14888a479a5bc74cab571', '2', '2', '2019-07-20 16:39:47.000', '1', '4', null);
 INSERT INTO `t_videoalarm_talkinfo` VALUES ('f20cd475d8334cfcba74c74ef5c6a19c', '2', '2', '2019-07-20 16:59:25.000', '1', '水电费s', null);
+INSERT INTO `t_videoalarm_talkinfo` VALUES ('f350e0f5650f49e4b23d227a6148bef9', '2', '2', '2019-07-23 13:33:31.964', '1', '123', null);
 INSERT INTO `t_videoalarm_talkinfo` VALUES ('f622562c56704531a307eb8e972c5847', '3', '2', '2019-07-20 17:00:02.000', '1', '2', null);
 INSERT INTO `t_videoalarm_talkinfo` VALUES ('fcd44462f9bd46e587271a45b41444f9', '2', '2', '2019-07-20 16:39:46.000', '1', '3', null);
 INSERT INTO `t_videoalarm_talkinfo` VALUES ('fe22287c2c79479c8d38ba207886b1b9', '3', '1', '2019-07-20 17:53:24.013', '1', '我怎么处理33', null);
-
--- ----------------------------
--- Table structure for tmp_videoalarm_info
--- ----------------------------
-DROP TABLE IF EXISTS `tmp_videoalarm_info`;
-CREATE TABLE `tmp_videoalarm_info` (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '序号',
-  `type` int(11) DEFAULT NULL COMMENT '类型  1 图文报警  2在线坐席上传',
-  `onlineseats_id` int(11) DEFAULT NULL COMMENT '接警人员ID',
-  `userName` varchar(64) DEFAULT NULL COMMENT '报警者姓名',
-  `idNumber` varchar(20) DEFAULT NULL COMMENT '身份证号',
-  `area` varchar(200) DEFAULT NULL COMMENT '区域',
-  `address` varchar(256) DEFAULT NULL COMMENT '地理位置',
-  `wechat_id` varchar(64) DEFAULT NULL COMMENT '微信账号ID',
-  `wechat_OpenId` varchar(64) DEFAULT NULL COMMENT '微信账号openID',
-  `phone` varchar(12) DEFAULT NULL COMMENT '报警用户电话号码',
-  `occurrence_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '警情发生时间',
-  `description` varchar(5120) DEFAULT NULL COMMENT '警情描述',
-  `alarm_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '报警时间',
-  `status` varchar(2) DEFAULT NULL COMMENT '警情状态 1已报警、2已受理、3已出警、4已关闭',
-  `picture_url` varchar(2048) DEFAULT NULL COMMENT '图片Url地址 多个用，分割',
-  `video_url` varchar(2048) DEFAULT NULL COMMENT '视频Url地址 多个用，分割',
-  `audio_url` varchar(2048) DEFAULT NULL COMMENT '语音Url地址 多个用，分割',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- ----------------------------
--- Records of tmp_videoalarm_info
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for videoalarm_info
@@ -759,12 +774,13 @@ CREATE TABLE `videoalarm_info` (
   `case_type` varchar(16) DEFAULT NULL COMMENT '案件类别',
   `case_level` varchar(16) DEFAULT NULL COMMENT '案件等级',
   `Sex` varchar(2) CHARACTER SET utf8 DEFAULT NULL COMMENT '性别（男，女），默认 男',
+  `hasNewInfo` varchar(5) DEFAULT '0' COMMENT '新消息  ,   1:有  ，0无',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of videoalarm_info
 -- ----------------------------
-INSERT INTO `videoalarm_info` VALUES ('2', '2', '3123', '阿三', '54912310123181231123', '南京市玄武区', '111.21', '23.41', '玄武湖风景区', null, null, '13815429446', '2019-07-20 10:14:57', '13212312312', '11111111111', '2019-07-20 10:14:57', '2', null, 'http://vjs.zencdn.net/v/oceans.webm', null, '1', '3', null);
-INSERT INTO `videoalarm_info` VALUES ('3', '22', '3123', '123', '1231', '2312', '312', '3123', '1231', null, null, '13815421231', '2019-07-20 12:07:28', '123', '123', '2019-07-20 12:07:28', '1', null, 'http://valipl.cp31.ott.cibntv.net/6572dfa0d303c718709616fa9/03000801005CDE290717FC8003E8805D2F36AA-2E35-46AF-B1D0-871C0E422BAA.mp4?ccode=0502&duration=7820&expire=18000&psid=59bbeccc44d1cdc7727f2fd44ace4dca&ups_client_netip=b7d00516&ups_ts=1563679956&ups_userid=&utid=2tnWErEO9xkCAbfODKFiWHNT&vid=XNDI3NzU3NTIxNg%3D%3D&vkey=A7d711ab1fc13585b62bccd83f92993bb', null, null, null, null);
-INSERT INTO `videoalarm_info` VALUES ('4', '2', '3123', '阿三', '54912310123181231123', '123', '123', '123', '123', '123', '123', '138153328254', '2019-07-20 15:23:13', '123', '123123', '2019-07-20 15:23:13', '1', null, 'http://valipl.cp31.ott.cibntv.net/65727228ce04b71ea73ea379c/03000801005D0B285FD1322003E880AF718FA6-037A-4A74-99A5-97BCB05E988A.mp4?ccode=0502&duration=327&expire=18000&psid=29f1a90f6bfa487417c78efd1866bbf6&ups_client_netip=b7d00516&ups_ts=1563680145&ups_userid=&utid=2tnWErEO9xkCAbfODKFiWHNT&vid=XNDI3NTk4NjYzMg%3D%3D&vkey=A497aa0a90041ce920f22987e5ff00cf6', null, null, null, null);
+INSERT INTO `videoalarm_info` VALUES ('2', '2', '3123', '阿三', '54912310123181231123', '南京市玄武区', '111.21', '23.41', '玄武湖风景区', null, null, '13815429446', '2019-07-20 10:14:57', '13212312312', '11111111111', '2019-07-20 10:14:57', '2', 'https://avatar-static.segmentfault.com/229/023/2290239497-56776b67a4fdd_big64,https://avatar-static.segmentfault.com/229/023/2290239497-56776b67a4fdd_big64', 'http://vjs.zencdn.net/v/oceans.webm,%3D&vkey=A7d711ab1fc13585b62bccd83f92993bb', 'http://127.0.0.1:7779/an/img/an/audio.mp3,http://127.0.0.1:7779/an/img/an/audio.mp3', '1', '3', null, '0');
+INSERT INTO `videoalarm_info` VALUES ('3', '22', '3123', '123', '1231', '2312', '312', '3123', '1231', null, null, '13815421231', '2019-07-20 12:07:28', '123', '123', '2019-07-20 12:07:28', '1', 'https://avatar-static.segmentfault.com/229/023/2290239497-56776b67a4fdd_big64,https://avatar-static.segmentfault.com/229/023/2290239497-56776b67a4fdd_big64', 'http://valipl.cp31.ott.cibntv.net/6572dfa0d303c718709616fa9/03000801005CDE290717FC8003E8805D2F36AA-2E35-46AF-B1D0-871C0E422BAA.mp4?ccode=0502&duration=7820&expire=18000&psid=59bbeccc44d1cdc7727f2fd44ace4dca&ups_client_netip=b7d00516&ups_ts=1563679956&ups_userid=&utid=2tnWErEO9xkCAbfODKFiWHNT&vid=XNDI3NzU3NTIxNg%3D%3D&vkey=A7d711ab1fc13585b62bccd83f92993bb', 'http://127.0.0.1:7779/an/img/an/audio.mp3,http://127.0.0.1:7779/an/img/an/audio.mp3', null, null, null, '0');
+INSERT INTO `videoalarm_info` VALUES ('4', '2', '3123', '阿三', '54912310123181231123', '123', '123', '123', '123', '123', '123', '138153328254', '2019-07-20 15:23:13', '123', '123123', '2019-07-20 15:23:13', '1', 'https://avatar-static.segmentfault.com/229/023/2290239497-56776b67a4fdd_big64,https://avatar-static.segmentfault.com/229/023/2290239497-56776b67a4fdd_big64', 'http://valipl.cp31.ott.cibntv.net/65727228ce04b71ea73ea379c/03000801005D0B285FD1322003E880AF718FA6-037A-4A74-99A5-97BCB05E988A.mp4?ccode=0502&duration=327&expire=18000&psid=29f1a90f6bfa487417c78efd1866bbf6&ups_client_netip=b7d00516&ups_ts=1563680145&ups_userid=&utid=2tnWErEO9xkCAbfODKFiWHNT&vid=XNDI3NTk4NjYzMg%3D%3D&vkey=A497aa0a90041ce920f22987e5ff00cf6,%3D&vkey=A497aa0a90041ce920f22987e5ff00cf6', 'http://127.0.0.1:7779/an/img/an/audio.mp3,http://127.0.0.1:7779/an/img/an/audio.mp3', null, null, null, '0');
