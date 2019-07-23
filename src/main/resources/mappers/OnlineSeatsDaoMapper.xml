@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kxjl.video.dao.OnlineSeatsDao">
+    <resultMap type="com.kxjl.video.pojo.AlarmInfo" id="alarmMap">
+        <result property="id" column="id" />
+        <result property="onlineSeatsId" column="onlineseats_id" />
+        <result property="type" column="type" />
+        <result property="userName" column="username" />
+        <result property="idNumber" column="id_number" />
+        <result property="area" column="area" />
+        <result property="longitude" column="longitude" />
+        <result property="latitude" column="latitude" />
+        <result property="note" column="note" />
+        <result property="weChatId" column="wechat_id" />
+        <result property="phone" column="phone" />
+        <result property="occurrenceTime" column="occurrence_time" />
+        <result property="occurrence_address" column="occurrence_address" />
+        <result property="description" column="description" />
+        <result property="alarmTime" column="alarm_time" />
+        <result property="pictureUrl" column="picture_url" />
+        <result property="videoUrl" column="video_url" />
+        <result property="audioUrl" column="audio_url" /> 
+        <result property="case_type" column="case_type" />
+        <result property="case_level" column="case_level" />  
+        <result property="status" column="status" />            
+    </resultMap>
+    
+    <resultMap type="com.kxjl.video.pojo.DictInfo" id="dictMap">
+    </resultMap>
+    
+    <select id="getClientAlarmListByUserId" parameterType="java.lang.String" resultMap="alarmMap">
+        select id,onlineseats_id,type,username,id_number,area,longitude,latitude,note,wechat_id,phone,
+        date_format(occurrence_time, '%Y-%m-%d %H:%i:%s') occurrence_time,description,date_format(alarm_time, '%Y-%m-%d %H:%i:%s') alarm_time,
+        picture_url,video_url,audio_url,occurrence_address,case_type, case_level,status from videoalarm_info where wechat_id= #{userid}
+		order by occurrence_time desc limit 0,10
+    </select>
+    
+    <select id="getAlarmListByUserId" parameterType="java.lang.String" resultMap="alarmMap">		
+		select videoalarm_info.id,onlineseats_id,videoalarm_info.type,username,id_number,area,longitude,latitude,note,wechat_id,phone,
+        date_format(occurrence_time, '%Y-%m-%d %H:%i:%s') occurrence_time,description,date_format(alarm_time, '%Y-%m-%d %H:%i:%s') alarm_time,
+        picture_url,video_url,audio_url,occurrence_address,a1.dict_value case_type,a2.dict_value case_level,status from videoalarm_info 
+		LEFT JOIN sys_dict_info a1 on (a1.type = 1 and videoalarm_info.case_type = a1.dict_name)
+		LEFT JOIN sys_dict_info a2 on (a2.type = 2 and videoalarm_info.case_level = a2.dict_name)
+		where onlineseats_id = #{userid} and DATE(occurrence_time) in
+		(select occurrence from (SELECT DISTINCT occurrence from  
+		(select DATE(occurrence_time) occurrence from videoalarm_info where onlineseats_id  = #{userid}
+		)A order by occurrence desc LIMIT 0,3) as a)
+    </select>
+    
+    <select id="CheckUserInfo" parameterType="java.lang.String" resultType="java.lang.Integer"> 
+    	select userid from online_seats where
+    	username = #{username} and password = #{password}
+    </select>
+
+	<insert id="insertAlarmInfo" parameterType="com.kxjl.video.pojo.AlarmInfo">
+		insert into videoalarm_info
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="onlineSeatsId != null">
+				onlineseats_id,
+			</if>
+			<if test="type != null">
+				type,
+			</if>
+			<if test="userName != null">
+				username,
+			</if>
+			<if test="idNumber != null">
+				id_number,
+			</if>
+			<if test="note != null">
+				note,
+			</if>
+			<if test="area != null">
+				area,
+			</if>
+			<if test="weChatId != null">
+				wechat_id,
+			</if>
+			<if test="phone != null">
+				phone,
+			</if>
+			<if test="occurrenceTime != null">
+				occurrence_time,
+			</if>
+			<if test="occurrence_address != null">
+				occurrence_address,
+			</if>
+			<if test="description != null">
+				description,
+			</if>
+			<if test="alarmTime != null">
+				alarm_time,
+			</if>
+			<if test="pictureUrl != null">
+				picture_url,
+			</if>
+			<if test="videoUrl != null">
+				video_url,
+			</if>
+			<if test="audioUrl != null">
+				audio_url,
+			</if>
+			<if test="longitude != null">
+				longitude,
+			</if>
+			<if test="latitude != null">
+				latitude,
+			</if>
+			<if test="case_type != null">
+				case_type,
+			</if>
+			<if test="case_level != null">
+				case_level,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="onlineSeatsId != null">
+				#{onlineSeatsId,jdbcType=INTEGER},
+			</if>
+			<if test="type != null">
+				#{type,jdbcType=INTEGER},
+			</if>
+			<if test="userName != null">
+				#{userName,jdbcType=VARCHAR},
+			</if>
+			<if test="idNumber != null">
+				#{idNumber,jdbcType=VARCHAR},
+			</if>
+			<if test="note != null">
+				#{note,jdbcType=VARCHAR},
+			</if>
+			<if test="area != null">
+				#{area,jdbcType=VARCHAR},
+			</if>
+			<if test="weChatId != null">
+				#{weChatId,jdbcType=VARCHAR},
+			</if>
+			<if test="phone != null">
+				#{phone,jdbcType=VARCHAR},
+			</if>
+			<if test="occurrenceTime != null">
+				#{occurrenceTime,jdbcType=VARCHAR},
+			</if>
+			<if test="occurrence_address != null">
+				#{occurrence_address,jdbcType=VARCHAR},
+			</if>
+			<if test="description != null">
+				#{description,jdbcType=VARCHAR},
+			</if>
+			<if test="alarmTime != null">
+				#{alarmTime,jdbcType=VARCHAR},
+			</if>
+			<if test="pictureUrl != null">
+				#{pictureUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="videoUrl != null">
+				#{videoUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="audioUrl != null">
+				#{audioUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="longitude != null">
+				#{longitude,jdbcType=VARCHAR},
+			</if>
+			<if test="latitude != null">
+				#{latitude,jdbcType=VARCHAR},
+			</if>
+			<if test="case_type != null">
+				#{case_type,jdbcType=VARCHAR},
+			</if>
+			<if test="case_level != null">
+				#{case_level,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	
+	<update id="SetOnlineStatus" parameterType="java.lang.String">
+	    update online_seats set status = #{status}
+	    where userid = #{userid}
+	</update>
+	
+	<select id="getAreaByOnlineSeatsUserID" parameterType="java.lang.String"
+	    resultType="java.lang.String">
+		select area from online_seats where userid = #{userid} 	    
+	</select>
+	
+	<select id="getUserNameByUserId" parameterType="java.lang.String"
+	    resultType="java.lang.String">
+	    select username from online_seats where userid = #{userid} 
+	</select>
+	
+	<select id="QueryDictInfoListByType" parameterType="java.lang.Integer" resultMap="dictMap">
+       select * from sys_dict_info where type = #{type}
+    </select>
+    
+	<select id="GetFreeOnlineSeats" resultType="java.lang.String">
+	    select userid from 
+		(select online_seats.userid, count(*) as number from online_seats left join videoalarm_info 
+		on (online_seats.userid = videoalarm_info.onlineseats_id
+		and (videoalarm_info.status in ("已报警","已受理","已出警"))) 
+		where online_seats.status = 0 GROUP BY online_seats.userid) a order by number asc limit 1; 	    
+	</select>
+	
+	<update id="updateOnlineSteatsToNull" parameterType="java.lang.String">
+	    update videoalarm_info set onlineseats_id = #{onlineseats_id}
+	    where onlineseats_id is null;	    
+	</update>
+	
+	<select id="QueryHasNewInfo" parameterType="java.lang.String"
+	    resultType="java.lang.Integer">
+	    select count(*) from videoalarm_info where type = 1 
+	    and status = 0 and onlineseats_id = #{userid}
+	</select>
+
+</mapper>

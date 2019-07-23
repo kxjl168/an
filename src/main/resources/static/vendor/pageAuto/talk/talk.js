@@ -259,10 +259,10 @@ function connect() {
 	var protocolStr = document.location.protocol;
 	if (protocolStr.indexOf("https") >= 0) {
 		websocketServerUrl = "wss://" + hostport + getContextPath()
-				+ "/websocket/" + rid;
+				+ "/talkwebsocket/" + rid;
 	} else {
 		websocketServerUrl = "ws://" + hostport + getContextPath()
-				+ "/websocket/" + rid;
+				+ "/talkwebsocket/" + rid;
 	}
 
 	url = websocketServerUrl;// "${websocketPath}${port}${ctx}/websocket/${principal.user.id}";

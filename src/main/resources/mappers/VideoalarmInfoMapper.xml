@@ -365,6 +365,7 @@ left join sys_dict_info tdict on tdict.dict_value= c.case_type and tdict.type=1
 	</if>
 	
 	
+order by c.type asc,c.status asc,c.occurrence_time desc
 
 
 </select>

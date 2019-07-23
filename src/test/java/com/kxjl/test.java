@@ -43,16 +43,16 @@ public class test {
 		 //MessageList();
 		 
 	
-		//testAppTalk("3","发送一条数据");
+		testAppTalk("2","发送一条数据");
 		
-		testAppGetTalk("3");
+		//testAppGetTalk("3");
 	}
 	
 	public static void testAppTalk(String alarmId,String msg) {
 
-		//String serverUrl = "http://127.0.0.1:7779/an/interface/app/sendTalkMsg";
+		String serverUrl = "http://127.0.0.1:7779/an/interface/app/sendTalkMsg";
 		
-		String serverUrl = "http://www.chinaqiner.com.cn/an/interface/app/sendTalkMsg";
+		//String serverUrl = "http://www.chinaqiner.com.cn/an/interface/app/sendTalkMsg";
 
 
 		//String serverUrl = "http://ztgmwl.com:7501/account-web-oauth/user/createUser";

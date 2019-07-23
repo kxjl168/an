@@ -525,7 +525,14 @@
 	
 				
  				<server.https.port>443</server.https.port>
-                
+ 				
+ 				
+ 				<PC_EXPORT_PORT>18000</PC_EXPORT_PORT>
+ 				<MEDIA_SERVER_URL>rtmp://192.168.0.202:1935/live/</MEDIA_SERVER_URL>
+ 				<WXAppID>wx5a0e8cdfad99e03a</WXAppID>
+ 				<WXAppSecret>e1e8d305722525dd5265157082594e0c</WXAppSecret>
+ 				<DYSUrlRequest>http://192.168.0.110:8780/</DYSUrlRequest>
+ 				
                
 			</properties>
 			<activation>
@@ -580,6 +587,13 @@
 				
  				<server.https.port>443</server.https.port>
                 
+               
+               <PC_EXPORT_PORT>18000</PC_EXPORT_PORT>
+ 				<MEDIA_SERVER_URL>rtmp://192.168.0.202:1935/live/</MEDIA_SERVER_URL>
+ 				<WXAppID>wx5a0e8cdfad99e03a</WXAppID>
+ 				<WXAppSecret>e1e8d305722525dd5265157082594e0c</WXAppSecret>
+ 				<DYSUrlRequest>http://192.168.0.110:8780/</DYSUrlRequest>
+ 				
                
 			</properties>
 			<activation>

@@ -29,6 +29,9 @@ public class WebSiteMeshFilter extends ConfigurableSiteMeshFilter {
                 .addExcludedPath("/manager/test*")
                 
                 .addExcludedPath("/interface/*")
+                
+                .addExcludedPath("/ClientConnectSvr/*")
+                
                 .addExcludedPath("/FileSvr/*")
                 .addExcludedPath("/upload/*")
                 

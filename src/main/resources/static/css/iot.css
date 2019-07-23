@@ -793,6 +793,7 @@ table.table-noborder td
 #txtmsglist{
 	height: 100%;
 	 max-height: 500px; 
+	 min-height: 400px;
 	/* height:300px;  */
 	overflow-y:scroll;
 	
@@ -884,4 +885,13 @@ table.table-noborder td
 	width: 50px;
 	float: left;
 	padding-left: 5px;
+}
+
+tr.newinforow{
+	/* background: #f1d982; */
+    color: #1a4ec2;
+}
+
+tr.toaccept{
+	color: red;
 }

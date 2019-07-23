@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kxjl.video.pojo.ClientInfo">
+
+	<select id="CheckClientInfo" parameterType="com.kxjl.video.pojo.ClientInfo"
+	    resultType="com.kxjl.video.pojo.ClientInfo">
+	    select userid,username as name,identyid as identyID,address as note,
+	    mobile_phone as mobilePhone,ecname,ecphone,sex from  alarm_userinfo 
+	    where wechat_id = #{weichatID,jdbcType=VARCHAR}
+	</select>
+	
+	<update id="updateAlarmUserInfo" parameterType="com.kxjl.video.pojo.ClientInfo">
+		update alarm_userinfo
+	    <set >
+	      <if test="name != null">
+				username = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="identyID != null">
+				identyid = #{identyID,jdbcType=VARCHAR},
+			</if>
+			<if test="note != null">
+				address = #{note,jdbcType=VARCHAR},
+			</if>
+			<if test="mobilePhone != null">
+				mobile_phone = #{mobilePhone,jdbcType=VARCHAR},
+			</if>
+			<if test="weichatID != null">
+				wechat_id = #{weichatID,jdbcType=VARCHAR},
+			</if>
+			<if test="ecname != null">
+				ecname = #{ecname,jdbcType=VARCHAR},
+			</if>
+			<if test="ecphone != null">
+				ecphone = #{ecphone,jdbcType=VARCHAR},
+			</if>
+			<if test="sex != null">
+				sex = #{sex,jdbcType=VARCHAR},
+			</if>
+	    </set>
+	    where userid = #{userid,jdbcType=INTEGER}
+	</update>
+	
+	<insert id="insertAlarmUserInfo" parameterType="com.kxjl.video.pojo.ClientInfo">
+		insert into alarm_userinfo
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="name != null">
+				username,
+			</if>
+			<if test="identyID != null">
+				identyid,
+			</if>
+			<if test="note != null">
+				address,
+			</if>
+			<if test="mobilePhone != null">
+				mobile_phone,
+			</if>
+			<if test="weichatID != null">
+				wechat_id,
+			</if>
+			<if test="ecname != null">
+				ecname,
+			</if>
+			<if test="ecphone != null">
+				ecphone,
+			</if>			
+			<if test="sex != null">
+				sex,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="identyID != null">
+				#{identyID,jdbcType=VARCHAR},
+			</if>
+			<if test="note != null">
+				#{note,jdbcType=VARCHAR},
+			</if>
+			<if test="mobilePhone != null">
+				#{mobilePhone,jdbcType=VARCHAR},
+			</if>
+			<if test="weichatID != null">
+				#{weichatID,jdbcType=VARCHAR},
+			</if>
+			<if test="ecname != null">
+				#{ecname,jdbcType=VARCHAR},
+			</if>
+			<if test="ecphone != null">
+				#{ecphone,jdbcType=VARCHAR},
+			</if>
+			<if test="sex != null">
+				#{sex,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+</mapper>

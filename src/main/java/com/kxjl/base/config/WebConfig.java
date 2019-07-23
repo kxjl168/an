@@ -7,10 +7,13 @@ import com.kxjl.base.convert.ExceptStringConverter;
 import com.kxjl.base.filter.FreemarkerFilter;
 import com.kxjl.base.filter.JspFilter;
 import com.kxjl.base.filter.WebSiteMeshFilter;
+import com.kxjl.base.websocket.ClientConnectSvr;
+import com.kxjl.base.websocket.testServlert;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
@@ -33,6 +36,9 @@ import java.util.concurrent.Executor;
 @PropertySource("classpath:project.properties")
 public class WebConfig extends WebMvcConfigurerAdapter {
 
+	
+	
+	
 	/**
 	 * 解决long类型js经度丢失的问题
 	 * @param converters
@@ -79,6 +85,8 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 		filter.setUrlPatterns(arrayList);
 		return filter;
 	}
+	
+
 
 /*	@Bean
 	public ViewResolver getJspViewResolver() {
@@ -132,6 +140,8 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 		ArrayList<String> arrayList = new ArrayList<String>();
 		arrayList.add("/*");
 		filter.setUrlPatterns(arrayList);
+		
+		
 		return filter;
 	}
 

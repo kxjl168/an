@@ -12,6 +12,7 @@ import org.springframework.boot.autoconfigure.data.mongo.MongoDataAutoConfigurat
 import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
 import org.springframework.boot.context.embedded.EmbeddedServletContainerFactory;
 import org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainerFactory;
+import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 
 import java.util.TimeZone;
@@ -28,6 +29,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import com.kxjl.base.websocket.ClientConnectSvr;
+
 @SpringBootApplication
 @EnableAspectJAutoProxy(exposeProxy=true,proxyTargetClass=true) 
 @EnableAutoConfiguration(exclude={MongoAutoConfiguration.class, MongoDataAutoConfiguration.class})
@@ -36,6 +39,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @MapperScan("com.kxjl.*.dao")//将项目中对应的mapper类的路径加进来就可以了
 @PropertySource("classpath:project.properties")
 @EnableScheduling
+//@ServletComponentScan("com.kxjl.base.websocket")
 public class GAVIDEOApplication {
 
 
@@ -46,7 +50,6 @@ public class GAVIDEOApplication {
         SpringApplication.run(GAVIDEOApplication.class, args);
         System.out.println("===========启动完成！=============");
     }
-    
     
 
     

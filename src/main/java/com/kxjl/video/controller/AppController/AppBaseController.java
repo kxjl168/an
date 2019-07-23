@@ -217,4 +217,35 @@ public class AppBaseController {
 		return rst;
 
 	}
+	
+	
+	/**
+	 * 获取请求的JSON串，非加密
+	 * 
+	 * @param request
+	 * @param uService
+	 * @return 实际请求数据
+	 * @author
+	 * @date 2015-12-15 下午2:34:43 *
+	 */
+	public String handleNoAresRequest(HttpServletRequest request) {
+		String data = null;
+		try {
+			InputStream instream = request.getInputStream();
+			BufferedReader reader = new BufferedReader(new InputStreamReader(
+					instream, "utf-8"));
+			StringBuilder sb = new StringBuilder();
+			String line = "";
+			while ((line = reader.readLine()) != null) {
+				sb.append(line);
+			}
+			reader.close();
+
+			instream.close();
+			data = sb.toString();
+
+		} catch (Exception e) {
+		}
+		return data;
+	}
 }

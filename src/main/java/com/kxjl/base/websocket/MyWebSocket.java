@@ -21,7 +21,12 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArraySet;
 
-@ServerEndpoint("/websocket/{userId}")
+/**
+ * 页面聊天websocket
+ * @author zj
+ *
+ */
+@ServerEndpoint("/talkwebsocket/{userId}")
 @Component
 public class MyWebSocket {
 

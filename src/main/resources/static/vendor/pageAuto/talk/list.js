@@ -165,6 +165,36 @@ function InitQuery_item(rid) {
 				
 				
 		},
+		  rowStyle: function (row, index) {
+			  if(typeof(row.hasNewInfo)!='undefined'&&row.hasNewInfo=="1")
+				{
+				  var cls="newinforow"
+				  var style={classes:cls};
+                  
+				    return style;
+				}
+			  else{
+					if (row.status == "1")
+						{
+						if(row.type=="2")//视频报警，全部为已受理
+							{
+							  return "{classes:''}";
+						}
+						else
+							{
+							  return {classes:'toaccept'};
+							}
+						}
+					else
+						{
+						  return "{classes:''}";
+						}
+				  
+			  }
+			  return "{classes:''}";
+	        	//return rowStyleFormat(row,index);
+	            
+	        }    ,
 		columns : [ {
 			field : 'id',
 			visible : false
@@ -181,7 +211,7 @@ function InitQuery_item(rid) {
 				var flag="";
 				if(typeof(row.hasNewInfo)!='undefined'&&row.hasNewInfo=="1")
 					{
-					flag="<span class='ninfo fa fa-circle ' title='新消息'></span>";
+					flag="<span class='ninfo  ' title='新消息'><i class='fa fa-commenting-o'></i></span>";
 					}
 				
 				var tm = value.substr(0, value.length - 2);
@@ -266,7 +296,12 @@ function InitQuery_item(rid) {
  */
 function refreshOtherAlarmNew(alarmId)
 {
-	var data=$("#table_list_item").bootstrapTable('getData');
+	
+	
+	$("#table_list_item").find("tr[data-uniqueid='"+alarmId+"'] td:nth-child(1) ").prepend("<span class='ninfo ' title='新消息'><i class='fa fa-commenting-o'></i></span>");
+	$("#table_list_item").find("tr[data-uniqueid='"+alarmId+"']  ").addClass("newinforow");
+	
+	/*var data=$("#table_list_item").bootstrapTable('getData');
 	if(data!=null)
 		{
 		for (var i = 0; i < data.length; i++) {
@@ -283,7 +318,7 @@ function refreshOtherAlarmNew(alarmId)
 				}
 		}
 		
-		}
+		}*/
 }
 
 

@@ -152,6 +152,7 @@ public class CommonModule extends AppBaseController {
 			query.setAlarmId(Integer.parseInt(alarmId));
 			query.setMintime(mintime);
 			query.setMaxtime(maxtime);
+			query.setOrder("asc");
 			List<VideoalarmTalkinfo> talks = videoalarmTalkinfoService.selectVideoalarmTalkinfoList(query);
 
 			return AppResultUtil.success(talks);

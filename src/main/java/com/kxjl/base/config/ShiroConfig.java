@@ -120,6 +120,10 @@ public class ShiroConfig {
 
         filterChainDefinitionMap.put("/", "anon");
         filterChainDefinitionMap.put("/websocket/**", "anon");
+        filterChainDefinitionMap.put("/talkwebsocket/**", "anon");
+        filterChainDefinitionMap.put("/clientConnectSvr/**", "anon");
+        
+        
         filterChainDefinitionMap.put("/ktest/**", "anon");
         filterChainDefinitionMap.put("/img/**", "anon");
         filterChainDefinitionMap.put("/js/**", "anon");

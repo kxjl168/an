@@ -8,11 +8,13 @@
 package com.kxjl.base.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.socket.server.standard.ServerEndpointExporter;
 
 import com.kxjl.base.websocket.MyWebSocket;
+import com.kxjl.base.websocket.testServlert;
 import com.kxjl.video.service.VideoalarmTalkinfoService;
 //import com.kxjl.tasktransferplat.service.ManagerMessageService;
 
@@ -24,14 +26,16 @@ import com.kxjl.video.service.VideoalarmTalkinfoService;
 @Configuration
 public class WebSocketConfig {
 
-    @Bean
-    public ServerEndpointExporter serverEndpointExporter() {
-        return new ServerEndpointExporter() ;
-    }
 
-    @Autowired
-    public void setMessageService(VideoalarmTalkinfoService videoalarmTalkinfoService){
-        MyWebSocket.videoalarmTalkinfoService = videoalarmTalkinfoService;
-    }
+
+	@Bean
+	public ServerEndpointExporter serverEndpointExporter() {
+		return new ServerEndpointExporter();
+	}
+
+	@Autowired
+	public void setMessageService(VideoalarmTalkinfoService videoalarmTalkinfoService) {
+		MyWebSocket.videoalarmTalkinfoService = videoalarmTalkinfoService;
+	}
 
 }

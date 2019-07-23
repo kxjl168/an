@@ -39,6 +39,8 @@ public class VideoalarmTalkinfo {
     //query
     private String mintime; //查询的起始时间，查看历史聊天
     private String maxtime;//查询的结束时间
+    
+    private String order;//排序
 
     /**
      * 序号
@@ -166,5 +168,13 @@ public class VideoalarmTalkinfo {
 
 	public void setMaxtime(String maxtime) {
 		this.maxtime = maxtime;
+	}
+
+	public String getOrder() {
+		return order;
+	}
+
+	public void setOrder(String order) {
+		this.order = order;
 	}
 }
