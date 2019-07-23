@@ -36,6 +36,8 @@ public class VideoalarmInfo {
     private String endDate;//查询开始
     
     private String curUid;//当前登陆id
+    
+    private String hasNewInfo;//1 新消息， 2无新消息；
 
     //query end
     
@@ -572,6 +574,14 @@ public class VideoalarmInfo {
 
 	public void setCurUid(String curUid) {
 		this.curUid = curUid;
+	}
+
+	public String getHasNewInfo() {
+		return hasNewInfo;
+	}
+
+	public void setHasNewInfo(String hasNewInfo) {
+		this.hasNewInfo = hasNewInfo;
 	}
 }
 

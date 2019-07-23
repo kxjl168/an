@@ -37,7 +37,8 @@ public class VideoalarmTalkinfo {
     private String fileUrl;
     
     //query
-    private String mintime; //查询的最小时间，查看历史聊天
+    private String mintime; //查询的起始时间，查看历史聊天
+    private String maxtime;//查询的结束时间
 
     /**
      * 序号
@@ -157,5 +158,13 @@ public class VideoalarmTalkinfo {
 
 	public void setMintime(String mintime) {
 		this.mintime = mintime;
+	}
+
+	public String getMaxtime() {
+		return maxtime;
+	}
+
+	public void setMaxtime(String maxtime) {
+		this.maxtime = maxtime;
 	}
 }

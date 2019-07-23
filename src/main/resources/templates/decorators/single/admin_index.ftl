@@ -77,7 +77,7 @@
 
     <section class="main-content2">
         <section class="margin-top-10">
-            <div class="row">
+            <div class="">
                 <sitemesh:write property="body"/>
             </div>
         </section>

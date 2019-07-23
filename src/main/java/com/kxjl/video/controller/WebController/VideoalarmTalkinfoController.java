@@ -16,7 +16,7 @@ import com.kxjl.base.base.PageCondition;
 import com.kxjl.base.util.Message;
 import com.kxjl.base.util.PageUtil;
 import com.kxjl.video.dao.VideoalarmTalkinfoMapper;
-
+import com.kxjl.video.pojo.VideoalarmInfo;
 import com.kxjl.video.pojo.VideoalarmTalkinfo;
 import com.kxjl.video.service.VideoalarmTalkinfoService;
 
@@ -69,6 +69,10 @@ public class VideoalarmTalkinfoController {
 		Page page = PageUtil.getPage(pageCondition);
 		tvideoalarmtalkinfos = tvideoalarmtalkinfoService.selectVideoalarmTalkinfoList(item);
 
+		
+		
+		
+		
 		try {
 			rst = PageUtil.packageTableData(page, tvideoalarmtalkinfos);
 		} catch (Exception e) {

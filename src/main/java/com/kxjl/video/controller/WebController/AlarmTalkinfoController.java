@@ -60,9 +60,9 @@ public class AlarmTalkinfoController {
 	@Autowired
 	private SysDictInfoService sysdictinfoService;
 
-	
 	/**
 	 * 聊天首页
+	 * 
 	 * @param request
 	 * @param model
 	 * @return
@@ -74,28 +74,25 @@ public class AlarmTalkinfoController {
 
 		//
 		String receviePersonId = request.getParameter("id");
-		
+
 		System.out.println(receviePersonId);
-		
+
 		if (receviePersonId == null || receviePersonId.equals(""))
 			return "/frontend/error/401.ftl";
 
 		VideoalarmInfo query = new VideoalarmInfo();
 		query.setOnlineseats_id(receviePersonId);
 		List<VideoalarmInfo> alarms = videoalarminfoService.selectVideoalarmInfoList(query);
-		
-		
+
 		request.setAttribute("alarms", alarms);
-		
 
 		return "/frontend/talk/index.ftl";
 	}
-	
-	
+
 	@RequestMapping("/sysdictinfoList")
-	//@ManagerActionLog(operateDescribe="查询系统字典表",operateFuncType=FunLogType.Query,operateModelClassName=SysDictInfoMapper.class)
+	// @ManagerActionLog(operateDescribe="查询系统字典表",operateFuncType=FunLogType.Query,operateModelClassName=SysDictInfoMapper.class)
 	@ResponseBody
-	public String sysdictinfoList( SysDictInfo item, HttpServletRequest request,PageCondition pageCondition) {
+	public String sysdictinfoList(SysDictInfo item, HttpServletRequest request, PageCondition pageCondition) {
 
 		String rst = "";
 		List<SysDictInfo> sysdictinfos = new ArrayList<>();
@@ -111,22 +108,21 @@ public class AlarmTalkinfoController {
 
 		return rst;
 	}
-	
+
 	@RequestMapping("/loadAlarm")
 	@ResponseBody
-	public String loadAlarm( @RequestParam Long id,HttpServletRequest request) {
-		 
-		
+	public String loadAlarm(@RequestParam Long id, HttpServletRequest request) {
+
 		VideoalarmInfo videoalarminfos = videoalarminfoService.selectVideoalarmInfoById(id);
-		
-		   return JSON.toJSONString(videoalarminfos);
-		//return JSONObject.fromObject(videoalarminfos).toString();
+
+		return JSON.toJSONString(videoalarminfos);
+		// return JSONObject.fromObject(videoalarminfos).toString();
 	}
-	
+
 	@RequestMapping("/videoalarminfoList")
-	@ManagerActionLog(operateDescribe="查询报警事件",operateFuncType=FunLogType.Query,operateModelClassName=VideoalarmInfoMapper.class)
+	@ManagerActionLog(operateDescribe = "查询报警事件", operateFuncType = FunLogType.Query, operateModelClassName = VideoalarmInfoMapper.class)
 	@ResponseBody
-	public String videoalarminfoList( VideoalarmInfo item, HttpServletRequest request,PageCondition pageCondition) {
+	public String videoalarminfoList(VideoalarmInfo item, HttpServletRequest request, PageCondition pageCondition) {
 
 		String rst = "";
 		List<VideoalarmInfo> videoalarminfos = new ArrayList<>();
@@ -142,21 +138,20 @@ public class AlarmTalkinfoController {
 
 		return rst;
 	}
-	
+
 	@RequestMapping("/saveOrUpdateAlarm")
-	@ManagerActionLog(operateDescribe="保存修改报警事件",operateFuncType=FunLogType.SaveOrUpdate,operateModelClassName=VideoalarmInfoMapper.class)
+	@ManagerActionLog(operateDescribe = "保存修改报警事件", operateFuncType = FunLogType.SaveOrUpdate, operateModelClassName = VideoalarmInfoMapper.class)
 	@ResponseBody
 	public String saveOrUpdateAlarm(VideoalarmInfo videoalarminfo) {
 
 		JSONObject jsonObject = null;
 		try {
 			if (null == videoalarminfo.getId()) {
-				
+
 				jsonObject = videoalarminfoService.saveVideoalarmInfo(videoalarminfo);
 
 			} else {
 				jsonObject = videoalarminfoService.updateVideoalarmInfo(videoalarminfo);
-			
 
 			}
 		} catch (Exception e) {
@@ -165,7 +160,6 @@ public class AlarmTalkinfoController {
 		assert jsonObject != null;
 		return jsonObject.toString();
 	}
-	
 
 	@RequestMapping("/tvideoalarmtalkinfoList")
 	@ManagerActionLog(operateDescribe = "查询报警事件聊天记录", operateFuncType = FunLogType.Query, operateModelClassName = VideoalarmTalkinfoMapper.class)
@@ -178,6 +172,13 @@ public class AlarmTalkinfoController {
 
 		Page page = PageUtil.getPage(pageCondition);
 		tvideoalarmtalkinfos = tvideoalarmtalkinfoService.selectVideoalarmTalkinfoList(item);
+
+		if (item.getAlarmId() != null) {
+			VideoalarmInfo vq = new VideoalarmInfo();
+			vq.setId((long) item.getAlarmId());
+			vq.setHasNewInfo("0");// 消息已读
+			videoalarminfoService.updateVideoalarmInfo(vq);
+		}
 
 		try {
 			rst = PageUtil.packageTableData(page, tvideoalarmtalkinfos);

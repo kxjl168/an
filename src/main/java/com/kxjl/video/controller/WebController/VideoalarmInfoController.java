@@ -102,6 +102,7 @@ public class VideoalarmInfoController {
 		 
 		
 		VideoalarmInfo videoalarminfos = videoalarminfoService.selectVideoalarmInfoById(id);
+	
 		
 		   return JSON.toJSONString(videoalarminfos);
 		//return JSONObject.fromObject(videoalarminfos).toString();

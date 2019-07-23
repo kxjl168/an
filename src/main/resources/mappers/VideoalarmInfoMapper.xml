@@ -24,11 +24,14 @@
     <result column="audio_url" jdbcType="VARCHAR" property="audio_url" />
     <result column="case_type" jdbcType="VARCHAR" property="case_type" />
     <result column="case_level" jdbcType="VARCHAR" property="case_level" />
+     <result column="hasNewInfo" jdbcType="VARCHAR" property="hasNewInfo" />
+    
+    
   </resultMap>
   <sql id="Base_Column_List">
     id, type, onlineseats_id, userName, idNumber, area, latitude, longitude, address, 
     wechat_id, wechat_OpenId, phone, occurrence_time, occurrence_address, description, 
-    alarm_time, status, picture_url, video_url, audio_url, case_type, case_level
+    alarm_time, status, picture_url, video_url, audio_url, case_type, case_level,hasNewInfo
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -262,6 +265,10 @@
       </if>
       <if test="case_level != null">
         case_level = #{case_level,jdbcType=VARCHAR},
+      </if>
+      
+         <if test="hasNewInfo != null">
+        hasNewInfo = #{hasNewInfo,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}

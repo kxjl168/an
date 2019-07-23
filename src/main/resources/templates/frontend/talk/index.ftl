@@ -14,6 +14,8 @@
 
 <link rel="stylesheet" href="${ctx}/js/ztree/zTreeStyle.css">
 <link rel="stylesheet" href="${ctx}/vendor/videojs/videojs.min.css">
+
+<link rel="stylesheet" href="${ctx}/vendor/videojs/audio.css">
 <style type="text/css">
 html {
 	overflow: auto;
@@ -21,11 +23,11 @@ html {
 </style>
 </head>
 
-<body>
+<body style="overflow-x:hide">
 
 
 
-	<div class="col-xs-12 ">
+	<div class="col-xs-12 nopadding">
 
 		<div class="col-sm-6 col-xs-12 nopadding margin-top-10">
 
@@ -58,7 +60,7 @@ html {
 
 				<div id="adetail"></div>
 
-				<div class="row orow">
+				<!-- <div class="row orow">
 					<div class="">
 						<label class="col-lg-3 nopadding" style="font-weight: bold;">视频附件:</label>
 						<div class="col-lg-9 nopadding ">
@@ -71,7 +73,7 @@ html {
 						</div>
 					</div>
 
-				</div>
+				</div> -->
 
 			</div>
 		</div>
@@ -85,7 +87,7 @@ html {
 					<hr>
 				</div>
 
-				<div id="txtmsglist" class="col-xs-12 form-control"
+				<div id="txtmsglist" class=" txtmsglist col-xs-12 form-control"
 					readonly="readonly" rows="15" cols=""></div>
 				<textarea id="txtmsginput"
 					class="col-xs-12 form-control margin-top-10" rows="5" cols=""></textarea>
@@ -111,6 +113,9 @@ html {
 			</div>
 
 			<#include "form.ftl"/>
+			<#include "formPic.ftl"/>
+			<#include "vd.ftl"/>
+			<#include "video.ftl"/>
 		</div>
 
 
@@ -123,5 +128,6 @@ html {
 		<script src="${ctx}/vendor/pageAuto/talk/alarmTypeSelect2.js"></script>
 
 		<script src="${ctx}/vendor/videojs/videojs.min.js"></script>
+		<script src="${ctx}/vendor/videojs/audioplayer.js"></script>
 </body>
 </html>

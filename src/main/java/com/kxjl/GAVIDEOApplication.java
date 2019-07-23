@@ -12,8 +12,11 @@ import org.springframework.boot.autoconfigure.data.mongo.MongoDataAutoConfigurat
 import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
 import org.springframework.boot.context.embedded.EmbeddedServletContainerFactory;
 import org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainerFactory;
+import org.springframework.boot.web.servlet.ServletRegistrationBean;
 
 import java.util.TimeZone;
+
+import javax.servlet.ServletRegistration;
 
 import org.apache.catalina.Context;
 import org.springframework.context.annotation.Bean;
@@ -43,6 +46,9 @@ public class GAVIDEOApplication {
         SpringApplication.run(GAVIDEOApplication.class, args);
         System.out.println("===========启动完成！=============");
     }
+    
+    
+
     
     @Value("${httpPort}")
     private Integer httpPort;

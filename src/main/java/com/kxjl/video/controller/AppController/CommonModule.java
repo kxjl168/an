@@ -93,6 +93,13 @@ public class CommonModule extends AppBaseController {
 			try {
 				VideoalarmInfo valarm = videoalarmInfoService.selectVideoalarmInfoById(Long.parseLong(alarmId));
 				if (valarm != null) {
+					
+					VideoalarmInfo vq=new VideoalarmInfo();
+					vq.setId(valarm.getId());
+					vq.setHasNewInfo("1");//有
+					videoalarmInfoService.updateVideoalarmInfo(vq);
+					
+					
 
 					org.json.JSONObject jmsg = new org.json.JSONObject();
 					jmsg.put("uid", alarmId);// 报警事件id
@@ -133,16 +140,18 @@ public class CommonModule extends AppBaseController {
 
 		//	String pageSize = parseStringParam(request, "pageSize");
 			String mintime = parseStringParam(request, "mintime");
+			String maxtime = parseStringParam(request, "maxtime");
 			String alarmId = parseStringParam(request, "alarmId");
 
 			PageCondition p = new PageCondition();
 			p.setPageNum("1");
 			p.setPageSize("10");
-			Page page = PageUtil.getPage(p);
+			//Page page = PageUtil.getPage(p);
 
 			VideoalarmTalkinfo query = new VideoalarmTalkinfo();
 			query.setAlarmId(Integer.parseInt(alarmId));
 			query.setMintime(mintime);
+			query.setMaxtime(maxtime);
 			List<VideoalarmTalkinfo> talks = videoalarmTalkinfoService.selectVideoalarmTalkinfoList(query);
 
 			return AppResultUtil.success(talks);

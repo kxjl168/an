@@ -132,8 +132,12 @@
 		and c.alarmId = #{alarmId}
 	</if>
 	<if test=" mintime !=null and mintime !='' ">
-		<![CDATA[ and c.ctime <  #{mintime} ]]>
+		<![CDATA[ and c.ctime >=  #{mintime} ]]>
 	</if>
+	<if test=" maxtime !=null and maxtime !='' ">
+		<![CDATA[ and c.ctime <  #{maxtime} ]]>
+	</if>
+	
 	
 	
 	order by c.ctime desc

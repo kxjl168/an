@@ -60,8 +60,21 @@ $(function() {
 		}
 
 	})
+	
+	initvd();
 
 })
+
+function initvd(){
+	
+	 myplayer= videojs('myplayer', {
+			
+		  sources: [{
+		   // src: row.video_url,
+		    type: 'video/mp4'
+		  }]
+		});
+}
 
 function initValidate() {
 	$("#mform_item").bootstrapValidator({
@@ -142,15 +155,15 @@ function InitQuery_item(rid) {
 			};
 			return param;
 		},
-		onLoadSuccess : function(data) {
-			if (data != null && data.rows.length > 0)
-				{
+		onPostBody : function() {
+			
 				setTimeout(function() {
 					var data=$("#table_list_item").bootstrapTable('getData');
+					if(data&&data.length>0)
 					changeAlarm(data[0]);	
 				}, 500);
 				
-				}
+				
 		},
 		columns : [ {
 			field : 'id',
@@ -166,7 +179,7 @@ function InitQuery_item(rid) {
 			formatter : function(value, row, index) {
 
 				var flag="";
-				if(row.hasNewInfo)
+				if(typeof(row.hasNewInfo)!='undefined'&&row.hasNewInfo=="1")
 					{
 					flag="<span class='ninfo fa fa-circle ' title='新消息'></span>";
 					}
@@ -176,13 +189,21 @@ function InitQuery_item(rid) {
 				// 1已报警、2已受理、3已出警、4已关闭',
 				var status = "";
 				if (row.status == "1")
+					{
 					status = "已报警";
+					if(row.type=="2")//视频报警，全部为已受理
+						status = "已受理";
+					}
+					
 				else if (row.status == "2")
 					status = "已受理";
 				else if (row.status == "3")
 					status = "已出警";
 				else if (row.status == "4")
 					status = "已关闭";
+				
+				
+				
 				return flag+tm + "(" + status + ")";
 			}
 
@@ -276,7 +297,7 @@ function changeAlarm(row) {
 	var html = getVideoInfo(row);
 	$("#adetail").html(html);
 
-	refreshVd(row);
+	//refreshVd(row);
 	loadTalk(row);
 }
 
@@ -296,8 +317,7 @@ function refreshVd(row){
 	 
 	if(typeof(row.video_url)!='undefined'){
 		
-		 myplayer.src(row.video_url);
-		 myplayer.load(row.video_url);
+		playVd(row.video_url);
 		
 	}
 	
@@ -305,6 +325,48 @@ function refreshVd(row){
 	//myplayer.play();
 	//$("#adetail").find('#myplayer').
 }
+function showDetailImgModal(url) {
+    $("#myModal_itemDetailPic").find(".detailImg").attr("src",url);
+    
+    $("#myModal_itemDetailPic").modal("show")
+}
+function playVd(url)
+{
+	if(typeof(url)!="undefined")
+	{
+		$("#myModal_itemvd").modal();
+		
+	
+		 myplayer.src(url);
+		 myplayer.load(url);
+		
+		
+		myplayer.play();
+		
+	}	
+}
+function playAudio(url)
+{
+	if(typeof(url)!="undefined")
+	{
+		$("#myModal_itemad").modal();
+		
+		
+		//$("#myModal_itemad").find(".audioplayer-time").remove();
+		//$("#myModal_itemad").find(".audioplayer-stopped").remove();
+		
+		
+		 $('#myvideoplayer').html("");
+		 $('#myvideoplayer').attr('src',url);
+		             var fry_audio=$('#myvideoplayer').get('0');
+		            fry_audio.load();
+	
+		 $( '#myvideoplayer' ).play();//audioPlayer();
+		
+	}	
+}
+
+
 
 /**
  * 加载报警事件中的最近 聊天记录
@@ -317,28 +379,16 @@ function loadTalk(row) {
 	$("#txtmsglist").html("");
 	
 	
+	
+	
+	
  //清除新消息标记
-	var data=$("#table_list_item").bootstrapTable('getData');
-	if(data!=null)
-		{
-		for (var i = 0; i < data.length; i++) {
-			if(data[i].id==row.id)
-				{
-				data[i].hasNewInfo=false;
-				
-				$("#table_list_item").bootstrapTable('updateRow', {
-					    index: i,
-					    row: data[i]
-					    });
-				
-				break;
-				}
-		}
-		
-		}
 	
 	
+	$("#table_list_item").find("tr[data-uniqueid='"+row.id+"'] ").find(".ninfo").remove();
 	
+	
+
 	
 	$.ajax({
 		type : "post",
@@ -385,7 +435,7 @@ function showMore(mintime)
 		url : getRPath() + '/talk/tvideoalarmtalkinfoList',
 		data : {
 			alarmId : curAlarmId,
-			mintime:mintime,
+			maxtime:mintime,
 		},
 		async : false,
 		dataType : "json",
@@ -434,6 +484,11 @@ var existData= $("#txtmsglist").html();
 
 function modifyAndDeleteButton_item(value, row, index) {
 	if (row.status == "1")
+		if(row.type=="2")//视频报警，全部为已受理
+			{
+			return "";
+		}
+		else
 		return [ '<div class="">'
 				+ '<button id = "accept" type = "button" class = "btn btn-info"><i class="fa fa-check-o">受理</i> </button>&nbsp;'
 
@@ -475,66 +530,76 @@ function getVideoInfo(rowdata) {
 	html += '<div class="row orow">'
 			+ ' <div class=""> '
 
-			+ '	<label class="col-lg-3 nopadding" style="font-weight: bold;">报警时间:</label> '
-			+ '	<div class="col-lg-9 nopadding"> ' + '		<span >'
+			+ '	<label class="col-xs-3 nopadding" style="font-weight: bold;">报警时间:</label> '
+			+ '	<div class="col-xs-9 nopadding"> ' + '		<span >'
 			+ tm
 			+ '</span> '
 			+ '		<p class="help-block"></p> '
 			+ '	</div> '
 
-			+ '	<label class="col-lg-3 nopadding" style="font-weight: bold;">报警人:</label> '
-			+ '	<div class="col-lg-9 nopadding"> '
+			+ '	<label class="col-xs-3 nopadding" style="font-weight: bold;">报警人:</label> '
+			+ '	<div class="col-xs-9 nopadding"> '
 			+ '		<span >'
 			+ rowdata.userName
 			+ '</span> '
 			+ '		<p class="help-block"></p> '
 			+ '	</div> '
 
-			+ '	<label class="col-lg-3 nopadding" style="font-weight: bold;">报警身份证号码:</label> '
-			+ '	<div class="col-lg-9 nopadding"> '
+			+ '	<label class="col-xs-3 nopadding" style="font-weight: bold;">报警身份证号码:</label> '
+			+ '	<div class="col-xs-9 nopadding"> '
 			+ '		<span >'
 			+ rowdata.idNumber
 			+ '</span> '
 			+ '		<p class="help-block"></p> '
 			+ '	</div> '
 
-			+ '	<label class="col-lg-3 nopadding" style="font-weight: bold;">联系电话:</label> '
-			+ '	<div class="col-lg-9 nopadding"> '
+			+ '	<label class="col-xs-3 nopadding" style="font-weight: bold;">联系电话:</label> '
+			+ '	<div class="col-xs-9 nopadding"> '
 			+ '		<span >'
 			+ rowdata.phone
 			+ '</span> '
 			+ '		<p class="help-block"></p> '
 			+ '	</div> '
 
-			+ '	<label class="col-lg-3 nopadding" style="font-weight: bold;">报警地点:</label> '
-			+ '	<div class="col-lg-9 nopadding"> '
+			+ '	<label class="col-xs-3 nopadding" style="font-weight: bold;">报警地点:</label> '
+			+ '	<div class="col-xs-9 nopadding"> '
 			+ '		<span >'
 			+ rowdata.address
 			+ '</span> '
 			+ '		<p class="help-block"></p> '
 			+ '	</div> '
 
-			+ '	<label class="col-lg-3 nopadding" style="font-weight: bold;">警情描述:</label> '
-			+ '	<div class="col-lg-9 nopadding"> '
+			+ '	<label class="col-xs-3 nopadding" style="font-weight: bold;">警情描述:</label> '
+			+ '	<div class="col-xs-9 nopadding"> '
 			+ '		<span >'
 			+ rowdata.description
 			+ '</span> '
 			+ '		<p class="help-block"></p> '
 			+ '	</div> '
 
-			+ '	<label class="col-lg-3 nopadding" style="font-weight: bold;">图片附件:</label> '
-			+ '	<div class="col-lg-9 nopadding "> '
+			+ '	<label class="col-xs-3 nopadding" style="font-weight: bold;">图片附件:</label> '
+			+ '	<div class="col-xs-12 nopadding "> '
 			+ '		<span >'
-			+ rowdata.picture_url
+			+ initResource(rowdata.picture_url,'img')
+			+ '</span> '
+			+ '		<p class="help-block"></p> '
+			+ '	</div> '
+			
+			
+			+ '	<label class="col-xs-3 nopadding" style="font-weight: bold;">语音附件:</label> '
+			+ '	<div class="col-xs-12 nopadding "> '
+			+ '		<span >'
+			+ initResource(rowdata.audio_url,'voice')
 			+ '</span> '
 			+ '		<p class="help-block"></p> '
 			+ '	</div> '
 
+
 		
-			+ '	<label class="col-lg-3 nopadding" style="font-weight: bold;">语音附件:</label> '
-			+ '	<div class="col-lg-9 nopadding "> '
+			+ '	<label class="col-xs-3 nopadding" style="font-weight: bold;">视频附件:</label> '
+			+ '	<div class="col-xs-12 nopadding "> '
 			+ '		<span >'
-			+ rowdata.audio_url
+			+ initResource(rowdata.video_url,"vd")
 			+ '</span> '
 			+ '		<p class="help-block"></p> '
 			+ '	</div> '
@@ -542,4 +607,51 @@ function getVideoInfo(rowdata) {
 			+ ' </div> ' + '</div> ';
 
 	return html;
+}
+
+function initResource(urls,type)
+{
+	 var htmlStr = '';
+	     if (typeof(urls)!='undefined') {
+    	 
+    	  var imgIdArr = urls.split(",");
+
+          for (var imgId in imgIdArr) {
+
+              if (imgIdArr[imgId] == "") {
+
+                  return htmlStr;
+              }
+              
+    	 
+    	 if(type=='img')
+    		 {
+    		 
+    
+            // var url=getRootPath() + "/upload/file/" + imgIdArr[imgId];
+    		 var url=imgIdArr[imgId]
+             htmlStr += "<img onclick='showDetailImgModal(\"" + url + "\")' class='img-responsive vdimg' src='" + url + "'/>"
+                      
+    		 }
+
+    	 else if (type=='voice')
+    		 {
+    		//  var url=getRootPath() + "/upload/file/" + imgIdArr[imgId];
+    		 var url=imgIdArr[imgId]
+    		  var vdtpurl=getRootPath() + "/img/an/vo.jpg";
+              htmlStr += "<img onclick='playAudio(\"" + url + "\")' class='img-responsive vdimg' src='" + vdtpurl + "'/>"
+                  
+    		 }
+    	 else if (type=='vd')
+		 	{
+    		 // var url=getRootPath() + "/upload/file/" + imgIdArr[imgId];
+    		 var url=imgIdArr[imgId]
+    		  var vdtpurl=getRootPath() + "/img/an/play.png";
+              htmlStr += "<img onclick='playVd(\"" + url + "\")' class=' img-responsive vdimg' src='" + vdtpurl + "'/>"
+                  
+		 	}
+          }
+     }
+
+     return htmlStr;
 }
