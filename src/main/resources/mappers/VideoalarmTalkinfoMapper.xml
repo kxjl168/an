@@ -140,7 +140,7 @@
 	
 	
 	<if test=" order !=null and order !='' ">
-		order by c.ctime #{order}
+		order by c.ctime ${order}
 	</if>
 	<if test=" order ==null or order =='' ">
 		order by c.ctime desc
