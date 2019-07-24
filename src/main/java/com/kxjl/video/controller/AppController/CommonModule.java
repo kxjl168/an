@@ -7,6 +7,7 @@ import com.kxjl.base.base.PageCondition;
 import com.kxjl.base.util.AppResult;
 import com.kxjl.base.util.AppResultUtil;
 import com.kxjl.base.util.PageUtil;
+import com.kxjl.base.util.UUIDUtil;
 import com.kxjl.base.util.aes.AesHelper;
 import com.kxjl.base.util.sendpost.HttpSendPost;
 import com.kxjl.base.websocket.MyWebSocket;
@@ -37,6 +38,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/interface/app")
@@ -88,6 +90,8 @@ public class CommonModule extends AppBaseController {
 			talkinfo.setMsgType(msgType);
 			talkinfo.setTalkType("1");// app->web
 			talkinfo.setMsgContent(msg);
+			String tid=UUIDUtil.getUUID();
+			talkinfo.setId(tid);
 			videoalarmTalkinfoService.saveVideoalarmTalkinfo(talkinfo);
 
 			try {
@@ -114,7 +118,7 @@ public class CommonModule extends AppBaseController {
 
 			}
 
-			return AppResultUtil.success();
+			return AppResultUtil.success(tid);
 
 		} catch (Exception e) {
 
@@ -149,7 +153,12 @@ public class CommonModule extends AppBaseController {
 			PageCondition p = new PageCondition();
 			p.setPageNum("1");
 			p.setPageSize("10");
-			//Page page = PageUtil.getPage(p);
+			
+			if(maxtime==null||maxtime.equals("")  ||mintime==null||mintime.equals(""))
+			   {
+				//有一个时间没填，默认分页10条
+				Page page = PageUtil.getPage(p);
+			   }
 
 			VideoalarmTalkinfo query = new VideoalarmTalkinfo();
 			query.setAlarmId(Integer.parseInt(alarmId));

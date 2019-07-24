@@ -40,7 +40,7 @@ public class VideoalarmTalkinfoServiceImpl implements VideoalarmTalkinfoService 
 
 		try {
 
-			item.setId(UUIDUtil.getUUID());
+			//item.setId(UUIDUtil.getUUID());
 			
 
 			itemMapper.insertSelective(item);
