@@ -145,7 +145,7 @@ public class ShiroConfig {
 
         //接口
         filterChainDefinitionMap.put("/interface/**", "anon");
-
+        filterChainDefinitionMap.put("/api/**", "anon");
 
         //读取数据库中配置已实现功能
         List<Map> permissions = permissionService.selectPermissions();

@@ -43,16 +43,18 @@ public class test {
 		 //MessageList();
 		 
 	
-		testAppTalk("2","发送一条数据");
+	//	testAppTalk("8","玄武湖有人聚众斗殴");
+		
+		testAppGetTalkJson("3");
 		
 		//testAppGetTalk("3");
 	}
 	
 	public static void testAppTalk(String alarmId,String msg) {
 
-		String serverUrl = "http://127.0.0.1:7779/an/interface/app/sendTalkMsg";
+		//String serverUrl = "http://127.0.0.1:7779/an/interface/app/sendTalkMsg";
 		
-		//String serverUrl = "http://www.chinaqiner.com.cn/an/interface/app/sendTalkMsg";
+		String serverUrl = "http://www.chinaqiner.com.cn/an/interface/app/sendTalkMsg";
 
 
 		//String serverUrl = "http://ztgmwl.com:7501/account-web-oauth/user/createUser";
@@ -94,8 +96,8 @@ public class test {
 
 		String serverUrl = "http://www.chinaqiner.com.cn/an/interface/app/talklist";
 
-
-		//String serverUrl = "http://ztgmwl.com:7501/account-web-oauth/user/createUser";
+		//String serverUrl = "http://127.0.0.1:7779/an/interface/app/talklist";
+		////String serverUrl = "http://ztgmwl.com:7501/account-web-oauth/user/createUser";
 
 		String responsedata = "";
 		try {
@@ -129,6 +131,49 @@ public class test {
 		}
 
 	}
+	
+	public static void testAppGetTalkJson(String alarmId) {
+
+		String serverUrl = "http://www.chinaqiner.com.cn/an/interface/app/talklist";
+
+		//String serverUrl = "http://127.0.0.1:7779/an/interface/app/talklist";
+		//String serverUrl = "http://ztgmwl.com:7501/account-web-oauth/user/createUser";
+
+		String responsedata = "";
+		try {
+			JSONObject jobj = new JSONObject();
+			jobj.put("alarmId", alarmId);
+			jobj.put("mintime", "2019-07-20 17:40:11");
+			
+			
+			
+			String commetdata = jobj.toString();
+
+			String data2="";
+			for (String key : jobj.keySet()) {
+				data2+=key+"="+jobj.optString(key)+"&";
+			}
+			if(!data2.equals(""))
+			data2=data2.substring(0,data2.length()-1);
+			
+
+
+			responsedata=sendJsonHttpData("9868f06e-3354-48b7-b902-91be36ba9998",serverUrl, commetdata);
+
+	
+			//String rdata = AesHelper.decrypt(responsedata, AesHelper.aesPass);
+
+			System.out.println("返回:" + responsedata);
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+	
+	
+	
 	
 	public static void testOrderLockImg()
 	{
@@ -1702,6 +1747,79 @@ public class test {
 
 		//httpPost.setRequestHeader("Content-type", "application/json");
 		 httpPost.setRequestHeader("Content-type", "application/x-www-form-urlencoded;charset=UTF-8");
+
+		httpPost.setRequestHeader("Accept", "application/json");
+		httpPost.setRequestHeader("Connection", "close");
+		httpPost.setRequestHeader(SysConst.AUTHORIZATION, auth);
+
+		// httpPost.setRequestHeader("Authorization", "Basic YWRtaW46MTIz");
+		httpPost.setRequestBody(is);
+
+		String responseData = null;
+		try {
+			Exception exception = null;
+			client.executeMethod(httpPost);
+			int resStatusCode = httpPost.getStatusCode();
+			if (resStatusCode == HttpStatus.SC_OK) {
+				BufferedReader br = new BufferedReader(
+						new InputStreamReader(httpPost.getResponseBodyAsStream(), "utf-8"));
+				logger.info("HTTP Request CHARSET:" + httpPost.getResponseCharSet());
+				String res = null;
+				StringBuffer sb = new StringBuffer();
+				while ((res = br.readLine()) != null) {
+					sb.append(res);
+				}
+				responseData = sb.toString();
+			} else {
+				logger.error("http请求失败 " + resStatusCode + ":" + httpPost.getStatusText());
+				exception = new Exception("[SerialHttpSender] HttpErrorCode:" + resStatusCode);
+			}
+			if (exception != null) {
+				throw exception;
+			}
+		} catch (java.net.ConnectException ex) {
+			ex.printStackTrace();
+			throw ex;
+		} catch (IOException ex) {
+			ex.printStackTrace();
+			// org.apache.commons.httpclient.HttpRecoverableException:
+			// java.net.SocketTimeoutException: Read timed out
+
+			String message = ex.getMessage();
+			if (message != null && message.toLowerCase().indexOf("read timed") > -1) {
+				throw new Exception(ex.getMessage());
+			} else {
+				ex.printStackTrace();
+				throw ex;
+			}
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			throw ex;
+
+		} finally {
+			httpPost.releaseConnection();
+
+		}
+
+		logger.info("HTTP Request Result:" + responseData);
+		return responseData;
+	}
+	
+	
+	public static String sendJsonHttpData(String auth, String url, String str) throws Exception {
+
+		logger.info("HTTP Request URL:" + url + ",HTTP Request PARAM:" + str);
+		HttpClient client = new HttpClient();
+		// client.getHostConfiguration().setProxy("10.41.70.8", 80);
+		// client.getParams().setAuthenticationPreemptive(true);
+
+		PostMethod httpPost = new PostMethod(url);
+		InputStream is = new java.io.ByteArrayInputStream(str.getBytes("utf-8"));
+		client.setTimeout(60000);
+
+		httpPost.setRequestHeader("Content-type", "application/json");
+		// httpPost.setRequestHeader("Content-type", "application/x-www-form-urlencoded;charset=UTF-8");
 
 		httpPost.setRequestHeader("Accept", "application/json");
 		httpPost.setRequestHeader("Connection", "close");

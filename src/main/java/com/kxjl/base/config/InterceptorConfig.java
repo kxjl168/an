@@ -40,7 +40,8 @@ public class InterceptorConfig extends WebMvcConfigurerAdapter {
         
         registry.addInterceptor(getInterfaaceInterceptor())
         .addPathPatterns("/interface/**")
-     
+        .addPathPatterns("/api/**")
+        .addPathPatterns("/api/*/*")
         .addPathPatterns("/interface/*/*/*");
 
     }

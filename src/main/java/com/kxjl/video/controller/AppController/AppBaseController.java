@@ -1,6 +1,7 @@
 package com.kxjl.video.controller.AppController;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Enumeration;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 import org.json.JSONObject;
 
+import com.kxjl.base.util.BufferHttpServletRequestWrapper;
 import com.kxjl.base.util.aes.AesHelper;
 
 public class AppBaseController {
@@ -219,6 +221,8 @@ public class AppBaseController {
 	}
 	
 	
+	
+	
 	/**
 	 * 获取请求的JSON串，非加密
 	 * 
@@ -231,20 +235,11 @@ public class AppBaseController {
 	public String handleNoAresRequest(HttpServletRequest request) {
 		String data = null;
 		try {
-			InputStream instream = request.getInputStream();
-			BufferedReader reader = new BufferedReader(new InputStreamReader(
-					instream, "utf-8"));
-			StringBuilder sb = new StringBuilder();
-			String line = "";
-			while ((line = reader.readLine()) != null) {
-				sb.append(line);
-			}
-			reader.close();
-
-			instream.close();
-			data = sb.toString();
-
-		} catch (Exception e) {
+			BufferHttpServletRequestWrapper request2 = new BufferHttpServletRequestWrapper((HttpServletRequest) request);
+			data = handerRequestData(request2);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
 		return data;
 	}

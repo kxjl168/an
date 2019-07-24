@@ -25,5 +25,5 @@ public class AlarmInfo {
 	private String audioUrl;//语音Url地址 多个用，分割
 	private String case_type;//案件类别
 	private String case_level;//案件等级
-	private String status;//报警状态  已报警、已受理、已出警、已结束
+	private int status;//报警状态 1 已报警、2已受理、3已出警、4已结束
 }

@@ -4,19 +4,19 @@
 
 	<select id="CheckClientInfo" parameterType="com.kxjl.video.pojo.ClientInfo"
 	    resultType="com.kxjl.video.pojo.ClientInfo">
-	    select userid,username as name,identyid as identyID,address as note,
-	    mobile_phone as mobilePhone,ecname,ecphone,sex from  alarm_userinfo 
-	    where wechat_id = #{weichatID,jdbcType=VARCHAR}
+	    select id,username as name,IdCard as identyID,address as note,
+	    mobile_phone as mobilePhone,ecname,ecphone,Sex from  t_alarm_userinfo 
+	    where wechatId = #{weichatID,jdbcType=VARCHAR}
 	</select>
 	
 	<update id="updateAlarmUserInfo" parameterType="com.kxjl.video.pojo.ClientInfo">
-		update alarm_userinfo
+		update t_alarm_userinfo
 	    <set >
 	      <if test="name != null">
 				username = #{name,jdbcType=VARCHAR},
 			</if>
 			<if test="identyID != null">
-				identyid = #{identyID,jdbcType=VARCHAR},
+				IdCard = #{identyID,jdbcType=VARCHAR},
 			</if>
 			<if test="note != null">
 				address = #{note,jdbcType=VARCHAR},
@@ -25,7 +25,7 @@
 				mobile_phone = #{mobilePhone,jdbcType=VARCHAR},
 			</if>
 			<if test="weichatID != null">
-				wechat_id = #{weichatID,jdbcType=VARCHAR},
+				wechatId = #{weichatID,jdbcType=VARCHAR},
 			</if>
 			<if test="ecname != null">
 				ecname = #{ecname,jdbcType=VARCHAR},
@@ -34,20 +34,20 @@
 				ecphone = #{ecphone,jdbcType=VARCHAR},
 			</if>
 			<if test="sex != null">
-				sex = #{sex,jdbcType=VARCHAR},
+				Sex = #{sex,jdbcType=VARCHAR},
 			</if>
 	    </set>
-	    where userid = #{userid,jdbcType=INTEGER}
+	    where id = #{userid,jdbcType=INTEGER}
 	</update>
 	
 	<insert id="insertAlarmUserInfo" parameterType="com.kxjl.video.pojo.ClientInfo">
-		insert into alarm_userinfo
+		insert into t_alarm_userinfo
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="name != null">
 				username,
 			</if>
 			<if test="identyID != null">
-				identyid,
+				IdCard,
 			</if>
 			<if test="note != null">
 				address,
@@ -56,7 +56,7 @@
 				mobile_phone,
 			</if>
 			<if test="weichatID != null">
-				wechat_id,
+				wechatId,
 			</if>
 			<if test="ecname != null">
 				ecname,
@@ -65,7 +65,7 @@
 				ecphone,
 			</if>			
 			<if test="sex != null">
-				sex,
+				Sex,
 			</if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">

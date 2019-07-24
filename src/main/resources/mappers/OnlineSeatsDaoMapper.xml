@@ -5,12 +5,12 @@
         <result property="id" column="id" />
         <result property="onlineSeatsId" column="onlineseats_id" />
         <result property="type" column="type" />
-        <result property="userName" column="username" />
-        <result property="idNumber" column="id_number" />
+        <result property="userName" column="userName" />
+        <result property="idNumber" column="idNumber" />
         <result property="area" column="area" />
         <result property="longitude" column="longitude" />
         <result property="latitude" column="latitude" />
-        <result property="note" column="note" />
+        <result property="note" column="address" />
         <result property="weChatId" column="wechat_id" />
         <result property="phone" column="phone" />
         <result property="occurrenceTime" column="occurrence_time" />
@@ -29,14 +29,14 @@
     </resultMap>
     
     <select id="getClientAlarmListByUserId" parameterType="java.lang.String" resultMap="alarmMap">
-        select id,onlineseats_id,type,username,id_number,area,longitude,latitude,note,wechat_id,phone,
+        select id,onlineseats_id,type,username,idNumber,area,longitude,latitude,address,wechat_id,phone,
         date_format(occurrence_time, '%Y-%m-%d %H:%i:%s') occurrence_time,description,date_format(alarm_time, '%Y-%m-%d %H:%i:%s') alarm_time,
         picture_url,video_url,audio_url,occurrence_address,case_type, case_level,status from videoalarm_info where wechat_id= #{userid}
 		order by occurrence_time desc limit 0,10
     </select>
     
     <select id="getAlarmListByUserId" parameterType="java.lang.String" resultMap="alarmMap">		
-		select videoalarm_info.id,onlineseats_id,videoalarm_info.type,username,id_number,area,longitude,latitude,note,wechat_id,phone,
+		select videoalarm_info.id,onlineseats_id,videoalarm_info.type,username,idNumber,area,longitude,latitude,address,wechat_id,phone,
         date_format(occurrence_time, '%Y-%m-%d %H:%i:%s') occurrence_time,description,date_format(alarm_time, '%Y-%m-%d %H:%i:%s') alarm_time,
         picture_url,video_url,audio_url,occurrence_address,a1.dict_value case_type,a2.dict_value case_level,status from videoalarm_info 
 		LEFT JOIN sys_dict_info a1 on (a1.type = 1 and videoalarm_info.case_type = a1.dict_name)
@@ -52,7 +52,8 @@
     	username = #{username} and password = #{password}
     </select>
 
-	<insert id="insertAlarmInfo" parameterType="com.kxjl.video.pojo.AlarmInfo">
+	<insert id="insertAlarmInfo" parameterType="com.kxjl.video.pojo.AlarmInfo"
+	    useGeneratedKeys="true" keyProperty="id">
 		insert into videoalarm_info
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="onlineSeatsId != null">
@@ -65,10 +66,10 @@
 				username,
 			</if>
 			<if test="idNumber != null">
-				id_number,
+				idNumber,
 			</if>
 			<if test="note != null">
-				note,
+				address,
 			</if>
 			<if test="area != null">
 				area,
@@ -192,7 +193,7 @@
 	
 	<select id="getUserNameByUserId" parameterType="java.lang.String"
 	    resultType="java.lang.String">
-	    select username from online_seats where userid = #{userid} 
+	    select t_receivepoliceinfo.Name from t_receivepoliceinfo where  Id = #{userid} 
 	</select>
 	
 	<select id="QueryDictInfoListByType" parameterType="java.lang.Integer" resultMap="dictMap">
@@ -200,11 +201,12 @@
     </select>
     
 	<select id="GetFreeOnlineSeats" resultType="java.lang.String">
-	    select userid from 
-		(select online_seats.userid, count(*) as number from online_seats left join videoalarm_info 
-		on (online_seats.userid = videoalarm_info.onlineseats_id
-		and (videoalarm_info.status in ("已报警","已受理","已出警"))) 
-		where online_seats.status = 0 GROUP BY online_seats.userid) a order by number asc limit 1; 	    
+	   select Id from 
+		(select t_seatinfo.Id, count(*) as number from t_seatinfo left join videoalarm_info 
+		on (t_seatinfo.Id = videoalarm_info.onlineseats_id
+		and (videoalarm_info.status in (1,2,3))) 
+		left join t_receivepoliceinfo on t_seatinfo.Id = t_receivepoliceinfo.SeatId where t_receivepoliceinfo.status = 0
+		GROUP BY t_seatinfo.Id) a order by number asc limit 1; 		    
 	</select>
 	
 	<update id="updateOnlineSteatsToNull" parameterType="java.lang.String">

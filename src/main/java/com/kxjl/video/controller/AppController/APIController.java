@@ -88,6 +88,8 @@ public class APIController extends AppBaseController {
 		log.info("ImageAlarm方法传入参数：" + params);
 		JSONObject jsonOut = new JSONObject();
 		
+		String mintime = parseStringParam(request, "UserName");
+		
 		try {
 			JSONObject jsonIn = new JSONObject(params);
 			AlarmInfo alarmInfo = new AlarmInfo();
@@ -113,7 +115,7 @@ public class APIController extends AppBaseController {
 			alarmInfo.setAudioUrl(jsonIn.optString("VoiceUrl"));
 			alarmInfo.setOccurrenceTime(jsonIn.getString("Time"));			
 			alarmInfo.setAlarmTime(DateUtil.getNowStr(null));
-			alarmInfo.setStatus("已报警");
+			alarmInfo.setStatus(1);
 			alarmInfo.setOnlineSeatsId(onlineSeatsService.GetFreeOnlineSeats());
 			if(onlineSeatsService.insertAlarmInfo(alarmInfo) > 0) {
 				jsonOut.put("ResponseCode", "200");
