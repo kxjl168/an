@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.kxjl.video.pojo.ClientInfo">
+<mapper namespace="com.kxjl.video.dao.ClientDao">
 
 	<select id="CheckClientInfo" parameterType="com.kxjl.video.pojo.ClientInfo"
 	    resultType="com.kxjl.video.pojo.ClientInfo">
