@@ -14,7 +14,7 @@ import com.kxjl.video.pojo.VideoalarmInfo;
 import com.kxjl.video.pojo.VideoalarmTalkinfo;
 import com.kxjl.video.service.VideoalarmInfoService;
 import com.kxjl.video.service.VideoalarmTalkinfoService;
-
+import com.kxjl.base.util.BufferHttpServletRequestWrapper;
 
 import net.sf.json.JSONObject;
 
@@ -138,10 +138,13 @@ public class CommonModule extends AppBaseController {
 		try {
 			String curl = url + "/interface/provide/communityList";
 
+			BufferHttpServletRequestWrapper request2 = new BufferHttpServletRequestWrapper((HttpServletRequest) request);
+
+			
 		//	String pageSize = parseStringParam(request, "pageSize");
-			String mintime = parseStringParam(request, "mintime");
-			String maxtime = parseStringParam(request, "maxtime");
-			String alarmId = parseStringParam(request, "alarmId");
+			String mintime = parseStringParam(request2, "mintime");
+			String maxtime = parseStringParam(request2, "maxtime");
+			String alarmId = parseStringParam(request2, "alarmId");
 
 			PageCondition p = new PageCondition();
 			p.setPageNum("1");
