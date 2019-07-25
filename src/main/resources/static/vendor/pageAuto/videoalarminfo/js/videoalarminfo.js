@@ -436,7 +436,7 @@ function playVd(url)
 var myplayer=null;
 window.PersonnelInformationEvents_item = {
 		"click #talk" : function(e, value, row, index) {
-			var url=getRPath()+"/talk/index?id="+row.onlineseats_id;
+			var url=getRPath()+"/talk/index?id="+row.seat_id;
 			window.open(url,"_blank");
 
 		},

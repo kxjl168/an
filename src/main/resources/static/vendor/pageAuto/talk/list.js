@@ -477,6 +477,9 @@ function playVd(url)
 {
 	if(typeof(url)!="undefined")
 	{
+		try {
+			
+		
 		$("#myModal_itemvd").modal();
 		
 	
@@ -485,6 +488,9 @@ function playVd(url)
 		
 		
 		myplayer.play();
+		} catch (e) {
+			// TODO: handle exception
+		}
 		
 	}	
 }
@@ -492,6 +498,10 @@ function playAudio(url)
 {
 	if(typeof(url)!="undefined")
 	{
+		try{
+			
+		
+
 		$("#myModal_itemad").modal();
 		
 		
@@ -505,7 +515,9 @@ function playAudio(url)
 		            fry_audio.load();
 	
 		 $( '#myvideoplayer' ).play();//audioPlayer();
-		
+		} catch (e) {
+			// TODO: handle exception
+		}
 	}	
 }
 
