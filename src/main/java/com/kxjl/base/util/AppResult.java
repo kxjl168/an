@@ -7,6 +7,7 @@ public class AppResult {
 
     private String errCode;
     private String errMsg;
+    private String rtime;
     private Object data;
 
     public AppResult(){ }

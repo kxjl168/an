@@ -89,6 +89,16 @@ public class CommonModule extends AppBaseController {
 			String msgType = parseStringParam(request, "msgType");// 消息类型 ，1文本
 			String msg = parseStringParam(request, "msgContent");// 文本消息
 
+			if(msgType==null||msgType.equals(""))
+			{
+				return AppResultUtil.fail("消息类型参数错误");
+			}
+			
+			if(msgType.equals("1")&&msg.equals(""))
+			{
+				return AppResultUtil.fail("不能发送空消息");
+			}
+			
 			// 文件上传
 			 //responsedata = mongoImgSvrCtroller.upload(imgFiles, null, null);
 			 String md5 = "";

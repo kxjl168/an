@@ -60,6 +60,11 @@ public class FileSvrController {
 
 	@Value("${HTTP_PATH}")
 	private String HTTP_PATH;
+	
+	@Value("${FILE_SVR_PATH}")
+	private String FILE_SVR_PATH;
+
+	
 
 	@Value("${PIC_MAXSIZE}")
 	private int PIC_MAXSIZE;
@@ -260,8 +265,8 @@ public class FileSvrController {
 					relativeURL = relativePath + fileName; // 文件相对路径
 					httpURL = http_path + relativeURL;
 
-					downURL = "/FileSvr/downFile.action?m5=" + md5;
-					httpDownURL = http_path + downURL;
+					downURL = FILE_SVR_PATH+"/upload/file/" + md5;
+					httpDownURL =downURL;// http_path + downURL;
 
 					// 存储信息
 					SvrFileInfo finfo = new SvrFileInfo();
@@ -290,8 +295,8 @@ public class FileSvrController {
 																		// + "/"
 																		// +
 																		// fileName;
-					downURL = efile.getHttp_down_url();
-					httpDownURL = http_path + downURL;
+					downURL = FILE_SVR_PATH+"/upload/file/" + md5;//efile.getHttp_down_url();
+					httpDownURL =downURL;// http_path + downURL;
 				}
 				
 				

@@ -139,7 +139,8 @@ public class MyWebSocket {
 			String uid = jmsg.optString("uid");
 			String tid = jmsg.optString("tid");
 			String msg = jmsg.optString("msg");
-			String type = jmsg.optString("msgtype");
+			String type = jmsg.optString("type");
+			String msgtype = jmsg.optString("msgtype");
 			String fileurl = jmsg.optString("fileurl");
 			
 			
@@ -148,7 +149,7 @@ public class MyWebSocket {
 			{
 				VideoalarmTalkinfo talkinfo=new VideoalarmTalkinfo();
 				talkinfo.setAlarmId(Integer.parseInt( tid));
-				talkinfo.setMsgType(type);
+				talkinfo.setMsgType(msgtype);
 				talkinfo.setTalkType("2");
 				talkinfo.setMsgContent(msg);
 				talkinfo.setFileUrl(fileurl);

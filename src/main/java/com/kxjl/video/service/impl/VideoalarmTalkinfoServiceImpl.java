@@ -42,6 +42,8 @@ public class VideoalarmTalkinfoServiceImpl implements VideoalarmTalkinfoService 
 
 			//item.setId(UUIDUtil.getUUID());
 			
+			if(item.getId()==null||item.getId().equals(""))
+				item.setId(UUIDUtil.getUUID());
 
 			itemMapper.insertSelective(item);
 

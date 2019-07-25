@@ -481,7 +481,7 @@
                
 			</properties>
 			<activation>
-				<activeByDefault>true</activeByDefault>
+				<activeByDefault>false</activeByDefault>
 			</activation>
 		</profile>
 		
@@ -541,10 +541,13 @@
  				<WXAppSecret>e1e8d305722525dd5265157082594e0c</WXAppSecret>
  				<DYSUrlRequest>http://192.168.0.110:8780/</DYSUrlRequest>
  				
+ 				   <FILE_SVR_PATH>http://127.0.0.1:7779/an/</FILE_SVR_PATH>
+               	<FILE_SAVE_PATH>E:\\code\\tpimg\\</FILE_SAVE_PATH>
+               
                
 			</properties>
 			<activation>
-				<activeByDefault>false</activeByDefault>
+				<activeByDefault>true</activeByDefault>
 			</activation>
 		</profile>
 		

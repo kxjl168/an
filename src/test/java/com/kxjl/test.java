@@ -50,18 +50,18 @@ public class test {
 		//testAppGetTalk("3");
 		
 		
-		testAppTalkImg("5","F:\\IMG\\auto.jpg");
+		testAppTalkImg("3","F:\\IMG\\bus.png");
 	}
 	
 
 public static void testAppTalkImg(String alarmId,String filepath)  {
 //修改图片后会重启设备
 		
-	String serverUrl = "http://127.0.0.1:7779/an/interface/app/sendTalkMsg";
+	//String serverUrl = "http://127.0.0.1:7779/an/interface/app/sendTalkMsg";
 	
 	//String serverUrl = "http://www.chinaqiner.com.cn/an/interface/app/sendTalkMsg";
 	
-	//String serverUrl = "http://video.xy001.com.cn:18180/VideoAlarm/interface/app/sendTalkMsg";
+	String serverUrl = "http://video.xy001.com.cn:18180/VideoAlarm/interface/app/sendTalkMsg";
 		String responsedata = "";
 		try {
 

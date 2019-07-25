@@ -24,6 +24,7 @@ public class AppResultUtil {
 
     public static AppResult success(Object obj) {
         AppResult rs = new AppResult();
+        rs.setRtime(DateUtil.getNowStr(""));
         rs.setErrCode(success_code);
         if(obj.getClass().equals(String.class))
         {

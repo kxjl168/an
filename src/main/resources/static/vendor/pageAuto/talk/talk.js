@@ -95,7 +95,9 @@ function sendmsg(){
 			appendToList(item,true);
 			   }
 	   });
-
+	   
+	
+	 
 	
 	$("#txtmsginput").val("");
 }
@@ -189,11 +191,19 @@ function appendToList(msg,issend,date,addtoFront)
 		date=getDate();
 	
 	if(typeof(addtoFront)!='undefined') //往前加历史记录
-		existData="<div class='"+css+"'><div class='talktime'>"+date+name+"</div><div class='msg'>"+msg+"</div></div>"+existData;
+		{
+		$("#txtmsglist").prepend("<div class='"+css+"'><div class='talktime'>"+date+name+"</div><div class='msg'>"+msg+"</div></div>");
+		//existData="<div class='"+css+"'><div class='talktime'>"+date+name+"</div><div class='msg'>"+msg+"</div></div>"+existData;
+		}
+		
 	else
-	existData+="<div class='"+css+"'><div class='talktime'>"+date+name+"</div><div class='msg'>"+msg+"</div></div>";
+		{
+		$("#txtmsglist").append("<div class='"+css+"'><div class='talktime'>"+date+name+"</div><div class='msg'>"+msg+"</div></div>");
+		//existData+="<div class='"+css+"'><div class='talktime'>"+date+name+"</div><div class='msg'>"+msg+"</div></div>";
+		}
 	
- $("#txtmsglist").html(existData);
+	
+ //$("#txtmsglist").html(existData);
  
 
    if(typeof(addtoFront)=='undefined') //正常往下加的才滚动，
@@ -201,6 +211,14 @@ function appendToList(msg,issend,date,addtoFront)
 	   //滚动到底部
 	   var ele = document.getElementById('txtmsglist');
 	   ele.scrollTop = ele.scrollHeight;
+	   
+	   setTimeout(function() {
+		   //滚动到底部
+		   var ele = document.getElementById('txtmsglist');
+		   ele.scrollTop = ele.scrollHeight;
+
+	}, 500);
+	   
 	   }
  
 }
