@@ -11,13 +11,19 @@ public interface OnlineSeatsDao {
 
 	int insertAlarmInfo(AlarmInfo alarmInfo);
 
-	int CheckUserInfo(@Param(value="username")String username, @Param(value="password")String password);
+	String CheckUserInfo(@Param(value="username")String username, @Param(value="password")String password);
+
+	String GetUserSeatsId(@Param(value="username")String username, @Param(value="password")String password);
 
 	int SetOnlineStatus(@Param(value="userid")String userid, @Param(value="status")String status);
+
+	void SetOnlineStatusOnline(@Param(value="userid")String userId);
 
 	String getAreaByOnlineSeatsUserID(@Param(value="userid")String userid);
 
 	String getUserNameByUserId(@Param(value="userid")String userID);
+
+	String getUserNameByUserIdThroughOnSeats(@Param(value="userid")String userid);
 
 	List<AlarmInfo> getAlarmListByUserId(@Param(value="userid")String userID);
 

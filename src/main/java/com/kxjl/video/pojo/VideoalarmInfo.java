@@ -20,6 +20,10 @@ public class VideoalarmInfo {
     //query
     private String onlineseats_name;//接警人员名称
     
+    
+    private String seat_id;// 接警人员坐席id
+    
+    
     private String onlineseats_unitid;//接警人员id
     private String onlineseats_unitname;//接警人员单位
     
@@ -582,6 +586,14 @@ public class VideoalarmInfo {
 
 	public void setHasNewInfo(String hasNewInfo) {
 		this.hasNewInfo = hasNewInfo;
+	}
+
+	public String getSeat_id() {
+		return seat_id;
+	}
+
+	public void setSeat_id(String seat_id) {
+		this.seat_id = seat_id;
 	}
 }
 

@@ -29,6 +29,7 @@ import com.alibaba.fastjson.JSONObject;
 
 import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -60,6 +61,13 @@ public class AlarmTalkinfoController {
 	@Autowired
 	private SysDictInfoService sysdictinfoService;
 
+	
+	
+	@Value("${FILE_SVR_PATH}")
+	private String FILE_SVR_PATH;
+
+	
+	
 	/**
 	 * 聊天首页
 	 * 
@@ -79,6 +87,10 @@ public class AlarmTalkinfoController {
 
 		if (receviePersonId == null || receviePersonId.equals(""))
 			return "/frontend/error/401.ftl";
+		
+		
+		 
+		request.setAttribute("httppath", FILE_SVR_PATH);
 
 		VideoalarmInfo query = new VideoalarmInfo();
 		query.setOnlineseats_id(receviePersonId);
@@ -172,6 +184,15 @@ public class AlarmTalkinfoController {
 
 		Page page = PageUtil.getPage(pageCondition);
 		tvideoalarmtalkinfos = tvideoalarmtalkinfoService.selectVideoalarmTalkinfoList(item);
+		
+		for (int i = 0; i < tvideoalarmtalkinfos.size(); i++) {
+			if(tvideoalarmtalkinfos.get(i).getFileUrl()!=null&&!tvideoalarmtalkinfos.get(i).getFileUrl().trim().equals(""))
+			{
+				tvideoalarmtalkinfos.get(i).setFileUrl(FILE_SVR_PATH+"upload/file/"+tvideoalarmtalkinfos.get(i).getFileUrl());	
+			}
+			
+		}
+
 
 		if (item.getAlarmId() != null) {
 			VideoalarmInfo vq = new VideoalarmInfo();

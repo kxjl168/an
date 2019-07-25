@@ -469,11 +469,19 @@
 	
 				
  				<server.https.port>443</server.https.port>
-                
+ 				
+ 				<PC_EXPORT_PORT>18000</PC_EXPORT_PORT>
+ 				<MEDIA_SERVER_URL>rtmp://192.168.0.202:1935/live/</MEDIA_SERVER_URL>
+ 				<WXAppID>wx5a0e8cdfad99e03a</WXAppID>
+ 				<WXAppSecret>e1e8d305722525dd5265157082594e0c</WXAppSecret>
+ 				<DYSUrlRequest>http://192.168.0.110:8780/</DYSUrlRequest>
+ 				
+                <FILE_SVR_PATH>http://127.0.0.1:7779/an/</FILE_SVR_PATH>
+               	<FILE_SAVE_PATH>F:\\kxjl\\wk\\anpro\\src\\main\\resources\\static\\tp\\</FILE_SAVE_PATH>
                
 			</properties>
 			<activation>
-				<activeByDefault>false</activeByDefault>
+				<activeByDefault>true</activeByDefault>
 			</activation>
 		</profile>
 		
@@ -536,7 +544,7 @@
                
 			</properties>
 			<activation>
-				<activeByDefault>true</activeByDefault>
+				<activeByDefault>false</activeByDefault>
 			</activation>
 		</profile>
 		
@@ -595,6 +603,68 @@
  				<DYSUrlRequest>http://192.168.0.110:8780/</DYSUrlRequest>
  				
                
+			</properties>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+		</profile>
+		
+		<profile>
+			<id>real2</id>
+			<!--可本地修改，避免影响其他开发 -->
+			<properties>
+
+
+				<kauto.templatePath>H:\\git\\an\\src\\main\\resources\\generator</kauto.templatePath>
+				<kauto.javaScanPath>H:\\git\\an\\src\\main\\java</kauto.javaScanPath>
+
+				<kauto.pageScanPath>H:\\git\\an\\src\\main\\resources\\static\\vendor\\pageAuto
+				</kauto.pageScanPath>
+				<kauto.mysqljarPath>E:\\Program Files
+					(x86)\\Sybase\\mysql-connector-java-5.1.44.jar
+				</kauto.mysqljarPath>
+
+				<kauto.databaseSchema>video</kauto.databaseSchema>
+					<kauto.basePacakge>com.kxjl.video</kauto.basePacakge>
+				<kauto.author>zj</kauto.author>
+				 <kauto.jdbc>
+					<![CDATA[jdbc:mysql://192.168.31.239:3306/video?useUnicode=true&amp;characterEncoding=utf-8]]></kauto.jdbc>
+
+				<!-- 启动端口 -->
+				<server.port>18180</server.port>
+				<server.context-path><![CDATA[/VideoAlarm]]></server.context-path>
+				<!-- 源匠 微信小程序APPID -->
+				<!-- <login.wxappid>wx3825a56c5a9c1605</login.wxappid>
+				<login.wxsecret>7f38eed959a07a233a1e512fd1a67052</login.wxsecret> -->
+				
+				<!-- 调兵 -->
+				<!-- <login.wxappid>wx49a376bdfab05596</login.wxappid>
+				<login.wxsecret>ef8b0c598cc481e1cb3dd0cbb489df1e</login.wxsecret> -->
+				
+					<login.wxappid>wx3825a56c5a9c1605</login.wxappid>
+				<login.wxsecret>7f38eed959a07a233a1e512fd1a67052</login.wxsecret>
+				<!--websocket地址-->
+				<websocket-path>wss://video.xy001.com.cn:</websocket-path>
+
+					<database.jdbc>
+					<![CDATA[jdbc:mysql://10.204.39.181:3306/video?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false]]></database.jdbc>
+				<database.username>root</database.username>
+				<database.password>123456</database.password>
+
+	
+				
+ 				<server.https.port>18143</server.https.port>
+                
+               
+               <PC_EXPORT_PORT>18000</PC_EXPORT_PORT>
+ 				<MEDIA_SERVER_URL>rtmp://video.xy001.com.cn:10085/live/</MEDIA_SERVER_URL>
+ 				<WXAppID>wx5a0e8cdfad99e03a</WXAppID>
+ 				<WXAppSecret>e1e8d305722525dd5265157082594e0c</WXAppSecret>
+ 				<DYSUrlRequest>http://192.168.0.110:8780/</DYSUrlRequest>
+ 				
+ 				
+ 				<FILE_SVR_PATH>http://video.xy001.com.cn:18180/VideoAlarm/</FILE_SVR_PATH>
+               	<FILE_SAVE_PATH>/usr/local/videoalarm/tp/</FILE_SAVE_PATH>
 			</properties>
 			<activation>
 				<activeByDefault>false</activeByDefault>

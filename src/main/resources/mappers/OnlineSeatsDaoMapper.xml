@@ -36,20 +36,30 @@
     </select>
     
     <select id="getAlarmListByUserId" parameterType="java.lang.String" resultMap="alarmMap">		
-		select videoalarm_info.id,onlineseats_id,videoalarm_info.type,username,idNumber,area,longitude,latitude,address,wechat_id,phone,
+		select videoalarm_info.id,onlineseats_id,videoalarm_info.type,username,idNumber,area,longitude,latitude,address,wechat_id,videoalarm_info.phone,
         date_format(occurrence_time, '%Y-%m-%d %H:%i:%s') occurrence_time,description,date_format(alarm_time, '%Y-%m-%d %H:%i:%s') alarm_time,
-        picture_url,video_url,audio_url,occurrence_address,a1.dict_value case_type,a2.dict_value case_level,status from videoalarm_info 
+        picture_url,video_url,audio_url,occurrence_address,a1.dict_value case_type,a2.dict_value case_level,videoalarm_info.status 
+		from videoalarm_info 
 		LEFT JOIN sys_dict_info a1 on (a1.type = 1 and videoalarm_info.case_type = a1.dict_name)
 		LEFT JOIN sys_dict_info a2 on (a2.type = 2 and videoalarm_info.case_level = a2.dict_name)
-		where onlineseats_id = #{userid} and DATE(occurrence_time) in
+		left join t_receivepoliceinfo on videoalarm_info.onlineseats_id=t_receivepoliceinfo.Id
+		left join t_seatinfo on t_receivepoliceinfo.SeatId = t_seatinfo.Id
+		where t_seatinfo.Id=#{userid} and DATE(occurrence_time) in
 		(select occurrence from (SELECT DISTINCT occurrence from  
-		(select DATE(occurrence_time) occurrence from videoalarm_info where onlineseats_id  = #{userid}
+		(select DATE(occurrence_time) occurrence   from videoalarm_info left join t_receivepoliceinfo 
+			on videoalarm_info.onlineseats_id=t_receivepoliceinfo.Id
+			left join t_seatinfo on t_receivepoliceinfo.SeatId = t_seatinfo.Id where  t_seatinfo.Id=#{userid}
 		)A order by occurrence desc LIMIT 0,3) as a)
     </select>
     
-    <select id="CheckUserInfo" parameterType="java.lang.String" resultType="java.lang.Integer"> 
-    	select userid from online_seats where
-    	username = #{username} and password = #{password}
+    <select id="CheckUserInfo" parameterType="java.lang.String" resultType="java.lang.String"> 
+    	select Id from t_receivepoliceinfo where
+    	Phone = #{username} and Password = #{password}
+    </select>
+    
+    <select id="GetUserSeatsId" parameterType="java.lang.String" resultType="java.lang.String"> 
+    	select SeatId from t_receivepoliceinfo where
+    	Phone = #{username} and Password = #{password}
     </select>
 
 	<insert id="insertAlarmInfo" parameterType="com.kxjl.video.pojo.AlarmInfo"
@@ -119,7 +129,7 @@
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="onlineSeatsId != null">
-				#{onlineSeatsId,jdbcType=INTEGER},
+				#{onlineSeatsId,jdbcType=String},
 			</if>
 			<if test="type != null">
 				#{type,jdbcType=INTEGER},
@@ -182,18 +192,29 @@
 	</insert>
 	
 	<update id="SetOnlineStatus" parameterType="java.lang.String">
-	    update online_seats set status = #{status}
-	    where userid = #{userid}
+	    update t_receivepoliceinfo set Status = 1 where 
+	    SeatId=#{userid} and Status != 3
+	</update>
+	
+	<update id="SetOnlineStatusOnline" parameterType="java.lang.String">
+	    update t_receivepoliceinfo set Status = 0 where 
+	    Id=#{userid}
 	</update>
 	
 	<select id="getAreaByOnlineSeatsUserID" parameterType="java.lang.String"
 	    resultType="java.lang.String">
-		select area from online_seats where userid = #{userid} 	    
+		AreaId
+		select AreaId from t_seatinfo where Id = #{userid} 	    
 	</select>
 	
 	<select id="getUserNameByUserId" parameterType="java.lang.String"
 	    resultType="java.lang.String">
 	    select t_receivepoliceinfo.Name from t_receivepoliceinfo where  Id = #{userid} 
+	</select>
+	
+	<select id="getUserNameByUserIdThroughOnSeats" parameterType="java.lang.String"
+	    resultType="java.lang.String">
+	    select t_seatinfo.Name from t_seatinfo where  Id = #{userid} 
 	</select>
 	
 	<select id="QueryDictInfoListByType" parameterType="java.lang.Integer" resultMap="dictMap">
@@ -202,22 +223,25 @@
     
 	<select id="GetFreeOnlineSeats" resultType="java.lang.String">
 	   select Id from 
-		(select t_seatinfo.Id, count(*) as number from t_seatinfo left join videoalarm_info 
+		(select t_receivepoliceinfo.Id, count(*) as number from t_seatinfo left join videoalarm_info 
 		on (t_seatinfo.Id = videoalarm_info.onlineseats_id
 		and (videoalarm_info.status in (1,2,3))) 
 		left join t_receivepoliceinfo on t_seatinfo.Id = t_receivepoliceinfo.SeatId where t_receivepoliceinfo.status = 0
 		GROUP BY t_seatinfo.Id) a order by number asc limit 1; 		    
 	</select>
 	
-	<update id="updateOnlineSteatsToNull" parameterType="java.lang.String">
-	    update videoalarm_info set onlineseats_id = #{onlineseats_id}
-	    where onlineseats_id is null;	    
+	<update id="updateOnlineSteatsToNull" parameterType="java.lang.String">	    
+	    update videoalarm_info set onlineseats_id = 
+		(select Id from t_receivepoliceinfo where SeatId = #{onlineseats_id}
+		and Status = 0) where onlineseats_id is null;    
 	</update>
 	
 	<select id="QueryHasNewInfo" parameterType="java.lang.String"
 	    resultType="java.lang.Integer">
-	    select count(*) from videoalarm_info where type = 1 
-	    and status = 0 and onlineseats_id = #{userid}
+	    select * from videoalarm_info 
+		left join t_receivepoliceinfo on videoalarm_info.onlineseats_id = t_receivepoliceinfo.Id
+		where t_receivepoliceinfo.SeatId = #{userid}
+		and ((type = 1 and videoalarm_info.status = 1) or hasNewInfo = 1)
 	</select>
 
 </mapper>

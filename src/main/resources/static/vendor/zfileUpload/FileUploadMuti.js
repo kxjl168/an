@@ -886,6 +886,8 @@
 				me.info("文件上传成功！");
 			
 
+				if(typeof(me.options.uploaddonecallback)=="function") 
+					me.options.uploaddonecallback(obj);
 		}
 	}
 	

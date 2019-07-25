@@ -37,12 +37,15 @@
 				Sex = #{sex,jdbcType=VARCHAR},
 			</if>
 	    </set>
-	    where id = #{userid,jdbcType=INTEGER}
+	    where id = #{userid,jdbcType=VARCHAR}
 	</update>
 	
 	<insert id="insertAlarmUserInfo" parameterType="com.kxjl.video.pojo.ClientInfo">
 		insert into t_alarm_userinfo
 		<trim prefix="(" suffix=")" suffixOverrides=",">
+		    <if test="id != null">
+				id,
+			</if> 
 			<if test="name != null">
 				username,
 			</if>
@@ -69,6 +72,9 @@
 			</if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
+		    <if test="id != null">
+				#{id,jdbcType=VARCHAR},
+			</if>
 			<if test="name != null">
 				#{name,jdbcType=VARCHAR},
 			</if>

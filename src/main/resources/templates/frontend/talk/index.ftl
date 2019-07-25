@@ -16,6 +16,8 @@
 <link rel="stylesheet" href="${ctx}/vendor/videojs/videojs.min.css">
 
 <link rel="stylesheet" href="${ctx}/vendor/videojs/audio.css">
+
+    <link rel="stylesheet" type="text/css" href="${ctx}/vendor/zfileUpload/FileUploadMuti.css">
 <style type="text/css">
 html {
 	overflow: auto;
@@ -31,7 +33,7 @@ html {
 
 		<div class="col-sm-6 col-xs-12 nopadding margin-top-10">
 
-			<div class="col-xs-12 row queryclass">
+			<div class="leftalarmlist col-xs-12 row queryclassalarm">
 
 				<div class='querytitle '>
 					<h5>事件</h5>
@@ -50,7 +52,7 @@ html {
 				</div>
 			</div>
 
-			<div class="col-xs-12 row queryclass margin-top-10">
+			<div class="leftalarmlist col-xs-12 row queryclassalarm margin-top-10">
 				<div class='querytitle '>
 					<h5>事件详情</h5>
 
@@ -89,7 +91,7 @@ html {
 
 				<div id="txtmsglist" class=" txtmsglist col-xs-12 form-control"
 					readonly="readonly" rows="15" cols=""></div>
-				<textarea id="txtmsginput"
+				<textarea id="txtmsginput" name="txtmsginput"
 					class="col-xs-12 form-control margin-top-10" rows="5" cols=""></textarea>
 
 				<div class="col-xs-12 nopadding margin-top-10">
@@ -119,7 +121,9 @@ html {
 		</div>
 
 
-
+<div class="tpdata hide"></div>
+<input type="hidden" id="httppath" value="${httppath }">
+						<div id="upimgs" class="hide"></div>
 
 
 
@@ -129,5 +133,11 @@ html {
 
 		<script src="${ctx}/vendor/videojs/videojs.min.js"></script>
 		<script src="${ctx}/vendor/videojs/audioplayer.js"></script>
+		
+			<script src="${ctx}/vendor/ckeditor4.8/ckeditor.js"></script>
+		<script src="${ctx}/vendor/ckeditor4.8/adapters/jquery.js"></script>
+		
+		<script src="${ctx}/vendor/zfileUpload/FileUploadMuti.js"></script>
+		
 </body>
 </html>

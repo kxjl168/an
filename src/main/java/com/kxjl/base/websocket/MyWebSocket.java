@@ -139,7 +139,8 @@ public class MyWebSocket {
 			String uid = jmsg.optString("uid");
 			String tid = jmsg.optString("tid");
 			String msg = jmsg.optString("msg");
-			String type = jmsg.optString("type");
+			String type = jmsg.optString("msgtype");
+			String fileurl = jmsg.optString("fileurl");
 			
 			
 			//web 发送的，计入数据库
@@ -147,9 +148,10 @@ public class MyWebSocket {
 			{
 				VideoalarmTalkinfo talkinfo=new VideoalarmTalkinfo();
 				talkinfo.setAlarmId(Integer.parseInt( tid));
-				talkinfo.setMsgType("1");
+				talkinfo.setMsgType(type);
 				talkinfo.setTalkType("2");
 				talkinfo.setMsgContent(msg);
+				talkinfo.setFileUrl(fileurl);
 				videoalarmTalkinfoService.saveVideoalarmTalkinfo(talkinfo);
 			}
 			

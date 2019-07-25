@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.Page;
 import com.kxjl.base.aopAspect.NoNeedAuthorization;
 import com.kxjl.base.base.PageCondition;
+import com.kxjl.base.controller.Common.UploadFileController;
 import com.kxjl.base.util.AppResult;
 import com.kxjl.base.util.AppResultUtil;
 import com.kxjl.base.util.PageUtil;
@@ -56,6 +57,15 @@ public class CommonModule extends AppBaseController {
 	@Autowired
 	VideoalarmInfoService videoalarmInfoService;
 
+	@Autowired
+	UploadFileController uploadFileController;
+	
+	
+	@Value("${FILE_SVR_PATH}")
+	private String FILE_SVR_PATH;
+
+	
+	
 	/**
 	 * App聊天接口，提交聊天数据
 	 * 
@@ -79,10 +89,16 @@ public class CommonModule extends AppBaseController {
 			String msgType = parseStringParam(request, "msgType");// 消息类型 ，1文本
 			String msg = parseStringParam(request, "msgContent");// 文本消息
 
-			// 文件上传 TODO
-			// responsedata = mongoImgSvrCtroller.upload(imgFiles, null, null);
-			// org.json.JSONObject jsonRes = new org.json.JSONObject(responsedata);
-			// String md5 = jsonRes.optString("md5");
+			// 文件上传
+			 //responsedata = mongoImgSvrCtroller.upload(imgFiles, null, null);
+			 String md5 = "";
+			if(imgFiles!=null&&imgFiles.length>0)
+			{
+			 responsedata = uploadFileController. UploadFileXhr(imgFiles[0], null, null,null);
+			 org.json.JSONObject jsonRes = new org.json.JSONObject(responsedata);
+			  md5 = jsonRes.optString("md5");
+			 
+			}
 
 			// 数据存储
 			VideoalarmTalkinfo talkinfo = new VideoalarmTalkinfo();
@@ -90,6 +106,7 @@ public class CommonModule extends AppBaseController {
 			talkinfo.setMsgType(msgType);
 			talkinfo.setTalkType("1");// app->web
 			talkinfo.setMsgContent(msg);
+			talkinfo.setFileUrl(md5);
 			String tid=UUIDUtil.getUUID();
 			talkinfo.setId(tid);
 			videoalarmTalkinfoService.saveVideoalarmTalkinfo(talkinfo);
@@ -103,14 +120,16 @@ public class CommonModule extends AppBaseController {
 					vq.setHasNewInfo("1");//有
 					videoalarmInfoService.updateVideoalarmInfo(vq);
 					
-					
+					String ttid=valarm.getSeat_id();
 
 					org.json.JSONObject jmsg = new org.json.JSONObject();
 					jmsg.put("uid", alarmId);// 报警事件id
-					jmsg.put("tid", valarm.getOnlineseats_id()); // 接警员id
+					jmsg.put("tid", ttid); // 坐席id
 					jmsg.put("msg", msg);
+					jmsg.put("fileurl",FILE_SVR_PATH+"upload/file/"+md5);
+					jmsg.put("msgtype", msgType);
 
-					MyWebSocket.sendByteMessage(jmsg.toString(), valarm.getOnlineseats_id());
+					MyWebSocket.sendByteMessage(jmsg.toString(),ttid);
 				}
 
 			} catch (IOException e) {
@@ -161,7 +180,12 @@ public class CommonModule extends AppBaseController {
 			   }
 
 			VideoalarmTalkinfo query = new VideoalarmTalkinfo();
-			query.setAlarmId(Integer.parseInt(alarmId));
+			try {
+				query.setAlarmId(Integer.parseInt(alarmId));	
+			} catch (Exception e) {
+				return AppResultUtil.fail("alarmId:错误!");
+			}
+			
 			query.setMintime(mintime);
 			query.setMaxtime(maxtime);
 			query.setOrder("asc");

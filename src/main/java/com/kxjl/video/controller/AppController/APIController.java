@@ -2,6 +2,7 @@ package com.kxjl.video.controller.AppController;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -65,7 +66,7 @@ public class APIController extends AppBaseController {
 		try {
 			JSONObject json = new JSONObject(info);
 			String openid = json.optString("openid");
-			if(openid != null) {
+			if(openid != null && !openid.isEmpty()) {
 				return openid;
 			}
 		} catch (JSONException e) {
@@ -198,6 +199,7 @@ public class APIController extends AppBaseController {
 			JSONObject jsonIn = new JSONObject(params);
 			//设置用户信息
 			ClientInfo clientInfo = new ClientInfo();
+			clientInfo.setId( UUID.randomUUID().toString().replaceAll("-", ""));
 			clientInfo.setName(jsonIn.getString("UserName"));
 			clientInfo.setIdentyID(jsonIn.getString("IDNumber"));
 			clientInfo.setNote(jsonIn.optString("Address"));
@@ -262,7 +264,21 @@ public class APIController extends AppBaseController {
 					json.put("Location", jsonLocation);
 					json.put("CaseType", alarm.getCase_type());
 					json.put("CaseLevel", alarm.getCase_level());
-					json.put("Status", alarm.getStatus());
+					switch(alarm.getStatus()) {
+					case 1:
+						json.put("Status", "已报警");
+						break;
+					case 2:
+						json.put("Status", "已受理");
+						break;
+					case 3:
+						json.put("Status", "已出警");
+						break;
+					case 4:
+						json.put("Status", "已结束");
+						break;
+					}
+					
 					jsonArray.put(json);
 				}
 				jsonOut.put("ResponseCode", "200");
@@ -320,7 +336,20 @@ public class APIController extends AppBaseController {
 					json.put("OccurrenceAddress", alarm.getOccurrence_address());
 					json.put("CaseType", alarm.getCase_type());
 					json.put("CaseLevel", alarm.getCase_level());
-					json.put("Status", alarm.getStatus());
+					switch(alarm.getStatus()) {
+					case 1:
+						json.put("Status", "已报警");
+						break;
+					case 2:
+						json.put("Status", "已受理");
+						break;
+					case 3:
+						json.put("Status", "已出警");
+						break;
+					case 4:
+						json.put("Status", "已结束");
+						break;
+					}
 					jsonArray.put(json);
 				}
 				jsonOut.put("Code", "200");
@@ -354,8 +383,8 @@ public class APIController extends AppBaseController {
 			JSONObject jsonIn = new JSONObject(params);
 			String userid = jsonIn.getString("UserID");
 			String password = jsonIn.getString("Password");
-			int userId = onlineSeatsService.CheckUserInfo(userid, password);
-			if(userId > 0) {
+			String userId = onlineSeatsService.CheckUserInfo(userid, password);
+			if(userId != null) {
 				jsonOut.put("ResponseCode", "200");
 				jsonOut.put("ResponseMsg", "OK");
 				jsonOut.put("UserID", String.valueOf(userId));
@@ -442,6 +471,7 @@ public class APIController extends AppBaseController {
 			SocketClient.getInstance().setOnlineSeatsStatus(jsonIn.getString("OnlineSeatsId"), 0);
 			alarmInfo.setCase_type(jsonIn.optString("CaseType"));
 			alarmInfo.setCase_level(jsonIn.optString("CaseLevel"));
+			alarmInfo.setStatus(2);
 			if(onlineSeatsService.insertAlarmInfo(alarmInfo) > 0) {
 				jsonOut.put("ResponseCode", "200");
 				jsonOut.put("ResponseMsg", "OK");	

@@ -43,19 +43,80 @@ public class test {
 		 //MessageList();
 		 
 	
-	//	testAppTalk("8","玄武湖有人聚众斗殴");
+		//testAppTalk("5","玄武湖有人聚众斗殴");
 		
-		testAppGetTalkJson("3");
+		//testAppGetTalkJson("5");
 		
 		//testAppGetTalk("3");
+		
+		
+		testAppTalkImg("5","F:\\IMG\\auto.jpg");
 	}
+	
+
+public static void testAppTalkImg(String alarmId,String filepath)  {
+//修改图片后会重启设备
+		
+	String serverUrl = "http://127.0.0.1:7779/an/interface/app/sendTalkMsg";
+	
+	//String serverUrl = "http://www.chinaqiner.com.cn/an/interface/app/sendTalkMsg";
+	
+	//String serverUrl = "http://video.xy001.com.cn:18180/VideoAlarm/interface/app/sendTalkMsg";
+		String responsedata = "";
+		try {
+
+		
+			
+			ArrayList<FormFieldKeyValuePair> fds = new ArrayList<FormFieldKeyValuePair>();
+
+			ArrayList<UploadFileItem> fs = new ArrayList<UploadFileItem>();
+
+			//UploadFileItem f1 = new UploadFileItem("2_111.jpg","C:\\Users\\admin\\Downloads\\3.jpg");
+			
+			UploadFileItem f1 = new UploadFileItem("imgFiles",filepath);//"C:\\Users\\admin\\Downloads\\3.jpg");
+			fs.add(f1);
+			
+			
+			FormFieldKeyValuePair k1=new FormFieldKeyValuePair("alarmId", alarmId);
+			FormFieldKeyValuePair k2=new FormFieldKeyValuePair("msgType", "2");
+			
+			 fds.add(k1);
+			 fds.add(k2);
+			
+			try {
+				responsedata = HttpPostEmulator.sendHttpPostRequest(serverUrl,fds, fs);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				
+			}
+
+			
+			JSONObject j = new JSONObject(responsedata);
+			if (j.optInt("result") == 1) {
+				System.out.println(j.optString("data"));
+			}
+
+			System.out.println("返回:" + responsedata);
+			// System.out.println("解密:" + out);
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+
 	
 	public static void testAppTalk(String alarmId,String msg) {
 
-		//String serverUrl = "http://127.0.0.1:7779/an/interface/app/sendTalkMsg";
+		String serverUrl = "http://127.0.0.1:7779/an/interface/app/sendTalkMsg";
 		
-		String serverUrl = "http://www.chinaqiner.com.cn/an/interface/app/sendTalkMsg";
-
+		//String serverUrl = "http://www.chinaqiner.com.cn/an/interface/app/sendTalkMsg";
+		
+		//String serverUrl = "http://video.xy001.com.cn:18180/VideoAlarm/interface/app/sendTalkMsg";
+		
 
 		//String serverUrl = "http://ztgmwl.com:7501/account-web-oauth/user/createUser";
 
@@ -94,8 +155,10 @@ public class test {
 	
 	public static void testAppGetTalk(String alarmId) {
 
-		String serverUrl = "http://www.chinaqiner.com.cn/an/interface/app/talklist";
+//		String serverUrl = "http://www.chinaqiner.com.cn/an/interface/app/talklist";
+		String serverUrl = "http://video.xy001.com.cn:18180/VideoAlarm/interface/app/talklist";
 
+		
 		//String serverUrl = "http://127.0.0.1:7779/an/interface/app/talklist";
 		////String serverUrl = "http://ztgmwl.com:7501/account-web-oauth/user/createUser";
 
@@ -134,7 +197,8 @@ public class test {
 	
 	public static void testAppGetTalkJson(String alarmId) {
 
-		String serverUrl = "http://www.chinaqiner.com.cn/an/interface/app/talklist";
+		//String serverUrl = "http://www.chinaqiner.com.cn/an/interface/app/talklist";
+		String serverUrl = "http://video.xy001.com.cn:18180/VideoAlarm/interface/app/talklist";
 
 		//String serverUrl = "http://127.0.0.1:7779/an/interface/app/talklist";
 		//String serverUrl = "http://ztgmwl.com:7501/account-web-oauth/user/createUser";
@@ -143,7 +207,7 @@ public class test {
 		try {
 			JSONObject jobj = new JSONObject();
 			jobj.put("alarmId", alarmId);
-			jobj.put("mintime", "2019-07-20 17:40:11");
+			jobj.put("maxtime", "2019-07-20 17:40:11");
 			
 			
 			

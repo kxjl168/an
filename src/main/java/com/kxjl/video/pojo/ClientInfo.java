@@ -6,6 +6,7 @@ import javax.websocket.Session;
 
 public class ClientInfo {
 	private SocketChannel channel = null;//连接客户端Socket
+	private String id;
 	private Integer type;//客户端连接类型  1微信客户端   3 在线坐席
 	private String identyID;//身份证
 	private String name;//姓名
@@ -166,6 +167,12 @@ public class ClientInfo {
 	}
 	public void setSex(String sex) {
 		this.sex = sex;
+	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
 	}
 	
 }

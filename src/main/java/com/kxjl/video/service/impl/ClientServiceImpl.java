@@ -35,7 +35,7 @@ public class ClientServiceImpl implements ClientService {
 	public int SetAlarmUserInfo(ClientInfo clientInfo) {
 		ClientInfo client = CheckClientInfo(clientInfo);
 		if(client != null) {
-			clientInfo.setUserid(client.getUserid());
+			clientInfo.setId(client.getId());
 			return clientDao.updateAlarmUserInfo(clientInfo);
 		}else {
 			return clientDao.insertAlarmUserInfo(clientInfo);

@@ -19,7 +19,7 @@ public interface OnlineSeatsService {
 	 * @param password
 	 * @return
 	 */
-	int CheckUserInfo(String username, String password);
+	String CheckUserInfo(String username, String password);
 
 	/**
 	 * 更新该用户已使用短信数

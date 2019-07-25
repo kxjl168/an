@@ -42,7 +42,7 @@ import com.kxjl.base.util.sendpost.HttpPostEmulator;
  * @date 2018年5月29日
  *
  */
-//@Controller
+@Controller
 @RequestMapping(value = "/upload")
 @PropertySource("classpath:project.properties")
 public class UploadFileController {
@@ -71,7 +71,7 @@ public class UploadFileController {
 	// 日志记录对象
 	private Logger logger = Logger.getLogger(UploadFileController.class);
 
-	@Autowired
+	//@Autowired
 	MongoImgSvrCtroller mongoImgSvrCtroller;
 
 	/**

@@ -6,7 +6,7 @@ var rid = null;
 $(function() {
 	rid = GetQueryString("id");
 
-	$.ajax({
+	/*$.ajax({
 		type : "post",
 		url : getRPath() + "/manager/usermessage/managermessageList",
 		data : {
@@ -20,7 +20,7 @@ $(function() {
 			console.log()
 			// error("1");
 		}
-	});
+	});*/
 
 	setTimeout(function() {
 		connect();
@@ -42,31 +42,74 @@ $(function(){
 	
 	$("#btnmsg").click(function(){
 	
-		if($("#txtmsginput").val()=="")
-		{
-		info("请输入消息内容");	
-		return;
-		}
-		
-		   if(ws&&ws.readyState==1)
-		   {
-	   }
-	   else{
-		   connect();
-		   info("链接断开,正在重新连接...请稍后重试");
-		   return;;
-	   }
-	
-		
-		send(curAlarmId,$("#txtmsginput").val());
-		
-		appendToList($("#txtmsginput").val(),true);
-		
-		$("#txtmsginput").val("");
-		
+		sendmsg();
 	})
+	
+	$('#txtmsginput').keyup(function (e) {
+    if (e.keyCode === 13 ) {
+    	sendmsg();
+    }
+	});
 
 })
+
+
+function sendmsg(){
+	
+	 $(".tpdata").html( $("#txtmsginput").val());
+	
+	if($(".tpdata").text()=="")
+	{
+	info("请输入消息内容");	
+	return;
+	}
+	
+	   if(ws&&ws.readyState==1)
+	   {
+   }
+   else{
+	   connect();
+	   info("链接断开,正在重新连接...请稍后重试");
+	   return;;
+   }
+
+	   
+	   var allinput= $("#txtmsginput").val();
+	   var imgs= $(allinput).find("img");
+	   $.each(imgs,function(index,item){
+		   var fileurl=$(item).attr("fid");
+			send(curAlarmId,"","2",fileurl);
+			var msginfo=formatMsg("","2",getRPath() +"/upload/file/"+fileurl)
+			appendToList(msginfo,true);
+	   });
+
+	  
+	   $(".tpdata").html(allinput);
+	   $(".tpdata").find("img").remove();
+	   
+	   var rowdatas= $(".tpdata").text().split(/[\r\n]/g);;
+	   $.each(rowdatas,function(index,item){
+		   if(item!='')
+			   {
+			send(curAlarmId,item);
+			appendToList(item,true);
+			   }
+	   });
+
+	
+	$("#txtmsginput").val("");
+}
+
+
+function formatMsg(msg,msgtype,fileurl)
+{
+	if(msgtype=="1")
+		return msg;
+	else if(msgtype=="2")//img
+		return "<span class='talkimg'><img src='"+fileurl+"' class='img-responsive '></span>";
+	
+	
+}
 
 /**
  * 收到app端消息
@@ -80,7 +123,11 @@ function getmsg(jdata)
 	if(typeof( jdata.uid)!='undefined')
 		{
 		if(jdata.uid==curAlarmId) //当前报警聊天
-			appendToList(jdata.msg,false);
+			{
+			var msginfo=formatMsg(jdata.msg,jdata.msgtype,jdata.fileurl)
+			
+			appendToList(msginfo,false);
+			}
 		else
 			{
 			//其他报警中的聊天消息，小红点提示.
@@ -130,6 +177,11 @@ function appendToList(msg,issend,date,addtoFront)
 		css=" get ";
 		name=" 报警人 ";
 		}
+	
+	
+	
+	
+	
 	
 	var existData= $("#txtmsglist").html();
 	
@@ -206,9 +258,11 @@ function appendToList(msg,issend,date,addtoFront)
 	}
 		
 		
-function send(uid,msg)
+function send(uid,msg,msgtype,fileurl)
 {
 	
+	if(typeof(msgtype)=="undefined")
+		msgtype="1";
 	
 	
 
@@ -216,7 +270,9 @@ function send(uid,msg)
 		   "type":'websend',//web端发送给app
 		   "tid":encodeURIComponent(uid),
 		   "uid": encodeURIComponent(rid),
-    		"msg":msg
+    		"msg":msg,
+    		"msgtype":msgtype,
+    		"fileurl":fileurl
     };
    var smsg= JSON.stringify(jmsg);
    

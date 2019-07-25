@@ -2,9 +2,26 @@
  * 
  */
 
+
+function resetHeight(height){
+	if(typeof(height)!="undefined")
+	{
+	  var rightlistheight=parseInt( height)- 170+"px";
+	  var leftlistheight=(parseInt( height)/2)+"px";
+	  
+	  $(".txtmsglist").css('height',rightlistheight);
+	  
+	  $(".leftalarmlist").css('height',leftlistheight);
+	   
+	}
+}
+
 $(function() {
 
 	var rid = GetQueryString("id");
+	
+	var height = GetQueryString("height");
+	resetHeight(height);
 
 	initValidate();
 	InitQuery_item(rid);
@@ -62,8 +79,86 @@ $(function() {
 	})
 	
 	initvd();
+	
+	initCk();
 
 })
+
+function initCk(){
+
+	$kfile.init({
+		fileUploadname:"fileUploadURL", //上传文件的name
+		httppath:$("#httppath").val(),  //img -static目录前缀
+		isimg:true,
+		filesufix:'png,jpg,gif,jpeg,',
+		maxFileSize:5*1024*1024,//5M
+		maximgupload : 1,//最多可上传图片数量
+		uploadurl:getRPath() + '/upload/UploadFileXhr.action',//上传图片action url
+		container:$("body").find('#upimgs'), //图片容器
+		cleanpic:false,//再次弹出时是否清除图片显示
+		uploaddonecallback:function(obj){
+			var htmlData=CKEDITOR.instances.txtmsginput.getData();
+			var appEndData='<img src="'+$("#httppath").val()+"upload/file/"+obj.md5+'"  fid="'+obj.md5+'"  class="img-responsive "   >';
+			//var theData=htmlData+appEndData;
+			 var ele=CKEDITOR.dom.element.createFromHtml(appEndData);
+			
+			CKEDITOR.instances.txtmsginput.insertElement(ele);
+		}
+	});
+	$kfile.get("upimgs").initFile(function(){
+		
+	});
+	
+	
+	var pluginname2="kuploadFile";
+	var cmd_name2="cmd_upload";
+	var btn_name2="btn_kupload";
+	CKEDITOR.plugins.add( pluginname2, {
+		 
+	    init: function( editor ) {
+
+	        editor.addCommand( cmd_name2, {
+	            exec: function( editor ) {
+	            	
+	            	var selection = CKEDITOR.instances.txtmsginput.getSelection();
+	            	//if(selection.getType()==3){
+	            	//var img=$( selection.getSelectedElement().$ );
+	            	//$kfile.get("upimgs").showpre(img.attr("src"));
+	            	//}
+	            	
+	            	$kfile.get("upimgs").uploadimg( $kfile.get("upimgs").container.find(".gdimg") );
+	            }
+	        });
+	        editor.ui.addButton( btn_name2, {
+	            label: '上传图片',
+	            command:cmd_name2,
+	            toolbar: 'others',
+	            icon:  getRPath() +'/img/blueSkin/tree-4.png',
+	        });
+	        editor.on("doubleclick", function(a) {
+                var b = a.data.element;
+                !b.is("img") || b.data("cke-realelement") || b.isReadOnly() || ( 
+                		$kfile.get("upimgs").addFile($(b.$).attr("fid"), $(b.$).attr("src")),
+                		$kfile.get("upimgs").uploadimg( $kfile.get("upimgs").container.find(".gdimg") )
+                				);
+            },null, null, 1);//优先级1
+	        
+	    }
+	});
+	
+
+	CKEDITOR.morePluginnames=pluginname2;
+	CKEDITOR.removePlugins="image";
+	$("#txtmsginput").ckeditor();
+	
+
+	  CKEDITOR.instances.txtmsginput.on("key",function(e){
+    	  if (e.data.keyCode === 13 ) {
+  	    	sendmsg();
+  	    }
+    });
+
+}
 
 function initvd(){
 	
@@ -150,7 +245,7 @@ function InitQuery_item(rid) {
 				sortOrder : params.order, // 排序规则
 
 				type : $("#q_type").val(),
-				onlineseats_id : rid,
+				seat_id : rid,
 
 			};
 			return param;
@@ -325,9 +420,22 @@ function refreshOtherAlarmNew(alarmId)
 // 当前聊天报警id
 var curAlarmId = null;
 
+
+function refreshSelectAlarm()
+{
+	
+	$("#table_list_item").find("tr").removeClass("selecta");
+	
+	$("#table_list_item").find("tr[data-uniqueid='"+curAlarmId+"'] ").addClass("selecta");
+
+	
+}
+
+
 function changeAlarm(row) {
 
 	curAlarmId = row.id;
+	refreshSelectAlarm();
 
 	var html = getVideoInfo(row);
 	$("#adetail").html(html);
@@ -448,7 +556,10 @@ function loadTalk(row) {
 				
 				//倒叙，事件小-》大
 				for (var i = response.rows.length-1; i >=0; i--) {
-					appendToList(response.rows[i].msgContent, (response.rows[i].talkType=="1")?false:true,response.rows[i].ctime.substr(0,response.rows[i].ctime.length-4));
+					
+					var msginfo=formatMsg(response.rows[i].msgContent,response.rows[i].msgType,response.rows[i].fileUrl);
+					
+					appendToList(msginfo, (response.rows[i].talkType=="1")?false:true,response.rows[i].ctime.substr(0,response.rows[i].ctime.length-4));
 				}
 				
 				}
@@ -485,7 +596,8 @@ function showMore(mintime)
 				
 				//正序，大-》小，往前插
 				for (var i =0; i < response.rows.length; i++) {
-					appendToList(response.rows[i].msgContent, (response.rows[i].talkType=="1")?false:true,response.rows[i].ctime.substr(0,response.rows[i].ctime.length-4),true);
+					var msginfo=formatMsg(response.rows[i].msgContent,response.rows[i].msgType,response.rows[i].fileUrl);
+					appendToList(msginfo, (response.rows[i].talkType=="1")?false:true,response.rows[i].ctime.substr(0,response.rows[i].ctime.length-4),true);
 				}
 				
 				//var exsitNum=$("#txtmsglist").find(".talktime").length;

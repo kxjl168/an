@@ -18,8 +18,16 @@ public class OnlineSeatsServiceImpl implements OnlineSeatsService {
 	OnlineSeatsDao onlineSeatsDao;
 
 	@Override
-	public int CheckUserInfo(String username, String password) {
-		return onlineSeatsDao.CheckUserInfo(username, password);
+	public String CheckUserInfo(String username, String password) {
+		//获取坐席ID
+		String userId = onlineSeatsDao.CheckUserInfo(username, password);
+		if(userId != null) {
+			String seatsId = onlineSeatsDao.GetUserSeatsId(username, password);
+			onlineSeatsDao.SetOnlineStatusOnline(userId);
+			return seatsId;
+		}
+		//更新状态
+		return userId;
 	}
 
 	@Override
@@ -29,11 +37,15 @@ public class OnlineSeatsServiceImpl implements OnlineSeatsService {
 
 	@Override
 	public boolean CheckOnlineSeatsUserId(String userid) {
-		String username = getUserNameByUserId(userid);
+		String username = getUserNameByUserIdThroughOnSeats(userid);
 		if(username == null || username.isEmpty()) {
 			return false;
 		}
 		return true;
+	}
+
+	private String getUserNameByUserIdThroughOnSeats(String userid) {
+		return onlineSeatsDao.getUserNameByUserIdThroughOnSeats(userid);
 	}
 
 	@Override

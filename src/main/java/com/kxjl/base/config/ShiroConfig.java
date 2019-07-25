@@ -141,6 +141,8 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/FileSvr/**", "anon");
         filterChainDefinitionMap.put("/MongoSvr/**", "anon");
         filterChainDefinitionMap.put("/upload/**", "anon");
+        filterChainDefinitionMap.put("/UploadFileXhr/**", "anon");
+        
         filterChainDefinitionMap.put("/file/**", "anon");
 
         //接口
