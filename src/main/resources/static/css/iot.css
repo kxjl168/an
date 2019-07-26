@@ -203,6 +203,11 @@ embed {
 }
 
 
+.qcontent
+{
+	overflow-y:scroll; 
+}
+
 
 .queryclass .form-group{
 	width: 280px;
@@ -929,3 +934,10 @@ tr.toaccept{
 .cke_toolbox_collapser{
 	display: none;
 }
+
+.btn.small
+{
+	 padding: 2px 4px;
+	 line-height: 1.1;
+}
+   

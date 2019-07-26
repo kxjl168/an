@@ -40,6 +40,7 @@ html {
 
 					<hr>
 				</div>
+				<div class="qcontent">
 				<div id="dataTables-example_wrapper"
 					class="dataTables_wrapper form-inline dt-bootstrap no-footer">
 					<div class="row ">
@@ -50,6 +51,7 @@ html {
 
 
 				</div>
+				</div>
 			</div>
 
 			<div class="leftalarmlist col-xs-12 row queryclassalarm margin-top-10">
@@ -59,9 +61,9 @@ html {
 					<hr>
 				</div>
 
-
+	<div class="qcontent">
 				<div id="adetail"></div>
-
+</div>
 				<!-- <div class="row orow">
 					<div class="">
 						<label class="col-lg-3 nopadding" style="font-weight: bold;">视频附件:</label>

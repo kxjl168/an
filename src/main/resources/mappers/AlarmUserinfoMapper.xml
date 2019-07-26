@@ -13,9 +13,13 @@
     <result column="wechatOpenId" jdbcType="VARCHAR" property="wechatOpenId" />
       <result column="regesterDate" jdbcType="VARCHAR" property="regesterDate" />
    
+     <result column="ecname" jdbcType="VARCHAR" property="ecname" />
+       <result column="ecphone" jdbcType="VARCHAR" property="ecphone" />
+   
+   
   </resultMap>
   <sql id="Base_Column_List">
-    id, username, nickname, Sex, IdCard, address, mobile_phone, wechatId, wechatOpenId,regesterDate
+    id, username, nickname, Sex, IdCard, address, mobile_phone, wechatId, wechatOpenId,regesterDate,ecname,ecphone
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 

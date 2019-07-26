@@ -276,6 +276,7 @@ var html= getVideoInfo(row);
 			field : 'vehicleno',
 			align : 'center',
 			valign : 'middle',
+			width:'100',
 			formatter : modifyAndDeleteButton_item,
 			events : PersonnelInformationEvents_item
 		}
@@ -297,12 +298,12 @@ function getVideoInfo(rowdata)
 	html+= '<div class="row orow">'
 		+ ' <div class="form-group"> '
 		+ '	<label class="col-lg-1 nopadding " style="font-weight: bold;">报警人:</label> '
-		+ '	<div class="col-lg-2 "> '
+		+ '	<div class="col-lg-1 nopadding"> '
 		+ '		<span >' + rowdata.userName + '</span> '
 		+ '		<p class="help-block"></p> '
 		+ '	</div> '
-		+ '	<label class="col-lg-1 nopadding " style="font-weight: bold;">身份证:</label> '
-		+ '	<div class="col-lg-2 "> '
+		+ '	<label class="col-lg-1 textright nopadding " style="font-weight: bold;">身份证:</label> '
+		+ '	<div class="col-lg-3 "> '
 		+ '		<span >' + nonull(rowdata.idNumber) + '</span> '
 		+ '		<p class="help-block"></p> '
 		+ '	</div> '
@@ -325,11 +326,11 @@ function getVideoInfo(rowdata)
 	html+= '<div class="row orow">'
 		+ ' <div class="form-group"> '
 		+ '	<label class="col-lg-1 nopadding " style="font-weight: bold;">接警人:</label> '
-		+ '	<div class="col-lg-2 "> '
+		+ '	<div class="col-lg-2  nopadding"> '
 		+ '		<span >' + rowdata.onlineseats_name + '</span> '
 		+ '		<p class="help-block"></p> '
 		+ '	</div> '
-		+ '	<label class="col-lg-1 nopadding " style="font-weight: bold;">工号:</label> '
+		+ '	<label class="col-lg-1  textright nopadding " style="font-weight: bold;">工号:</label> '
 		+ '	<div class="col-lg-2 "> '
 		+ '		<span >' + nonull(rowdata.onlineseats_no) + '</span> '
 		+ '		<p class="help-block"></p> '
@@ -349,7 +350,7 @@ function getVideoInfo(rowdata)
 		+ ' <div class="form-group"> '
 
 		+ '	<label class="col-lg-1 nopadding " style="font-weight: bold;">警区:</label> '
-		+ '	<div class="col-lg-5 "> '
+		+ '	<div class="col-lg-5 nopadding"> '
 		+ '		<span >' + nonull(rowdata.onlineseats_unitname) + '</span> '
 		+ '		<p class="help-block"></p> '
 		+ '	</div> '
@@ -368,7 +369,7 @@ function getVideoInfo(rowdata)
 	html+= '<div class="row orow">'
 		+ ' <div class="form-group"> '
 		+ '	<label class="col-lg-1 nopadding " style="font-weight: bold;">报警时间:</label> '
-		+ '	<div class="col-lg-5 "> '
+		+ '	<div class="col-lg-5 nopadding"> '
 		+ '		<span >' + ctime(rowdata) + '</span> '
 		+ '		<p class="help-block"></p> '
 		+ '	</div> '
@@ -380,7 +381,7 @@ function getVideoInfo(rowdata)
 	html+= '<div class="row orow">'
 		+ ' <div class="form-group"> '
 		+ '	<label class="col-lg-1 nopadding " style="font-weight: bold;">报警地点:</label> '
-		+ '	<div class="col-lg-5 "> '
+		+ '	<div class="col-lg-5 nopadding"> '
 		+ '		<span >' + nonull(rowdata.address) + '</span> '
 		+ '		<p class="help-block"></p> '
 		+ '	</div> '

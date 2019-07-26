@@ -14,7 +14,7 @@ function resetHeight(height){
 			  
 			  $("#txtmsglist").css('height',rightlistheight);
 			  
-			  $(".leftalarmlist").css('height',leftlistheight);
+			  $(".qcontent").css('height',leftlistheight);
 		}, 200);
 	  
 	   
@@ -24,7 +24,7 @@ function resetHeight(height){
 		  $("#txtmsglist").css('max-height',"500px");
 		  $("#txtmsglist").css('height',"auto");
 		 $("body").find(".cke_contents.cke_reset").height(200); 
-		  $(".leftalarmlist").css('min-height',"400px");
+		  $(".qcontent").css('min-height',"400px");
 		},200);
 	}
 }
@@ -666,7 +666,7 @@ function modifyAndDeleteButton_item(value, row, index) {
 		}
 		else
 		return [ '<div class="">'
-				+ '<button id = "accept" type = "button" class = "btn btn-info"><i class="fa fa-check-o">受理</i> </button>&nbsp;'
+				+ '<button id = "accept" type = "button" class = "small btn btn-info"><i class="fa fa-check-o">受理</i> </button>&nbsp;'
 
 				+ '</div>' ].join("");
 	else
