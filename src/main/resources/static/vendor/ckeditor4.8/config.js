@@ -32,12 +32,12 @@ CKEDITOR.editorConfig = function( config ) {
 	config.removePlugins = CKEDITOR.removePlugins;
 	
 	//允许输入class等
-	config.allowedContent = true;
+	config.allowedContent = false;
 
 	config.codeSnippet_theme= 'obsidian';
 	config.height= 356;
 	
-	config.toolbarCanCollapse=true;
+	config.toolbarCanCollapse=false;
 	
 	config.toolbarGroups = [
 		{ name: 'others', groups: [ 'others' ] },

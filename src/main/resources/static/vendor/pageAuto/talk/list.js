@@ -4,15 +4,28 @@
 
 
 function resetHeight(height){
-	if(typeof(height)!="undefined")
+	if(height!=null&&typeof(height)!="undefined")
 	{
-	  var rightlistheight=parseInt( height)- 170+"px";
-	  var leftlistheight=(parseInt( height)/2)+"px";
+		setTimeout(function() {
+			var rightlistheight=parseInt( height)-370 +"px";
+			  
+			$("body").find(".cke_contents.cke_reset").css("height","200px"); 
+			  var leftlistheight=(parseInt( height)/2)+"px";
+			  
+			  $("#txtmsglist").css('height',rightlistheight);
+			  
+			  $(".leftalarmlist").css('height',leftlistheight);
+		}, 200);
 	  
-	  $(".txtmsglist").css('height',rightlistheight);
-	  
-	  $(".leftalarmlist").css('height',leftlistheight);
 	   
+	}
+	else{
+		setTimeout(function() {
+		  $("#txtmsglist").css('max-height',"500px");
+		  $("#txtmsglist").css('height',"auto");
+		 $("body").find(".cke_contents.cke_reset").height(200); 
+		  $(".leftalarmlist").css('min-height',"400px");
+		},200);
 	}
 }
 
@@ -20,8 +33,7 @@ $(function() {
 
 	var rid = GetQueryString("id");
 	
-	var height = GetQueryString("height");
-	resetHeight(height);
+
 
 	initValidate();
 	InitQuery_item(rid);
@@ -81,6 +93,9 @@ $(function() {
 	initvd();
 	
 	initCk();
+	
+	var height = GetQueryString("height");
+	resetHeight(height);
 
 })
 

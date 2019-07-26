@@ -265,9 +265,9 @@ public class FileSvrController {
 					relativeURL = relativePath + fileName; // 文件相对路径
 					httpURL = http_path + relativeURL;
 
-					downURL = FILE_SVR_PATH+"/upload/file/" + md5;
+					downURL = FILE_SVR_PATH+"upload/file/" + md5;
 					httpDownURL =downURL;// http_path + downURL;
-
+					httpURL=downURL;
 					// 存储信息
 					SvrFileInfo finfo = new SvrFileInfo();
 					finfo.setOld_name(value);
@@ -295,8 +295,9 @@ public class FileSvrController {
 																		// + "/"
 																		// +
 																		// fileName;
-					downURL = FILE_SVR_PATH+"/upload/file/" + md5;//efile.getHttp_down_url();
+					downURL = FILE_SVR_PATH+"upload/file/" + md5;//efile.getHttp_down_url();
 					httpDownURL =downURL;// http_path + downURL;
+					httpURL=downURL;
 				}
 				
 				

@@ -66,7 +66,7 @@ public class GAVIDEOApplication {
         scheduler.setThreadNamePrefix("scheduled-thread-");
         return scheduler;
     }
-/*
+
    // 放开 未https
     @Bean
     public EmbeddedServletContainerFactory servletContainerFactory() {
@@ -78,7 +78,7 @@ public class GAVIDEOApplication {
               SecurityCollection collection = new SecurityCollection();
                collection.addPattern("/*");
                 securityConstraint.addCollection(collection);
-                context.addConstraint(securityConstraint);
+              //  context.addConstraint(securityConstraint);
             }
         };
        
@@ -91,10 +91,10 @@ public class GAVIDEOApplication {
         Connector connector = new Connector("org.apache.coyote.http11.Http11NioProtocol");
         connector.setScheme("http");
         connector.setPort(httpPort);
-       connector.setSecure(false);//同时启用httP, https 不跳转
-       connector.setRedirectPort(httpsPort);
+     //  connector.setSecure(false);//同时启用httP, https 不跳转
+    //   connector.setRedirectPort(httpsPort);
 
         return connector;
-    }*/
+    }
 
 }

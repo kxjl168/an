@@ -201,6 +201,13 @@ public class CommonModule extends AppBaseController {
 			query.setOrder("asc");
 			List<VideoalarmTalkinfo> talks = videoalarmTalkinfoService.selectVideoalarmTalkinfoList(query);
 
+			for (int i = 0; i < talks.size(); i++) {
+				if(talks.get(i).getFileUrl()!=null&&!talks.get(i).getFileUrl().equals(""))
+				{
+					talks.get(i).setFileUrl(FILE_SVR_PATH+"upload/file/"+talks.get(i).getFileUrl());
+				}
+			}
+			
 			return AppResultUtil.success(talks);
 		} catch (Exception e) {
 			return AppResultUtil.fail("错误原因" + e);

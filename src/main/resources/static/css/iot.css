@@ -184,7 +184,7 @@ embed {
 	padding: 15px;
 	width: 98% !important;
 	
-	min-height: 400px;
+	/* min-height: 400px; */
 	 /*    height: auto!important; */
 }
 
@@ -808,7 +808,7 @@ table.table-noborder td
 #txtmsglist{
 	/* height: 100%; */
 	/*  max-height: 500px; */ 
-	 min-height: 400px;
+	 min-height: 200px;
 	/* height:300px;  */
 	overflow-y:scroll;
 	
@@ -924,4 +924,8 @@ tr.toaccept{
 	width: 100%;
 	margin-top: 5px;
 	border-radius: 5px;
+}
+
+.cke_toolbox_collapser{
+	display: none;
 }
