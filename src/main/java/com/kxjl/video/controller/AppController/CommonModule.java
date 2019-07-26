@@ -5,6 +5,9 @@ import com.github.pagehelper.Page;
 import com.kxjl.base.aopAspect.NoNeedAuthorization;
 import com.kxjl.base.base.PageCondition;
 import com.kxjl.base.controller.Common.UploadFileController;
+import com.kxjl.base.pojo.SvrFileInfo;
+import com.kxjl.base.service.SvrFileInfoService;
+import com.kxjl.base.service.impl.SvrFileInfoServiceImpl;
 import com.kxjl.base.util.AppResult;
 import com.kxjl.base.util.AppResultUtil;
 import com.kxjl.base.util.PageUtil;
@@ -60,7 +63,9 @@ public class CommonModule extends AppBaseController {
 	@Autowired
 	UploadFileController uploadFileController;
 	
-	
+	@Autowired
+	private SvrFileInfoService fileService;
+
 	@Value("${FILE_SVR_PATH}")
 	private String FILE_SVR_PATH;
 
@@ -89,26 +94,49 @@ public class CommonModule extends AppBaseController {
 			String msgType = parseStringParam(request, "msgType");// 消息类型 ，1文本
 			String msg = parseStringParam(request, "msgContent");// 文本消息
 
+			String fileurl = parseStringParam(request, "fileUrl");// 文本消息
+			
 			if(msgType==null||msgType.equals(""))
 			{
 				return AppResultUtil.fail("消息类型参数错误");
 			}
 			
+			
+			 String md5 = "";
 			if(msgType.equals("1")&&msg.equals(""))
 			{
 				return AppResultUtil.fail("不能发送空消息");
 			}
+			else {
+				if(fileurl==null||fileurl.equals(""))
+				{
+					return AppResultUtil.fail("附件id不能为空");
+				}
+				
+				SvrFileInfo fquery=new SvrFileInfo();
+				fquery.setFile_md5(fileurl);
+				SvrFileInfo uploadFile=fileService.getFileInfo(fquery);
+				if(uploadFile==null)
+				{
+					return AppResultUtil.fail("附件id错误");
+				}
+				
+				if(imgFiles!=null&&imgFiles.length>0)
+				{
+				 responsedata = uploadFileController. UploadFileXhr(imgFiles[0], null, null,null);
+				 org.json.JSONObject jsonRes = new org.json.JSONObject(responsedata);
+				  md5 = jsonRes.optString("md5");
+				 
+				}
+				else {
+					md5=fileurl;//直接上传md5
+				}
+			}
 			
 			// 文件上传
 			 //responsedata = mongoImgSvrCtroller.upload(imgFiles, null, null);
-			 String md5 = "";
-			if(imgFiles!=null&&imgFiles.length>0)
-			{
-			 responsedata = uploadFileController. UploadFileXhr(imgFiles[0], null, null,null);
-			 org.json.JSONObject jsonRes = new org.json.JSONObject(responsedata);
-			  md5 = jsonRes.optString("md5");
-			 
-			}
+			
+			
 
 			// 数据存储
 			VideoalarmTalkinfo talkinfo = new VideoalarmTalkinfo();
@@ -215,3 +243,4 @@ public class CommonModule extends AppBaseController {
 	}
 
 }
+
