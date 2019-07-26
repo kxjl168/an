@@ -668,10 +668,10 @@
 	
 				
  				<server.https.port>18143</server.https.port>
-                <ssl.key.file>xy001.com.cn.jks</ssl.key.file>
- 				<ssl.key.password>0z652p1jmn8d70</ssl.key.password>
+                <ssl.key.file>video.xy001.com.cn.jks</ssl.key.file>
+ 				<ssl.key.password>99588ewb42kc</ssl.key.password>
  					<ssl.key.type>JKS</ssl.key.type>
- 				<ssl.key.alias>xy001.com.cn</ssl.key.alias>
+ 				<ssl.key.alias>video.xy001.com.cn</ssl.key.alias>
                
                <PC_EXPORT_PORT>18000</PC_EXPORT_PORT>
  				<MEDIA_SERVER_URL>rtmp://video.xy001.com.cn:10085/live/</MEDIA_SERVER_URL>
