@@ -65,6 +65,8 @@ public interface OnlineSeatsService {
 
 	Integer QueryHasNewInfo(String userid);
 
+	String getReceiveIdByOnSeatsID(String onlineSeatsId);
+
 	
 	
 	

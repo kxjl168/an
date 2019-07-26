@@ -38,5 +38,7 @@ public interface OnlineSeatsDao {
 	void updateOnlineSteatsToNull(@Param(value="onlineseats_id")String onlineseats_id);
 
 	Integer QueryHasNewInfo(@Param(value="userid")String userid);
+
+	String getReceiveIdByOnSeatsID(@Param(value="seatId")String onlineSeatsId);
 	
 }

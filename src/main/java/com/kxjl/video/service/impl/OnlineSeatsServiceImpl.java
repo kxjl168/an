@@ -97,6 +97,11 @@ public class OnlineSeatsServiceImpl implements OnlineSeatsService {
 	public Integer QueryHasNewInfo(String userid) {
 		return onlineSeatsDao.QueryHasNewInfo(userid);
 	}
+
+	@Override
+	public String getReceiveIdByOnSeatsID(String onlineSeatsId) {
+		return onlineSeatsDao.getReceiveIdByOnSeatsID(onlineSeatsId);
+	}
 	
 
 }

@@ -76,6 +76,16 @@ public class APIController extends AppBaseController {
 		return  null;
 	}
 	
+
+	
+	private void SendDataToDYS(AlarmInfo alarmInfo) {
+		/*JSONObject json = new JSONObject();
+		json.put("DIALOG_ID", UUID.randomUUID().toString().replaceAll("-", ""));
+		json.put("NonTeleAlarm_ID", UUID.randomUUID().toString().replaceAll("-", ""));
+		json.put("ALARM_NAME", alarmInfo.getUserName());
+		json.put("RELATION_USERID", alarmInfo.getOnlineSeatsId());*/
+	}
+	
 	/**
 	 * 微信端图文报警接口
 	 * @param request
@@ -119,6 +129,8 @@ public class APIController extends AppBaseController {
 			alarmInfo.setStatus(1);
 			alarmInfo.setOnlineSeatsId(onlineSeatsService.GetFreeOnlineSeats());
 			if(onlineSeatsService.insertAlarmInfo(alarmInfo) > 0) {
+				//向DYS上报记录
+				SendDataToDYS(alarmInfo);
 				jsonOut.put("ResponseCode", "200");
 				jsonOut.put("ResponseMsg", "OK");	
 			}else {
@@ -132,7 +144,7 @@ public class APIController extends AppBaseController {
 		}
 		return jsonOut.toString();
 	}
-	
+
 	/**
 	 * 判断报警者是否实名认证过
 	 * @param request
@@ -451,7 +463,8 @@ public class APIController extends AppBaseController {
 			JSONObject jsonIn = new JSONObject(params);
 			AlarmInfo alarmInfo = new AlarmInfo();
 			alarmInfo.setType(2);
-			alarmInfo.setOnlineSeatsId(jsonIn.getString("OnlineSeatsId"));
+			String OnlineSeatsId = jsonIn.getString("OnlineSeatsId");
+			alarmInfo.setOnlineSeatsId(onlineSeatsService.getReceiveIdByOnSeatsID(OnlineSeatsId));
 			alarmInfo.setUserName(jsonIn.getString("UserName"));
 			alarmInfo.setIdNumber(jsonIn.getString("IDNumber"));			
 			alarmInfo.setNote(jsonIn.getString("Address"));
@@ -473,6 +486,8 @@ public class APIController extends AppBaseController {
 			alarmInfo.setCase_level(jsonIn.optString("CaseLevel"));
 			alarmInfo.setStatus(2);
 			if(onlineSeatsService.insertAlarmInfo(alarmInfo) > 0) {
+				//向DYS上报记录
+				SendDataToDYS(alarmInfo);
 				jsonOut.put("ResponseCode", "200");
 				jsonOut.put("ResponseMsg", "OK");	
 			}else {

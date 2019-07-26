@@ -198,7 +198,7 @@ public class CommonModule extends AppBaseController {
 			
 			query.setMintime(mintime);
 			query.setMaxtime(maxtime);
-			query.setOrder("asc");
+			//query.setOrder("asc");
 			List<VideoalarmTalkinfo> talks = videoalarmTalkinfoService.selectVideoalarmTalkinfoList(query);
 
 			for (int i = 0; i < talks.size(); i++) {

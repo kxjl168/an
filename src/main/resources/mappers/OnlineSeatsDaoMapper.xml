@@ -22,7 +22,7 @@
         <result property="audioUrl" column="audio_url" /> 
         <result property="case_type" column="case_type" />
         <result property="case_level" column="case_level" />  
-        <result property="status" column="status" />            
+        <result property="status" column="Status" />            
     </resultMap>
     
     <resultMap type="com.kxjl.video.pojo.DictInfo" id="dictMap">
@@ -241,7 +241,12 @@
 	    select * from videoalarm_info 
 		left join t_receivepoliceinfo on videoalarm_info.onlineseats_id = t_receivepoliceinfo.Id
 		where t_receivepoliceinfo.SeatId = #{userid}
-		and ((type = 1 and videoalarm_info.status = 1) or hasNewInfo = 1)
+		and ((type = 1 and videoalarm_info.Status = 1) or hasNewInfo = 1)
+	</select>
+	
+	<select id="getReceiveIdByOnSeatsID" parameterType="java.lang.String"
+	    resultType="java.lang.String">
+	    select Id from t_receivepoliceinfo where  SeatId = #{seatId} and Status  =0; 
 	</select>
 
 </mapper>
