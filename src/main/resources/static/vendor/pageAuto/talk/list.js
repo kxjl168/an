@@ -407,8 +407,10 @@ function InitQuery_item(rid) {
 function refreshOtherAlarmNew(alarmId)
 {
 	
-	
+	var nninfo=$("#table_list_item").find("tr[data-uniqueid='"+alarmId+"'] td:nth-child(1) ").find(".ninfo");
+	if(nninfo!=null&&nninfo.length==0)
 	$("#table_list_item").find("tr[data-uniqueid='"+alarmId+"'] td:nth-child(1) ").prepend("<span class='ninfo ' title='新消息'><i class='fa fa-commenting-o'></i></span>");
+	
 	$("#table_list_item").find("tr[data-uniqueid='"+alarmId+"']  ").addClass("newinforow");
 	
 	/*var data=$("#table_list_item").bootstrapTable('getData');
