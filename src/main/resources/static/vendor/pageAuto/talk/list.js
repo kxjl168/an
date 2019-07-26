@@ -96,6 +96,40 @@ $(function() {
 	
 	var height = GetQueryString("height");
 	resetHeight(height);
+	
+	
+	// modal 新增基本字段事件 关闭事件事件， 清空已有的值 恢复禁用
+	$('#myModal_itemvd').on('hide.bs.modal', function(e) {
+		
+		try {
+			myplayer.pause();
+			
+			
+			} catch (e) {
+				// TODO: handle exception
+			}
+	});
+	
+	// modal 新增基本字段事件 关闭事件事件， 清空已有的值 恢复禁用
+	$('#myModal_itemad').on('hide.bs.modal', function(e) {
+		
+		try {
+			 $( '#myvideoplayer' ).pause();//audioPlayer();
+		} catch (e) {
+			// TODO: handle exception
+		}
+		
+try {
+	 $('#myvideoplayer').html("");
+	
+} catch (e) {
+	// TODO: handle exception
+}
+	
+	
+		
+
+	});
 
 })
 

@@ -40,6 +40,10 @@ public class AlarmUserinfo {
      * 微信号
      */
     private String wechatId;
+    
+    private String ecname;
+    
+    private String ecphone;
 
     /**
      * 微信号openid
@@ -198,5 +202,21 @@ public class AlarmUserinfo {
 
 	public void setRegesterDate(String regesterDate) {
 		this.regesterDate = regesterDate;
+	}
+
+	public String getEcname() {
+		return ecname;
+	}
+
+	public void setEcname(String ecname) {
+		this.ecname = ecname;
+	}
+
+	public String getEcphone() {
+		return ecphone;
+	}
+
+	public void setEcphone(String ecphone) {
+		this.ecphone = ecphone;
 	}
 }
