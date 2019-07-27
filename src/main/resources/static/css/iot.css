@@ -187,7 +187,11 @@ embed {
 	/* min-height: 400px; */
 	 /*    height: auto!important; */
 }
-
+.cke_bottom.cke_reset_all
+{
+	display: none;
+	
+}
 
 .queryclassleft {
 	/* min-height: 120px; */
@@ -205,7 +209,7 @@ embed {
 
 .qcontent
 {
-	overflow-y:scroll; 
+	overflow-y:auto; 
 }
 
 
@@ -427,6 +431,10 @@ ul.nav.nav-tabs>li>a, ul.nav.nav-tabs>li>a:visited, ul.nav.nav-tabs>li>a:selecte
 .margin-top-10
 {
 	margin-top: 10px!important;
+}
+.margin-top-5
+{
+	margin-top: 5px!important;
 }
 .labeltxt{
 	padding-top:8px;
@@ -944,5 +952,10 @@ tr.toaccept{
 {
 	 padding: 2px 4px;
 	 line-height: 1.1;
+}
+
+.talkimg img
+{
+	max-width: 200px;
 }
    

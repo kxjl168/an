@@ -6,27 +6,70 @@
 function resetHeight(height){
 	if(height!=null&&typeof(height)!="undefined")
 	{
-		setTimeout(function() {
-			var rightlistheight=parseInt( height)-370 +"px";
-			  
-			$("body").find(".cke_contents.cke_reset").css("height","200px"); 
-			  var leftlistheight=(parseInt( height)/2)+"px";
-			  
-			  $("#txtmsglist").css('height',rightlistheight);
-			  
-			  $(".qcontent").css('height',leftlistheight);
-		}, 200);
-	  
-	   
+		
 	}
 	else{
-		setTimeout(function() {
+		height= getScrollHeight();
+		
+		/*setTimeout(function() {
 		  $("#txtmsglist").css('max-height',"500px");
 		  $("#txtmsglist").css('height',"auto");
-		 $("body").find(".cke_contents.cke_reset").height(200); 
+		 $("body").find(".cke_contents.cke_reset").height(rightinputheight); 
 		  $(".qcontent").css('min-height',"400px");
-		},200);
+		},200);*/
 	}
+	
+	setTimeout(function() {
+		var rightlistheight=parseInt( height)*2/3-70-65 +"px"; //-標題高度 -底部高度
+		var rightinputheight=parseInt( height)/3-20-40 +"px";   //-留白高度
+		
+		var rightdvheight=parseInt( height)-20 +"px";   //-留白高度
+		  
+	
+		  var leftlistheight=((parseInt( height)/2)-65)+"px"; //-标题高度
+		  
+		  $(".queryrightdv").css("height",rightdvheight);
+		  $("#txtmsglist").css('height',rightlistheight);
+			$("body").find(".cke_contents.cke_reset").css("height",rightinputheight); 
+		  $("body").find(".cke_contents.cke_reset").height(rightinputheight); 
+		  
+		  
+		  $(".qcontent").css('height',leftlistheight);
+		  
+	}, 500);
+  
+   
+}
+
+function getScrollHeight()
+{
+  return Math.max(document.body.scrollHeight,document.documentElement.scrollHeight);
+}
+function getClientHeight()
+{
+  var clientHeight=0;
+  if(document.body.clientHeight&&document.documentElement.clientHeight)
+  {
+  var clientHeight = (document.body.clientHeight<document.documentElement.clientHeight)?document.body.clientHeight:document.documentElement.clientHeight;
+  }
+  else
+  {
+  var clientHeight = (document.body.clientHeight>document.documentElement.clientHeight)?document.body.clientHeight:document.documentElement.clientHeight;
+  }
+  return clientHeight;
+}
+function getScrollTop()
+{
+  var scrollTop=0;
+  if(document.documentElement&&document.documentElement.scrollTop)
+  {
+  scrollTop=document.documentElement.scrollTop;
+  }
+  else if(document.body)
+  {
+  scrollTop=document.body.scrollTop;
+  }
+  return scrollTop;
 }
 
 $(function() {
@@ -206,6 +249,10 @@ function initCk(){
   	    	sendmsg();
   	    }
     });
+	  CKEDITOR.instances.txtmsginput.on("instanceReady",function(e){
+		 // resetHeight();
+    });
+	  
 
 }
 
@@ -740,64 +787,67 @@ function getVideoInfo(rowdata) {
 	html += '<div class="row orow">'
 			+ ' <div class=""> '
 
-			+ '	<label class="col-xs-3 nopadding" style="font-weight: bold;">报警时间:</label> '
-			+ '	<div class="col-xs-9 nopadding"> ' + '		<span >'
+			+ '	<label class="col-xs-2 nopadding" style="font-weight: bold;">报警时间:</label> '
+			+ '	<div class="col-xs-4 nopadding"> ' + '		<span >'
 			+ tm
 			+ '</span> '
 			+ '		<p class="help-block"></p> '
 			+ '	</div> '
 
-			+ '	<label class="col-xs-3 nopadding" style="font-weight: bold;">报警人:</label> '
-			+ '	<div class="col-xs-9 nopadding"> '
+			+ '	<label class="col-xs-2 nopadding" style="font-weight: bold;">报警人:</label> '
+			+ '	<div class="col-xs-4 nopadding"> '
 			+ '		<span >'
 			+ rowdata.userName
 			+ '</span> '
 			+ '		<p class="help-block"></p> '
 			+ '	</div> '
 
-			+ '	<label class="col-xs-3 nopadding" style="font-weight: bold;">报警身份证号码:</label> '
-			+ '	<div class="col-xs-9 nopadding"> '
+			+ '	<label class="col-xs-2 nopadding" style="font-weight: bold;">报警身份证号:</label> '
+			+ '	<div class="col-xs-4 nopadding"> '
 			+ '		<span >'
 			+ rowdata.idNumber
 			+ '</span> '
 			+ '		<p class="help-block"></p> '
 			+ '	</div> '
 
-			+ '	<label class="col-xs-3 nopadding" style="font-weight: bold;">联系电话:</label> '
-			+ '	<div class="col-xs-9 nopadding"> '
+			+ '	<label class="col-xs-2 nopadding" style="font-weight: bold;">联系电话:</label> '
+			+ '	<div class="col-xs-4 nopadding"> '
 			+ '		<span >'
 			+ rowdata.phone
 			+ '</span> '
 			+ '		<p class="help-block"></p> '
 			+ '	</div> '
 
-			+ '	<label class="col-xs-3 nopadding" style="font-weight: bold;">报警地点:</label> '
-			+ '	<div class="col-xs-9 nopadding"> '
+			+ '	<label class="col-xs-2 nopadding" style="font-weight: bold;">报警地点:</label> '
+			+ '	<div class="col-xs-4 nopadding"> '
 			+ '		<span >'
 			+ rowdata.address
 			+ '</span> '
 			+ '		<p class="help-block"></p> '
 			+ '	</div> '
 
-			+ '	<label class="col-xs-3 nopadding" style="font-weight: bold;">警情描述:</label> '
-			+ '	<div class="col-xs-9 nopadding"> '
+			+ '	<label class="col-xs-2 nopadding" style="font-weight: bold;">警情描述:</label> '
+			+ '	<div class="col-xs-4 nopadding"> '
 			+ '		<span >'
 			+ rowdata.description
 			+ '</span> '
 			+ '		<p class="help-block"></p> '
 			+ '	</div> '
 
-			+ '	<label class="col-xs-3 nopadding" style="font-weight: bold;">图片附件:</label> '
+			+ '	<label class="col-xs-3 nopadding" style="font-weight: bold;">附件:</label> '
 			+ '	<div class="col-xs-12 nopadding "> '
 			+ '		<span >'
 			+ initResource(rowdata.picture_url,'img')
+			
+				+ initResource(rowdata.audio_url,'voice')
+				+ initResource(rowdata.video_url,"vd")
 			+ '</span> '
 			+ '		<p class="help-block"></p> '
 			+ '	</div> '
 			
 			
-			+ '	<label class="col-xs-3 nopadding" style="font-weight: bold;">语音附件:</label> '
-			+ '	<div class="col-xs-12 nopadding "> '
+			+ '	<label class="hide col-xs-3 nopadding" style="font-weight: bold;">语音附件:</label> '
+			+ '	<div class="hide col-xs-12 nopadding "> '
 			+ '		<span >'
 			+ initResource(rowdata.audio_url,'voice')
 			+ '</span> '
@@ -806,8 +856,8 @@ function getVideoInfo(rowdata) {
 
 
 		
-			+ '	<label class="col-xs-3 nopadding" style="font-weight: bold;">视频附件:</label> '
-			+ '	<div class="col-xs-12 nopadding "> '
+			+ '	<label class="hide  col-xs-3 nopadding" style="font-weight: bold;">视频附件:</label> '
+			+ '	<div class=" hide col-xs-12 nopadding "> '
 			+ '		<span >'
 			+ initResource(rowdata.video_url,"vd")
 			+ '</span> '

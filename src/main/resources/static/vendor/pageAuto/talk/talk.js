@@ -108,7 +108,7 @@ function formatMsg(msg,msgtype,fileurl)
 	if(msgtype=="1")
 		return msg;
 	else if(msgtype=="2")//img
-		return "<span class='talkimg'><img src='"+fileurl+"' class='img-responsive '></span>";
+		return "<span class='talkimg'><img onclick='showDetailImgModal(\"" + fileurl + "\")' src='"+fileurl+"' class='img-responsive '></span>";
 	
 	
 }

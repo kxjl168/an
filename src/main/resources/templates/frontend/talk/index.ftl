@@ -31,7 +31,7 @@ html {
 
 	<div class="col-xs-12 nopadding">
 
-		<div class="col-sm-6 col-xs-12 nopadding margin-top-10">
+		<div class="col-sm-6 col-xs-12 nopadding ">
 
 			<div class="leftalarmlist col-xs-12 row queryclassalarm">
 
@@ -54,7 +54,7 @@ html {
 				</div>
 			</div>
 
-			<div class="leftalarmlist col-xs-12 row queryclassalarm margin-top-10">
+			<div class="leftalarmlist col-xs-12 row queryclassalarm margin-top-5">
 				<div class='querytitle '>
 					<h5>事件详情</h5>
 
@@ -83,8 +83,8 @@ html {
 		</div>
 
 
-		<div class="col-sm-6 col-xs-12 nopadding margin-top-10">
-			<div class="queryclass col-xs-12 row ">
+		<div class="col-sm-6 col-xs-12 nopadding ">
+			<div class="queryclassalarm queryrightdv col-xs-12 row ">
 				<div class='querytitle '>
 					<h5>沟通记录</h5>
 
@@ -98,7 +98,7 @@ html {
 
 				<div class="col-xs-12 nopadding margin-top-10">
 
-					<div class="col-xs-6">
+					<div class="col-xs-6 nopadding">
 						<select id="commonyuju" class="col-xs-12 form-control pull-right">
 							<option value=''>选择常用语</option>
 

@@ -76,7 +76,7 @@
 
 
     <section class="main-content2">
-        <section class="margin-top-10">
+        <section class="">
             <div class="">
                 <sitemesh:write property="body"/>
             </div>
@@ -88,10 +88,9 @@
 
 <script src="${ctx}/vendor/bootstrap/js/bootstrap.min.js"></script>
 <script src="${ctx}/vendor/jquery/jquery.dcjqaccordion.2.7.js"></script>
-<script src="${ctx}/vendor/jquery/jquery.scrollTo.min.js"></script>
-<script src="${ctx}/vendor/jquery/jquery.nicescroll.js"></script>
+
 <script src="${ctx}/vendor/jquery/jquery.sparkline.js"></script>
-<script src="${ctx}/vendor/blueSkin/common-scripts.js"></script>
+
 <script src="${ctx}/vendor/bootstrapValidator/js/bootstrapValidator.js"></script>
 <script src="${ctx}/vendor/bootstrapValidator/js/bootstrapValidator-zh-cn.js"></script>
 <script src="${ctx}/vendor/bootstrap-table/js/bootstrap-table.js"></script>
