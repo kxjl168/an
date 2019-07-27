@@ -37,7 +37,7 @@
 				Sex = #{sex,jdbcType=VARCHAR},
 			</if>
 	    </set>
-	    where id = #{userid,jdbcType=VARCHAR}
+	    where id = #{id,jdbcType=VARCHAR}
 	</update>
 	
 	<insert id="insertAlarmUserInfo" parameterType="com.kxjl.video.pojo.ClientInfo">

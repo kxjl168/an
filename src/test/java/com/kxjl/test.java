@@ -50,18 +50,20 @@ public class test {
 		//testAppGetTalk("3");
 		
 		
-		testAppTalkImg("3","F:\\IMG\\bus.png");
+		//testAppTalkImg("3","F:\\IMG\\bus.png");
+		
+		testUpload("F:\\IMG\\house.png");
 	}
 	
 
-public static void testAppTalkImg(String alarmId,String filepath)  {
+public static void testUpload(String filepath)  {
 //修改图片后会重启设备
 		
 	//String serverUrl = "http://127.0.0.1:7779/an/interface/app/sendTalkMsg";
 	
 	//String serverUrl = "http://www.chinaqiner.com.cn/an/interface/app/sendTalkMsg";
 	
-	String serverUrl = "http://video.xy001.com.cn:18180/VideoAlarm/interface/app/sendTalkMsg";
+	String serverUrl = "http://video.xy001.com.cn:18180/VideoAlarm/FileSvr/UploadFile";
 		String responsedata = "";
 		try {
 
@@ -73,15 +75,15 @@ public static void testAppTalkImg(String alarmId,String filepath)  {
 
 			//UploadFileItem f1 = new UploadFileItem("2_111.jpg","C:\\Users\\admin\\Downloads\\3.jpg");
 			
-			UploadFileItem f1 = new UploadFileItem("imgFiles",filepath);//"C:\\Users\\admin\\Downloads\\3.jpg");
+			UploadFileItem f1 = new UploadFileItem("file",filepath);//"C:\\Users\\admin\\Downloads\\3.jpg");
 			fs.add(f1);
 			
 			
-			FormFieldKeyValuePair k1=new FormFieldKeyValuePair("alarmId", alarmId);
-			FormFieldKeyValuePair k2=new FormFieldKeyValuePair("msgType", "2");
+			//FormFieldKeyValuePair k1=new FormFieldKeyValuePair("alarmId", alarmId);
+			//FormFieldKeyValuePair k2=new FormFieldKeyValuePair("msgType", "2");
 			
-			 fds.add(k1);
-			 fds.add(k2);
+			// fds.add(k1);
+			// fds.add(k2);
 			
 			try {
 				responsedata = HttpPostEmulator.sendHttpPostRequest(serverUrl,fds, fs);

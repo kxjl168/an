@@ -133,6 +133,7 @@ public class APIController extends AppBaseController {
 				SendDataToDYS(alarmInfo);
 				jsonOut.put("ResponseCode", "200");
 				jsonOut.put("ResponseMsg", "OK");	
+				jsonOut.put("ID", alarmInfo.getId());	
 			}else {
 				jsonOut.put("ResponseCode", "201");
 				jsonOut.put("ResponseMsg", "图文报警失败");	
