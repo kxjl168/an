@@ -190,5 +190,9 @@ $(function(){
 			
 					<script
 			src="${ctx}/vendor/pageAuto/tunitinfo/js/sysUserSelect2.js"></script>
+			
+					
+					<script
+			src="${ctx}/vendor/pageAuto/tunitinfo/js/unitSelect2.js"></script>
 </body>
 </html>

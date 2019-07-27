@@ -35,13 +35,13 @@
 		order by occurrence_time desc limit 0,10
     </select>
     
-    <select id="getAlarmListByUserId" parameterType="java.lang.String" resultMap="alarmMap">		
+    <select id="getAlarmListByUserId" parameterType="java.lang.String" resultMap="alarmMap">	
 		select videoalarm_info.id,onlineseats_id,videoalarm_info.type,username,idNumber,area,longitude,latitude,address,wechat_id,videoalarm_info.phone,
         date_format(occurrence_time, '%Y-%m-%d %H:%i:%s') occurrence_time,description,date_format(alarm_time, '%Y-%m-%d %H:%i:%s') alarm_time,
-        picture_url,video_url,audio_url,occurrence_address,a1.dict_value case_type,a2.dict_value case_level,videoalarm_info.status 
+        picture_url,video_url,audio_url,occurrence_address,a1.dict_name case_type,a2.dict_name case_level,videoalarm_info.status 
 		from videoalarm_info 
-		LEFT JOIN sys_dict_info a1 on (a1.type = 1 and videoalarm_info.case_type = a1.dict_name)
-		LEFT JOIN sys_dict_info a2 on (a2.type = 2 and videoalarm_info.case_level = a2.dict_name)
+		LEFT JOIN sys_dict_info a1 on (a1.type = 1 and videoalarm_info.case_type = a1.dict_value)
+		LEFT JOIN sys_dict_info a2 on (a2.type = 2 and videoalarm_info.case_level = a2.dict_value)
 		left join t_receivepoliceinfo on videoalarm_info.onlineseats_id=t_receivepoliceinfo.Id
 		left join t_seatinfo on t_receivepoliceinfo.SeatId = t_seatinfo.Id
 		where t_seatinfo.Id=#{userid} and DATE(occurrence_time) in
@@ -203,7 +203,6 @@
 	
 	<select id="getAreaByOnlineSeatsUserID" parameterType="java.lang.String"
 	    resultType="java.lang.String">
-		AreaId
 		select AreaId from t_seatinfo where Id = #{userid} 	    
 	</select>
 	

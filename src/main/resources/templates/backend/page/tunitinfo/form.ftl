@@ -42,7 +42,32 @@
 										</div>
 									</div>
 									
+									<div class="form-group">
+										<label for="name" class="col-lg-3 control-label">单位类型</label>
+
+										<div class="col-lg-9">
+										<select name="unitType" 
+											
+											class="form-control" id="unitType">
+											<option value="1">市级单位</option>
+											<option value="2">分局单位</option>
+											</select>
+											<p class="help-block"></p>
+										</div>
+									</div>
 									
+									<div class="form-group hide parentUnitDv">
+										<label for="name" class="col-lg-3 control-label">上级单位</label>
+
+										<div class="col-lg-9">
+										<select name="parentUnit" 
+											
+											class="form-control" id="parentUnit">
+										
+											</select>
+											<p class="help-block"></p>
+										</div>
+									</div>
 						 
                            
 									

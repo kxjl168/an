@@ -46,11 +46,17 @@ public class Unitinfo {
      */
     private String address;
     
+    private String unitType;
+    
+    private String parentUnit;
+    
     
     //query
     private String adminlist; //单位管理员 逗号分隔
     
     private String curUid;//当前登陆id
+    
+    private String parentUnitName;
 
     /**
      * 单位id(主键)
@@ -210,5 +216,29 @@ public class Unitinfo {
 
 	public void setCurUid(String curUid) {
 		this.curUid = curUid;
+	}
+
+	public String getUnitType() {
+		return unitType;
+	}
+
+	public void setUnitType(String unitType) {
+		this.unitType = unitType;
+	}
+
+	public String getParentUnit() {
+		return parentUnit;
+	}
+
+	public void setParentUnit(String parentUnit) {
+		this.parentUnit = parentUnit;
+	}
+
+	public String getParentUnitName() {
+		return parentUnitName;
+	}
+
+	public void setParentUnitName(String parentUnitName) {
+		this.parentUnitName = parentUnitName;
 	}
 }

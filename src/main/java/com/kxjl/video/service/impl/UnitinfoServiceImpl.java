@@ -121,6 +121,10 @@ public class UnitinfoServiceImpl implements UnitinfoService {
 		}
 
 		try {
+			
+			if(item.getParentUnit()==null||item.getParentUnit().equals(""))
+				item.setParentUnit("-1"); //默认为市级别的
+			
 			itemMapper.updateByPrimaryKeySelective(item);
 
 			rtn.put("bol", true);

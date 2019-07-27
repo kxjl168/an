@@ -15,12 +15,63 @@ function test(){
 	});
 }
 
+function refreshParentDv(){
+	var utype= $("#unitType").val();
+	if(utype=="1")
+		{
+		$(".parentUnitDv").addClass("hide")
+		try {
+			$('#mform_item').bootstrapValidator('removeField',
+			'parentUnit');
+		} catch (e) {
+			// TODO: handle exception
+		}
+		}
+	else{
+		$(".parentUnitDv").removeClass("hide");
+		
+		try {
+			$('#mform_item').bootstrapValidator('removeField',
+			'parentUnit');
+		} catch (e) {
+			// TODO: handle exception
+		}
+		try {
+
+			// 验证密码
+			$('#mform_item')
+					.bootstrapValidator(
+							"addField",
+							'parentUnit',
+							{
+								validators : {
+									  notEmpty: {
+					                        message: '不能为空'
+					                    },
+								}
+							});
+		} catch (e) {
+			// TODO: handle exception
+		}
+	
+
+		
+		
+	}
+}
+
 $(function() {
 	InitQuery_item();
 
 	
 	initAdminSelect("unitAdmin");
-
+	initUnitSelect("parentUnit");
+	
+	$("#unitType").change(function(){
+		refreshParentDv();
+	});
+	
+	
 
 	$("#btnAdd_item").click(function() {
 
@@ -297,8 +348,19 @@ function InitQuery_item() {
 				title : '单位名称',
 				align : 'center',
 				valign : 'middle',
-				   
-				
+			},
+			{
+				field : 'unitType',
+				title : '单位类型',
+				align : 'center',
+				valign : 'middle',
+				 formatter: function (value, row, index) {
+					 if(value=="1")
+						 return "市级单位";
+					 else if(value=="2")
+						 return "区县单位";
+					 else return "";
+		         }
 			},
 			
 			 {
@@ -408,9 +470,9 @@ window.PersonnelInformationEvents_item = {
 					         });
 						}
 						}
-					
-					
 					initAdminSelect("unitAdmin");
+				
+
 					
 
 					$("#mform_item_admin").fill(row);
@@ -436,8 +498,31 @@ window.PersonnelInformationEvents_item = {
 				
 			   $("#mform_item").fill(response);
 			     
-	
 			   
+
+				$("#parentUnit").select2().val(null).trigger("change");
+				$("#parentUnit").select2("destroy");
+				$("#parentUnit").html("");
+				
+				
+				//unitAdmin
+				var data=response;
+				 var pname=response.parentUnitName;
+		         var option = new Option(pname, data.parentUnit, true, true);
+		         $("#parentUnit").append(option).trigger('change');
+		         $("#parentUnit").trigger({
+		             type: 'select2:select',
+		             params: {
+		                 data: {text:pname,id:data.parentUnit}
+		             }
+		         });
+				
+				
+		     	initUnitSelect("parentUnit");
+				
+				refreshParentDv();
+			   
+
 			   $("#myModal_item_title").html("编辑");
 			   
 				$("#myModal_item").modal();

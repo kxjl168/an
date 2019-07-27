@@ -11,9 +11,15 @@
     <result column="ContactPerson" jdbcType="VARCHAR" property="contactPerson" />
     <result column="ContactPhone" jdbcType="VARCHAR" property="contactPhone" />
     <result column="Address" jdbcType="VARCHAR" property="address" />
+      <result column="unitType" jdbcType="VARCHAR" property="unitType" />
+    
+      <result column="parentUnit" jdbcType="VARCHAR" property="parentUnit" />
+    
+    
+    
   </resultMap>
   <sql id="Base_Column_List">
-    Id, Name, CreateTime, Uptimestamp, DataState, Des, ContactPerson, ContactPhone, Address
+    Id, Name, CreateTime, Uptimestamp, DataState, Des, ContactPerson, ContactPhone, Address,parentUnit,unitType
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
@@ -65,6 +71,14 @@
       <if test="address != null">
         Address,
       </if>
+      
+       <if test="unitType != null">
+        unitType,
+      </if>
+       <if test="parentUnit != null">
+        parentUnit,
+      </if>
+    
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -94,6 +108,14 @@
       <if test="address != null">
         #{address,jdbcType=VARCHAR},
       </if>
+      
+            <if test="unitType != null">
+          #{unitType,jdbcType=VARCHAR},  
+      </if>
+       <if test="parentUnit != null">
+         #{parentUnit,jdbcType=VARCHAR}, 
+      </if>
+    
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.kxjl.video.pojo.Unitinfo">
@@ -123,6 +145,13 @@
       <if test="address != null">
         Address = #{address,jdbcType=VARCHAR},
       </if>
+          <if test="unitType != null">
+         unitType= #{unitType,jdbcType=VARCHAR},  
+      </if>
+       <if test="parentUnit != null">
+        parentUnit= #{parentUnit,jdbcType=VARCHAR}, 
+      </if>
+      
     </set>
     where Id = #{id,jdbcType=VARCHAR}
   </update>
@@ -145,8 +174,9 @@
 	resultMap="BaseResultMap"
 	parameterType="com.kxjl.video.pojo.Unitinfo">
 	select
-	<include refid="Base_Column_List" />
+	c.*,pc.name parentUnitName
 	from t_unitinfo c
+	left join t_unitinfo pc on c.parentUnit=pc.id
 
 	where 1=1
 	
@@ -159,6 +189,11 @@
 	</if>
 	<if test=" name !=null and name  !='' ">
 		and c.name  like   concat('%',#{name},'%')
+		
+	</if>
+	
+	<if test=" unitType !=null and unitType  !='' ">
+		and c.unitType  =#{unitType}
 		
 	</if>
 
