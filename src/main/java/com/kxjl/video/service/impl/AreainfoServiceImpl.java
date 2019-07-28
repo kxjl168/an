@@ -60,7 +60,7 @@ public class AreainfoServiceImpl implements AreainfoService {
 			// 一级分类
 			Unitinfo uquery = new Unitinfo();
 			uquery.setDataState("1");
-			
+			uquery.setUnitType("1");//一级单位
 			uquery.setCurUid(TokenUtil.getWebLoginUser().getId());
 			// uquery.set
 			List<Unitinfo> menus = unitinfoMapper.selectList(uquery);
@@ -82,11 +82,45 @@ public class AreainfoServiceImpl implements AreainfoService {
 				lstTree.add(sBuffer.toString());
 
 			}
-
+			
+			List<Unitinfo> allLevel2Unit=new ArrayList<Unitinfo>();
+			
+			//二级单位
 			for (int i = 0; i < menus.size(); i++) {
+				// 二级分类
+				Unitinfo uquery2 = new Unitinfo();
+				uquery2.setDataState("1");
+				uquery2.setParentUnit(menus.get(i).getId());
+				uquery2.setUnitType("2");//一级单位
+				uquery2.setCurUid(TokenUtil.getWebLoginUser().getId());
+				// uquery.set
+				List<Unitinfo> menus2 = unitinfoMapper.selectList(uquery2);
+				
+				allLevel2Unit.addAll(menus2);
+				
+				for (Unitinfo menu : menus2) {
+					StringBuffer sBuffer = new StringBuffer();
+					sBuffer.append("{");
+					sBuffer.append("id:\"" + menu.getId() + "\",");
+					sBuffer.append("pId:\"" + menus.get(i).getId() + "\",");
+					sBuffer.append("ttype:\"" + "unit" + "\",");
+					sBuffer.append("open:" + (isopen ? "true" : "false") + ",");// 根节点打开
+
+					sBuffer.append("name:\"" + menu.getName() + "\",");
+
+					sBuffer.append("remark:\"" + "" + "\"");
+
+					sBuffer.append("}");
+					lstTree.add(sBuffer.toString());
+
+				}
+			}
+			
+
+			for (int i = 0; i < allLevel2Unit.size(); i++) {
 
 				Areainfo query2 = new Areainfo();
-				query2.setUnitId(menus.get(i).getId());
+				query2.setUnitId(allLevel2Unit.get(i).getId());
 				query2.setDataState("1");
 
 				List<Areainfo> all_menus = itemMapper.selectList(query2);
@@ -95,7 +129,7 @@ public class AreainfoServiceImpl implements AreainfoService {
 					StringBuffer sBuffer = new StringBuffer();
 					sBuffer.append("{");
 					sBuffer.append("id:\"" + menu.getId() + "\",");
-					sBuffer.append("pId:\"" + menus.get(i).getId() + "\",");
+					sBuffer.append("pId:\"" + allLevel2Unit.get(i).getId() + "\",");
 					sBuffer.append("open:" + (isopen ? "true" : "false") + ",");// 根节点打开
 					sBuffer.append("ttype:\"" + "area" + "\",");
 					sBuffer.append("name:\"" + menu.getName() + "\",");
@@ -157,6 +191,7 @@ public class AreainfoServiceImpl implements AreainfoService {
 		Unitinfo uquery = new Unitinfo();
 		uquery.setDataState("1");
 		uquery.setName(item.getName());
+		uquery.setUnitType("1");
 		uquery.setCurUid(TokenUtil.getWebLoginUser().getId());
 		// uquery.set
 		List<Unitinfo> menus = unitinfoMapper.selectList(uquery);
@@ -164,45 +199,71 @@ public class AreainfoServiceImpl implements AreainfoService {
 		Gson gs = new Gson();
 
 		for (int i = 0; i < menus.size(); i++) {
+			
+			org.json.JSONObject jsObj22 = new org.json.JSONObject();
 
-			org.json.JSONObject jsObj = new org.json.JSONObject();
+			Unitinfo pInfo22 = menus.get(i);
+			String pInfoStr22 = gs.toJson(pInfo22);
+			jsObj22 = new org.json.JSONObject(pInfoStr22);
+			
+			
+			
+			// 二级分类
+			Unitinfo uquery22 = new Unitinfo();
+			uquery22.setDataState("1");
+			uquery22.setName(item.getName());
+			uquery22.setParentUnit(menus.get(i).getId());
+			uquery22.setCurUid(TokenUtil.getWebLoginUser().getId());
+			// uquery.set
+			List<Unitinfo> menus22 = unitinfoMapper.selectList(uquery22);
+			if(menus22==null||menus22.size()==0)
+				continue;
+			
+			
+			
+			for (int k = 0; k < menus22.size(); k++) {
+				org.json.JSONObject jsObj = new org.json.JSONObject();
 
-			Unitinfo pInfo = menus.get(i);
-			String pInfoStr = gs.toJson(pInfo);
-			jsObj = new org.json.JSONObject(pInfoStr);
+				Unitinfo pInfo = menus22.get(k);
+				String pInfoStr = gs.toJson(pInfo);
+				jsObj = new org.json.JSONObject(pInfoStr);
 
-			Areainfo query2 = new Areainfo();
-			query2.setUnitId(pInfo.getId());
-			query2.setDataState("1");
-			query2.setName(item.getName());
+				Areainfo query2 = new Areainfo();
+				query2.setUnitId(pInfo.getId());
+				query2.setDataState("1");
+				query2.setName(item.getName());
 
-			List<Areainfo> all_menus = itemMapper.selectList(query2);
+				List<Areainfo> all_menus = itemMapper.selectList(query2);
 
-			if (level.equals("3")) {
-				// 显示坐席
-				for (int j = 0; j < all_menus.size(); j++) {
+				if (level.equals("3")) {
+					// 显示坐席
+					for (int j = 0; j < all_menus.size(); j++) {
 
-					Areainfo ainfo = all_menus.get(j);
+						Areainfo ainfo = all_menus.get(j);
 
-					String ainfoStr = gs.toJson(ainfo);
-					org.json.JSONObject ainfojsObj = new org.json.JSONObject(ainfoStr);
+						String ainfoStr = gs.toJson(ainfo);
+						org.json.JSONObject ainfojsObj = new org.json.JSONObject(ainfoStr);
 
-					Seatinfo query3 = new Seatinfo();
-					query3.setAreaId(ainfo.getId());
-					query3.setDataState("1");
-					query3.setName(item.getName());
+						Seatinfo query3 = new Seatinfo();
+						query3.setAreaId(ainfo.getId());
+						query3.setDataState("1");
+						query3.setName(item.getName());
 
-					List<Seatinfo> areas = seatinfoMapper.selectList(query3);
-					String level3list = gs.toJson(areas);
-					all_menus.get(j).setSeatListStr(level3list);
+						List<Seatinfo> areas = seatinfoMapper.selectList(query3);
+						String level3list = gs.toJson(areas);
+						all_menus.get(j).setSeatListStr(level3list);
+					}
 				}
+
+				String level2list = gs.toJson(all_menus);
+				menus22.get(k).setUnitListStr(level2list);
+				
 			}
+			
+			String level2list = gs.toJson(menus22);
+			jsObj22.put("child", level2list);
 
-			String level2list = gs.toJson(all_menus);
-
-			jsObj.put("child", level2list);
-
-			rst.add(jsObj.toString());
+			rst.add(jsObj22.toString());
 
 		}
 

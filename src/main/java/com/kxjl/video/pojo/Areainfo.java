@@ -37,7 +37,8 @@ public class Areainfo {
     
     private String unitName;//单位名称
 
-    
+
+
     private String seatListStr;//坐席json
     private String curUid;//当前登陆id
     
@@ -168,4 +169,6 @@ public class Areainfo {
 	public void setCurUid(String curUid) {
 		this.curUid = curUid;
 	}
+
+	
 }

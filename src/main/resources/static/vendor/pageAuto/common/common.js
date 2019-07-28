@@ -38,8 +38,8 @@ function initUnitAreaSelect(eleid, level) {
 		level = "2";
 
 	var tip = "选择片区";
-	if(level=="3")
-		tip="选择坐席";
+	if (level == "3")
+		tip = "选择坐席";
 	/*
 	 * if(dictType=='2') tip="选择案件等级"; else if(dictType=='3') tip="选择常用语";
 	 */
@@ -120,48 +120,60 @@ function initUnitAreaSelect(eleid, level) {
 
 					item = eval("(" + itemstr + ")");
 
-					var clds = eval(item.child);
+					var clds22 = eval(item.child);
+					var clditems2 = [];
 
-					var clditems = [];
+					$.each(clds22, function(index22, item22) {
 
-					$.each(clds, function(index2, item2) {
+						var clds = eval(item22.unitListStr);
 
-						if (level == "2") {
-							clditems.push({
-								id : item2.id,
-								text : item2.name,
-							// icon: item.httppath+ item2.val1,
-							});
-						} else {
+						var clditems = [];
 
-						
+						$.each(clds, function(index2, item2) {
 
-							var cld2s = eval(item2.seatListStr);
-
-							var clditem2s = [];
-
-							$.each(cld2s, function(index3, item3) {
-								clditem2s.push({
-									id : item3.id,
-									text : item3.name,
+							if (level == "2") {
+								clditems.push({
+									id : item2.id,
+									text : item2.name,
 								// icon: item.httppath+ item2.val1,
 								});
-							});
+							} else {
 
-							clditems.push({
+								var cld2s = eval(item2.seatListStr);
 
-								text : item2.name,
-								children : clditem2s,
+								var clditem2s = [];
 
-							});
-						}
+								$.each(cld2s, function(index3, item3) {
+									clditem2s.push({
+										id : item3.id,
+										text : item3.name,
+									// icon: item.httppath+ item2.val1,
+									});
+								});
+
+								clditems.push({
+
+									text : item2.name,
+									children : clditem2s,
+
+								});
+							}
+
+						});
+
+						clditems2.push({
+
+							text : item22.name,
+							children : clditems,
+
+						});
 
 					});
 
 					selectdatas.push({
 
 						text : item.name,
-						children : clditems,
+						children : clditems2,
 
 					});
 				});

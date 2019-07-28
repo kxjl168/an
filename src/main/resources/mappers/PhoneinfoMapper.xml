@@ -193,7 +193,12 @@ left join t_unitinfo u on a.unitId=u.id
 
 	where 1=1
 		<if test=" curUid !=null and curUid !='' ">
-		and u.id  in (select UnitId from t_unitinfo_manager where managerId=#{curUid})
+							and u.id  in (select u1.id from t_unitinfo_manager  u
+left join t_unitinfo u1 on  (u.UnitId=u1.id or u.UnitId=u1.parentUnit)
+ where u.managerId=#{curUid}
+ )
+	
+	
 	</if>
 	<if test=" id !=null and id !='' ">
 		and c.id = #{id}

@@ -54,6 +54,9 @@ public class Unitinfo {
     //query
     private String adminlist; //单位管理员 逗号分隔
     
+    private String unitListStr;//下级单位json
+    
+    
     private String curUid;//当前登陆id
     
     private String parentUnitName;
@@ -240,5 +243,13 @@ public class Unitinfo {
 
 	public void setParentUnitName(String parentUnitName) {
 		this.parentUnitName = parentUnitName;
+	}
+
+	public String getUnitListStr() {
+		return unitListStr;
+	}
+
+	public void setUnitListStr(String unitListStr) {
+		this.unitListStr = unitListStr;
 	}
 }
