@@ -129,7 +129,7 @@
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="onlineSeatsId != null">
-				#{onlineSeatsId,jdbcType=String},
+				#{onlineSeatsId,jdbcType=VARCHAR},
 			</if>
 			<if test="type != null">
 				#{type,jdbcType=INTEGER},
@@ -192,8 +192,8 @@
 	</insert>
 	
 	<update id="SetOnlineStatus" parameterType="java.lang.String">
-	    update t_receivepoliceinfo set Status = 1 where 
-	    SeatId=#{userid} and Status != 3
+	    update t_receivepoliceinfo set Status = #{status} where 
+	    SeatId=#{userid} and Status != 4
 	</update>
 	
 	<update id="SetOnlineStatusOnline" parameterType="java.lang.String">
@@ -226,18 +226,18 @@
 		on (t_seatinfo.Id = videoalarm_info.onlineseats_id
 		and (videoalarm_info.status in (1,2,3))) 
 		left join t_receivepoliceinfo on t_seatinfo.Id = t_receivepoliceinfo.SeatId where t_receivepoliceinfo.status = 0
-		GROUP BY t_seatinfo.Id) a order by number asc limit 1; 		    
+		GROUP BY t_seatinfo.Id) a order by number asc limit 1 		    
 	</select>
 	
 	<update id="updateOnlineSteatsToNull" parameterType="java.lang.String">	    
 	    update videoalarm_info set onlineseats_id = 
 		(select Id from t_receivepoliceinfo where SeatId = #{onlineseats_id}
-		and Status = 0) where onlineseats_id is null;    
+		and Status = 0) where onlineseats_id is null    
 	</update>
 	
 	<select id="QueryHasNewInfo" parameterType="java.lang.String"
 	    resultType="java.lang.Integer">
-	    select * from videoalarm_info 
+	    select count(*) from videoalarm_info 
 		left join t_receivepoliceinfo on videoalarm_info.onlineseats_id = t_receivepoliceinfo.Id
 		where t_receivepoliceinfo.SeatId = #{userid}
 		and ((type = 1 and videoalarm_info.Status = 1) or hasNewInfo = 1)
@@ -247,5 +247,22 @@
 	    resultType="java.lang.String">
 	    select Id from t_receivepoliceinfo where  SeatId = #{seatId} and Status  =0; 
 	</select>
+	
+	
+	<select id="getReceiveIdByOnSeatsIDFromLogInfo" parameterType="java.lang.String"
+	    resultType="java.lang.String">
+	    select police_id from sys_logininfo where  seats_id = #{seatId}
+		order by login_time desc limit 1 
+	</select>
+	
+	<insert id="insertLoginInfo" parameterType="java.lang.String">
+	    insert into sys_logininfo set seats_id = #{onlineseats_id}, 
+	    police_id = #{userid}, login_time = now()
+	</insert>
+	
+	<update id = "updateLogoutTime" parameterType="java.lang.String">
+	    update sys_logininfo set logout_time = now() where seats_id=#{seatId}
+	    and logout_time is null
+	</update>
 
 </mapper>

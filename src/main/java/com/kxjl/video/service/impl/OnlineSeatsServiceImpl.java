@@ -24,6 +24,8 @@ public class OnlineSeatsServiceImpl implements OnlineSeatsService {
 		if(userId != null) {
 			String seatsId = onlineSeatsDao.GetUserSeatsId(username, password);
 			onlineSeatsDao.SetOnlineStatusOnline(userId);
+
+			onlineSeatsDao.insertLoginInfo(userId,seatsId);
 			return seatsId;
 		}
 		//更新状态
@@ -55,6 +57,9 @@ public class OnlineSeatsServiceImpl implements OnlineSeatsService {
 
 	@Override
 	public int SetOnlineStatus(String userid, String status) {
+		if(status.equals("4")) {
+			onlineSeatsDao.updateLogoutTime(userid);
+		}
 		return onlineSeatsDao.SetOnlineStatus(userid, status);
 	}
 
@@ -100,7 +105,11 @@ public class OnlineSeatsServiceImpl implements OnlineSeatsService {
 
 	@Override
 	public String getReceiveIdByOnSeatsID(String onlineSeatsId) {
-		return onlineSeatsDao.getReceiveIdByOnSeatsID(onlineSeatsId);
+		String userid = onlineSeatsDao.getReceiveIdByOnSeatsID(onlineSeatsId);
+		if(userid == null) {
+			userid = onlineSeatsDao.getReceiveIdByOnSeatsIDFromLogInfo(onlineSeatsId);
+		}
+		return userid;
 	}
 	
 

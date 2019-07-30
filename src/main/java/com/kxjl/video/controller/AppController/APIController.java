@@ -523,8 +523,8 @@ public class APIController extends AppBaseController {
 				JSONArray jsonArray = new JSONArray();
 				for(DictInfo dictInfo : lst) {
 					JSONObject json = new JSONObject();
-					json.put("Value", dictInfo.getDict_name());
-					json.put("Name", dictInfo.getDict_value());
+					json.put("Value", dictInfo.getDict_value());
+					json.put("Name", dictInfo.getDict_name());
 					jsonArray.put(json);
 				}
 				jsonOut.put("InfoList", jsonArray);

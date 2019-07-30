@@ -151,10 +151,10 @@ $(function(){
 
     <header class="header black-bg">
         <a href="${ctx}/manager/admin/index.action" class="logo">
-        <img src="${ctx}/img/blueSkin/logo-ga.png" 
+        <img src="${ctx}/img/blueSkin/logo-ga.png" class="hide" 
                                                                       style="height: 50px;margin-top: -10px;"/>
                                                                       
-                                                                      <img class="hide" src="${ctx}/img/blueSkin/logo4.png"
+                                                                      <img src="${ctx}/img/blueSkin/logo4.png"
                                                                       style="height: 50px;margin-top: -10px;"/>
                                                                       </a>
 

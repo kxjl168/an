@@ -14,7 +14,8 @@
 
 <body>
 
-<div class="logo"><img src="${ctx}/img/blueSkin/logo-ga.png"></div>
+<div class="logo hide"><img src="${ctx}/img/blueSkin/logo-ga.png"></div>
+<div class="logo"><img src="${ctx}/img/blueSkin/logo4.png"></div>
 <div class="bjtu"></div>
 <div class="row denglu">
     <div class="col-md-5"></div>

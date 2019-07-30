@@ -389,7 +389,7 @@ public class SocketClient extends HttpServlet{
 			if(clientInfo.getType() == 1) {
 				wecharClientList.remove(channel);
 			}else if(clientInfo.getType() == 3){
-				onlineSeatsService.SetOnlineStatus(clientInfo.getUserid(), "3");
+				onlineSeatsService.SetOnlineStatus(clientInfo.getUserid(), "4");
 				String infoResponse = "{\"type\":6}";
 				byte[] v_datapath = AESEncryptUtil.encryptB(infoResponse, SocketClient.aesPassword);	            
 	            byte[] buffResponse1 = new byte[4 + v_datapath.length];
@@ -465,18 +465,6 @@ public class SocketClient extends HttpServlet{
 					clientInfo.setCloseTime(System.currentTimeMillis());
 				}
 				clientInfo.setOtherchannel(null);
-				/*JSONObject json = new JSONObject();
-				try {
-					json.put("type",6);
-					ByteBuffer writeBuf = ByteBuffer.allocate((json.toString()).getBytes().length);
-		            writeBuf.put((json.toString()).getBytes());
-		            writeBuf.flip();
-		            channel.write(writeBuf);
-				}  catch (IOException e) {
-					e.printStackTrace();
-				} catch (JSONException e) {
-					e.printStackTrace();
-				}*/
 				
 			}
 		}		

@@ -40,5 +40,11 @@ public interface OnlineSeatsDao {
 	Integer QueryHasNewInfo(@Param(value="userid")String userid);
 
 	String getReceiveIdByOnSeatsID(@Param(value="seatId")String onlineSeatsId);
+
+	void insertLoginInfo(@Param(value="userid")String userId, @Param(value="onlineseats_id")String seatsId);
+
+	String getReceiveIdByOnSeatsIDFromLogInfo(@Param(value="seatId")String onlineSeatsId);
+
+	void updateLogoutTime(@Param(value="seatId")String seatId);
 	
 }
