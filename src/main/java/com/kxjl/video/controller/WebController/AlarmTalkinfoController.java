@@ -65,7 +65,8 @@ public class AlarmTalkinfoController {
 	
 	@Value("${FILE_SVR_PATH}")
 	private String FILE_SVR_PATH;
-
+	@Value("${HTTP_PATH}")
+	private String HTTP_PATH;
 	
 	
 	/**
@@ -188,7 +189,10 @@ public class AlarmTalkinfoController {
 		for (int i = 0; i < tvideoalarmtalkinfos.size(); i++) {
 			if(tvideoalarmtalkinfos.get(i).getFileUrl()!=null&&!tvideoalarmtalkinfos.get(i).getFileUrl().trim().equals(""))
 			{
-				tvideoalarmtalkinfos.get(i).setFileUrl(FILE_SVR_PATH+"upload/file/"+tvideoalarmtalkinfos.get(i).getFileUrl());	
+				//tvideoalarmtalkinfos.get(i).setFileUrl(FILE_SVR_PATH+"upload/file/"+tvideoalarmtalkinfos.get(i).getFileUrl());
+				
+				tvideoalarmtalkinfos.get(i).setFileUrl(HTTP_PATH+tvideoalarmtalkinfos.get(i).getHttp_relative_path());
+				
 			}
 			
 		}

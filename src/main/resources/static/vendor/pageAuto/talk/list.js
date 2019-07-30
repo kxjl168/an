@@ -72,6 +72,20 @@ function getScrollTop()
   return scrollTop;
 }
 
+
+function doSearch_item() {
+	
+	
+	
+	var opt = {
+		silent : true
+	};
+	$("#table_list_item").bootstrapTable('refresh', opt);
+	
+	//success("test");
+}
+
+
 $(function() {
 
 	var rid = GetQueryString("id");
@@ -80,6 +94,11 @@ $(function() {
 
 	initValidate();
 	InitQuery_item(rid);
+	
+	setInterval(function() {
+		doSearch_item();
+	}, 10000);
+	
 
 	initAlarmTypeSelect("case_type", "1");
 	initAlarmTypeSelect("case_level", "2");
@@ -157,7 +176,7 @@ $(function() {
 	$('#myModal_itemad').on('hide.bs.modal', function(e) {
 		
 		try {
-			 $( '#myvideoplayer' ).pause();//audioPlayer();
+			 $( '#myvideoplayer' )[0].pause();//audioPlayer();
 		} catch (e) {
 			// TODO: handle exception
 		}
@@ -351,7 +370,25 @@ function InitQuery_item(rid) {
 				setTimeout(function() {
 					var data=$("#table_list_item").bootstrapTable('getData');
 					if(data&&data.length>0)
-					changeAlarm(data[0]);	
+						{
+						
+						if(curAlarmId==null)
+							changeAlarm(data[0]);	
+						else
+							{
+							for (var i = 0; i < data.length; i++) {
+								if(data[i].id==curAlarmId)
+									{
+									changeAlarm(data[i]);	
+									return;
+									}
+							}
+							changeAlarm(data[0]);	
+							}
+						
+						
+						}
+					
 				}, 500);
 				
 				
@@ -781,18 +818,49 @@ window.PersonnelInformationEvents_item = {
 function getVideoInfo(rowdata) {
 	var html = "";
 
-	var tm = rowdata.occurrence_time.substr(0,
+	var alarmtime = rowdata.occurrence_time.substr(0,
 			rowdata.occurrence_time.length - 2);
+	
+	var tm = rowdata.alarm_time.substr(0,
+			rowdata.alarm_time.length - 2);
+	
+	
+	var status = "";
+	if (rowdata.status == "1")
+		{
+		status = "已报警";
+		if(rowdata.type=="2")//视频报警，全部为已受理
+			status = "已受理";
+		}
+		
+	else if (rowdata.status == "2")
+		status = "已受理";
+	else if (rowdata.status == "3")
+		status = "已出警";
+	else if (rowdata.status == "4")
+		status = "已关闭";
+	
+	 var casetypename= (rowdata.case_typename==null)?' &nbsp;':rowdata.case_typename
+			 var caselevelname= (rowdata.case_levelname==null)?' &nbsp;':rowdata.case_levelname
 
 	html += '<div class="row orow">'
 			+ ' <div class=""> '
 
 			+ '	<label class="col-xs-2 nopadding" style="font-weight: bold;">报警时间:</label> '
 			+ '	<div class="col-xs-4 nopadding"> ' + '		<span >'
+			+ alarmtime
+			+ '</span> '
+			+ '		<p class="help-block"></p> '
+			+ '	</div> '
+			
+			
+			+ '	<label class="col-xs-2 nopadding" style="font-weight: bold;">案发时间:</label> '
+			+ '	<div class="col-xs-4 nopadding"> ' + '		<span >'
 			+ tm
 			+ '</span> '
 			+ '		<p class="help-block"></p> '
 			+ '	</div> '
+			
 
 			+ '	<label class="col-xs-2 nopadding" style="font-weight: bold;">报警人:</label> '
 			+ '	<div class="col-xs-4 nopadding"> '
@@ -801,11 +869,29 @@ function getVideoInfo(rowdata) {
 			+ '</span> '
 			+ '		<p class="help-block"></p> '
 			+ '	</div> '
+			
+			+ '	<label class="col-xs-2 nopadding" style="font-weight: bold;">案件类型:</label> '
+			+ '	<div class="col-xs-4 nopadding"> '
+			+ '		<span >'
+			//+"1"
+			+casetypename
+			+ '</span> '
+			+ '		<p class="help-block"></p> '
+			+ '	</div> '
 
-			+ '	<label class="col-xs-2 nopadding" style="font-weight: bold;">报警身份证号:</label> '
+			+ '	<label class="col-xs-2 nopadding" style="font-weight: bold;">身份证号:</label> '
 			+ '	<div class="col-xs-4 nopadding"> '
 			+ '		<span >'
 			+ rowdata.idNumber
+			+ '</span> '
+			+ '		<p class="help-block"></p> '
+			+ '	</div> '
+			
+			+ '	<label class="col-xs-2 nopadding" style="font-weight: bold;">案件级别:</label> '
+			+ '	<div class="col-xs-4 nopadding"> '
+			+ '		<span >'
+			+caselevelname
+			//+  (typeof(rowdata.case_levelname)=="undefined")?"":rowdata.case_levelname
 			+ '</span> '
 			+ '		<p class="help-block"></p> '
 			+ '	</div> '
@@ -818,8 +904,26 @@ function getVideoInfo(rowdata) {
 			+ '		<p class="help-block"></p> '
 			+ '	</div> '
 
-			+ '	<label class="col-xs-2 nopadding" style="font-weight: bold;">报警地点:</label> '
+			
+			+ '	<label class="col-xs-2 nopadding" style="font-weight: bold;">状态:</label> '
 			+ '	<div class="col-xs-4 nopadding"> '
+			+ '		<span >'
+			+ status
+			+ '</span> '
+			+ '		<p class="help-block"></p> '
+			+ '	</div> '
+			
+			
+			+ '	<label class="col-xs-2 nopadding" style="font-weight: bold;">案发地点:</label> '
+			+ '	<div class="col-xs-10 nopadding"> '
+			+ '		<span >'
+			+ rowdata.occurrence_address
+			+ '</span> '
+			+ '		<p class="help-block"></p> '
+			+ '	</div> '
+			
+			+ '	<label class="col-xs-2 nopadding" style="font-weight: bold;">报警地点:</label> '
+			+ '	<div class="col-xs-10 nopadding"> '
 			+ '		<span >'
 			+ rowdata.address
 			+ '</span> '
@@ -827,14 +931,14 @@ function getVideoInfo(rowdata) {
 			+ '	</div> '
 
 			+ '	<label class="col-xs-2 nopadding" style="font-weight: bold;">警情描述:</label> '
-			+ '	<div class="col-xs-4 nopadding"> '
+			+ '	<div class="col-xs-12 nopadding"> '
 			+ '		<span >'
 			+ rowdata.description
 			+ '</span> '
 			+ '		<p class="help-block"></p> '
 			+ '	</div> '
 
-			+ '	<label class="col-xs-3 nopadding" style="font-weight: bold;">附件:</label> '
+			+ '	<label class="col-xs-3 nopadding" style="font-weight: bold;">影像附件:</label> '
 			+ '	<div class="col-xs-12 nopadding "> '
 			+ '		<span >'
 			+ initResource(rowdata.picture_url,'img')

@@ -69,6 +69,10 @@ public class CommonModule extends AppBaseController {
 	@Value("${FILE_SVR_PATH}")
 	private String FILE_SVR_PATH;
 
+	
+
+	@Value("${HTTP_PATH}")
+	private String HTTP_PATH;
 	/**
 	 * App聊天接口，提交聊天数据
 	 * 
@@ -139,6 +143,14 @@ public class CommonModule extends AppBaseController {
 			videoalarmTalkinfoService.saveVideoalarmTalkinfo(talkinfo);
 
 			try {
+				
+				
+				SvrFileInfo fquery = new SvrFileInfo();
+				fquery.setFile_md5(fileurl);
+				SvrFileInfo uploadFile = fileService.getFileInfo(fquery);
+				
+				
+				
 				VideoalarmInfo valarm = videoalarmInfoService.selectVideoalarmInfoById(Long.parseLong(alarmId));
 				if (valarm != null) {
 
@@ -153,7 +165,8 @@ public class CommonModule extends AppBaseController {
 					jmsg.put("uid", alarmId);// 报警事件id
 					jmsg.put("tid", ttid); // 坐席id
 					jmsg.put("msg", msg);
-					jmsg.put("fileurl", FILE_SVR_PATH + "upload/file/" + md5);
+					//jmsg.put("fileurl", FILE_SVR_PATH + "upload/file/" + md5);
+					jmsg.put("fileurl", HTTP_PATH + uploadFile.getHttp_relative_path());
 					jmsg.put("msgtype", msgType);
 
 					MyWebSocket.sendByteMessage(jmsg.toString(), ttid);

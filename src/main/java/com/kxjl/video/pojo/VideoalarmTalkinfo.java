@@ -22,7 +22,7 @@ public class VideoalarmTalkinfo {
     private String ctime;
 
     /**
-     * 消息类型 1:文本
+     * 消息类型 1:文本,2 图片，3音频，4视频
      */
     private String msgType;
 
@@ -41,6 +41,8 @@ public class VideoalarmTalkinfo {
     private String maxtime;//查询的结束时间
     
     private String order;//排序
+    
+    private String http_relative_path;//文件相对路径
 
     /**
      * 序号
@@ -176,5 +178,13 @@ public class VideoalarmTalkinfo {
 
 	public void setOrder(String order) {
 		this.order = order;
+	}
+
+	public String getHttp_relative_path() {
+		return http_relative_path;
+	}
+
+	public void setHttp_relative_path(String http_relative_path) {
+		this.http_relative_path = http_relative_path;
 	}
 }

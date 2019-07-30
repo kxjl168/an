@@ -306,7 +306,12 @@
 	parameterType="com.kxjl.video.pojo.VideoalarmInfo">
 select
 	c.*, uinfo.name  onlineseats_unitname, ainfo.name  onlineseats_areaname ,person.name  onlineseats_name,person.IdNo onlineseats_no
-,tdict.dict_name case_typename,tdict2.dict_name case_levelname, sinfo.id seat_id
+,tdict.dict_name case_typename,tdict2.dict_name case_levelname, sinfo.id seat_id,
+case 
+when c.type=1 and c.status=1 then 0
+when c.hasNewInfo then 1
+else 2
+end ordernum
 	from videoalarm_info c
 left join t_receivepoliceinfo person on c.onlineseats_id= person.id
 
@@ -367,7 +372,7 @@ left join sys_dict_info tdict on tdict.dict_value= c.case_type and tdict.type=1
 	</if>
 	
 	
-order by c.type asc,c.status asc,c.occurrence_time desc
+order by   ordernum asc, c.hasNewInfo desc, c.occurrence_time desc
 
 
 </select>

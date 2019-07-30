@@ -118,11 +118,12 @@
 
 
 <select id="selectList"
-	resultMap="BaseResultMap"
+	resultType="com.kxjl.video.pojo.VideoalarmTalkinfo"
 	parameterType="com.kxjl.video.pojo.VideoalarmTalkinfo">
 	select
-	<include refid="Base_Column_List" />
+	c.*,f.http_relative_path
 	from t_videoalarm_talkinfo c
+	left join sys_file f on c.fileUrl=f.file_md5
 
 	where 1=1
 	<if test=" id !=null and id !='' ">

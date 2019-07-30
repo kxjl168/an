@@ -109,6 +109,21 @@ function formatMsg(msg,msgtype,fileurl)
 		return msg;
 	else if(msgtype=="2")//img
 		return "<span class='talkimg'><img onclick='showDetailImgModal(\"" + fileurl + "\")' src='"+fileurl+"' class='img-responsive '></span>";
+	else if(msgtype=="3")//voice
+		{
+		// var url=imgIdArr[imgId]
+		  var vdtpurl=getRootPath() + "/img/an/vo.jpg";
+       //  htmlStr += "<img onclick='playAudio(\"" + url + "\")' class='img-responsive vdimg' src='" + vdtpurl + "'/>"
+           
+         return "<span class='talkimg'><img title='点击播放音频' onclick='playAudio(\"" + fileurl + "\")' src='"+vdtpurl+"' class='img-responsive vdimg'></span>";
+		}
+		
+	else if(msgtype=="4")//video
+		{
+		  var vdtpurl=getRootPath() + "/img/an/play.png";
+		return "<span class='talkimg'><img title='点击播放视频' onclick='playVd(\"" + fileurl + "\")' src='"+vdtpurl+"' class='img-responsive vdimg'></span>";
+		}
+		
 	
 	
 }
