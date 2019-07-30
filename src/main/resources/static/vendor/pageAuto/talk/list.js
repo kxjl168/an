@@ -97,7 +97,7 @@ $(function() {
 	
 	setInterval(function() {
 		doSearch_item();
-	}, 10000);
+	}, 30000);
 	
 
 	initAlarmTypeSelect("case_type", "1");
