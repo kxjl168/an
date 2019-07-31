@@ -958,4 +958,84 @@ tr.toaccept{
 {
 	max-width: 200px;
 }
+
+.indexright{
+	float: right;
+}
+.rightrect{
+	display: block;
+	float:left;
+	margin-right: 5px;
+}
+.seat{
+	width: 20px;
+    height: 20px;
+
+    display: block;
+    float: left;
+    margin-right: 5px;
+    border: 1px solid #c6c6c6;
+}
+.white{
+	background: white;
+}
+.red{
+	    background: #f76814;
+}
+.green{
+	background: #7ec371;
+}
+.blue{
+	background: #45b2e6;
+}
+	
+
+
+.indexbg .mainbody,.indexbg .queryclass {
+	background-color: #f1f1f1;
+}
+
+.dvcontainer{
+	width: 900px;
+	margin: 0 auto;
+	min-height: 600px;
+	
+}
+.st_title{
+	float: right;
+	padding-right: 10px;
+	padding-top: 5px;
+}
+
+.indexcenter
+{
+	margin: 0 auto;
+	width: 150px;
+	
+}
+
+.stdv div{
+	text-align: center;;
+}
+.stdv{
+	
+	float: left;
+	width: 160px;
+	
+	margin:5px;
+	padding:5px;
+	
+	box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.15);
+	border-radius: 5px;
+}
+.st_img{
+	margin: 0 auto;
+	width: 120px;
+}
+
+.stdv.color{
+	
+	color:white;
+}
+
    

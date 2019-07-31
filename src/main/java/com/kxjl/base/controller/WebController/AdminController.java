@@ -48,20 +48,14 @@ public class AdminController {
 
         List<Map> roleList = (List<Map>) principal.get("roles");
         for (Map role : roleList) {
-            if (role.get("sys_role_id").equals("yuanjiang_admin")) {
+            if (role.get("sys_role_id").equals("unitadmin")||role.get("sys_role_id").equals("superadmin")) {
                 // 源匠管理员
-                return "/backend/page/homePage/homePage1.ftl";
-            }else if (role.get("sys_role_id").equals("company_admin")) {
+                return "/backend/page/tseatinfoAdmin/index.ftl";
+            }else if (role.get("sys_role_id").equals("1")) {
                 // 合伙人管理员
-                return "/backend/page/homePage/homePage2.ftl";
+            	 return "/backend/page/tseatinfoAdmin/index.ftl";
             }else if (role.get("sys_role_id").equals("enterprise_admin")) {
-                //锁企管理员
-                return "/backend/page/homePage/homePage.ftl";
-            }else if (role.get("sys_role_id").equals("yuanjiang_customer")) {
-                return "/backend/page/homePage/homePage3.ftl";
-            }else if (role.get("sys_role_id").equals("enterprise_customer")) {
-                return "/backend/page/homePage/homePage4.ftl";
-
+               
             }
         }
 
