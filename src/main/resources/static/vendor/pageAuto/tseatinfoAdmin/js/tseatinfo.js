@@ -44,6 +44,11 @@ function treeClick() {
 
 $(function() {
 	InitQuery_item();
+	
+	setInterval(function() {
+		//doSearch_item();
+	}, 30000);
+	
 
 	loadAreaTree(treeClick);
 	initUnitAreaSelect("areaId");
@@ -165,8 +170,8 @@ function InitQuery_item() {
 		sortOrder : "desc", // 排序方式
 		sidePagination : "server", // 分页方式：client客户端分页，server服务端分页（*）
 		pageNumber : 1, // 初始化加载第一页，默认第一页
-		pageSize : 10, // 每页的记录行数（*）
-		pageList : [ 10, 25 ], // 可供选择的每页的行数（*）
+		pageSize : 25, // 每页的记录行数（*）
+		pageList : [  25,50 ], // 可供选择的每页的行数（*）
 		search : false, // 是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
 
 		// showColumns: true, //是否显示所有的列
@@ -195,33 +200,18 @@ function InitQuery_item() {
 			title : '坐席名称',
 			align : 'center',
 			valign : 'middle',
-
-		},
-
-		{
-			field : 'unitName',
-			title : '所属单位',
-			align : 'center',
-			valign : 'middle',
-
-		}, {
-			field : 'areaName',
-			title : '所属片区',
-			align : 'center',
-			valign : 'middle',
-
-		},
-
-		{
-			field : 'personNumReal',
-			title : '成员数',
-			align : 'center',
-			valign : 'middle',
-
+			 formatter: function (value, row, index) {
+	             var html= "";
+	             
+	           html=getDisplay(row);
+	             
+	             return html;
+	         }
 		},
 
 		{
 			title : '操作',
+			visible : false,
 			field : 'vehicleno',
 			align : 'center',
 			formatter : modifyAndDeleteButton_item,
@@ -230,6 +220,50 @@ function InitQuery_item() {
 
 		]
 	});
+}
+
+
+function getDisplay(rowdata)
+{
+	var html="";
+	
+	
+	if(typeof(rowdata.idNo)=="undefined" ||
+			typeof(rowdata.status)=="undefined"||	rowdata.status=="4")
+		{
+		html+= '<div class="stdv white"> '
+			 +' <div class="st_title">'+rowdata.unitName+"-"+rowdata.name+'</div> '
+			 +' <div class="st_img"> '
+			 +' 	<img src="/an/img/blueSkin/head.png" class="img-responsive"> '
+			 +' </div>  '
+			 +' <div class="st_idno">空闲</div> '
+			 +' <div class="st_name ">&nbsp;</div> '
+			 +' </div>	 ';
+		}
+	else
+	{
+		var css=" color white ";
+		
+		if(rowdata.status=="0")
+			 css=" color blue ";
+		if(rowdata.status=="1")
+			 css=" color green ";
+		if(rowdata.status=="2")
+			 css=" color red ";
+		
+		
+		html+= '<div class="stdv '+ css+' "> '
+			 +' <div class="st_title">'+rowdata.unitName+"-"+rowdata.name+'</div> '
+			 +' <div class="st_img"> '
+			 +' 	<img src="/an/img/blueSkin/head.png"  class="img-responsive">  '
+			 +' </div>  '
+			 +' <div class="st_idno">工号:'+rowdata.idNo+'</div> '
+			 +' <div class="st_name">姓名:'+rowdata.personName+'</div> '
+			 +' </div>	 ';
+	}
+	
+	return html;
+
 }
 
 function modifyAndDeleteButton_item(value, row, index) {

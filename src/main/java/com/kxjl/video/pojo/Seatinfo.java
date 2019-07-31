@@ -43,6 +43,10 @@ public class Seatinfo {
     
     private Integer personNumReal;
     private String curUid;//当前登陆id
+    
+    private String personName;//当前坐席人员名称
+    private String status;//当前坐席人员状态  '接警人员状态  0:空闲 1:繁忙 2:离开 3:下线',
+    private String IdNo;//当前坐席人员工号
     /**
      * 
      */
@@ -206,5 +210,29 @@ public class Seatinfo {
 
 	public void setCurUid(String curUid) {
 		this.curUid = curUid;
+	}
+
+	public String getPersonName() {
+		return personName;
+	}
+
+	public void setPersonName(String personName) {
+		this.personName = personName;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String getIdNo() {
+		return IdNo;
+	}
+
+	public void setIdNo(String idNo) {
+		IdNo = idNo;
 	}
 }

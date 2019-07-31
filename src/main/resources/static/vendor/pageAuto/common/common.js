@@ -40,6 +40,8 @@ function initUnitAreaSelect(eleid, level) {
 	var tip = "选择片区";
 	if (level == "3")
 		tip = "选择坐席";
+	if (level == "1")
+		tip = "选择单位";
 	/*
 	 * if(dictType=='2') tip="选择案件等级"; else if(dictType=='3') tip="选择常用语";
 	 */
@@ -128,6 +130,16 @@ function initUnitAreaSelect(eleid, level) {
 						var clds = eval(item22.unitListStr);
 
 						var clditems = [];
+						
+						
+						if (level == "1") {
+							clditems2.push({
+								id : item22.id,
+								text : item22.name,
+							});
+						}
+						else
+							{
 
 						$.each(clds, function(index2, item2) {
 
@@ -160,13 +172,18 @@ function initUnitAreaSelect(eleid, level) {
 							}
 
 						});
-
+						
+						
 						clditems2.push({
 
 							text : item22.name,
 							children : clditems,
 
 						});
+						
+							}
+
+						
 
 					});
 

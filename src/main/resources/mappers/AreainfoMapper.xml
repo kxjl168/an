@@ -130,8 +130,6 @@ left join t_unitinfo u1 on  (u.UnitId=u1.id or u.UnitId=u1.parentUnit)
  where u.managerId=#{curUid}
  )
  
-		
-	
 	</if>
 	
 	<if test=" id !=null and id !='' ">

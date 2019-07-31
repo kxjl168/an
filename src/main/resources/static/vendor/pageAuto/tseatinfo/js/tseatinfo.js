@@ -24,13 +24,13 @@ function treeClick() {
 		var nodes = zTree.getSelectedNodes();
 		if (nodes != null) {
 			var selectNd = nodes[0];
-			if (selectNd.level == 0) {
+			if (selectNd.level == 0||selectNd.level == 1) {
 				selectUnitId = selectNd.id;
 				selectAreaId = null;
 
 			}
 
-			else if (selectNd.level == 1) {
+			else if (selectNd.level == 2) {
 				selectUnitId = null;
 				selectAreaId = selectNd.id;
 			}

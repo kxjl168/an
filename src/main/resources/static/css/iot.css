@@ -961,6 +961,9 @@ tr.toaccept{
 
 .indexright{
 	float: right;
+	position: absolute;
+	right:10px;
+	top: 25px;
 }
 .rightrect{
 	display: block;
@@ -1007,12 +1010,6 @@ tr.toaccept{
 	padding-top: 5px;
 }
 
-.indexcenter
-{
-	margin: 0 auto;
-	width: 150px;
-	
-}
 
 .stdv div{
 	text-align: center;;
@@ -1030,7 +1027,9 @@ tr.toaccept{
 }
 .st_img{
 	margin: 0 auto;
-	width: 120px;
+	width: 80px;
+	padding-bottom: 10px;
+	padding-top: 30px;
 }
 
 .stdv.color{
@@ -1038,4 +1037,63 @@ tr.toaccept{
 	color:white;
 }
 
+
+
+.fullwidth
+{
+	width: 100%!important;
+}
+.icontop,.indexcenter span{
+	font-size: 40px!important;
+	
+	vertical-align: middle;
+	font-weight: bold;
+}
+
+.icontop{
+		color:#158bf0;
+	height: 20px;
+    display: inline-block;
+    /* padding-top: 20px; */
+    float: left;
+    padding-top: 5px;
+}
+.indexcenter
+{
+color:#000;
+	margin: 0 auto;
+	width: 220px;
+	    height: 35px;
+    line-height: 35px;
+}
+
+.indexcenter span{
+	font-size: 25px!important;
+}
+.tableindex td
+{
+padding: 3px!important;
+}
+.tableindex tr,.tableindex td{
+	float: left;
+	display: block;
+	
+	border:0px!important;
+		background-color: #f1f1f1!important;
+}
+.ff .fixed-table-container{
+	border: 0px!important;
+}
+.tableindex {
+	border:0px!important;
+}
+.tableindex thead{
+	display: none!important;
+}
+.tableindex  tbody
+{
+	width: 900px;
+    margin: 0 auto;
+    display: block;
    
+}

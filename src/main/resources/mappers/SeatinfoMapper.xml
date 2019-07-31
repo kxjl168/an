@@ -129,18 +129,22 @@
 
 
 <select id="selectList"
-	resultMap="BaseResultMap"
+	resultType="com.kxjl.video.pojo.Seatinfo"
 	parameterType="com.kxjl.video.pojo.Seatinfo">
 	select
 	c.*,a.name areaName, u.name unitName,cnum.num personNumReal
+, p.personName ,p.status,p.IdNo
 	from t_seatinfo c
 	left join t_areainfo a on c.areaId=a.id
 left join t_unitinfo u on a.unitId=u.id
+left join t_unitinfo up on u.parentUnit=up.id
+-- 按同一坐席上状态最小的接警人员计算. 接警人员默认离线
+left join  (select min(p.status) status ,min(p.name ) personName, min(p.IdNo) IdNo,c.id,c.name from t_receivepoliceinfo p left join t_seatinfo c  on p.SeatId=c.Id group by c.id ) p
+on p.id=c.id 
 left join (
 select s.id,count(*) num from t_seatinfo s left join 
 t_receivepoliceinfo p on p.SeatId=s.id where 1=1 and p.id is not null group by s.id) cnum
 on c.id=cnum.id
-
 
 	where 1=1
 	<if test=" curUid !=null and curUid !='' ">
@@ -158,7 +162,7 @@ left join t_unitinfo u1 on  (u.UnitId=u1.id or u.UnitId=u1.parentUnit)
 	</if>
 	
 		<if test=" unitId !=null and unitId !='' ">
-		and u.id = #{unitId}
+		and (u.id=#{unitId} or up.id=#{unitId})
 	</if>
 	
 	

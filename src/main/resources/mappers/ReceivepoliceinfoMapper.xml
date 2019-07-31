@@ -258,11 +258,16 @@ left join t_seatinfo s on c.seatId=s.id
 left join t_areainfo a on s.areaId=a.id
 
 left join t_unitinfo u on a.unitId=u.id
+left join t_unitinfo up on u.parentUnit=up.id
 
 
 	where 1=1
 		<if test=" curUid !=null and curUid !='' ">
-		and u.id  in (select UnitId from t_unitinfo_manager where managerId=#{curUid})
+	
+			and u.id  in (select u1.id from t_unitinfo_manager  u
+left join t_unitinfo u1 on  (u.UnitId=u1.id or u.UnitId=u1.parentUnit)
+ where u.managerId=#{curUid}
+ )
 	</if>
 	
 	<if test=" id !=null and id !='' ">
@@ -289,7 +294,7 @@ left join t_unitinfo u on a.unitId=u.id
 	</if>
 	
 		<if test=" unitId !=null and unitId  !='' ">
-		and u.id=#{unitId}
+		and (u.id=#{unitId} or up.id=#{unitId})
 		
 	</if>
 

@@ -151,15 +151,17 @@
 					</script>
 
 					<div class="">
-						<div class="queryclass row  ">
+						<div class="queryclass row fullwidth ">
 						
 						<div class="indexcenter">
-						 <i class="icon iconfont iconmethod-draw-image"></i>
-						 <span>大厅</span>
+						 <i class="icontop iconfont iconmethod-draw-image"></i>
+						 <span>音频接警大厅</span>
+						 
+						 
 						</div>
 						
 							<div class="indexright">
-								<span class='rightrect'>状态说明:</span> <span class='rightrect'><i
+								<span class='rightrect hide'>状态说明:</span> <span class='rightrect'><i
 									class='seat white'></i>空闲坐席</span> <span class='rightrect'><i
 									class='seat green'></i>正在接警</span> <span class='rightrect'><i
 									class='seat blue'></i>等待接警</span> <span class='rightrect'><i
@@ -168,12 +170,21 @@
 						</div>
 
 					</div>
-					<div class="mainbody">
+					<div class="mainbody fullwidth">
 
 
+				<div class="row ff">
+							<div class="col-sm-12">
 
+								<div class="table-responsive" style="margin: 10px;">
+									<table id="table_list_item"
+										class="tableindex table table-bordered table-hover table-striped"></table>
+								</div>
+							</div>
+						</div>
+						
 
-						<div class="row">
+						<div class="row hide">
 
 							<div class="dvcontainer">
 								<div class="stdv color green">
@@ -181,8 +192,8 @@
 									<div class="st_img">
 										<img src='/an/img/blueSkin/head.png'>
 									</div>
-									<div class="st_idno">001</div>
-									<div class="st_name">张三</div>
+									<div class="st_idno">工号:001</div>
+									<div class="st_name">姓名:张三</div>
 								</div>
 
 								<div class="stdv color blue">
@@ -267,34 +278,7 @@
 
 
 
-					<div class="hide row">
-
-
-
-
-						<div class="col-lg-12">
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<span class="header">坐席信息列表</span>
-								</div>
-								<div class="panel-body">
-
-									<div id="dataTables-example_wrapper"
-										class="dataTables_wrapper form-inline dt-bootstrap no-footer">
-										<div class="row ">
-											<div class=" col-sm-9"></div>
-
-											<div class="col-sm-3 "></div>
-										</div>
-
-
-									</div>
-								</div>
-
-
-							</div>
-						</div>
-					</div>
+					
 
 				</div>
 

@@ -231,7 +231,7 @@ $(function(){
               
                 
                 
-                    <a id="message" title="消息" data-toggle="dropdown" style="margin-top: 20px;"><i class=" fa fa-bell"></i>消息
+                    <a id="message" class='hide' title="消息" data-toggle="dropdown" style="margin-top: 20px;"><i class=" fa fa-bell"></i>消息
                         <span id="hasUnReadMsg" class="badge hide " style="background:red;"></span>
                     </a>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="message">
@@ -278,12 +278,12 @@ $(function(){
                 </li>
                 <li class="refreshBtn mobilehide">
                     <a href="javascript:void(0);" onclick="myWorkbench();" title="我的控制台" style="margin-top: 20px;">
-                        <i class="fa fa-home">控制台</i></a>
+                        <i class="fa fa-home">接警大厅</i></a>
                 </li>
                 
                  <li class="refreshBtn maxhide">
                     <a href="javascript:void(0);" onclick="myWorkbench();" title="我的控制台" style="margin-top: 20px;">
-                        <i class="fa fa-home">控制台</i></a>
+                        <i class="fa fa-home">接警大厅</i></a>
                 </li>
                 <li class="refreshBtn mobilehide">
                     <a href="javascript:void(0);" onclick="refreshMenu();" title="重新加载菜单" style="margin-top: 20px;"><i

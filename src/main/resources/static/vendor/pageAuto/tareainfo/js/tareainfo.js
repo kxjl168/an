@@ -19,8 +19,8 @@ $(function() {
 	InitQuery_item();
 
 
-	  initUnitSelect("q_unitId");
-	  initUnitSelect("unitId");
+	initUnitAreaSelect("q_unitId",1);
+	  initUnitAreaSelect("unitId",1);
 
 	$("#btnAdd_item").click(function() {
 
@@ -28,7 +28,7 @@ $(function() {
 		$("#unitId").select2().val(null).trigger("change");
 		$("#unitId").select2("destroy");
 		$("#unitId").html("");
-		  initUnitSelect("unitId");
+	    initUnitAreaSelect("unitId",1);
 
 		  
 		
@@ -271,7 +271,7 @@ window.PersonnelInformationEvents_item = {
 		         });
 				
 				
-				initUnitSelect("unitId");
+		         initUnitAreaSelect("unitId",1);
 			   
 	
 			   

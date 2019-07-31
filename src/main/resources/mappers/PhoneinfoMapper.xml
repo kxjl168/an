@@ -189,6 +189,7 @@ left join t_seatinfo s on c.seatId=s.id
 left join t_areainfo a on s.areaId=a.id
 
 left join t_unitinfo u on a.unitId=u.id
+left join t_unitinfo up on u.parentUnit=up.id
 
 
 	where 1=1
@@ -229,7 +230,8 @@ left join t_unitinfo u1 on  (u.UnitId=u1.id or u.UnitId=u1.parentUnit)
 	</if>
 	
 		<if test=" unitId !=null and unitId  !='' ">
-		and u.id=#{unitId}
+			and (u.id=#{unitId} or up.id=#{unitId})
+		
 		
 	</if>
 	
