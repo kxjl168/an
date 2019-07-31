@@ -166,6 +166,7 @@ public class CommonModule extends AppBaseController {
 					jmsg.put("tid", ttid); // 坐席id
 					jmsg.put("msg", msg);
 					//jmsg.put("fileurl", FILE_SVR_PATH + "upload/file/" + md5);
+					if(uploadFile!=null)
 					jmsg.put("fileurl", HTTP_PATH + uploadFile.getHttp_relative_path());
 					jmsg.put("msgtype", msgType);
 

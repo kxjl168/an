@@ -675,10 +675,11 @@
                
                <PC_EXPORT_PORT>18000</PC_EXPORT_PORT>
  				<MEDIA_SERVER_URL>rtmp://video.xy001.com.cn:10085/live/</MEDIA_SERVER_URL>
- 				<WXAppID>wx5a0e8cdfad99e03a</WXAppID>
- 				<WXAppSecret>e1e8d305722525dd5265157082594e0c</WXAppSecret>
+ 				<WXAppID>wxa83bac57456b7506</WXAppID>
+ 				<WXAppSecret>075004f892a0adf4c6d5fd0bb2533626</WXAppSecret>
  				<DYSUrlRequest>http://192.168.0.110:8780/</DYSUrlRequest>
  				
+ 		
  				
  				<FILE_SVR_PATH>http://video.xy001.com.cn:18180/VideoAlarm/</FILE_SVR_PATH>
                	<!-- <FILE_SAVE_PATH>/usr/local/videoalarm/tp/</FILE_SAVE_PATH> -->

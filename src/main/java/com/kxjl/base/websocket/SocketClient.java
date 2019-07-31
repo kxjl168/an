@@ -276,7 +276,7 @@ public class SocketClient extends HttpServlet{
 				}
 				if(flag == false) {
 					//没有空闲坐席
-					putVideoAlarm(clientInfo);
+					//putVideoAlarm(clientInfo);
 					SendWeChatAlarmStatus(session, "400", 0);
 				}
 				putSocketInfo(session, clientInfo, clienttype);

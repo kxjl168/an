@@ -99,7 +99,7 @@ public class ClientConnectSvr {
 		// 检测在线坐席心跳是否超时
 		new Thread(new OnlineSeatsClientCheck()).start();
 
-		new Thread(new DistributionOnlineSeats()).start();
+	//	new Thread(new DistributionOnlineSeats()).start();
 		SocketClient.getInstance().setOnlineSeatsSeervice(MEDIA_SERVER_URL, onlineSeatsService);
 	}
 
