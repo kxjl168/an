@@ -99,7 +99,7 @@ public class ClientConnectSvr {
 		// 检测在线坐席心跳是否超时
 		new Thread(new OnlineSeatsClientCheck()).start();
 
-	//	new Thread(new DistributionOnlineSeats()).start();
+		//new Thread(new DistributionOnlineSeats()).start();
 		SocketClient.getInstance().setOnlineSeatsSeervice(MEDIA_SERVER_URL, onlineSeatsService);
 	}
 
@@ -261,15 +261,15 @@ public class ClientConnectSvr {
 											// 接听
 											SocketClient.getInstance().setOnlineSeatsStatus(clientInfo.getUserid(), 4);
 											SocketClient.getInstance().SendWeChatAlarmStatus(clientInfo.getSession(),
-													"200", clientInfo.getAcceptTime());
+													"200", clientInfo.getAcceptTime(),"");
 										} else if (ackCode.equals("201")) {
 											// 拒接
 											SocketClient.getInstance().SendWeChatAlarmStatus(clientInfo.getSession(),
-													"201", clientInfo.getAcceptTime());
+													"201", clientInfo.getAcceptTime(), clientInfo.getUserid());
 										} else if (ackCode.equals("202")) {
 											// 超时
 											SocketClient.getInstance().SendWeChatAlarmStatus(clientInfo.getSession(),
-													"202", clientInfo.getAcceptTime());
+													"202", clientInfo.getAcceptTime(), clientInfo.getUserid());
 										}
 									}
 									case 3: {

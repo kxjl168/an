@@ -3,6 +3,7 @@ package com.kxjl.video.service;
 import java.util.List;
 
 import com.kxjl.video.pojo.AlarmInfo;
+import com.kxjl.video.pojo.ClientInfo;
 import com.kxjl.video.pojo.DictInfo;
 
 /**
@@ -66,6 +67,8 @@ public interface OnlineSeatsService {
 	Integer QueryHasNewInfo(String userid);
 
 	String getReceiveIdByOnSeatsID(String onlineSeatsId);
+
+	void insertAlarmInfoError(int type, ClientInfo clientInfo, String onseatsId);
 
 	
 	

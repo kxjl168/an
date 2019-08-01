@@ -18,7 +18,7 @@
 
         <!-- 数据库连接 -->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://192.168.31.239:3306/video?useUnicode=true&amp;characterEncoding=utf-8"
+                        connectionURL="jdbc:mysql://192.168.100.126:3306/video?useUnicode=true&amp;characterEncoding=utf-8"
                         userId="root"
                         password="123456">
                          <property name="useInformationSchema" value="true"></property>
@@ -39,15 +39,15 @@
             <property name="enableSubPackages" value="true"/>
         </sqlMapGenerator>
 
-        
         <!-- 生成DAO的包名和位置-->
-        <javaClientGenerator type="XMLMAPPER" targetPackage="com.kxjl.video.dao" targetProject="src/main/java">
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.kxjl.video.dao.plus" targetProject="src/main/java">
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
+        
 
 
-  	<table tableName="t_seatinfo" domainObjectName="Seatinfo" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
-<property name="useActualColumnNames" value="true"/> 
+  	<table tableName="videoalarm_errorinfo" domainObjectName="VideoalarmErrorinfo" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+<property name="useActualColumnNames" value="false"/> 
 </table>
 
 

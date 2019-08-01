@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kxjl.video.dao.plus.VideoalarmErrorinfoMapper">
+  <resultMap id="BaseResultMap" type="com.kxjl.video.pojo.AlarmErrorinfo">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="onlineseats_id" jdbcType="INTEGER" property="onlineseatsId" />
+    <result column="userName" jdbcType="VARCHAR" property="username" />
+    <result column="idNumber" jdbcType="VARCHAR" property="idnumber" />
+    <result column="area" jdbcType="VARCHAR" property="area" />
+    <result column="latitude" jdbcType="VARCHAR" property="latitude" />
+    <result column="longitude" jdbcType="VARCHAR" property="longitude" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="wechat_id" jdbcType="VARCHAR" property="wechatId" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="alarm_time" jdbcType="VARCHAR" property="alarmTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, type, onlineseats_id, userName, idNumber, area, latitude, longitude, address, 
+    wechat_id, phone, alarm_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from videoalarm_errorinfo
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from videoalarm_errorinfo
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.kxjl.video.pojo.AlarmErrorinfo">
+    insert into videoalarm_errorinfo (id, type, onlineseats_id, 
+      userName, idNumber, area, 
+      latitude, longitude, address, 
+      wechat_id, phone, alarm_time
+      )
+    values (#{id,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, #{onlineseatsId,jdbcType=INTEGER}, 
+      #{username,jdbcType=VARCHAR}, #{idnumber,jdbcType=VARCHAR}, #{area,jdbcType=VARCHAR}, 
+      #{latitude,jdbcType=VARCHAR}, #{longitude,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{wechatId,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{alarmTime,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.kxjl.video.pojo.AlarmErrorinfo">
+    insert into videoalarm_errorinfo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="onlineseatsId != null">
+        onlineseats_id,
+      </if>
+      <if test="username != null">
+        userName,
+      </if>
+      <if test="idnumber != null">
+        idNumber,
+      </if>
+      <if test="area != null">
+        area,
+      </if>
+      <if test="latitude != null">
+        latitude,
+      </if>
+      <if test="longitude != null">
+        longitude,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="wechatId != null">
+        wechat_id,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="alarmTime != null">
+        alarm_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="onlineseatsId != null">
+        #{onlineseatsId,jdbcType=INTEGER},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="idnumber != null">
+        #{idnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null">
+        #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="latitude != null">
+        #{latitude,jdbcType=VARCHAR},
+      </if>
+      <if test="longitude != null">
+        #{longitude,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="wechatId != null">
+        #{wechatId,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="alarmTime != null">
+        #{alarmTime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.kxjl.video.pojo.AlarmErrorinfo">
+    update videoalarm_errorinfo
+    <set>
+      <if test="type != null">
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="onlineseatsId != null">
+        onlineseats_id = #{onlineseatsId,jdbcType=INTEGER},
+      </if>
+      <if test="username != null">
+        userName = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="idnumber != null">
+        idNumber = #{idnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null">
+        area = #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="latitude != null">
+        latitude = #{latitude,jdbcType=VARCHAR},
+      </if>
+      <if test="longitude != null">
+        longitude = #{longitude,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="wechatId != null">
+        wechat_id = #{wechatId,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="alarmTime != null">
+        alarm_time = #{alarmTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.kxjl.video.pojo.AlarmErrorinfo">
+    update videoalarm_errorinfo
+    set type = #{type,jdbcType=INTEGER},
+      onlineseats_id = #{onlineseatsId,jdbcType=INTEGER},
+      userName = #{username,jdbcType=VARCHAR},
+      idNumber = #{idnumber,jdbcType=VARCHAR},
+      area = #{area,jdbcType=VARCHAR},
+      latitude = #{latitude,jdbcType=VARCHAR},
+      longitude = #{longitude,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      wechat_id = #{wechatId,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      alarm_time = #{alarmTime,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+
+
+<select id="selectList"
+	resultMap="BaseResultMap"
+	parameterType="com.kxjl.video.pojo.AlarmErrorinfo">
+	select
+	<include refid="Base_Column_List" />
+	from videoalarm_errorinfo c
+
+	where 1=1
+	<if test=" id !=null and id !='' ">
+		and c.id = #{id}
+	</if>
+	
+		
+		<if test=" type !=null and type !='' ">
+		and c.type like concat ('%', #{type},'%')
+	</if>
+		
+			
+		
+		<if test=" onlineseatsId !=null and onlineseatsId !='' ">
+		and c.onlineseats_id like concat ('%', #{onlineseatsId},'%')
+	</if>
+		
+			
+
+
+</select>
+
+
+<select id="selectPage"
+	resultMap="BaseResultMap"
+	parameterType="com.kxjl.video.pojo.AlarmErrorinfo">
+	select
+	<include refid="Base_Column_List" />
+	from videoalarm_errorinfo c
+
+	where 1=1
+	<if test=" id !=null and id !='' ">
+		and c.id = #{id}
+	</if>
+	
+		
+		<if test=" type !=null and type !='' ">
+		and c.type like concat ('%', #{type},'%')
+	</if>
+		
+			
+		
+		<if test=" onlineseatsId !=null and onlineseatsId !='' ">
+		and c.onlineseats_id like concat ('%', #{onlineseatsId},'%')
+	</if>
+		
+			
+
+
+</select>
+
+
+<delete id="delete"
+	parameterType="com.kxjl.video.pojo.AlarmErrorinfo">
+	delete from videoalarm_errorinfo
+
+	where id = #{id,jdbcType=VARCHAR}
+
+</delete>
+
+</mapper>

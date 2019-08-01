@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.kxjl.video.pojo.AlarmInfo;
 import com.kxjl.video.pojo.DictInfo;
+import com.kxjl.video.pojo.VideoAlarmErrorInfo;
 
 public interface OnlineSeatsDao {
 
@@ -46,5 +47,7 @@ public interface OnlineSeatsDao {
 	String getReceiveIdByOnSeatsIDFromLogInfo(@Param(value="seatId")String onlineSeatsId);
 
 	void updateLogoutTime(@Param(value="seatId")String seatId);
+
+	void insertAlarmInfoError(VideoAlarmErrorInfo video);
 	
 }

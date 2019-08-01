@@ -21,6 +21,7 @@ import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 import com.kxjl.base.util.ByteIntChange;
 import com.kxjl.base.util.aes.AESEncryptUtil;
 import com.kxjl.video.pojo.ClientInfo;
+import com.kxjl.video.pojo.VideoAlarmErrorInfo;
 import com.kxjl.video.service.OnlineSeatsService;
 
 public class SocketClient extends HttpServlet{
@@ -264,7 +265,7 @@ public class SocketClient extends HttpServlet{
 						SendOnlineWechatAlarmInfo(info.getChannel(), clientInfo, timeNow);
 						//设置在线坐席状态
 						info.setStatus(1);
-						SendWeChatAlarmStatus(clientInfo.getSession(), "101", timeNow);
+						SendWeChatAlarmStatus(clientInfo.getSession(), "101", timeNow, "");
 						clientInfo.setAcceptTime(timeNow);
 						info.setAcceptTime(timeNow);
 						info.setCloseTime(0);
@@ -277,7 +278,12 @@ public class SocketClient extends HttpServlet{
 				if(flag == false) {
 					//没有空闲坐席
 					//putVideoAlarm(clientInfo);
-					SendWeChatAlarmStatus(session, "400", 0);
+					//插入数据异常表
+					onlineSeatsService.insertAlarmInfoError(1, clientInfo, "");
+					VideoAlarmErrorInfo video = new VideoAlarmErrorInfo();
+					video.setType(1);
+					video.setUserName(clientInfo.getName());
+					SendWeChatAlarmStatus(session, "400", 0, "");
 				}
 				putSocketInfo(session, clientInfo, clienttype);
 			}
@@ -307,9 +313,10 @@ public class SocketClient extends HttpServlet{
 		
 	}
 	
-	public void SendWeChatAlarmStatus(Session session, String info, long timeNow) {
+	public void SendWeChatAlarmStatus(Session session, String info, long timeNow, String userid) {
 		if(session == null)
 			return;
+		
 		JSONObject json = new JSONObject();
 		try {
 			if(info.equals("200")) {
@@ -318,6 +325,9 @@ public class SocketClient extends HttpServlet{
 				json.put("rtmpPushUri",MEDIA_SERVER_URL + String.valueOf(timeNow));
 				json.put("rtmpPlayUri",MEDIA_SERVER_URL + String.valueOf(timeNow + 1));
 			}else {
+				if(info.equals("201")|| info.equals("202")) {
+					onlineSeatsService.insertAlarmInfoError(2, wecharSessionClientList.get(session),userid);
+				}
 				json.put("type",1);
 				json.put("ackCode",info);
 			}			

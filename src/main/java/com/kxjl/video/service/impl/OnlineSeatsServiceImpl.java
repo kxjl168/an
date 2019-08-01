@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 
 import com.kxjl.video.dao.OnlineSeatsDao;
 import com.kxjl.video.pojo.AlarmInfo;
+import com.kxjl.video.pojo.ClientInfo;
 import com.kxjl.video.pojo.DictInfo;
+import com.kxjl.video.pojo.VideoAlarmErrorInfo;
 import com.kxjl.video.service.OnlineSeatsService;
 
 @Service
@@ -110,6 +112,24 @@ public class OnlineSeatsServiceImpl implements OnlineSeatsService {
 			userid = onlineSeatsDao.getReceiveIdByOnSeatsIDFromLogInfo(onlineSeatsId);
 		}
 		return userid;
+	}
+
+	@Override
+	public void insertAlarmInfoError(int type, ClientInfo clientInfo, String onseatsId) {
+		VideoAlarmErrorInfo video = new VideoAlarmErrorInfo();
+		video.setType(type);
+		if(type == 2) {
+			video.setOnlineseats_id(getReceiveIdByOnSeatsID(onseatsId));
+		}
+		video.setUserName(clientInfo.getName());
+		video.setIdNumber(clientInfo.getIdentyID());
+		video.setArea(clientInfo.getArea());
+		video.setLatitude(clientInfo.getLatitude());
+		video.setLongitude(clientInfo.getLongitude());
+		video.setAddress(clientInfo.getNote());
+		video.setPhone(clientInfo.getMobilePhone());
+		video.setWechat_id(clientInfo.getWeichatID());
+		onlineSeatsDao.insertAlarmInfoError(video);
 	}
 	
 
