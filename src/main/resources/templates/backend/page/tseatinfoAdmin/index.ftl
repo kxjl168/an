@@ -170,7 +170,7 @@
 						</div>
 
 					</div>
-					<div class="mainbody fullwidth">
+					<div class="mainbody-noborder fullwidth">
 
 
 				<div class="row ff">

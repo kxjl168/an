@@ -2,6 +2,8 @@ package com.kxjl.video.dao.plus;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+
+import java.util.HashMap;
 import java.util.List;
 
 import com.kxjl.video.pojo.AlarmErrorinfo;
@@ -90,4 +92,23 @@ public interface VideoalarmErrorinfoMapper    extends BaseMapper<AlarmErrorinfo>
      * @return
      */
     IPage<AlarmErrorinfo> selectPage(Page page, AlarmErrorinfo item);
+    
+    /**
+     * 按天统计，每天的两种数据
+     * @param item
+     * @return
+     * @author zj
+     * @date 2019年8月1日
+     */
+    List<HashMap> selectDayTotal(AlarmErrorinfo item);
+    
+    
+    /**
+     * 统计全部的两种数据数量
+     * @param item
+     * @return
+     * @author zj
+     * @date 2019年8月1日
+     */
+    List<HashMap> selectTotal(AlarmErrorinfo item);
 }

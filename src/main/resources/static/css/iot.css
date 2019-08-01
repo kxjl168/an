@@ -1043,6 +1043,19 @@ tr.toaccept{
 {
 	width: 100%!important;
 }
+
+.mainbody-noborder {
+	height: auto;
+	min-height: 400px;
+	min-width: 500px;
+	 background-color: transparent; 
+	/* box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.15); */
+	border-radius: 5px;
+	margin-left: 20px;
+	margin-top: 20px;
+	width: 98% !important;
+}
+
 .icontop,.indexcenter span{
 	font-size: 40px!important;
 	
@@ -1096,4 +1109,30 @@ padding: 3px!important;
     margin: 0 auto;
     display: block;
    
+}
+
+.bd{
+	
+	
+}
+.mainbody-chart {
+	height: auto;
+
+	min-width: 500px;
+	 background-color: transparent; 
+	/* box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.15); */
+	border-radius: 5px;
+
+margin-left:5px;
+	margin-top: 20px;
+	width: 98% !important;
+}
+
+.mchart{
+	background-color: #ffffff;
+	box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.15);
+	border-radius: 5px;
+	
+	margin-right: 10px;
+	border: 1px solid #ececec;
 }

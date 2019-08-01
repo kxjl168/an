@@ -51,28 +51,27 @@
 			
 
 
-				<form class="form-inline">
+			<form class="form-inline margin-top-10">
 
-					<div class="form-group">
-						<label for="name" class="lb_text col-xs-5 control-label">类型  1 坐席繁忙  2超时:</label>
+						<div class="form-group large">
+							<label for="name" class="lb_text col-xs-5 control-label">时间:</label>
 
-						<div class="col-xs-7">
-							<input id="q_type" type="text" name="q_type"
-								class="form-control inputtxt" placeholder=""
-								aria-controls="dataTables-example">
+							<div class="col-xs-7">
+								<input type="text" name="startTime"
+									class="form-control inputtxt" id="startTime" placeholder="开始时间"
+									readonly>
+							</div>
 						</div>
-					</div>
 
+						<div class="form-group large">
+							<label for="name" class="lb_text col-xs-5 control-label">~</label>
 
-					<div class="form-group">
-						<label for="name" class="lb_text col-xs-5 control-label">接警人员ID:</label>
-
-						<div class="col-xs-7">
-							<input id="q_onlineseatsId" type="text" name="q_onlineseatsId"
-								class="form-control inputtxt" placeholder=""
-								aria-controls="dataTables-example">
+							<div class="col-xs-7">
+								<input type="text" name="endTime" class="form-control inputtxt"
+									id="endTime" placeholder="结束时间" readonly>
+							</div>
 						</div>
-					</div>
+
 
 					
 					
@@ -90,7 +89,7 @@
 
 					<button type="button" id="btnQry" onclick="doSearch_item()"
 						class="btn  button-primary button-rounded button-small">
-						<i class="fa fa-search fa-lg"></i> <span>查询</span>
+						<i class="fa fa-search fa-lg"></i> <span>查询1</span>
 					</button>
 
 				</form>
@@ -132,14 +131,32 @@ $(function(){
 })
     </script>
 
+<div class="mainbody-chart">
+  <div class="row  nopadding ">
+  
+  
+  <div class="col-xs-6 nopadding bd" >
+    <div id="piechart"  class="mchart" style="height:300px;"></div>
+  </div>
+ 
+ <div class="col-xs-6  nopadding bd" >
+    <div id="linechart"  class="mchart" style="height:300px;"></div>
+</div>
+
+                  
+                </div>
+                
+   </div>
+
+
 
 		<div class="mainbody">
 			<div class="row">
-				<div class="col-xs-5" style="margin-top: 16px;">统计分析列表</div>
+				<div class="col-xs-5" style="margin-top: 16px;"></div>
 				<div class="col-xs-1 col-xs-push-6" style="padding-top: 10px;">
 
 
-					<button type="button" class="btn btn-default" id="btnAdd_item">新增</button>
+					<button type="button" class="hide btn btn-default" id="btnAdd_item">新增</button>
 				</div>
 			</div>
 
@@ -157,42 +174,24 @@ $(function(){
 
 
 
-		<div class="hide row">
-
-
-
-
-			<div class="col-lg-12">
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<span class="header">统计分析列表</span>
-					</div>
-					<div class="panel-body">
-
-						<div id="dataTables-example_wrapper"
-							class="dataTables_wrapper form-inline dt-bootstrap no-footer">
-							<div class="row ">
-								<div class=" col-sm-9"></div>
-
-								<div class="col-sm-3 "></div>
-							</div>
-
-
-						</div>
-					</div>
-
-
-				</div>
-			</div>
-		</div>
+		
 		
 		</div>
 
 		<!-- 模态框（Modal） -->
 		<#include "form.ftl">
 
+<script src="${ctx}/vendor/echarts/js/echarts.min.js"></script>
 
 		<script
 			src="${ctx}/vendor/pageAuto/videoalarmerrorinfo/js/videoalarmerrorinfo.js"></script>
+				<script
+			src="${ctx}/vendor/pageAuto/videoalarmerrorinfo/js/chart.js"></script>
+			
+			
+			
+			<script
+			src="${ctx}/vendor/pageAuto/common/common.js"></script>
+			
 </body>
 </html>

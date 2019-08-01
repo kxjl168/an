@@ -12,6 +12,7 @@ package com.kxjl.video.service;
 
 import com.alibaba.fastjson.JSONObject;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.kxjl.video.pojo.AlarmErrorinfo;
@@ -46,5 +47,22 @@ public interface VideoalarmErrorinfoService {
 
    	 AlarmErrorinfo selectVideoalarmErrorinfoById(Long id) ;
 
-
+     /**
+      * 按天统计，每天的两种数据
+      * @param item
+      * @return
+      * @author zj
+      * @date 2019年8月1日
+      */
+     List<HashMap> selectDayTotal(AlarmErrorinfo item);
+     
+     
+     /**
+      * 统计全部的两种数据数量
+      * @param item
+      * @return
+      * @author zj
+      * @date 2019年8月1日
+      */
+     List<HashMap> selectTotal(AlarmErrorinfo item);
 }

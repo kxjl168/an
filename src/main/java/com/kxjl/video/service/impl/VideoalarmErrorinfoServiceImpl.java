@@ -132,5 +132,29 @@ public class VideoalarmErrorinfoServiceImpl implements VideoalarmErrorinfoServic
 		return data;
 
 	}
+	
+	  /**
+     * 按天统计，每天的两种数据
+     * @param item
+     * @return
+     * @author zj
+     * @date 2019年8月1日
+     */
+   public List<HashMap> selectDayTotal(AlarmErrorinfo item)
+    {
+    	return itemMapper.selectDayTotal(item);
+    }
+    
+    
+    /**
+     * 统计全部的两种数据数量
+     * @param item
+     * @return
+     * @author zj
+     * @date 2019年8月1日
+     */
+   public List<HashMap> selectTotal(AlarmErrorinfo item){
+	   return itemMapper.selectTotal(item);
+   }
 
 }

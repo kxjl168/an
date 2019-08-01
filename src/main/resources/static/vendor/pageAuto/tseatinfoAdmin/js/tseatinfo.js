@@ -164,14 +164,14 @@ function InitQuery_item() {
 		searchOnEnterKey : true,
 		striped : true, // 是否显示行间隔色
 		cache : false, // 是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
-		pagination : true, // 是否显示分页（*）
+		pagination : false, // 是否显示分页（*）
 		sortable : false, // 是否启用排序
 		sortName : 'id', // 排序字段
 		sortOrder : "desc", // 排序方式
 		sidePagination : "server", // 分页方式：client客户端分页，server服务端分页（*）
 		pageNumber : 1, // 初始化加载第一页，默认第一页
-		pageSize : 25, // 每页的记录行数（*）
-		pageList : [  25,50 ], // 可供选择的每页的行数（*）
+		pageSize : 300, // 每页的记录行数（*）
+		pageList : [  300,500 ], // 可供选择的每页的行数（*）
 		search : false, // 是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
 
 		// showColumns: true, //是否显示所有的列
@@ -179,7 +179,7 @@ function InitQuery_item() {
 		// queryParamsType : "limit",
 		queryParams : function queryParams(params) { // 设置查询参数
 			var param = {
-				pageSize : params.limit, // 每页要显示的数据条数
+				pageSize : 300,//params.limit, // 每页要显示的数据条数
 				offset : params.offset, // 每页显示数据的开始行号
 				sortName : params.sort, // 要排序的字段
 				sortOrder : params.order, // 排序规则

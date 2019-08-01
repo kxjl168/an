@@ -8,11 +8,12 @@
  */
 package com.kxjl.video.controller.WebController;
 
-
 import com.github.pagehelper.Page;
 import com.kxjl.base.aopAspect.FunLogType;
 import com.kxjl.base.aopAspect.ManagerActionLog;
 import com.kxjl.base.base.PageCondition;
+import com.kxjl.base.util.AppResult;
+import com.kxjl.base.util.AppResultUtil;
 import com.kxjl.base.util.Message;
 import com.kxjl.base.util.PageUtil;
 import com.kxjl.video.dao.plus.VideoalarmErrorinfoMapper;
@@ -35,6 +36,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -51,7 +53,6 @@ public class VideoalarmErrorinfoController {
 	@Autowired
 	private VideoalarmErrorinfoService videoalarmerrorinfoService;
 
-
 	@RequestMapping("/manager")
 	public String manager(Model model) {
 
@@ -59,9 +60,10 @@ public class VideoalarmErrorinfoController {
 	}
 
 	@RequestMapping("/videoalarmerrorinfoList")
-	@ManagerActionLog(operateDescribe="查询统计分析",operateFuncType=FunLogType.Query,operateModelClassName=VideoalarmErrorinfoMapper.class)
+	@ManagerActionLog(operateDescribe = "查询统计分析", operateFuncType = FunLogType.Query, operateModelClassName = VideoalarmErrorinfoMapper.class)
 	@ResponseBody
-	public String videoalarmerrorinfoList( AlarmErrorinfo item, HttpServletRequest request,PageCondition pageCondition) {
+	public String videoalarmerrorinfoList(AlarmErrorinfo item, HttpServletRequest request,
+			PageCondition pageCondition) {
 
 		String rst = "";
 		List<AlarmErrorinfo> videoalarmerrorinfos = new ArrayList<>();
@@ -78,15 +80,62 @@ public class VideoalarmErrorinfoController {
 		return rst;
 	}
 
-	@RequestMapping("/delete")
-	@ManagerActionLog(operateDescribe="删除统计分析",operateFuncType=FunLogType.Del,operateModelClassName=VideoalarmErrorinfoMapper.class)
+	/**
+	 * 总计
+	 * 
+	 * @param item
+	 * @param request
+	 * @param pageCondition
+	 * @return
+	 * @author zj
+	 * @date 2019年8月1日
+	 */
+	@RequestMapping("/allTotal")
+	// @ManagerActionLog(operateDescribe="查询统计分析",operateFuncType=FunLogType.Query,operateModelClassName=VideoalarmErrorinfoMapper.class)
 	@ResponseBody
-	public Message delete( AlarmErrorinfo item,HttpServletRequest request) {
+	public AppResult allTotal(AlarmErrorinfo item, HttpServletRequest request, PageCondition pageCondition) {
+
+		// String rst = "";
+		List<HashMap> videoalarmerrorinfos = new ArrayList<>();
+
+		Page page = PageUtil.getPage(pageCondition);
+		videoalarmerrorinfos = videoalarmerrorinfoService.selectTotal(item);
+
+		return AppResultUtil.success(videoalarmerrorinfos);
+
+	}
+
+	/**
+	 * 天统计
+	 * 
+	 * @param item
+	 * @param request
+	 * @param pageCondition
+	 * @return
+	 * @author zj
+	 * @date 2019年8月1日
+	 */
+	@RequestMapping("/dayTotal")
+	// @ManagerActionLog(operateDescribe="查询统计分析",operateFuncType=FunLogType.Query,operateModelClassName=VideoalarmErrorinfoMapper.class)
+	@ResponseBody
+	public AppResult dayTotal(AlarmErrorinfo item, HttpServletRequest request, PageCondition pageCondition) {
+
+		// String rst = "";
+		List<HashMap> videoalarmerrorinfos = new ArrayList<>();
+
+		Page page = PageUtil.getPage(pageCondition);
+		videoalarmerrorinfos = videoalarmerrorinfoService.selectDayTotal(item);
+
+		return AppResultUtil.success(videoalarmerrorinfos);
+	}
+
+	@RequestMapping("/delete")
+	@ManagerActionLog(operateDescribe = "删除统计分析", operateFuncType = FunLogType.Del, operateModelClassName = VideoalarmErrorinfoMapper.class)
+	@ResponseBody
+	public Message delete(AlarmErrorinfo item, HttpServletRequest request) {
 
 		Message msg = new Message();
-		
-	
-		
+
 		int result = videoalarmerrorinfoService.deleteVideoalarmErrorinfo(item);
 		if (result == 1) {
 			msg.setBol(true);
@@ -96,13 +145,12 @@ public class VideoalarmErrorinfoController {
 
 	@RequestMapping("/load")
 	@ResponseBody
-	public String load( @RequestParam Long id,HttpServletRequest request) {
-		 
-		
+	public String load(@RequestParam Long id, HttpServletRequest request) {
+
 		AlarmErrorinfo videoalarmerrorinfos = videoalarmerrorinfoService.selectVideoalarmErrorinfoById(id);
-		
-		   return JSON.toJSONString(videoalarmerrorinfos);
-		//return JSONObject.fromObject(videoalarmerrorinfos).toString();
+
+		return JSON.toJSONString(videoalarmerrorinfos);
+		// return JSONObject.fromObject(videoalarmerrorinfos).toString();
 	}
 
 	/**
@@ -112,19 +160,18 @@ public class VideoalarmErrorinfoController {
 	 * @return
 	 */
 	@RequestMapping("/saveOrUpdate")
-	@ManagerActionLog(operateDescribe="保存修改统计分析",operateFuncType=FunLogType.SaveOrUpdate,operateModelClassName=VideoalarmErrorinfoMapper.class)
+	@ManagerActionLog(operateDescribe = "保存修改统计分析", operateFuncType = FunLogType.SaveOrUpdate, operateModelClassName = VideoalarmErrorinfoMapper.class)
 	@ResponseBody
 	public String saveOrUpdate(AlarmErrorinfo videoalarmerrorinfo) {
 
 		JSONObject jsonObject = null;
 		try {
 			if (null == videoalarmerrorinfo.getId()) {
-				
+
 				jsonObject = videoalarmerrorinfoService.saveVideoalarmErrorinfo(videoalarmerrorinfo);
 
 			} else {
 				jsonObject = videoalarmerrorinfoService.updateVideoalarmErrorinfo(videoalarmerrorinfo);
-			
 
 			}
 		} catch (Exception e) {
@@ -134,12 +181,10 @@ public class VideoalarmErrorinfoController {
 		return jsonObject.toString();
 	}
 
-
-    @RequestMapping("/selectvideoalarmerrorinfo")
-    @ResponseBody
-    public List<AlarmErrorinfo> selectvideoalarmerrorinfo( AlarmErrorinfo item) {
-        return videoalarmerrorinfoService.selectVideoalarmErrorinfoList(item);
-    }
-
+	@RequestMapping("/selectvideoalarmerrorinfo")
+	@ResponseBody
+	public List<AlarmErrorinfo> selectvideoalarmerrorinfo(AlarmErrorinfo item) {
+		return videoalarmerrorinfoService.selectVideoalarmErrorinfoList(item);
+	}
 
 }

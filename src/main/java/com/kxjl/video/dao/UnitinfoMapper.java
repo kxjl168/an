@@ -90,4 +90,13 @@ public interface UnitinfoMapper    extends BaseMapper<Unitinfo>    {
      * @return
      */
     IPage<Unitinfo> selectPage(Page page, Unitinfo item);
+    
+    /**
+     * 根据条件查询子单位或者父单位
+     * @param query
+     * @return
+     * @author zj
+     * @date 2019年8月1日
+     */
+    List<Unitinfo> selectLeftTreeList(Unitinfo query);
 }

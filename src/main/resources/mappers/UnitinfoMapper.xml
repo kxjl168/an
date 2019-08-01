@@ -170,6 +170,65 @@
   
 
 
+<select id="selectLeftTreeList"
+	resultMap="BaseResultMap"
+	parameterType="com.kxjl.video.pojo.Unitinfo">
+	select * from (
+	select
+	c.*
+	from t_unitinfo c
+	left join t_unitinfo pc on c.parentUnit=pc.id
+
+	where 1=1
+	
+			<if test=" curUid !=null and curUid !='' ">
+		and c.id  in (select u1.id from t_unitinfo_manager  u
+left join t_unitinfo u1 on  (u.UnitId=u1.id or u.UnitId=u1.parentUnit)
+ where u.managerId=#{curUid}
+ )
+ </if>
+ 
+ union(
+ select
+	pc.*
+	from t_unitinfo c
+	left join t_unitinfo pc on c.parentUnit=pc.id
+
+	where 1=1
+	
+			<if test=" curUid !=null and curUid !='' ">
+		and c.id  in (select u1.id from t_unitinfo_manager  u
+left join t_unitinfo u1 on  (u.UnitId=u1.id or u.UnitId=u1.parentUnit)
+ where u.managerId=#{curUid}
+ </if>
+ )
+ )
+ ) c where 1=1 
+ 
+	
+	
+	<if test=" id !=null and id !='' ">
+		and c.id = #{id}
+	</if>
+	<if test=" name !=null and name  !='' ">
+		and c.name  like   concat('%',#{name},'%')
+		
+	</if>
+	
+	<if test=" unitType !=null and unitType  !='' ">
+		and c.unitType  =#{unitType}
+		
+	</if>
+	
+	<if test=" parentUnit !=null and parentUnit  !='' ">
+		and c.parentUnit  =#{parentUnit}
+		
+	</if>
+
+
+</select>
+
+
 <select id="selectList"
 	resultMap="BaseResultMap"
 	parameterType="com.kxjl.video.pojo.Unitinfo">
