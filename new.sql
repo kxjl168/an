@@ -5,7 +5,7 @@ alter table t_unitinfo add COLUMN
 
 
 INSERT INTO `sys_dict_info` (`id`, `type`, `dict_name`, `dict_value`) VALUES ('10', '4', '坐席繁忙', '1');
-INSERT INTO `ys_dict_info` (`id`, `type`, `dict_name`, `dict_value`) VALUES ('11', '4', '超时未接', '2');
+INSERT INTO `sys_dict_info` (`id`, `type`, `dict_name`, `dict_value`) VALUES ('11', '4', '超时未接', '2');
 
 INSERT INTO `t_receivepoliceinfo` (`Id`, `Phone`, `Password`, `SessionKey`, `Name`, `CreateTime`, `Uptimestamp`, `CreateUser`, `UpdateUser`, `DataState`, `Sex`, `IdCard`, `IdNo`, `Des`, `AvatarUrl`, `SeatId`, `UnitId`, `Status`) VALUES ('ac30dece0bbc4e2d9691a8fc1ad2583b', '13815429446', '111111', NULL, '关1', '2019-07-31 22:36:56', '2019-07-31 22:36:56', NULL, NULL, '1', '男', NULL, '1005', '111', NULL, 'd65dbd3b3f074517aa9c7873148213b8', NULL, '2');
 INSERT INTO `t_receivepoliceinfo` (`Id`, `Phone`, `Password`, `SessionKey`, `Name`, `CreateTime`, `Uptimestamp`, `CreateUser`, `UpdateUser`, `DataState`, `Sex`, `IdCard`, `IdNo`, `Des`, `AvatarUrl`, `SeatId`, `UnitId`, `Status`) VALUES ('b319973adb5e4b288cfa08b96616482c', '13833333312', '111111', NULL, '张飞', '2019-07-31 22:24:20', '2019-07-31 22:24:20', NULL, NULL, '1', '男', NULL, '10001', '111', NULL, 'bcb15b8e73694e028bafa3905015c068', NULL, '0');
@@ -40,3 +40,10 @@ INSERT INTO `t_seatinfo` (`Id`, `Name`, `CreateTime`, `Uptimestamp`, `DataState`
 INSERT INTO `t_seatinfo` (`Id`, `Name`, `CreateTime`, `Uptimestamp`, `DataState`, `AreaId`, `UnitId`, `PersonNum`) VALUES ('bcb15b8e73694e028bafa3905015c068', '003', '2019-07-31 22:22:03', '2019-07-31 22:22:03', '1', '26fc93d7683d45bfade5375c74ce75fb', NULL, NULL);
 INSERT INTO `t_seatinfo` (`Id`, `Name`, `CreateTime`, `Uptimestamp`, `DataState`, `AreaId`, `UnitId`, `PersonNum`) VALUES ('c8e94c03beed495582fc81e7a907868d', '长沙1', '2019-07-21 22:37:28', '2019-07-21 22:37:28', '1', 'e95dfd3ff482402c9b43d9ebba8c2c8f', NULL, NULL);
 INSERT INTO `t_seatinfo` (`Id`, `Name`, `CreateTime`, `Uptimestamp`, `DataState`, `AreaId`, `UnitId`, `PersonNum`) VALUES ('d65dbd3b3f074517aa9c7873148213b8', '004', '2019-07-31 22:22:10', '2019-07-31 22:22:10', '1', '26fc93d7683d45bfade5375c74ce75fb', NULL, NULL);
+
+
+INSERT INTO `videoalarm_errorinfo` (`id`, `type`, `onlineseats_id`, `userName`, `idNumber`, `area`, `latitude`, `longitude`, `address`, `wechat_id`, `phone`, `alarm_time`) VALUES ('2', '2', '3123', '22', '2222', '马路11', '111', '22', '玄武湖1', '', '', '2019-08-01 18:52:44');
+INSERT INTO `videoalarm_errorinfo` (`id`, `type`, `onlineseats_id`, `userName`, `idNumber`, `area`, `latitude`, `longitude`, `address`, `wechat_id`, `phone`, `alarm_time`) VALUES ('4', '1', '3123', '111', '11111', '马路11', '111', '22', '玄武湖1', '', '', '2019-07-31 18:52:44');
+INSERT INTO `videoalarm_errorinfo` (`id`, `type`, `onlineseats_id`, `userName`, `idNumber`, `area`, `latitude`, `longitude`, `address`, `wechat_id`, `phone`, `alarm_time`) VALUES ('5', '1', '3123', '123', '333', '马路11', '111', '22', '玄武湖1', '', '', '2019-07-30 18:52:44');
+INSERT INTO `videoalarm_errorinfo` (`id`, `type`, `onlineseats_id`, `userName`, `idNumber`, `area`, `latitude`, `longitude`, `address`, `wechat_id`, `phone`, `alarm_time`) VALUES ('6', '2', '3123', '123', '33', '马路11', '111', '22', '玄武湖1', '', '', '2019-08-01 10:52:44');
+INSERT INTO `videoalarm_errorinfo` (`id`, `type`, `onlineseats_id`, `userName`, `idNumber`, `area`, `latitude`, `longitude`, `address`, `wechat_id`, `phone`, `alarm_time`) VALUES ('7', '1', '3123', '4123', '444', '马路11', '111', '22', '玄武湖1', '', '', '2019-08-01 08:52:44');

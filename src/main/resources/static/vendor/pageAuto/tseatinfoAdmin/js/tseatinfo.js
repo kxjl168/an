@@ -234,7 +234,7 @@ function getDisplay(rowdata)
 		html+= '<div class="stdv white"> '
 			 +' <div class="st_title">'+rowdata.unitName+"-"+rowdata.name+'</div> '
 			 +' <div class="st_img"> '
-			 +' 	<img src="/an/img/blueSkin/head.png" class="img-responsive"> '
+			 +' 	<img src="'+getRPath()+'/img/blueSkin/head.png" class="img-responsive"> '
 			 +' </div>  '
 			 +' <div class="st_idno">空闲</div> '
 			 +' <div class="st_name ">&nbsp;</div> '
