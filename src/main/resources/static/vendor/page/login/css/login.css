@@ -66,6 +66,9 @@
     border: 1px solid #ccc;
     padding-right: 15px;
 }
+.denglu .help-block{
+	text-align: left!important;
+}
 
 .gt input:focus {
     border-color: #66afe9;

@@ -36,8 +36,8 @@
                 </div>
                 <div class="login-body content" style="margin-left: 45px;">
 
-                    <form role="form" id="login_form" action="${ctx}/login.action" method="POST"
-                          onsubmit="return checkInput();">
+                    <form role="form" id="login_form" name="login_form" action="${ctx}/login.action" method="POST"
+                         >
                         <fieldset>
                             <div class="form-group gt">
                                 <img src="${ctx}/img/user.png" style="margin-left: -200px;"/>
@@ -53,36 +53,28 @@
                                 <input type="hidden" id="password_state">
                             </div>
 
-                        <#--<div class="form-group ">
+                        <div class="form-group  ">
                             <div class="input-group">
-                                <input class="form-control" placeholder="输入右侧验证码" name="captchaCode"
+                                <input class="form-control" style="width:50%" placeholder="输入右侧验证码" name="validateCode"
                                        id="captcha_code" type="text"
                                        value="">
-                                <span class="input-group-addon" id="captcha"><img
-                                        src="${ctx}/validateCode.action" height="20"
+                                <span class=" col-xs-6"  id="captcha"><img
+                                        src="${ctx}/validateCode.action" style="    width: 100px;
+    position: relative;
+    padding: 0px;
+    height: 35px;"
                                         id="captcha_image"></span>
                             </div>
-                        </div>-->
+                        </div>
 
                             <input type="hidden" name="redirect_uri" value="">
-                            <button type="submit"
-                                    class="btn btn-primary btn-block btn-color <#if warning??>disable</#if>">
+                            <button type="button" id="btnlogin"
+                                    class="btn btn-primary btn-block btn-color ">
                                 登&nbsp;&nbsp;录
                             </button>
 
 
-                            <#--<input type="hidden" id="olongurl" value="${oauth_loginurl }">-->
-
-                           <#-- <br>
-                            <button type="type" onclick="ologin()"
-                                    class="btn btn-primary btn-block btn-color ">
-                                中通国脉统一认证 登&nbsp;&nbsp;录
-                            </button>
-                            <script>
-                                function ologin(){
-                                    window.location.href=$("#olongurl").val();
-                                }
-                            </script>-->
+                           
                         </fieldset>
 
 
@@ -103,7 +95,7 @@
 
 <div class="footer hide"><p>Copyright © 2018 .</p></div>
 
-<div class="footer"><p>Copyright © 2019 . <a href="http://www.beian.miit.gov.cn" target="_blank">苏ICP备号</a></p></div>
+<div class="footer"><p>Copyright © 2019 . <a href="http://www.gov.cn" target="_blank">苏ICP备号</a></p></div>
 
  
 

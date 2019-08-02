@@ -13,13 +13,21 @@ import org.springframework.web.servlet.ModelAndView;
 import com.kxjl.base.base.ZtgmErrorCode;
 import com.kxjl.base.pojo.Manager;
 
+import javax.imageio.ImageIO;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.io.OutputStream;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.SecurityUtils;
@@ -41,6 +49,11 @@ public class LoginController {
 
 	private static final Logger log = LoggerFactory.getLogger(LoginController.class);
 
+    private static String validateCodeKey = "validateCode";
+
+    public static final String shiroLoginFailureKey = "shiroLoginFailure";
+
+	
 	@RequestMapping(value = "/login.action")
 	public ModelAndView signIn(ModelAndView model, Manager userinput, HttpServletRequest request,
 			HttpServletResponse response) {
@@ -58,6 +71,29 @@ public class LoginController {
 				request.setAttribute("msg", ZtgmErrorCode.NameOrPassNull.msg);
 				str = "/frontend/login/login.ftl";
 			} else {
+				
+				// 用户填写的验证码
+				String userValidateCode = request.getParameter(validateCodeKey);
+
+				// 用户为填写验证码不进行身份验证
+				if (null == userValidateCode || "".equals(userValidateCode.trim())) {
+					request.setAttribute("code", ZtgmErrorCode.ValideCodeError.code);
+					request.setAttribute("error", ZtgmErrorCode.ValideCodeError.msg);
+					str = "/frontend/login/login.ftl";
+					return new ModelAndView(str);
+				}
+				String crctValidateCode = (String) session.getAttribute(validateCodeKey);
+
+				// 验证用户填写验证码是否正确
+				if (userValidateCode != null && crctValidateCode != null && !userValidateCode.equals(crctValidateCode)) {
+					request.setAttribute("code", ZtgmErrorCode.ValideCodeError.code);
+					request.setAttribute("error", ZtgmErrorCode.ValideCodeError.msg);
+					str = "/frontend/login/login.ftl";
+					return new ModelAndView(str);
+				}
+				
+				
+				
 				// User userInquire = userService.queryPasswordByUsername(username);
 				Subject subject = SecurityUtils.getSubject();
 				UsernamePasswordToken token = new UsernamePasswordToken(username, password);
@@ -114,6 +150,53 @@ public class LoginController {
 		subject.logout();
 		return "/frontend/login/login.ftl";
 	}
+	
+	/**
+	 * 图片验证码
+	 *
+	 * @param request
+	 * @param response
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/validateCode")
+	public void validateCode(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		int width = 60;
+		int height = 32;
+		// create the image
+		BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+		Graphics g = image.getGraphics();
+		// set the background color
+		g.setColor(new Color(0xDCDCDC));
+		g.fillRect(0, 0, width, height);
+		// draw the border
+		g.setColor(Color.black);
+		g.drawRect(0, 0, width - 1, height - 1);
+		// create a random instance to generate the codes
+		Random rdm = new Random();
+		String hash1 = Integer.toHexString(rdm.nextInt());
+		// System.out.print(hash1);
+		// make some confusion
+		for (int i = 0; i < 50; i++) {
+			int x = rdm.nextInt(width);
+			int y = rdm.nextInt(height);
+			g.drawOval(x, y, 0, 0);
+		}
+		// generate a random code
+		String capstr = hash1.substring(0, 4);
+		// 将生成的验证码存入session
+		request.getSession().setAttribute("validateCode", capstr);
+		g.setColor(new Color(0, 100, 0));
+		g.setFont(new Font("Candara", Font.BOLD, 24));
+		g.drawString(capstr, 8, 24);
+		g.dispose();
+		// 输出图片
+		response.setContentType("image/jpeg");
+
+		OutputStream strm = response.getOutputStream();
+		ImageIO.write(image, "jpeg", strm);
+		strm.close();
+	}
+
 
 
 }
