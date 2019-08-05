@@ -242,7 +242,10 @@ function InitQuery_item() {
 				align : 'center',
 				valign : 'middle',
 				 formatter: function (value, row, index) {
+					 if(value)
 			           return  value+"("+row.onlineseats_unitname+"\\"+row.onlineseats_areaname +")"
+			           else
+			        	   return "-";
 			         }    
 				
 			},

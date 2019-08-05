@@ -46,8 +46,8 @@ $(function() {
 	InitQuery_item();
 	
 	setInterval(function() {
-		//doSearch_item();
-	}, 30000);
+		doSearch_item();
+	}, 2000);
 	
 
 	loadAreaTree(treeClick);
@@ -229,27 +229,54 @@ function getDisplay(rowdata)
 	
 	
 	if(typeof(rowdata.idNo)=="undefined" ||
-			typeof(rowdata.status)=="undefined"||	rowdata.status=="4")
+			typeof(rowdata.status)=="undefined" ||rowdata.status=="3")
 		{
-		html+= '<div class="stdv white"> '
+		
+		var css="  white ";
+		var statusName="空闲(未配置接警人员)";
+		var name="&nbsp;";
+		
+		if(typeof(rowdata.status)!="undefined" && rowdata.status=="3")
+			{
+			css=" color leave "; 
+			statusName=rowdata.idNo;
+			name=rowdata.personName+"(离线)";
+			}
+			 
+		
+		html+= '<div class="stdv '+ css +' "> '
 			 +' <div class="st_title">'+rowdata.unitName+"-"+rowdata.name+'</div> '
 			 +' <div class="st_img"> '
 			 +' 	<img src="'+getRPath()+'/img/blueSkin/head.png" class="img-responsive"> '
 			 +' </div>  '
-			 +' <div class="st_idno">空闲</div> '
-			 +' <div class="st_name ">&nbsp;</div> '
+			 +' <div class="st_idno">'+statusName+'</div> '
+			 +' <div class="st_name ">'+name+'</div> '
 			 +' </div>	 ';
 		}
 	else
 	{
 		var css=" color white ";
-		
+		var statusName="空闲";
 		if(rowdata.status=="0")
-			 css=" color blue ";
+			{
+			statusName="空闲";
+			css=" color blue ";
+			}
+			 
 		if(rowdata.status=="1")
+			{
 			 css=" color green ";
+			statusName="繁忙";
+			}
+		
 		if(rowdata.status=="2")
-			 css=" color red ";
+			{
+			css=" color red ";
+			statusName="暂离";
+			}
+			 
+		
+	
 		
 		
 		html+= '<div class="stdv '+ css+' "> '
@@ -258,7 +285,7 @@ function getDisplay(rowdata)
 			 +' 	<img src="'+getRPath()+'/img/blueSkin/head.png" class="img-responsive"> '
 			 +' </div>  '
 			 +' <div class="st_idno">工号:'+rowdata.idNo+'</div> '
-			 +' <div class="st_name">姓名:'+rowdata.personName+'</div> '
+			 +' <div class="st_name">姓名:'+rowdata.personName+'('+statusName+')</div> '
 			 +' </div>	 ';
 	}
 	
