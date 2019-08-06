@@ -59,7 +59,7 @@ public class OnlineSeatsServiceImpl implements OnlineSeatsService {
 
 	@Override
 	public int SetOnlineStatus(String userid, String status) {
-		if(status.equals("4")) {
+		if(status.equals("3")) {
 			onlineSeatsDao.updateLogoutTime(userid);
 		}
 		return onlineSeatsDao.SetOnlineStatus(userid, status);

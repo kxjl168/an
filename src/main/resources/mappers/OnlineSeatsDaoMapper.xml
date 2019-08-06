@@ -193,7 +193,7 @@
 	
 	<update id="SetOnlineStatus" parameterType="java.lang.String">
 	    update t_receivepoliceinfo set Status = #{status} where 
-	    SeatId=#{userid} and Status != 4
+	    SeatId=#{userid} and Status != 3
 	</update>
 	
 	<update id="SetOnlineStatusOnline" parameterType="java.lang.String">

@@ -399,7 +399,7 @@ public class SocketClient extends HttpServlet{
 			if(clientInfo.getType() == 1) {
 				wecharClientList.remove(channel);
 			}else if(clientInfo.getType() == 3){
-				onlineSeatsService.SetOnlineStatus(clientInfo.getUserid(), "4");
+				onlineSeatsService.SetOnlineStatus(clientInfo.getUserid(), "3");
 				String infoResponse = "{\"type\":6}";
 				byte[] v_datapath = AESEncryptUtil.encryptB(infoResponse, SocketClient.aesPassword);	            
 	            byte[] buffResponse1 = new byte[4 + v_datapath.length];
