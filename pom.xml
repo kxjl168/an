@@ -468,11 +468,11 @@
 				<database.password>123456</database.password> 
 	
 				
- 				<server.https.port>443</server.https.port>
- 				<ssl.key.file>xy001.com.cn.jks</ssl.key.file>
+ 			<server.https.port>1443</server.https.port>
+ 				<ssl.key.file>video.xy001.com.cn.jks</ssl.key.file>
  				<ssl.key.password>99588ewb42kc</ssl.key.password>
  					<ssl.key.type>JKS</ssl.key.type>
- 				<ssl.key.alias>xy001.com.cn</ssl.key.alias>
+ 				<ssl.key.alias>video.xy001.com.cn</ssl.key.alias>
  				
  				
  				<PC_EXPORT_PORT>18000</PC_EXPORT_PORT>
@@ -486,7 +486,7 @@
                
 			</properties>
 			<activation>
-				<activeByDefault>false</activeByDefault>
+				<activeByDefault>true</activeByDefault>
 			</activation>
 		</profile>
 		
@@ -537,7 +537,7 @@
 				<database.password>123456</database.password> 
 	
 				
- 				<server.https.port>443</server.https.port>
+ 				<server.https.port>1443</server.https.port>
  				<ssl.key.file>video.xy001.com.cn.jks</ssl.key.file>
  				<ssl.key.password>99588ewb42kc</ssl.key.password>
  					<ssl.key.type>JKS</ssl.key.type>
@@ -555,7 +555,7 @@
                
 			</properties>
 			<activation>
-				<activeByDefault>true</activeByDefault>
+				<activeByDefault>false</activeByDefault>
 			</activation>
 		</profile>
 		

@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com.kxjl.video.pojo.AlarmErrorinfo">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="type" jdbcType="INTEGER" property="type" />
-    <result column="onlineseats_id" jdbcType="INTEGER" property="onlineseatsId" />
+    <result column="onlineseats_id" jdbcType="VARCHAR" property="onlineseatsId" />
     <result column="userName" jdbcType="VARCHAR" property="username" />
     <result column="idNumber" jdbcType="VARCHAR" property="idnumber" />
     <result column="area" jdbcType="VARCHAR" property="area" />
@@ -89,7 +89,7 @@
         #{type,jdbcType=INTEGER},
       </if>
       <if test="onlineseatsId != null">
-        #{onlineseatsId,jdbcType=INTEGER},
+        #{onlineseatsId,jdbcType=VARCHAR},
       </if>
       <if test="username != null">
         #{username,jdbcType=VARCHAR},
@@ -127,7 +127,7 @@
         type = #{type,jdbcType=INTEGER},
       </if>
       <if test="onlineseatsId != null">
-        onlineseats_id = #{onlineseatsId,jdbcType=INTEGER},
+        onlineseats_id = #{onlineseatsId,jdbcType=VARCHAR},
       </if>
       <if test="username != null">
         userName = #{username,jdbcType=VARCHAR},
@@ -162,7 +162,7 @@
   <update id="updateByPrimaryKey" parameterType="com.kxjl.video.pojo.AlarmErrorinfo">
     update videoalarm_errorinfo
     set type = #{type,jdbcType=INTEGER},
-      onlineseats_id = #{onlineseatsId,jdbcType=INTEGER},
+      onlineseats_id = #{onlineseatsId,jdbcType=VARCHAR},
       userName = #{username,jdbcType=VARCHAR},
       idNumber = #{idnumber,jdbcType=VARCHAR},
       area = #{area,jdbcType=VARCHAR},

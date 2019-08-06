@@ -14,7 +14,7 @@ public class AlarmErrorinfo {
     /**
      * 接警人员ID
      */
-    private Integer onlineseatsId;
+    private String onlineseatsId;
 
     /**
      * 报警者姓名
@@ -114,7 +114,7 @@ public class AlarmErrorinfo {
      * 接警人员ID
      * @return onlineseats_id 接警人员ID
      */
-    public Integer getOnlineseatsId() {
+    public String getOnlineseatsId() {
         return onlineseatsId;
     }
 
@@ -122,7 +122,7 @@ public class AlarmErrorinfo {
      * 接警人员ID
      * @param onlineseatsId 接警人员ID
      */
-    public void setOnlineseatsId(Integer onlineseatsId) {
+    public void setOnlineseatsId(String onlineseatsId) {
         this.onlineseatsId = onlineseatsId;
     }
 

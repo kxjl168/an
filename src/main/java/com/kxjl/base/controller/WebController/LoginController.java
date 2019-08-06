@@ -186,7 +186,8 @@ public class LoginController {
 		// 将生成的验证码存入session
 		request.getSession().setAttribute("validateCode", capstr);
 		g.setColor(new Color(0, 100, 0));
-		g.setFont(new Font("Candara", Font.BOLD, 24));
+		g.setFont(new Font("Candara", Font.BOLD, 20));
+		//g.setFont(new Font("Courier", Font.BOLD, 22));
 		g.drawString(capstr, 8, 24);
 		g.dispose();
 		// 输出图片
