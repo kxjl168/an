@@ -181,8 +181,15 @@
 	resultMap="BaseResultMap"
 	parameterType="com.kxjl.video.pojo.AlarmErrorinfo">
 	select
-	<include refid="Base_Column_List" />
+c.*,uinfo.name  onlineseats_unitname, ainfo.name  onlineseats_areaname ,person.name  onlineseats_name,person.IdNo onlineseats_no
+,sinfo.id seat_id,sinfo.name seat_name
 	from videoalarm_errorinfo c
+left join t_receivepoliceinfo person on c.onlineseats_id= person.id
+
+left join t_seatinfo sinfo on sinfo.id= person.SeatId
+left join t_areainfo ainfo on ainfo.id= sinfo.AreaId
+
+left join t_unitinfo uinfo on uinfo.id= ainfo.UnitId
 
 	where 1=1
 	<if test=" id !=null and id !='' ">
@@ -199,11 +206,78 @@
 		<if test=" onlineseatsId !=null and onlineseatsId !='' ">
 		and c.onlineseats_id like concat ('%', #{onlineseatsId},'%')
 	</if>
-		
+	
+
+		<if test=" startDate !=null and startDate  !='' ">
+			<![CDATA[ and c.alarm_time >=  #{startDate} ]]>
+	</if>
+	
+		<if test=" endDate !=null and endDate  !='' ">
+			<![CDATA[ and c.alarm_time <  #{endDate} ]]>
+	</if>
+	
+	order by c.alarm_time desc
 			
 
 
 </select>
+
+<select id="selectTotal"
+	resultType="java.util.HashMap"
+	parameterType="com.kxjl.video.pojo.AlarmErrorinfo">
+
+select tp.*,d.dict_name dictName from (
+select type ,count(*) dictValue from videoalarm_errorinfo c where 1=1
+
+		<if test=" startDate !=null and startDate  !='' ">
+			<![CDATA[ and c.alarm_time >=  #{startDate} ]]>
+	</if>
+	
+		<if test=" endDate !=null and endDate  !='' ">
+			<![CDATA[ and c.alarm_time <  #{endDate} ]]>
+	</if>
+group by type
+) tp left join  sys_dict_info d on (d.type=4 and d.dict_value=tp.type) 
+
+</select>
+
+
+
+
+<select id="selectDayTotal"
+	resultType="java.util.HashMap"
+	parameterType="com.kxjl.video.pojo.AlarmErrorinfo">
+
+
+select tp.date,
+
+max(case dictName
+ when '1' then dictValue
+ else '0'
+ end ) '1',
+
+max(case dictName
+
+ when '2' then dictValue
+ else '0'
+ end ) '2'
+
+from (
+select DATE_FORMAT(alarm_time,'%Y-%m-%d') date,type dictName,count(*) dictValue from videoalarm_errorinfo c
+where 1=1 
+		<if test=" startDate !=null and startDate  !='' ">
+			<![CDATA[ and c.alarm_time >=  #{startDate} ]]>
+	</if>
+	
+		<if test=" endDate !=null and endDate  !='' ">
+			<![CDATA[ and c.alarm_time <  #{endDate} ]]>
+	</if>
+group by DATE_FORMAT(alarm_time,'%Y-%m-%d'),type
+) tp 
+ group by tp.date
+
+</select>
+
 
 
 <select id="selectPage"

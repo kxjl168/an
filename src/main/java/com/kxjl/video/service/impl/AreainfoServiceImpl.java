@@ -63,7 +63,7 @@ public class AreainfoServiceImpl implements AreainfoService {
 			uquery.setUnitType("1");//一级单位
 			uquery.setCurUid(TokenUtil.getWebLoginUser().getId());
 			// uquery.set
-			List<Unitinfo> menus = unitinfoMapper.selectList(uquery);
+			List<Unitinfo> menus = unitinfoMapper.selectLeftTreeList(uquery);
 
 			String rootid = "0";
 			for (Unitinfo menu : menus) {
@@ -194,7 +194,7 @@ public class AreainfoServiceImpl implements AreainfoService {
 		uquery.setUnitType("1");
 		uquery.setCurUid(TokenUtil.getWebLoginUser().getId());
 		// uquery.set
-		List<Unitinfo> menus = unitinfoMapper.selectList(uquery);
+		List<Unitinfo> menus = unitinfoMapper.selectLeftTreeList(uquery);
 
 		Gson gs = new Gson();
 

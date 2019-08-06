@@ -15,11 +15,33 @@ function test(){
 	});
 }
 
+function initQueryDay(){
+	var now=new Date();
+	var before=new Date();
+	var format = "yyyy-MM-dd HH";
+
+	
+		before.setDate(before.getDate()-10);
+		format = "yyyy-MM-dd 00:00:00";
+		var format2 = "yyyy-MM-dd 23:59:59";
+		
+		var begindate =before.Format(format);
+		var enddate = now.Format(format2);
+		
+		$("#startTime").val(begindate);
+		$("#endTime").val(enddate);
+}
+
 $(function() {
 	InitQuery_item();
 
 
-
+	initQueryDay();
+	
+	
+    initDataTimePicker("startTime")
+    initDataTimePicker("endTime")
+    
 	$("#btnAdd_item").click(function() {
 
 	
@@ -94,6 +116,9 @@ $(function() {
 	
 
 
+showPieChart();
+	
+	showLineChart();
 
 
 });
@@ -166,10 +191,10 @@ function InitQuery_item() {
 				sortName : params.sort, // 要排序的字段
 				sortOrder : params.order, // 排序规则
 				
+				startDate:$("#startTime").val(),
+				endDate:$("#endTime").val(),
 				
 				
-				type : $("#q_type").val(),
-				onlineseatsId : $("#q_onlineseatsId").val(),
 				
 				
 			};
@@ -179,24 +204,51 @@ function InitQuery_item() {
 			field : 'id',
 			visible : false
 		},
+		{
+			field : 'alarmTime',
+			title : '时间',
+			align : 'center',
+			valign : 'middle',
+			 formatter: function (value, row, index) {
+	             return new Date(value).Format("yyyy-MM-dd hh:mm:ss");
+	         }  
+			
+		},
+		
 		 {
 				field : 'type',
-				title : '类型  1 坐席繁忙  2超时',
+				title : '异常原因',
+				align : 'center',
+				valign : 'middle',
+				 formatter: function (value, row, index) {
+		            if(value=="1")
+		            	return "坐席繁忙";
+		            else if(value=="2")
+		            	return "超时未接听";
+		         }     
+				
+			},
+		 {
+				field : 'onlineseats_name',
+				title : '接警人员',
 				align : 'center',
 				valign : 'middle',
 				   
 				
 			},
-		 {
-				field : 'onlineseatsId',
-				title : '接警人员ID',
+			{
+				field : 'seat_name',
+				title : '坐席(单位\片区)',
 				align : 'center',
 				valign : 'middle',
-				   
+				 formatter: function (value, row, index) {
+			           return  value+"("+row.onlineseats_unitname+"\\"+row.onlineseats_areaname +")"
+			         }    
 				
 			},
+			
 		 {
-				field : 'userName',
+				field : 'username',
 				title : '报警者姓名',
 				align : 'center',
 				valign : 'middle',
@@ -204,7 +256,7 @@ function InitQuery_item() {
 				
 			},
 		 {
-				field : 'idNumber',
+				field : 'idnumber',
 				title : '身份证号',
 				align : 'center',
 				valign : 'middle',
@@ -219,22 +271,7 @@ function InitQuery_item() {
 				   
 				
 			},
-		 {
-				field : 'latitude',
-				title : '纬度',
-				align : 'center',
-				valign : 'middle',
-				   
-				
-			},
-		 {
-				field : 'longitude',
-				title : '经度',
-				align : 'center',
-				valign : 'middle',
-				   
-				
-			},
+		 
 		 {
 				field : 'address',
 				title : '地理位置',
@@ -250,6 +287,7 @@ function InitQuery_item() {
 			title : '操作',
 			field : 'vehicleno',
 			align : 'center',
+			visible : false,
 			formatter : modifyAndDeleteButton_item,
 			events : PersonnelInformationEvents_item
 		}
@@ -326,6 +364,10 @@ function doSearch_item() {
 		silent : true
 	};
 	$("#table_list_item").bootstrapTable('refresh', opt);
+	
+	showPieChart();
+	
+	showLineChart();
 	
 	//success("test");
 }

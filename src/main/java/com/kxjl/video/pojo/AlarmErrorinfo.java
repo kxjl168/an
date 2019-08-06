@@ -60,6 +60,23 @@ public class AlarmErrorinfo {
      * 报警时间
      */
     private String alarmTime;
+    
+    private String startDate;//查询开始
+    private String endDate;//查询开始
+    private String onlineseats_name;//接警人员名称
+    
+    
+    private String onlineseats_unitid;//接警人员id
+    private String onlineseats_unitname;//接警人员单位
+    
+    private String onlineseats_areaid;//接警人员片区id
+    private String onlineseats_areaname;//接警人员片区
+    
+    
+    private String seat_id;//坐席id
+    private String seat_name;//坐席名称
+    
+    private String onlineseats_no;//接警人员工号
 
     /**
      * 序号
@@ -252,4 +269,86 @@ public class AlarmErrorinfo {
     public void setAlarmTime(String alarmTime) {
         this.alarmTime = alarmTime == null ? null : alarmTime.trim();
     }
+
+	public String getOnlineseats_unitid() {
+		return onlineseats_unitid;
+	}
+
+	public void setOnlineseats_unitid(String onlineseats_unitid) {
+		this.onlineseats_unitid = onlineseats_unitid;
+	}
+
+	public String getOnlineseats_unitname() {
+		return onlineseats_unitname;
+	}
+
+	public void setOnlineseats_unitname(String onlineseats_unitname) {
+		this.onlineseats_unitname = onlineseats_unitname;
+	}
+
+	public String getOnlineseats_areaid() {
+		return onlineseats_areaid;
+	}
+
+	public void setOnlineseats_areaid(String onlineseats_areaid) {
+		this.onlineseats_areaid = onlineseats_areaid;
+	}
+
+	public String getOnlineseats_areaname() {
+		return onlineseats_areaname;
+	}
+
+	public void setOnlineseats_areaname(String onlineseats_areaname) {
+		this.onlineseats_areaname = onlineseats_areaname;
+	}
+
+	public String getOnlineseats_no() {
+		return onlineseats_no;
+	}
+
+	public void setOnlineseats_no(String onlineseats_no) {
+		this.onlineseats_no = onlineseats_no;
+	}
+
+	public String getOnlineseats_name() {
+		return onlineseats_name;
+	}
+
+	public void setOnlineseats_name(String onlineseats_name) {
+		this.onlineseats_name = onlineseats_name;
+	}
+
+	public String getSeat_id() {
+		return seat_id;
+	}
+
+	public void setSeat_id(String seat_id) {
+		this.seat_id = seat_id;
+	}
+
+	public String getSeat_name() {
+		return seat_name;
+	}
+
+	public void setSeat_name(String seat_name) {
+		this.seat_name = seat_name;
+	}
+
+	public String getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+
+	public String getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
+	}
+
+	
 }
