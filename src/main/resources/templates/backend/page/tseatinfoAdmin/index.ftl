@@ -7,7 +7,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>接警大厅</title>
+<title>视频接警大厅</title>
 
 
 <link rel="stylesheet" type="text/css" href="${ctx}/css/iot.css">
@@ -155,7 +155,7 @@
 						
 						<div class="indexcenter">
 						 <i class="icontop iconfont iconmethod-draw-image"></i>
-						 <span>音频接警大厅</span>
+						 <span>视频接警大厅</span>
 						 
 						 
 						</div>
@@ -163,9 +163,11 @@
 							<div class="indexright">
 								<span class='rightrect hide'>状态说明:</span> <span class='rightrect'><i
 									class='seat white'></i>空闲坐席</span> <span class='rightrect'><i
-									class='seat green'></i>正在接警</span> <span class='rightrect'><i
-									class='seat blue'></i>等待接警</span> <span class='rightrect'><i
+									class='seat green'></i>正在接警(繁忙)</span> <span class='rightrect'><i
+									class='seat blue'></i>等待接警(空闲)</span> <span class='rightrect'><i
 									class='seat red'></i>暂时离开</span>
+									<span class='rightrect'><i
+									class='seat leave'></i>人员离线</span>
 							</div>
 						</div>
 
