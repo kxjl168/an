@@ -229,14 +229,14 @@ function getDisplay(rowdata)
 	
 	
 	if(typeof(rowdata.idNo)=="undefined" ||
-			typeof(rowdata.status)=="undefined" ||rowdata.status=="3")
+			typeof(rowdata.status)=="undefined" ||rowdata.status=="3"||rowdata.status=="4")
 		{
 		
 		var css="  white ";
 		var statusName="空闲(未配置接警人员)";
 		var name="&nbsp;";
 		
-		if(typeof(rowdata.status)!="undefined" && rowdata.status=="3")
+		if(typeof(rowdata.status)!="undefined" && (rowdata.status=="3"||rowdata.status=="4"))
 			{
 			css=" color leave "; 
 			statusName=rowdata.idNo;

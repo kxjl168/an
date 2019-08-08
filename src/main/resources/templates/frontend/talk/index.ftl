@@ -31,7 +31,7 @@ html {
 
 	<div class="col-xs-12 nopadding">
 
-		<div class="col-sm-6 col-xs-12 nopadding ">
+		<div class="col-sm-4 col-xs-12 nopadding ">
 
 			<div class="leftalarmlist col-xs-12 row queryclassalarm">
 
@@ -40,11 +40,11 @@ html {
 
 					<hr>
 				</div>
-				<div class="qcontent">
+				<div class="qcontent" >
 				<div id="dataTables-example_wrapper"
 					class="dataTables_wrapper form-inline dt-bootstrap no-footer">
 					<div class="row ">
-						<div class="table-responsive" style="margin: 10px;">
+						<div class="table-responsive" style="margin: 1px;">
 							<table id="table_list_item" class="table   table-hover "></table>
 						</div>
 					</div>
@@ -60,10 +60,12 @@ html {
 
 					<hr>
 				</div>
-
-	<div class="qcontent">
+				
+								<div class="qcontent">
 				<div id="adetail"></div>
 </div>
+
+
 				<!-- <div class="row orow">
 					<div class="">
 						<label class="col-lg-3 nopadding" style="font-weight: bold;">视频附件:</label>
@@ -83,15 +85,14 @@ html {
 		</div>
 
 
-		<div class="col-sm-6 col-xs-12 nopadding ">
+		<div class="col-sm-3 col-xs-12 nopadding ">
 			<div class="queryclassalarm queryrightdv col-xs-12 row ">
 				<div class='querytitle '>
 					<h5>沟通记录</h5>
 
 					<hr>
 				</div>
-
-				<div id="txtmsglist" class=" txtmsglist col-xs-12 form-control"
+<div id="txtmsglist" class=" txtmsglist col-xs-12 form-control"
 					readonly="readonly" rows="15" cols=""></div>
 				<textarea id="txtmsginput" name="txtmsginput"
 					class="col-xs-12 form-control margin-top-10" rows="5" cols=""></textarea>
@@ -113,14 +114,44 @@ html {
 
 
 				</div>
+				
 
 			</div>
 
-			<#include "form.ftl"/>
+			
+		</div>
+		
+		
+		
+		<div class="col-sm-5  col-xs-12 nopadding ">
+			<div class="queryclassalarm queryrightdv col-xs-12 row ">
+				<div class='querytitle '>
+					<h5>定位信息</h5>
+
+					<hr>
+				</div>
+
+	<div class="qcontent2">
+				<div id="adetail2"></div>
+</div>
+				
+				<div class="col-xs-12 nopadding margin-top-10">
+
+				
+							<iframe class="mapframe" src="${ctx}/talk/map" id="iframeCommunity"></iframe>
+						
+				</div>
+
+			</div>
+
+			
+		</div>
+		
+		<#include "form.ftl"/>
 			<#include "formPic.ftl"/>
 			<#include "vd.ftl"/>
 			<#include "video.ftl"/>
-		</div>
+		
 
 
 <div class="tpdata hide"></div>

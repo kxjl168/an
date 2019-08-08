@@ -70,6 +70,23 @@ public class AlarmTalkinfoController {
 	
 	
 	/**
+	 * 
+	 * @param request
+	 * @param model
+	 * @return
+	 * @author zj
+	 * @date 2019年8月8日
+	 */
+	@RequestMapping("/map")
+	public String map(HttpServletRequest request, Model model) {
+
+		//
+		String receviePersonId = request.getParameter("id");
+
+		return "/frontend/talk/map_c.ftl";
+	}
+	
+	/**
 	 * 聊天首页
 	 * 
 	 * @param request

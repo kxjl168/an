@@ -182,7 +182,7 @@ embed {
 	margin-left: 5px;
 	margin-top: 5px;
 	padding: 15px;
-	width: 98% !important;
+	width: 99% !important;
 	
 	/* min-height: 400px; */
 	 /*    height: auto!important; */
@@ -212,6 +212,15 @@ embed {
 	overflow-y:auto; 
 }
 
+.leftalarmlist .qcontent
+{
+margin-left: -10px!important;
+    margin-right: -10px!important;
+}
+.leftalarmlist .fixed-table-toolbar
+{
+	display: none;
+}
 
 .queryclass .form-group{
 	width: 280px;
@@ -823,7 +832,7 @@ table.table-noborder td
 	/*  max-height: 500px; */ 
 	 min-height: 200px;
 	/* height:300px;  */
-	overflow-y:scroll;
+	overflow-y:auto;
 	
 }
 

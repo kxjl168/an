@@ -20,21 +20,30 @@ function resetHeight(height){
 	}
 	
 	setTimeout(function() {
-		var rightlistheight=parseInt( height)*2/3-70-65 +"px"; //-標題高度 -底部高度
-		var rightinputheight=parseInt( height)/3-20-40 +"px";   //-留白高度
+		//var rightlistheight=parseInt( height)*2/3-70-65 +"px"; //-標題高度 -底部高度
+		
+		
+		var rightlistheight=(parseInt( height)/2)-50 +"px"; //-標題高度 -底部高度
+		
+		var rightinputheight=(parseInt( height)/2)-80-40 +"px";   //-留白高度
 		
 		var rightdvheight=parseInt( height)-20 +"px";   //-留白高度
 		  
 	
 		  var leftlistheight=((parseInt( height)/2)-65)+"px"; //-标题高度
 		  
-		  $(".queryrightdv").css("height",rightdvheight);
+		  //$(".queryrightdv").css("height",rightdvheight);
 		  $("#txtmsglist").css('height',rightlistheight);
-			$("body").find(".cke_contents.cke_reset").css("height",rightinputheight); 
-		  $("body").find(".cke_contents.cke_reset").height(rightinputheight); 
+		
+		  	$("body").find(".cke_contents.cke_reset").css("height",rightinputheight); 
+	  $("body").find(".cke_contents.cke_reset").height(rightinputheight); 
 		  
 		  
 		  $(".qcontent").css('height',leftlistheight);
+		  
+		  $(".mapframe").css('height',(parseInt( height) -80-50)+'px');
+		  $(".qcontent2").css('height',50+'px');
+		  
 		  
 	}, 500);
   
@@ -574,9 +583,25 @@ function changeAlarm(row) {
 
 	var html = getVideoInfo(row);
 	$("#adetail").html(html);
+	
+	var html2 = getVideoInfo2(row);
+	$("#adetail2").html(html2);
+	
 
 	//refreshVd(row);
 	loadTalk(row);
+	
+	loadMapPosition(row);
+}
+
+function loadMapPosition(rowdata){
+	
+	var lon=112.1
+	var lat=33.1;
+	
+	var address=rowdata.occurrence_address||rowdata.address;
+	
+	   document.getElementById("iframeCommunity").contentWindow.panToC(rowdata.longitude,rowdata.latitude,address);
 }
 
 var myplayer=null;
@@ -814,6 +839,89 @@ window.PersonnelInformationEvents_item = {
 	},
 
 }
+
+function getsex(rowdata)
+{
+	var s= typeof(rowdata.sex)=="undefined"?"":rowdata.sex;
+	
+	return s;
+	
+}
+
+function getVideoInfo2(rowdata) {
+	var html = "";
+
+	var alarmtime = rowdata.occurrence_time.substr(0,
+			rowdata.occurrence_time.length - 2);
+	
+	var tm = rowdata.alarm_time.substr(0,
+			rowdata.alarm_time.length - 2);
+	
+	
+	var status = "";
+	if (rowdata.status == "1")
+		{
+		status = "已报警";
+		if(rowdata.type=="2")//视频报警，全部为已受理
+			status = "已受理";
+		}
+		
+	else if (rowdata.status == "2")
+		status = "已受理";
+	else if (rowdata.status == "3")
+		status = "已出警";
+	else if (rowdata.status == "4")
+		status = "已关闭";
+	
+	 var casetypename= (rowdata.case_typename==null)?' &nbsp;':rowdata.case_typename
+			 var caselevelname= (rowdata.case_levelname==null)?' &nbsp;':rowdata.case_levelname
+
+	html += '<div class="row orow">'
+			+ ' <div class=""> '
+
+			+ '	<label class="col-xs-2 nopadding" style="font-weight: bold;">姓名:</label> '
+			+ '	<div class="col-xs-3 nopadding"> ' + '		<span >'
+			+ rowdata.userName
+			+ '</span> '
+			+ '		<p class="help-block"></p> '
+			+ '	</div> '
+			
+			+ '	<label class="col-xs-2 nopadding" style="font-weight: bold;">性别:</label> '
+			+ '	<div class="col-xs-3 nopadding"> ' + '		<span >'
+			+  getsex(rowdata)
+			+ '</span> '
+			+ '		<p class="help-block"></p> '
+			+ '	</div> '
+			
+			+ ' </div> ' + '</div> '
+			
+			
+			+ '<div class="row orow">'
+			+ ' <div class=""> '
+			
+			+ '	<label class="col-xs-2 nopadding" style="font-weight: bold;">手机:</label> '
+			+ '	<div class="col-xs-3 nopadding"> ' + '		<span >'
+			+ rowdata.phone
+			+ '</span> '
+			+ '		<p class="help-block"></p> '
+			+ '	</div> '
+			
+			+ '	<label class="col-xs-2 nopadding" style="font-weight: bold;">证件号码:</label> '
+			+ '	<div class="col-xs-3 nopadding"> ' + '		<span >'
+			+ rowdata.idNumber
+			+ '</span> '
+			+ '		<p class="help-block"></p> '
+			+ '	</div> '
+			
+		
+			
+			+ ' </div> ' + '</div> ';
+	 
+	 
+	 return html;
+			
+}
+
 
 function getVideoInfo(rowdata) {
 	var html = "";
