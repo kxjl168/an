@@ -25,7 +25,7 @@ function resetHeight(height){
 		
 		var rightlistheight=(parseInt( height)/2)-50 +"px"; //-標題高度 -底部高度
 		
-		var rightinputheight=(parseInt( height)/2)-80-40 +"px";   //-留白高度
+		var rightinputheight=(parseInt( height)/2)-80-34 +"px";   //-留白高度
 		
 		var rightdvheight=parseInt( height)-20 +"px";   //-留白高度
 		  
@@ -41,11 +41,11 @@ function resetHeight(height){
 		  
 		  $(".qcontent").css('height',leftlistheight);
 		  
-		  $(".mapframe").css('height',(parseInt( height) -80-50)+'px');
+		  $(".mapframe").css('height',(parseInt( height) -80-60)+'px');
 		  $(".qcontent2").css('height',50+'px');
 		  
 		  
-	}, 500);
+	}, 1500);
   
    
 }

@@ -95,6 +95,12 @@ function markLocationC(mapId, address) {
     });
 }
 
+function removeMarkers(){
+    map.remove(markers);
+}
+
+var markers = [];
+
 var marker;
 // 清除 marker
 function clearMarker() {
@@ -108,6 +114,7 @@ function clearMarker() {
 function panToC(longitude, latitude,txt) {
    
 	clearMarker();
+	removeMarkers();
 	
 	setTimeout(function(){
 		map.setZoomAndCenter(15, [longitude, latitude]);
@@ -120,6 +127,8 @@ function panToC(longitude, latitude,txt) {
 	        map: map,
 	        position: new AMap.LngLat(longitude, latitude),   // 经纬度
 	    });
+	    
+	     markers.push(marker);
 	},500)
 	
     
