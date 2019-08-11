@@ -31,6 +31,7 @@ function resetHeight(height){
 		  
 	
 		  var leftlistheight=((parseInt( height)/2)-65)+"px"; //-标题高度
+		  var lefttable=((parseInt( height)/2)-65-50)+"px"; //-表格
 		  
 		  //$(".queryrightdv").css("height",rightdvheight);
 		  $("#txtmsglist").css('height',rightlistheight);
@@ -40,6 +41,9 @@ function resetHeight(height){
 		  
 		  
 		  $(".qcontent").css('height',leftlistheight);
+		  
+		  $(".fixed-table-body").css('height',lefttable)
+		  
 		  
 		  $(".mapframe").css('height',(parseInt( height) -80-60)+'px');
 		  $(".qcontent2").css('height',50+'px');

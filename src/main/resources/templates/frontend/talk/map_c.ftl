@@ -119,7 +119,8 @@ function panToC(longitude, latitude,txt) {
 	setTimeout(function(){
 		map.setZoomAndCenter(15, [longitude, latitude]);
 	    
-
+		clearMarker();
+		removeMarkers();
 
 	    // 添加标记
 	     marker = new AMap.Marker({

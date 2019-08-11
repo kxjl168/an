@@ -40,7 +40,7 @@ html {
 
 					<hr>
 				</div>
-				<div class="qcontent" >
+				<div class="qcontent noscroll" >
 				<div id="dataTables-example_wrapper"
 					class="dataTables_wrapper form-inline dt-bootstrap no-footer">
 					<div class="row ">

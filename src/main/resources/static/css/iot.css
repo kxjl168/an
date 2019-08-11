@@ -211,6 +211,10 @@ embed {
 {
 	overflow-y:auto; 
 }
+.noscroll{
+	
+	overflow-y:hidden;
+}
 
 .leftalarmlist .qcontent
 {
