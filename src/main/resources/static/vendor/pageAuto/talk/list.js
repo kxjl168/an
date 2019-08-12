@@ -23,9 +23,11 @@ function resetHeight(height){
 		//var rightlistheight=parseInt( height)*2/3-70-65 +"px"; //-標題高度 -底部高度
 		
 		
-		var rightlistheight=(parseInt( height)/2)-50 +"px"; //-標題高度 -底部高度
+		//var rightlistheight=(parseInt( height)/2)-50 +"px"; //-標題高度 -底部高度
 		
-		var rightinputheight=(parseInt( height)/2)-80-34 +"px";   //-留白高度
+		//var rightinputheight=(parseInt( height)/2)-80-34 +"px";   //-留白高度
+		var rightlistheight=(parseInt( height))-50 -200 -80-34+"px"; //-標題高度 -底部高度
+		var rightinputheight=200 +"px";   //-留白高度
 		
 		var rightdvheight=parseInt( height)-20 +"px";   //-留白高度
 		  
@@ -378,6 +380,9 @@ function InitQuery_item(rid) {
 			};
 			return param;
 		},
+		onloadSuccess:function(){
+			
+		},
 		onPostBody : function() {
 			
 				setTimeout(function() {
@@ -403,6 +408,10 @@ function InitQuery_item(rid) {
 						}
 					
 				}, 500);
+				
+				var data= $(".pagination-info").html();
+				var index=data.indexOf('，');
+				$('.pagination-info').html(data.substr(index+1));
 				
 				
 		},
