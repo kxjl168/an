@@ -109,7 +109,7 @@ public class VideoalarmTalkinfo {
     }
 
     /**
-     * 消息类型 1:文本
+     * 消息类型 1:文本,2
      * @return msgType 消息类型 1:文本
      */
     public String getMsgType() {
@@ -117,7 +117,7 @@ public class VideoalarmTalkinfo {
     }
 
     /**
-     * 消息类型 1:文本
+     * 消息类型 1:文本 ,2：图片，3：音频，4：视频
      * @param msgType 消息类型 1:文本
      */
     public void setMsgType(String msgType) {

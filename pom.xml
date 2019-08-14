@@ -414,7 +414,19 @@
 			<version>1.0.0</version>
 		</dependency>
 
+<!-- https://mvnrepository.com/artifact/commons-net/commons-net -->
+<dependency>
+    <groupId>commons-net</groupId>
+    <artifactId>commons-net</artifactId>
+    <version>3.6</version>
+</dependency>
 
+
+<dependency>
+    <groupId>com.jcraft</groupId>
+    <artifactId>jsch</artifactId>
+    <version>0.1.54</version>
+</dependency>
 
 		<!-- <dependency> <groupId>javax.servlet.jsp.jstl</groupId>   <artifactId>jstl-api</artifactId>
 			<version>1.2</version> </dependency> -->
@@ -486,7 +498,7 @@
                
 			</properties>
 			<activation>
-				<activeByDefault>true</activeByDefault>
+				<activeByDefault>false</activeByDefault>
 			</activation>
 		</profile>
 		
@@ -552,10 +564,23 @@
  				   <FILE_SVR_PATH>http://127.0.0.1:7779/an/</FILE_SVR_PATH>
                	<FILE_SAVE_PATH>E:\\code\\tpimg\\</FILE_SAVE_PATH>
                
+          
+               	<HTTP_PATH>http://127.0.0.1:7779/an/fileuppath/</HTTP_PATH>
+               	
+               
+               
+               <talk.wxTalkSendUrl>http://192.168.0.110:8780/AlarmExchFromWXMeth</talk.wxTalkSendUrl>
+               <talk.platTalkSendUrl>http://44.80.13.22:8080/ServiceBus</talk.platTalkSendUrl>
+               
+               <ftp.host>192.168.31.239</ftp.host>
+               <ftp.port>22</ftp.port>
+               <ftp.username>zj</ftp.username>
+               <ftp.password>9452423kx</ftp.password>
+               <ftp.remotePath>/home/zj/test</ftp.remotePath>
                
 			</properties>
 			<activation>
-				<activeByDefault>false</activeByDefault>
+				<activeByDefault>true</activeByDefault>
 			</activation>
 		</profile>
 		
@@ -609,6 +634,14 @@
  				<ssl.key.password>99588ewb42kc</ssl.key.password>
  					<ssl.key.type>JKS</ssl.key.type>
  				<ssl.key.alias>xy001.com.cn</ssl.key.alias>
+               
+             	<FILE_SVR_PATH>http://video.xy001.com.cn:18180/VideoAlarm/</FILE_SVR_PATH>
+               	<!-- <FILE_SAVE_PATH>/usr/local/videoalarm/tp/</FILE_SAVE_PATH> -->
+               	<FILE_SAVE_PATH>/usr/local/apache-tomcat-8.5.39/webapps/fileuppath/</FILE_SAVE_PATH>
+               	
+               	<HTTP_PATH>http://video.xy001.com.cn:18188/fileuppath/</HTTP_PATH>
+               	
+               	
                
                <PC_EXPORT_PORT>18000</PC_EXPORT_PORT>
  				<MEDIA_SERVER_URL>rtmp://192.168.0.202:1935/live/</MEDIA_SERVER_URL>
@@ -686,6 +719,18 @@
                	<FILE_SAVE_PATH>/usr/local/apache-tomcat-8.5.39/webapps/fileuppath/</FILE_SAVE_PATH>
                	
                	<HTTP_PATH>http://video.xy001.com.cn:18188/fileuppath/</HTTP_PATH>
+               	
+               	
+               	  <talk.wxTalkSendUrl>http://192.168.0.110:8780/AlarmExchFromWXMeth</talk.wxTalkSendUrl>
+               <talk.platTalkSendUrl>http://44.80.13.22:8080/ServiceBus</talk.platTalkSendUrl>
+               
+               <ftp.host>127.0.0.1</ftp.host>
+               <ftp.port>22</ftp.port>
+               <ftp.username>root</ftp.username>
+               <ftp.password>6y7u*i(O</ftp.password>
+               <ftp.remotePath>/usr/local/test</ftp.remotePath>
+               
+               	
 			</properties>
 			<activation>
 				<activeByDefault>false</activeByDefault>
