@@ -231,9 +231,23 @@ public class CommonModule extends AppBaseController {
 			// query.setOrder("asc");
 			List<VideoalarmTalkinfo> talks = videoalarmTalkinfoService.selectVideoalarmTalkinfoList(query);
 
+			
+			
+			
+			
 			for (int i = 0; i < talks.size(); i++) {
+				
 				if (talks.get(i).getFileUrl() != null && !talks.get(i).getFileUrl().equals("")) {
-					talks.get(i).setFileUrl(FILE_SVR_PATH + "upload/file/" + talks.get(i).getFileUrl());
+					
+					
+					SvrFileInfo fquery = new SvrFileInfo();
+					fquery.setFile_md5(talks.get(i).getFileUrl());
+					SvrFileInfo uploadFile = fileService.getFileInfo(fquery);
+					talks.get(i).setFileUrl(HTTP_PATH + uploadFile.getHttp_relative_path());
+					
+					
+					//替換
+					//talks.get(i).setFileUrl(FILE_SVR_PATH + "upload/file/" + talks.get(i).getFileUrl());
 				}
 			}
 
