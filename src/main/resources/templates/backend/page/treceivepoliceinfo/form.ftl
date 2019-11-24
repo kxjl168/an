@@ -1,6 +1,6 @@
 <!-- 模态框（Modal） -->
 <div class="modal fade" data-backdrop="static" id="myModal_item"
-	tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+	role="dialog" aria-labelledby="myModalLabel"
 	aria-hidden="true" style="display: none;">
 	<div class="modal-dialog">
 		<div class="modal-content">

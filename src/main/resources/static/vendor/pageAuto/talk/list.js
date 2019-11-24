@@ -33,7 +33,7 @@ function resetHeight(height){
 		  
 	
 		  var leftlistheight=((parseInt( height)/2)-65)+"px"; //-标题高度
-		  var lefttable=((parseInt( height)/2)-65-50)+"px"; //-表格
+		  var lefttable=((parseInt( height)/2)-65-50-40)+"px"; //-表格
 		  
 		  //$(".queryrightdv").css("height",rightdvheight);
 		  $("#txtmsglist").css('height',rightlistheight);
@@ -47,8 +47,8 @@ function resetHeight(height){
 		  $(".fixed-table-body").css('height',lefttable)
 		  
 		  
-		  $(".mapframe").css('height',(parseInt( height) -80-60)+'px');
-		  $(".qcontent2").css('height',50+'px');
+		  $(".mapframe").css('height',(parseInt( height) -80-260-40)+'px');
+		  $(".qcontent2").css('height',250+'px');
 		  
 		  
 	}, 1500);
@@ -111,6 +111,7 @@ $(function() {
 	InitQuery_item(rid);
 	
 	setInterval(function() {
+		if(!iseditor)
 		doSearch_item();
 	}, 30000);
 	
@@ -247,20 +248,16 @@ function initCk(){
 	            exec: function( editor ) {
 	            	
 	            	var selection = CKEDITOR.instances.txtmsginput.getSelection();
-	            	//if(selection.getType()==3){
-	            	//var img=$( selection.getSelectedElement().$ );
-	            	//$kfile.get("upimgs").showpre(img.attr("src"));
-	            	//}
-	            	
+	            
 	            	$kfile.get("upimgs").uploadimg( $kfile.get("upimgs").container.find(".gdimg") );
 	            }
 	        });
-	        editor.ui.addButton( btn_name2, {
+	        /*editor.ui.addButton( btn_name2, {
 	            label: '上传图片',
 	            command:cmd_name2,
 	            toolbar: 'others',
 	            icon:  getRPath() +'/img/blueSkin/tree-4.png',
-	        });
+	        });*/
 	        editor.on("doubleclick", function(a) {
                 var b = a.data.element;
                 !b.is("img") || b.data("cke-realelement") || b.isReadOnly() || ( 
@@ -287,6 +284,11 @@ function initCk(){
 		 // resetHeight();
     });
 	  
+	  
+	  $("#btnuploadimg").click(function(){
+		  $kfile.get("upimgs").uploadimg( $kfile.get("upimgs").container.find(".gdimg") );
+	  })
+		
 
 }
 
@@ -347,7 +349,7 @@ function InitQuery_item(rid) {
 		method : 'post', // 请求方式（*）
 		contentType : 'application/x-www-form-urlencoded',
 		toolbar : '#toolbar', // 工具按钮用哪个容器
-		showHeader : true,
+		showHeader : false,
 		searchAlign : 'left',
 		buttonsAlign : 'left',
 
@@ -593,18 +595,37 @@ function changeAlarm(row) {
 
 	curAlarmId = row.id;
 	refreshSelectAlarm();
-
-	var html = getVideoInfo(row);
-	$("#adetail").html(html);
 	
-	var html2 = getVideoInfo2(row);
-	$("#adetail2").html(html2);
 	
 
-	//refreshVd(row);
-	loadTalk(row);
+	$.ajax({
+		type : "post",
+		url : getRPath() + '/talk/loadAlarm',
+		data : {
+			id : curAlarmId
+		},
+		async : false,
+		dataType : "json",
+		success : function(response) {
+
+			row=response;
+
+
+
+			var html = getVideoInfo(row);
+			$("#adetail").html(html);
+			
+			var html2 = getVideoInfo2(row);
+			$("#adetail2").html(html2);
+			
+
+			//refreshVd(row);
+			loadTalk(row);
+			
+			loadMapPosition(row);
+		}
+	});
 	
-	loadMapPosition(row);
 }
 
 function loadMapPosition(rowdata){
@@ -935,6 +956,45 @@ function getVideoInfo2(rowdata) {
 			
 }
 
+var iseditor=false;
+function txtFoucs(eveny){
+	iseditor=true;
+	console.log("foucs")
+	
+}
+function txtUnFoucs(){
+	iseditor=false;
+	console.log("unfoucs")
+}
+$(function(){
+	$("#adetail").on("click","#txtdescription",function(event){
+		event.stopPropagation();
+	})
+	//$(selector).on(event,childSelector,data,function)
+	$("#adetail").click(function(){
+		txtUnFoucs();
+	});
+})
+
+function txtChange(){
+	var data = "id="+curAlarmId;
+	data+="&description="+$("#txtdescription").val();//已受理
+
+	
+	$.ajax({
+		type : "post",
+		url : getRPath() + '/talk/saveOrUpdateAlarm',
+		data : data,
+		async : false,
+		dataType : "json",
+		success : function(response) {
+
+			//$("#myModal_item").modal('hide');
+			//doSearch_item();
+			success("数据已保存!");
+		}
+	});
+}
 
 function getVideoInfo(rowdata) {
 	var html = "";
@@ -991,8 +1051,8 @@ function getVideoInfo(rowdata) {
 			+ '		<p class="help-block"></p> '
 			+ '	</div> '
 			
-			+ '	<label class="col-xs-2 nopadding" style="font-weight: bold;">案件类型:</label> '
-			+ '	<div class="col-xs-4 nopadding"> '
+			+ '	<label class="hide col-xs-2 nopadding" style="font-weight: bold;">案件类型:</label> '
+			+ '	<div class="hide col-xs-4 nopadding"> '
 			+ '		<span >'
 			//+"1"
 			+casetypename
@@ -1008,8 +1068,8 @@ function getVideoInfo(rowdata) {
 			+ '		<p class="help-block"></p> '
 			+ '	</div> '
 			
-			+ '	<label class="col-xs-2 nopadding" style="font-weight: bold;">案件级别:</label> '
-			+ '	<div class="col-xs-4 nopadding"> '
+			+ '	<label class="hide col-xs-2 nopadding" style="font-weight: bold;">案件级别:</label> '
+			+ '	<div class="hide col-xs-4 nopadding"> '
 			+ '		<span >'
 			+caselevelname
 			//+  (typeof(rowdata.case_levelname)=="undefined")?"":rowdata.case_levelname
@@ -1053,9 +1113,9 @@ function getVideoInfo(rowdata) {
 
 			+ '	<label class="col-xs-2 nopadding" style="font-weight: bold;">警情描述:</label> '
 			+ '	<div class="col-xs-12 nopadding"> '
-			+ '		<span >'
+			+ '		<textarea id="txtdescription" οnblur="txtUnFoucs()" onfocus="txtFoucs()" onchange="txtChange()"  rows="5" class="col-xs-12 form-control">'
 			+ rowdata.description
-			+ '</span> '
+			+ '</textarea > '
 			+ '		<p class="help-block"></p> '
 			+ '	</div> '
 

@@ -177,7 +177,7 @@ embed {
 
 .queryclassalarm {
 	background-color: #ffffff;
-	box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.15);
+	/* box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.15); */
 	border-radius: 5px;
 	margin-left: 5px;
 	margin-top: 5px;
@@ -187,6 +187,12 @@ embed {
 	/* min-height: 400px; */
 	 /*    height: auto!important; */
 }
+
+
+
+
+
+
 .cke_bottom.cke_reset_all
 {
 	display: none;
@@ -244,6 +250,7 @@ margin-left: -10px!important;
     content: "\f077";
 
 }
+
 
 .queryclass2 {
 	height: 80px;
@@ -674,7 +681,9 @@ ul.nav.nav-tabs>li>a, ul.nav.nav-tabs>li>a:visited, ul.nav.nav-tabs>li>a:selecte
 }
 .querytitle h5{
 	padding-left: 15px;
-	color: white;
+	color: #35abe4;
+	font-weight:bold;
+	font-size: 18px;
 }
 .querytitle hr{
 	margin-top: -5px;
@@ -837,6 +846,7 @@ table.table-noborder td
 	 min-height: 200px;
 	/* height:300px;  */
 	overflow-y:auto;
+	margin-bottom: 15px;
 	
 }
 
@@ -1231,4 +1241,39 @@ margin-left:5px;
 	
 	margin-right: 10px;
 	border: 1px solid #ececec;
+}
 
+.queryclassalarm .querytitle{
+	background-color: transparent!important;
+	border: 0px!important;
+	
+}
+.queryclassalarm .querytitle hr{
+	height: 0px;
+	border: 0px;
+}
+
+.white{
+	background: white!important;
+}
+
+.queryclassalarm .qcontent,.txtmsglist,#cke_txtmsginput,.qcontent3{
+box-shadow:1px 1px 3px 2px rgba(0, 0, 0, 0.15);
+border-radius: 5px;
+background: white!important;
+border: 0px;
+}
+
+.cke_top
+{
+	display: none!important;
+} 
+#btnuploadimg{
+	margin-right: 5px;
+}
+.queryrightdv{
+	    margin: 5px;
+    padding-top: 15px;
+    padding-left: 5px;
+    padding-right: 5px;
+}

@@ -22,10 +22,13 @@
 html {
 	overflow: auto;
 }
+body{
+background: white;
+}
 </style>
 </head>
 
-<body style="overflow-x:hide">
+<body style="overflow-x:hide" >
 
 
 
@@ -36,7 +39,7 @@ html {
 			<div class="leftalarmlist col-xs-12 row queryclassalarm">
 
 				<div class='querytitle '>
-					<h5>事件</h5>
+					<h5><i class="fa fa-newspaper-o"></i>实时报警</h5>
 
 					<hr>
 				</div>
@@ -45,6 +48,11 @@ html {
 					class="dataTables_wrapper form-inline dt-bootstrap no-footer">
 					<div class="row ">
 						<div class="table-responsive" style="margin: 1px;">
+						<div class="tbhead">
+								<table class="table  table-hover table-striped" style="margin-bottom:0px;">
+								<thead><tr><th style="text-align: center; vertical-align: middle; " data-field="occurrence_time"><div class="th-inner ">报警时间</div><div class="fht-cell"></div></th><th style="text-align: center; vertical-align: middle; " data-field="type"><div class="th-inner ">报警类型</div><div class="fht-cell"></div></th><th style="text-align: center; vertical-align: middle; " data-field="userName"><div class="th-inner ">报警人</div><div class="fht-cell"></div></th><th style="text-align: center; vertical-align: middle; " data-field="address"><div class="th-inner ">地理位置</div><div class="fht-cell"></div></th><th style="text-align: center; " data-field="vehicleno"><div class="th-inner ">操作</div><div class="fht-cell"></div></th></tr></thead>
+								</table>
+								</div>
 							<table id="table_list_item" class="table   table-hover "></table>
 						</div>
 					</div>
@@ -56,12 +64,13 @@ html {
 
 			<div class="leftalarmlist col-xs-12 row queryclassalarm margin-top-5">
 				<div class='querytitle '>
-					<h5>事件详情</h5>
+					<h5><i class="fa fa-info-circle"></i>事件详情</h5>
 
 					<hr>
 				</div>
 				
 								<div class="qcontent">
+								
 				<div id="adetail"></div>
 </div>
 
@@ -88,7 +97,7 @@ html {
 		<div class="col-sm-3 col-xs-12 nopadding ">
 			<div class="queryclassalarm queryrightdv col-xs-12 row ">
 				<div class='querytitle '>
-					<h5>沟通记录</h5>
+					<h5><i class="fa fa-comments-o"></i>沟通记录</h5>
 
 					<hr>
 				</div>
@@ -106,10 +115,17 @@ html {
 						</select>
 					</div>
 					<div class="col-xs-6">
+					
+					
 						<button id="btnmsg" type="button"
 							class="pull-right btn btn-success">
 							<i class="fa fa-send">发送</i>
 						</button>
+					
+						<button id="btnuploadimg" type="button"
+							class="pull-right btn btn-default">
+							<i class="fa fa-upload">选择图片</i>
+						</button>	&nbsp;
 					</div>
 
 
@@ -126,16 +142,20 @@ html {
 		<div class="col-sm-5  col-xs-12 nopadding ">
 			<div class="queryclassalarm queryrightdv col-xs-12 row ">
 				<div class='querytitle '>
-					<h5>定位信息</h5>
+					<h5><i class="fa fa-user"></i>用户信息</h5>
 
 					<hr>
 				</div>
 
-	<div class="qcontent2">
+	<div class="qcontent qcontent2">
 				<div id="adetail2"></div>
 </div>
-				
-				<div class="col-xs-12 nopadding margin-top-10">
+				<div class='querytitle margin-top-5'>
+					<h5><i class="fa fa-map-marker"></i>定位信息</h5>
+
+					<hr>
+				</div>
+				<div class="col-xs-12 qcontent3 nopadding margin-top-10">
 
 				
 							<iframe class="mapframe" src="${ctx}/talk/map" id="iframeCommunity"></iframe>
