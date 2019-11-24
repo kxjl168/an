@@ -15,7 +15,7 @@ import java.util.List;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.http.HttpStatus;
-
+import org.apache.http.client.methods.HttpGet;
 import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,7 +25,11 @@ import com.kxjl.base.base.SysConst;
 import com.kxjl.base.util.aes.AesHelper;
 import com.kxjl.base.util.sendpost.FormFieldKeyValuePair;
 import com.kxjl.base.util.sendpost.HttpPostEmulator;
+import com.kxjl.base.util.sendpost.HttpSendGet;
+import com.kxjl.base.util.sendpost.HttpSendPost;
+import com.kxjl.base.util.sendpost.SendPostResponse;
 import com.kxjl.base.util.sendpost.UploadFileItem;
+import com.kxjl.video.util.SendPostRequest;
 
 import javax.websocket.*;
 
@@ -52,7 +56,42 @@ public class test {
 		
 		//testAppTalkImg("3","F:\\IMG\\bus.png");
 		
-		testUpload("F:\\IMG\\house.png");
+		//testUpload("F:\\IMG\\house.png");
+		
+		testget();
+	}
+	
+	public static void testget() {
+		String url="https://www.tvbsmh.com/comicinfo-ajaxgetchapter.html";
+		 try {
+			 
+			 String geturl="https://www.tvbsmh.com/api/forum/obtain/Comicpost?comic_id=nnfrd";
+	//SendPostResponse res=	HttpSendGet.doGet(geturl);
+	
+	//JSONObject jrst=new JSONObject(res.getData());
+	
+	JSONObject jobj = new JSONObject();
+	jobj.put("cartoon_id", "nnfrd");
+	jobj.put("order_by", "1");
+	jobj.put("chapter_type", "1");//"20190625133925536");
+	
+	
+	String commetdata = jobj.toString();
+
+	String data2="";
+	for (String key : jobj.keySet()) {
+		data2+=key+"="+jobj.optString(key)+"&";
+	}
+	if(!data2.equals(""))
+	data2=data2.substring(0,data2.length()-1);
+	
+	String rst=sendHttpData("",url, data2);
+
+		System.out.println(rst);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 
@@ -1811,13 +1850,29 @@ public static void testUpload(String filepath)  {
 		InputStream is = new java.io.ByteArrayInputStream(str.getBytes("utf-8"));
 		client.setTimeout(60000);
 
-		//httpPost.setRequestHeader("Content-type", "application/json");
-		 httpPost.setRequestHeader("Content-type", "application/x-www-form-urlencoded;charset=UTF-8");
+		httpPost.setRequestHeader("Content-type", "application/x-www-form-urlencoded; charset=UTF-8");
+		 //httpPost.setRequestHeader("Content-type", "application/x-www-form-urlencoded;charset=UTF-8");
 
-		httpPost.setRequestHeader("Accept", "application/json");
-		httpPost.setRequestHeader("Connection", "close");
-		httpPost.setRequestHeader(SysConst.AUTHORIZATION, auth);
+		//httpPost.setRequestHeader("Accept", "*/*");
+		//httpPost.setRequestHeader("Connection", "close");
+		//httpPost.setRequestHeader(SysConst.AUTHORIZATION, auth);
 
+		//httpPost.setRequestHeader("Cookie", "__cfduid=dec8c480a104a1731c2f7ea36e3951ec91571826177;");
+		
+		//httpPost.setRequestHeader(":authority", "www.tvbsmh.com");
+		//httpPost.setRequestHeader(":method", "POST");
+		
+		//httpPost.setRequestHeader(":path", "/comicinfo-ajaxgetchapter.html");
+		//httpPost.setRequestHeader(":scheme", "https");
+		//httpPost.setRequestHeader("sec-fetch-mode", "cors");
+		//httpPost.setRequestHeader("sec-fetch-site", "same-origin");
+		//httpPost.setRequestHeader("referer", "https://www.tvbsmh.com/comic-nnfrd-BloodyGirl");
+		httpPost.setRequestHeader("User-agent", "Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36");
+		
+		
+		//*****必須*****
+		httpPost.setRequestHeader("x-requested-with", "XMLHttpRequest");
+	
 		// httpPost.setRequestHeader("Authorization", "Basic YWRtaW46MTIz");
 		httpPost.setRequestBody(is);
 
@@ -1829,7 +1884,7 @@ public static void testUpload(String filepath)  {
 			if (resStatusCode == HttpStatus.SC_OK) {
 				BufferedReader br = new BufferedReader(
 						new InputStreamReader(httpPost.getResponseBodyAsStream(), "utf-8"));
-				logger.info("HTTP Request CHARSET:" + httpPost.getResponseCharSet());
+				//logger.info("HTTP Request CHARSET:" + httpPost.getResponseCharSet());
 				String res = null;
 				StringBuffer sb = new StringBuffer();
 				while ((res = br.readLine()) != null) {
