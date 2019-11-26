@@ -24,6 +24,7 @@
                 </div>
             </div>
             <div class="modal-footer">
+           
                 <button type="button" class="btn btn-default" data-dismiss="modal"
                         id="close1">关闭
                 </button>

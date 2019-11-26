@@ -14,6 +14,8 @@ import com.alibaba.fastjson.JSONObject;
 
 import java.util.List;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import com.kxjl.video.pojo.VideoalarmInfo;
 
 /**
@@ -45,6 +47,26 @@ public interface VideoalarmInfoService {
 
 
    	 VideoalarmInfo selectVideoalarmInfoById(Long id) ;
+   	 
+   	/**
+ 	 * 新增或者删除附件url。  附件通过picture_url 字段传入。
+ 	 * 比较    /**
+
+   picture_url;
+
+
+    video_url;
+
+   
+   audio_url; 数据
+ 	 * @param actionType add,remove
+ 	 * @param item
+ 	 * @return
+ 	 * @author zj
+ 	 * @date 2019年11月26日
+ 	 */
+ 
+ 	public JSONObject editVideoalarmFile(String actionType,VideoalarmInfo item);
 
 
 }

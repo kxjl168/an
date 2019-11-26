@@ -176,9 +176,11 @@ background: white;
 
 <div class="tpdata hide"></div>
 <input type="hidden" id="httppath" value="${httppath }">
+<input type="hidden" id="httppath2" value="${httppath2 }">
 						<div id="upimgs" class="hide"></div>
 
-
+  <script src="${ctx}/js/jquery/jquery.content.js"></script>
+    
 
 		<script src="${ctx}/vendor/pageAuto/talk/talk.js"></script>
 		<script src="${ctx}/vendor/pageAuto/talk/list.js"></script>

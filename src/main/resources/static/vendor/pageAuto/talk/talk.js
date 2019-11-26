@@ -78,8 +78,9 @@ function sendmsg(){
 	   var imgs= $(allinput).find("img");
 	   $.each(imgs,function(index,item){
 		   var fileurl=$(item).attr("fid");
+		   var filelinkurl=$(item).attr("src");
 			send(curAlarmId,"","2",fileurl);
-			var msginfo=formatMsg("","2",getRPath() +"/upload/file/"+fileurl)
+			var msginfo=formatMsg("","2",filelinkurl)
 			appendToList(msginfo,true);
 	   });
 
@@ -108,20 +109,20 @@ function formatMsg(msg,msgtype,fileurl)
 	if(msgtype=="1")
 		return msg;
 	else if(msgtype=="2")//img
-		return "<span class='talkimg'><img onclick='showDetailImgModal(\"" + fileurl + "\")' src='"+fileurl+"' class='img-responsive '></span>";
+		return "<span class='talkimg'><img onclick='showDetailImgModal(\"" + fileurl + "\")' data='"+fileurl+"' src='"+fileurl+"' class='img-responsive detailimg '></span>";
 	else if(msgtype=="3")//voice
 		{
 		// var url=imgIdArr[imgId]
 		  var vdtpurl=getRootPath() + "/img/an/vo.jpg";
        //  htmlStr += "<img onclick='playAudio(\"" + url + "\")' class='img-responsive vdimg' src='" + vdtpurl + "'/>"
            
-         return "<span class='talkimg'><img title='点击播放音频' onclick='playAudio(\"" + fileurl + "\")' src='"+vdtpurl+"' class='img-responsive vdimg'></span>";
+         return "<span class='talkimg'><img title='点击播放音频' onclick='playAudio(\"" + fileurl + "\")' data='"+fileurl+"' src='"+vdtpurl+"' class='img-responsive detailaudio vdimg'></span>";
 		}
 		
 	else if(msgtype=="4")//video
 		{
 		  var vdtpurl=getRootPath() + "/img/an/play.png";
-		return "<span class='talkimg'><img title='点击播放视频' onclick='playVd(\"" + fileurl + "\")' src='"+vdtpurl+"' class='img-responsive vdimg'></span>";
+		return "<span class='talkimg'><img title='点击播放视频' onclick='playVd(\"" + fileurl + "\")' data='"+fileurl+"'  src='"+vdtpurl+"' class='img-responsive detailvd vdimg'></span>";
 		}
 		
 	

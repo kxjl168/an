@@ -820,6 +820,7 @@ table.table-noborder td
 
 }
 
+
 .nopadding{
 	padding: 0px!important;
 }
@@ -937,11 +938,6 @@ table.table-noborder td
 }
 
 
-.vdimg{
-	width: 50px;
-	float: left;
-	padding-left: 5px;
-}
 
 tr.newinforow{
 	/* background: #f1d982; */
@@ -1277,3 +1273,35 @@ border: 0px;
     padding-left: 5px;
     padding-right: 5px;
 }
+
+.removeimg
+{
+    content: url(../img/qx.png);
+    position: relative;
+    bottom: -5px;
+    /* left: 40px; */
+    right: 15px;
+    width: 15px;
+    height: 15px;
+    width: 15px;
+    float: right;
+    display: none;
+}
+
+.vdimg{
+	width: 50px;
+	
+	
+}
+.edit .removeimg{
+	display: block;
+}
+
+.vdimg2{
+	margin-top:10px;
+	width: 50px;
+	float: left;
+	padding-left: 10px;
+}
+
+

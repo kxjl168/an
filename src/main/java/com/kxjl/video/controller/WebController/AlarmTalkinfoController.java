@@ -109,6 +109,9 @@ public class AlarmTalkinfoController {
 		
 		 
 		request.setAttribute("httppath", FILE_SVR_PATH);
+		
+		request.setAttribute("httppath2", HTTP_PATH);
+		
 
 		VideoalarmInfo query = new VideoalarmInfo();
 		query.setOnlineseats_id(receviePersonId);
@@ -168,6 +171,34 @@ public class AlarmTalkinfoController {
 
 		return rst;
 	}
+	
+	/**
+	 * 编辑附件
+	 * @param videoalarminfo
+	 * @return
+	 * @author zj
+	 * @date 2019年11月26日
+	 */
+	@RequestMapping("/editVideoalarmFile")
+	//@ManagerActionLog(operateDescribe = "保存修改报警事件", operateFuncType = FunLogType.SaveOrUpdate, operateModelClassName = VideoalarmInfoMapper.class)
+	@ResponseBody
+	public String editVideoalarmFile(HttpServletRequest request, VideoalarmInfo videoalarminfo) {
+
+		JSONObject jsonObject = null;
+		try {
+			
+			String actiontype=request.getParameter("actiontype");
+		
+				jsonObject = videoalarminfoService.editVideoalarmFile(actiontype,videoalarminfo);
+
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		assert jsonObject != null;
+		return jsonObject.toString();
+	}
+	
 
 	@RequestMapping("/saveOrUpdateAlarm")
 	@ManagerActionLog(operateDescribe = "保存修改报警事件", operateFuncType = FunLogType.SaveOrUpdate, operateModelClassName = VideoalarmInfoMapper.class)

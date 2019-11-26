@@ -101,8 +101,69 @@ function doSearch_item() {
 }
 
 
-$(function() {
+function initcontent(){
+	context.init({
+	    fadeSpeed: 100,
+	    filter: function ($obj){},
+	    above: 'auto',
+	    preventDoubleContext: true,
+	    compress: false
+	});
+	
+	context.attach('.detailimg',[
+		{
+			text:'添加至警情',
+			href:'#',
+			action:function(e){
+				e.preventDefault();
+				  var data = $(context.target).attr('data');
+				//var data=$(e).attr('data');
+				//msg("add pic"+data);
+				
+				fileChange("add",data);
+			}
+			
+		},
+	])
+	
+	
+		context.attach('.detailaudio',[
+		{
+			text:'添加至警情',
+			href:'#',
+			action:function(e){
+				e.preventDefault();
+				  var data = $(context.target).attr('data');
+				//var data=$(e).attr('data');
+				//msg("add pic"+data);
+				
+				fileChange("add",data);
+			}
+			
+		},
+	])
+	
+		context.attach('.detailvd',[
+		{
+			text:'添加至警情',
+			href:'#',
+			action:function(e){
+				e.preventDefault();
+				  var data = $(context.target).attr('data');
+				//var data=$(e).attr('data');
+				//msg("add pic"+data);
+				
+				fileChange("add",data);
+			}
+			
+		},
+	])
+	
+	
+}
 
+$(function() {
+	initcontent();
 	var rid = GetQueryString("id");
 	
 
@@ -111,8 +172,8 @@ $(function() {
 	InitQuery_item(rid);
 	
 	setInterval(function() {
-		if(!iseditor)
-		doSearch_item();
+		//if(!iseditor)
+		//doSearch_item();
 	}, 30000);
 	
 
@@ -225,7 +286,12 @@ function initCk(){
 		cleanpic:false,//再次弹出时是否清除图片显示
 		uploaddonecallback:function(obj){
 			var htmlData=CKEDITOR.instances.txtmsginput.getData();
-			var appEndData='<img src="'+$("#httppath").val()+"upload/file/"+obj.md5+'"  fid="'+obj.md5+'"  class="img-responsive "   >';
+			//var appEndData='<img src="'+$("#httppath").val()+"upload/file/"+obj.md5+'"  fid="'+obj.md5+'"  class="img-responsive "   >';
+			
+			var appEndData='<img src="'+$("#httppath2").val()+obj.relativeURL+'"  fid="'+obj.md5+'"  class="img-responsive "   >';
+			
+			
+			
 			//var theData=htmlData+appEndData;
 			 var ele=CKEDITOR.dom.element.createFromHtml(appEndData);
 			
@@ -996,7 +1062,60 @@ function txtChange(){
 	});
 }
 
+
+function fileChange(type,url){
+	var data = "id="+curAlarmId;
+	data+="&actiontype="+type+"&picture_url="+encodeURIComponent( url);//已受理
+
+	
+	$.ajax({
+		type : "post",
+		url : getRPath() + '/talk/editVideoalarmFile',
+		data : data,
+		async : false,
+		dataType : "json",
+		success : function(response) {
+
+			//$("#myModal_item").modal('hide');
+			//doSearch_item();
+			success("附件已更新!");
+			
+			var row={};
+			row.id=curAlarmId;
+			changeAlarm(row);
+		}
+	});
+}
+function removedata(url)
+{
+	cconfirm("确定要删除附件吗？",function(){
+		fileChange("remove",url);
+	},function(){
+		
+	}) ;
+}
+
+
+
+function editdetails(t){
+	if($(t).html()=="编辑附件")
+		{
+		$("#adetail").addClass("edit")	
+		$(t).html("关闭编辑");
+		}
+	else
+		{
+		$("#adetail").removeClass("edit")
+		$(t).html("编辑附件");
+		}
+	
+}
+
+
 function getVideoInfo(rowdata) {
+	
+	$("#adetail").removeClass("edit");
+	
 	var html = "";
 
 	var alarmtime = rowdata.occurrence_time.substr(0,
@@ -1119,14 +1238,14 @@ function getVideoInfo(rowdata) {
 			+ '		<p class="help-block"></p> '
 			+ '	</div> '
 
-			+ '	<label class="col-xs-3 nopadding" style="font-weight: bold;">影像附件:</label> '
+			+ '	<label class="col-xs-3 nopadding" style="font-weight: bold;">影像附件: &nbsp;</label> <button class="col-xs-3" onclick="editdetails(this)">编辑附件</button>'
 			+ '	<div class="col-xs-12 nopadding "> '
-			+ '		<span >'
+			+ '		'
 			+ initResource(rowdata.picture_url,'img')
 			
 				+ initResource(rowdata.audio_url,'voice')
 				+ initResource(rowdata.video_url,"vd")
-			+ '</span> '
+			+ ' '
 			+ '		<p class="help-block"></p> '
 			+ '	</div> '
 			
@@ -1165,7 +1284,7 @@ function initResource(urls,type)
 
               if (imgIdArr[imgId] == "") {
 
-                  return htmlStr;
+                  continue;
               }
               
     	 
@@ -1175,7 +1294,10 @@ function initResource(urls,type)
     
             // var url=getRootPath() + "/upload/file/" + imgIdArr[imgId];
     		 var url=imgIdArr[imgId]
-             htmlStr += "<img onclick='showDetailImgModal(\"" + url + "\")' class='img-responsive vdimg' src='" + url + "'/>"
+             htmlStr += "<div class='vdimg2'>" +
+             		"<img onclick='showDetailImgModal(\"" + url + "\")' class='img-responsive vdimg' src='" + url + "'/>" +
+             		"<img onclick='removedata(\""+url+"\")' class='removeimg' /> "+
+             				"</div>"
                       
     		 }
 
@@ -1184,16 +1306,22 @@ function initResource(urls,type)
     		//  var url=getRootPath() + "/upload/file/" + imgIdArr[imgId];
     		 var url=imgIdArr[imgId]
     		  var vdtpurl=getRootPath() + "/img/an/vo.jpg";
-              htmlStr += "<img onclick='playAudio(\"" + url + "\")' class='img-responsive vdimg' src='" + vdtpurl + "'/>"
-                  
+              htmlStr +=
+            	  "<div class='vdimg2'>" +
+            	  "<img onclick='playAudio(\"" + url + "\")' class='img-responsive vdimg' src='" + vdtpurl + "'/>"+
+      		"<img onclick='removedata(\""+url+"\")' class='removeimg' /> "+
+				"</div>"
     		 }
     	 else if (type=='vd')
 		 	{
     		 // var url=getRootPath() + "/upload/file/" + imgIdArr[imgId];
     		 var url=imgIdArr[imgId]
     		  var vdtpurl=getRootPath() + "/img/an/play.png";
-              htmlStr += "<img onclick='playVd(\"" + url + "\")' class=' img-responsive vdimg' src='" + vdtpurl + "'/>"
-                  
+              htmlStr += 
+            	  "<div class='vdimg2'>" +
+            	  "<img onclick='playVd(\"" + url + "\")' class=' img-responsive vdimg' src='" + vdtpurl + "'/>"+
+              "<img onclick='removedata(\""+url+"\")' class='removeimg' /> " +
+				"</div>"
 		 	}
           }
      }
