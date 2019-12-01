@@ -8,13 +8,17 @@
     margin-left: 120px;
     margin-top: 7px;
 }
-
+/*   width: 1920px;
+    height: 820px; */
 .bjtu {
-    width: 1920px;
-    height: 820px;
+  
     /* background: url(../../../../img/blueSkin/bjt2.png); */
     background: url(../../../../img/blueSkin/pg2.jpg);
     float: left;
+    min-width: 1280px;
+    width: 100%;
+    min-height: 800px;
+    height: 100%;
 }
 
 .footer {

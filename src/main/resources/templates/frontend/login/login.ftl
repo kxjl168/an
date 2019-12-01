@@ -95,7 +95,7 @@
 
 <div class="footer hide"><p>Copyright © 2018 .</p></div>
 
-<div class="footer"><p>Copyright © 2019 . <a href="http://www.gov.cn" target="_blank">苏ICP备号</a></p></div>
+<div class="footer"><p>Copyright © 2019 . <a href="http://www.gov.cn" target="_blank"></a></p></div>
 
  
 

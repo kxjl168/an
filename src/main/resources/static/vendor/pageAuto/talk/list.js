@@ -591,6 +591,7 @@ function InitQuery_item(rid) {
 
 		{
 			title : '操作',
+			visible:false,
 			field : 'vehicleno',
 			align : 'center',
 			formatter : modifyAndDeleteButton_item,
@@ -663,6 +664,8 @@ function changeAlarm(row) {
 	refreshSelectAlarm();
 	
 	
+	
+	
 
 	$.ajax({
 		type : "post",
@@ -689,6 +692,24 @@ function changeAlarm(row) {
 			loadTalk(row);
 			
 			loadMapPosition(row);
+			
+			
+			if (row.status == "1")
+				{
+				if(row.type=="2")//视频报警，全部为已受理
+					{
+					$("#btnaccept").addClass("hide");
+				}
+				else
+				{
+					$("#btnaccept").removeClass("hide");
+				}
+				}
+			else
+				$("#btnaccept").addClass("hide");
+			
+			
+			
 		}
 	});
 	
@@ -914,6 +935,28 @@ function modifyAndDeleteButton_item(value, row, index) {
 				+ '</div>' ].join("");
 	else
 		return "";
+}
+
+
+function acceptdetail()
+{
+	var rid=curAlarmId;
+	$.ajax({
+		type : "post",
+		url : getRPath() + '/talk/loadAlarm',
+		data : {
+			id : rid
+		},
+		async : false,
+		dataType : "json",
+		success : function(response) {
+
+			$("#mform_item").fill(response);
+
+			$("#myModal_item").modal();
+
+		}
+	});
 }
 
 window.PersonnelInformationEvents_item = {

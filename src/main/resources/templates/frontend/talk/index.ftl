@@ -50,7 +50,7 @@ background: white;
 						<div class="table-responsive" style="margin: 1px;">
 						<div class="tbhead">
 								<table class="table  table-hover table-striped" style="margin-bottom:0px;">
-								<thead><tr><th style="text-align: center; vertical-align: middle; " data-field="occurrence_time"><div class="th-inner ">报警时间</div><div class="fht-cell"></div></th><th style="text-align: center; vertical-align: middle; " data-field="type"><div class="th-inner ">报警类型</div><div class="fht-cell"></div></th><th style="text-align: center; vertical-align: middle; " data-field="userName"><div class="th-inner ">报警人</div><div class="fht-cell"></div></th><th style="text-align: center; vertical-align: middle; " data-field="address"><div class="th-inner ">地理位置</div><div class="fht-cell"></div></th><th style="text-align: center; " data-field="vehicleno"><div class="th-inner ">操作</div><div class="fht-cell"></div></th></tr></thead>
+								<thead><tr><th style="text-align: center; vertical-align: middle; " data-field="occurrence_time"><div class="th-inner ">报警时间</div><div class="fht-cell"></div></th><th style="text-align: center; vertical-align: middle; " data-field="type"><div class="th-inner ">报警类型</div><div class="fht-cell"></div></th><th style="text-align: center; vertical-align: middle; " data-field="userName"><div class="th-inner ">报警人</div><div class="fht-cell"></div></th><th style="text-align: center; vertical-align: middle; " data-field="address"><div class="th-inner ">地理位置</div><div class="fht-cell"></div></th><th style="text-align: center; " data-field="vehicleno"><div class="th-inner hide">操作</div><div class="fht-cell"></div></th></tr></thead>
 								</table>
 								</div>
 							<table id="table_list_item" class="table   table-hover "></table>
@@ -114,7 +114,7 @@ background: white;
 
 						</select>
 					</div>
-					<div class="col-xs-6">
+					<div class="col-xs-6 nopadding">
 					
 					
 						<button id="btnmsg" type="button"
@@ -122,10 +122,20 @@ background: white;
 							<i class="fa fa-send">发送</i>
 						</button>
 					
-						<button id="btnuploadimg" type="button"
+						
+						
+					</div>
+					
+					<div class="col-xs-12 margin-top-5 nopadding">
+					<button id="btnuploadimg" type="button"
 							class="pull-right btn btn-default">
 							<i class="fa fa-upload">选择图片</i>
 						</button>	&nbsp;
+						
+						<button id="btnaccept" type="button" onclick="acceptdetail()"
+							class="pull-left btn btn-primary ">
+							<i class="fa fa-upload">转三台合一</i>
+						</button>	
 					</div>
 
 
