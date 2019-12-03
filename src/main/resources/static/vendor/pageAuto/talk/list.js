@@ -26,20 +26,25 @@ function resetHeight(height){
 		//var rightlistheight=(parseInt( height)/2)-50 +"px"; //-標題高度 -底部高度
 		
 		//var rightinputheight=(parseInt( height)/2)-80-34 +"px";   //-留白高度
-		var rightlistheight=(parseInt( height))-50 -200 -80-34+"px"; //-標題高度 -底部高度
-		var rightinputheight=200 +"px";   //-留白高度
+		var rightlistheight=(parseInt( height))-50 -400 -80-34+"px"; //-標題高度 -底部高度
+		var rightinputheight=400 +"px";   //-留白高度
 		
 		var rightdvheight=parseInt( height)-20 +"px";   //-留白高度
 		  
 	
 		  var leftlistheight=((parseInt( height)/2)-65)+"px"; //-标题高度
-		  var lefttable=((parseInt( height)/2)-65-50-40)+"px"; //-表格
+		  var lefttable=((parseInt( height)/2)-65-70-40)+"px"; //-表格
 		  
-		  //$(".queryrightdv").css("height",rightdvheight);
-		  $("#txtmsglist").css('height',rightlistheight);
+		
+		/*  $("#txtmsglist").css('height',rightlistheight);
 		
 		  	$("body").find(".cke_contents.cke_reset").css("height",rightinputheight); 
-	  $("body").find(".cke_contents.cke_reset").height(rightinputheight); 
+	  $("body").find(".cke_contents.cke_reset").height(rightinputheight); */
+	  
+	  $("#txtmsglist").css('height',leftlistheight);
+		
+	  	$("body").find(".cke_contents.cke_reset").css("height",(parseInt( height)/2-110)+"px"); 
+$("body").find(".cke_contents.cke_reset").height((parseInt( height)/2-110)+"px"); 
 		  
 		  
 		  $(".qcontent").css('height',leftlistheight);
@@ -47,8 +52,8 @@ function resetHeight(height){
 		  $(".fixed-table-body").css('height',lefttable)
 		  
 		  
-		  $(".mapframe").css('height',(parseInt( height) -80-260-40)+'px');
-		  $(".qcontent2").css('height',250+'px');
+		  $(".mapframe").css('height',(parseInt( height) -50-130-40)+'px');
+		  $(".qcontent2").css('height',130+'px');
 		  
 		  
 	}, 1500);
@@ -523,6 +528,7 @@ function InitQuery_item(rid) {
 			title : '报警时间',
 			align : 'center',
 			valign : 'middle',
+			width:'25%',
 
 			formatter : function(value, row, index) {
 
@@ -1281,7 +1287,7 @@ function getVideoInfo(rowdata) {
 			+ '		<p class="help-block"></p> '
 			+ '	</div> '
 
-			+ '	<label class="col-xs-3 nopadding" style="font-weight: bold;">影像附件: &nbsp;</label> <button class="col-xs-3" onclick="editdetails(this)">编辑附件</button>'
+			+ '	<label class="col-xs-2 nopadding" style="font-weight: bold;">影像附件: &nbsp;</label> <button class="col-xs-3" onclick="editdetails(this)">编辑附件</button>'
 			+ '	<div class="col-xs-12 nopadding "> '
 			+ '		'
 			+ initResource(rowdata.picture_url,'img')

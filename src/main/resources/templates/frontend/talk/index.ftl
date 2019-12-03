@@ -39,7 +39,7 @@ background: white;
 			<div class="leftalarmlist col-xs-12 row queryclassalarm">
 
 				<div class='querytitle '>
-					<h5><i class="fa fa-newspaper-o"></i>实时报警</h5>
+					<h5><i class="fa fa-newspaper-o"></i>事件</h5>
 
 					<hr>
 				</div>
@@ -97,11 +97,11 @@ background: white;
 		<div class="col-sm-3 col-xs-12 nopadding ">
 			<div class="queryclassalarm queryrightdv col-xs-12 row ">
 				<div class='querytitle '>
-					<h5><i class="fa fa-comments-o"></i>沟通记录</h5>
+					<h5><i class="fa fa-comments-o"></i>沟通信息</h5>
 
 					<hr>
 				</div>
-<div id="txtmsglist" class=" txtmsglist col-xs-12 form-control"
+<div id="txtmsglist" class=" txtmsglist col-xs-12 "
 					readonly="readonly" rows="15" cols=""></div>
 				<textarea id="txtmsginput" name="txtmsginput"
 					class="col-xs-12 form-control margin-top-10" rows="5" cols=""></textarea>
@@ -152,7 +152,7 @@ background: white;
 		<div class="col-sm-5  col-xs-12 nopadding ">
 			<div class="queryclassalarm queryrightdv col-xs-12 row ">
 				<div class='querytitle '>
-					<h5><i class="fa fa-user"></i>用户信息</h5>
+					<h5><i class="fa fa-user"></i>定位</h5>
 
 					<hr>
 				</div>
@@ -160,7 +160,7 @@ background: white;
 	<div class="qcontent qcontent2">
 				<div id="adetail2"></div>
 </div>
-				<div class='querytitle margin-top-5'>
+				<div class='hide querytitle margin-top-5'>
 					<h5><i class="fa fa-map-marker"></i>定位信息</h5>
 
 					<hr>
